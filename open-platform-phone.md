@@ -44,7 +44,8 @@
         "url": "/chat_tabSide/index.html",
         "title": "phone",
         "tips": "Comm100 phone..."
-      }
+      },
+      "background": "/assets/inital.html"
     }
   }
 }
@@ -109,19 +110,15 @@
     }
   }
 ```
-## Agent Console Notification Area
+## Agent Console background
 
-用户可以通过manifest配置一个Agent Console Notification Area的图标, Agent Console在接收到该APP的通知的时候触发NotificationArea的图标闪动。
+用户可以通过manifest配置一个Agent Console Background页面，来做一些app初始化工作
 
 ```json
   {
     "location": {
       "agent": {
-        "notificationArea": {   //右下角通知区域
-          "icon": "/assets/phone.ico",
-          "title": "phone",
-          "tips": "Comm100 phone..."
-        }
+        "background": "/assets/inital.html"
       }
     }
   }
@@ -196,7 +193,6 @@ Comm100AgentConsoleAPI.set("agentconsole.app.metadata",relations);
 Comm100AgentConsoleAPI.get("agentconsole.app.metadata");
 ```
 
-
 ## TopBar PopOver
 
 用户在点击Topbar全局菜单的时候，系统会在按钮下方的合适位置自动生成一个Pane区域，并激活pane.activated事件，将Manifest中Topbar中设置的`/chat_tabSide/index.html`的内容加载到pane的iframe中，可以通过下面的API设置弹出区域的大小及显示状态
@@ -224,6 +220,13 @@ Comm100AgentConsoleAPI.get("agentconsole.app.metadata");
 ```javascript
   Comm100AgentConsoleAPI.on("topbar.pane.deactivated", function(){
     //在已经激活popoverWindow的情况下，当用户再点击topbar菜单
+    //handler code
+  });
+```
+
+用户可以在Mainifest中Location的Backgroud的配置页面`/assets/inital.html`中，在登录完成后通过下面的API将Pane区域预先加载进来
+```javascript
+  Comm100AgentConsoleAPI.do("topbar.pane.preload", function(){
     //handler code
   });
 ```
