@@ -5,7 +5,7 @@
 2. [用户可以通过manifest配置一个Agent Console端全局菜单及页面用来显示phone的功能及配置](#agentconsole-global-menu)
 3. [用户可以通过manifest中的配置添加一个Agent Console NavigationBar](#agent-console-navigationBar)
 4. [用户可以通过manifest中的配置添加一个Agent Console SideBar](#agent-console-mychats-sidebar)
-5. [用户可以通过manifest中的配置添加一个通知区域图标](#agent-console-notification-area)
+5. [用户可以通过manifest中的配置添加一个Agent Console Background](#agent-console-background)
 6. [用户可以通过Manifest中的配置添加一个配置页面](#phone-settings)
 7. [用户可以通过API设置topbar菜单弹出页面的大小及显示状态](#topbar-popoverwindow)
 8. [用户可以通过API获取/设置Agent状态](#agent-status)
@@ -110,7 +110,7 @@
     }
   }
 ```
-## Agent Console background
+## Agent Console Background
 
 用户可以通过manifest配置一个Agent Console Background页面，来做一些app初始化工作
 
