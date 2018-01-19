@@ -44,24 +44,8 @@
         "url": "/chat_tabSide/index.html",
         "title": "phone",
         "tips": "Comm100 phone..."
-      },
-      "notificationArea": {   //右下角通知区域
-        "icon": "/assets/phone.ico",
-        "title": "phone",
-        "tips": "Comm100 phone..."
       }
     }
-  },
-  "settings":{
-    "url": "/assets/phoneSettings.html"
-  },
-  "agentConsole": {
-    "customCSS": [
-        "/assets/agentconsole_custom_css.css"
-      ],
-      "customJS": [
-        "/assets/agentconsole_custom_js.js"
-      ],
   }
 }
 ```
