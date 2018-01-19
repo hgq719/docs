@@ -6,8 +6,8 @@
 3. [用户可以通过manifest中的配置添加一个Agent Console NavigationBar](#agent-console-navigationBar)
 4. [用户可以通过manifest中的配置添加一个Agent Console SideBar](#agent-console-mychats-sidebar)
 5. [用户可以通过manifest中的配置添加一个通知区域图标](#agent-console-notification-area)
-6. [用户可以通过manifest中AgentConsole端的js配置,接入处理菜单按钮事件或通知的接口](#agent-side-handle-buttonevent-notification)
-7. [用户可以通过Manifest中的配置添加一个配置页面](#phone-settings)
+6. [用户可以通过Manifest中的配置添加一个配置页面](#phone-settings)
+7. [用户可以通过API设置topbar菜单弹出页面的大小及显示状态](#topbar-popoverwindow)
 8. [用户可以通过API获取/设置Agent状态](#agent-status)
 9. [自定义通知](#custom-notification)
 # 开放平台 Phone的接入点
@@ -127,48 +127,6 @@
   }
 ```
 
-## Agent Side Handle ButtonEvent & Notification
-
-用户可以通过manifest中AgentConsole端的js配置,安装这个APP以后, 前端在加载AgentConsole的js以后会加载上面的js 和通知事件
-
-```json
-  {
-    "agentconsole": {
-      "customJS": [
-        "/assets/agentconsole_custom_js.js"
-      ]
-    }
-  }
-```
-
-用户可以通过以下方式接入处理按钮事件，通过API指定弹出页面的方式及样式等
-
-```javascript
-  const newWindow = {
-    openType: "pulldown",           //下拉 pulldown;popover
-    windowType: "modelessDialog"  //modallessDialog;modeDialog;
-    title: "phoneWindow",
-    url : "/topbar/index.html",
-    size: {
-      width: '300',
-      height: '200'      
-    },
-    location: {   //location属性默认由系统根据点击菜单的位置生成对应窗口位置,不建议设置
-      top: "100",
-      left: "100"
-    }
-  }
-
-  Comm100AgentConsoleAPI.onReady = function () {
-  // when this callback is triggered,
-  // all APIs are ready to use
-  Comm100AgentConsoleAPI.init();
-
-  $("#Comm100phone_topBar_phone").click(function(event) {   //处理菜单点击事件
-     Comm100AgentConsoleAPI.do("agentconsole.newWindow.open",newWindow);  
-  });;
-}
-```
 ## Phone settings
 
 用户可以通过Manifest中的配置添加一个配置页面，来进行Phone的相关配置，如Agent与分机号的配置.
@@ -237,6 +195,39 @@
 Comm100AgentConsoleAPI.set("agentconsole.app.metadata",relations);
 Comm100AgentConsoleAPI.get("agentconsole.app.metadata");
 ```
+
+
+## TopBar PopOver
+
+用户在点击Topbar全局菜单的时候，系统会在按钮下方的合适位置自动生成一个Pane区域，并激活pane.activated事件，将Manifest中Topbar中设置的`/chat_tabSide/index.html`的内容加载到pane的iframe中，可以通过下面的API设置弹出区域的大小及显示状态
+
+```javascript
+  const popover = {
+    size: {
+      width: '300',
+      height: '200'      
+    },
+    visible: "show"  //显示状态: show/hide/toggle 默认show
+  }
+```
+```javascript
+  Comm100AgentConsoleAPI.on("topbar.pane.activated", function(){
+    //当用户点击topbar菜单，激活popoverWindow的时候进行的处理，如设置页面大小
+    Comm100AgentConsoleAPI.set("topbar.popover.size",{
+      width:300,
+      height:200
+    });
+
+    Comm100AgentConsoleAPI.set("topbar.popover.visible","show");
+  });
+```
+```javascript
+  Comm100AgentConsoleAPI.on("topbar.pane.deactivated", function(){
+    //在已经激活popoverWindow的情况下，当用户再点击topbar菜单
+    //handler code
+  });
+```
+
 ## Agent Status
 
 获取Agent状态：用户可以通过下面的API来获取当前的Agent的phoneStatus的值，来判断是否对Agent分配phone;
@@ -298,6 +289,6 @@ Comm100AgentConsoleAPI.get("agentconsole.app.metadata");
 
 ```javascript
 Comm100AgentConsoleAPI.on("agentconsole.notification.receive", function (notification) {   //在收到提醒的时候,直接调用点击菜单按钮即可
-  $("#Comm100phone_topBar_phone").click(notification);
+  Comm100AgentConsoleAPI.set("topbar.popover.visible",'show');  
 });
 ```
