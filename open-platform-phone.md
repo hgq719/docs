@@ -28,7 +28,7 @@
   "version": "1.0",
   "frameworkVersion": "2.0",
   "location": {
-    "agentConsole": {
+    "agent": {
       "topbar": {       //顶部全局菜单
         "icon": "/assets/phone.ico",
         "url": "/topbar/index.html",
