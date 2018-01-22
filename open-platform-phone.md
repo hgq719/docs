@@ -213,20 +213,22 @@ Comm100AgentConsoleAPI.get("agentconsole.app.metadata");
 
 ## Agent Status
 
-获取Agent状态：用户可以通过下面的API来获取当前的Agent的phoneStatus的值，来判断是否对Agent分配phone;
+获取Agent的聊天状态：用户可以通过下面的API来获取当前的Agent的Status的值，来判断是否对Agent分配phone;
 
 ```javascript
-  const phoneStatus = Comm100AgentConsoleAPI.get("agentconsole.currentAgent.phoneStatus");
+  const status = Comm100AgentConsoleAPI.get("agentconsole.currentAgent.Status");   //available;busying;away
 ```
 
-设置Agent状态：用户在Agent接电话或者挂电话的时候可以通过API设置agent的phoneStatus状态;或者Agent可以自己通过界面来设置自己的PhoneStatus
+设置Agent的聊天状态：用户可以通过API设置agent的status状态，可以设置让Agent在接电话的时候不接聊天;
 
 ```javascript
   // body struct
-  const phoneStatus =  "available"; //available;busying;away
+  const status =  "available"; //available;busying;away
   
-  Comm100AgentConsoleAPI.set("agentconsole.currentAgent.phoneStatus",phoneStatus);
+  Comm100AgentConsoleAPI.set("agentconsole.currentAgent.status",status);
 ```
+
+Agent的电话状态：Agent的电话状态完全由App本身控制
 
 ## Custom Notification
 
