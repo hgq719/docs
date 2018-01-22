@@ -47,7 +47,6 @@
     "location": {
       "agent": {
         "topbar": "/topbar/index.html"      //AgentConsole顶部全局菜单
-        }
       }
     }
   }
