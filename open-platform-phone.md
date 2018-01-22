@@ -29,22 +29,9 @@
   "frameworkVersion": "2.0",
   "location": {
     "agent": {
-      "topbar": {       //顶部全局菜单
-        "icon": "/assets/phone.ico",
-        "url": "/topbar/index.html",
-        "title": "phone",
-        "tips": "Comm100 phone..."
-      },
-      "navigationBar":{    //左侧导航菜单
-         "url": "navigationBar/list.html",
-         "title": "liveCalls"
-      },
-      "chat_tabSide":{     //聊天页面的tab区域
-        "icon": "/assets/phone.ico",
-        "url": "/chat_tabSide/index.html",
-        "title": "phone",
-        "tips": "Comm100 phone..."
-      },
+      "topbar":  "/topbar/index.html",
+      "navigationBar": "navigationBar/list.html",
+      "chat_tabSide":"/chat_tabSide/index.html",
       "background": "/assets/inital.html"
     }
   }
@@ -58,12 +45,8 @@
 ```json
   {
     "location": {
-      "agentConsole": {
-        "topbar": {       //AgentConsole顶部全局菜单
-          "icon": "/assets/phone.ico",
-          "url": "/topbar/index.html",
-          "title": "phone",    //按钮ID为：Comm100phone_topBar_phone
-          "tips": "Comm100 phone..."
+      "agent": {
+        "topbar": "/topbar/index.html"      //AgentConsole顶部全局菜单
         }
       }
     }
@@ -83,10 +66,7 @@
   {
     "location": {
       "agent": {
-        "navigationBar": {
-          "url": "navigationBar/list.html",
-          "title": "liveCalls"
-        }
+        "navigationBar": "navigationBar/list.html"
       }
     }
   }
@@ -100,12 +80,7 @@
   {
     "location": {
       "agent": {
-        "chat_tabSide":{     //聊天页面的tab区域
-          "icon": "/assets/phone.ico",
-          "url": "/chat_tabSide/index.html",
-          "title": "phone",
-          "tips": "Comm100 phone..."
-        }
+        "chat_tabSide": "/chat_tabSide/index.html"    //聊天页面的tab区域
       }
     }
   }
@@ -228,6 +203,12 @@ Comm100AgentConsoleAPI.get("agentconsole.app.metadata");
 ```javascript
   Comm100AgentConsoleAPI.do("topbar.pane.preload", function(){
     //handler code
+    Comm100AgentConsoleAPI.set("topbar.popover.size",{
+      width:300,
+      height:200
+    });
+
+    Comm100AgentConsoleAPI.set("topbar.popover.visible","show");
   });
 ```
 
@@ -255,43 +236,21 @@ Comm100AgentConsoleAPI.get("agentconsole.app.metadata");
 ```javascript
   // body struct
   const notification =  {
-    siteId: 10000,
-    operatorId: 28888,
+    body: "there is a phone call for you!",
+    icon: "https://***/icon.gif",
+    renotify: "true", //是否替换之前的通知
+    sound: "https://***/call.mp3" ,  //来电声音
     notificationLocation: {      
       notificationArea: true,    //右下角通知区域闪动，点击后激活AgentConsole
       navigationBar: true,       //左侧List菜单区域，点击后打开Manifest中配置的list页面
       topBar: true               //右上角全局菜单区域，点击后打开Manifest中配置的菜单页面
     },
-    content:{
-      call:{
-        callFrom: "15874261010",
-        location: "changsha,china",
-        callType: "inbound"
-      }
-    }
-  }
-
-  // body struct   //按不同的通知位置进行类型区分，分开触发通知
-  const notification =  {
-    siteId: 10000,
-    operatorId: 28888,
-    notificationType: "notificationArea",   //notificationArea/navigationBar/topBar
-    content:{
-      call:{
-        callFrom: "15874261010",
-        location: "changsha,china",
-        callType: "inbound"
-      }
+    data: {     //展示通知相关的任意类型的数据
+      callFrom: "158********",
+      location: "changsha, china",
+      callType: "inbound"
     }
   }
 
   Comm100AgentConsoleAPI.do("agentconsole.notification.sent",notification);
-```
-
-顶部菜单提醒方式：用户可以在AgentConsole收到顶部菜单提醒的时候设置提醒的方式和内容
-
-```javascript
-Comm100AgentConsoleAPI.on("agentconsole.notification.receive", function (notification) {   //在收到提醒的时候,直接调用点击菜单按钮即可
-  Comm100AgentConsoleAPI.set("topbar.popover.visible",'show');  
-});
 ```
