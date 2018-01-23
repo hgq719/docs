@@ -34,12 +34,7 @@
     },
     "chat": {
       "agent": {
-        "chatsSidebar": {
-          "icon": "/assets/bot.ico",
-          "url": "/sidebar/index.html",
-          "title": "ChatBot",
-          "tips": "Comm100 ChatBot..."
-        },
+        "chatsSidebar": "/sidebar/index.html",
       },
       "visitor": {
         "customCSS": [
@@ -104,12 +99,7 @@
     "location": {
       "chat": {
         "agent": {
-          "chats_sidebar": {
-            "icon": "/assets/bot.ico",
-            "url": "/sidebar/index.html",
-            "title": "ChatBot",
-            "tips": "Comm100 ChatBot..."
-          }
+          "chats_sidebar":  "/sidebar/index.html"
         }
       }
     }
@@ -173,9 +163,7 @@
 
 ### Bot Engine Handle Visitor Message
 
-Chat Server收到visitor的消息时会调用message接口
-
-  1. Request
+  1. Chat Server收到visitor的消息时会将使用下面的Request来请求message接口
 
   `POST 'https://api.chatbot.com/comm100/10000/bots/i934ru90ruoewq/message'`
 
@@ -204,59 +192,128 @@ Chat Server收到visitor的消息时会调用message接口
         }
       ],
     }
-    message: {
-      type: 'text',  // text/image/file
-      content: 'I have submit this form.',
-      extend: { 
-        // 动态对象, custom类型用户可以设置任意的属性和值, 
-        // 这个对象是由访客端提交的时候定义的, 在bot engine中处理
-      },
+    message:       
+    {    
+      type: "question",   //question / action / custom  
+      ...... 
+      //消息主体，包括访客问的问题、访客进行的操作、用户自定义消息三个大类
+      //如下所示
     }
   }
   ```
 
-  2. Response
+  Question Message Body
+
+  ```javascript
+    const questionMessage = {
+      type: 'question',  
+      transcript: 'I have submit this form.',
+      content: [{
+        contentType : "text",    // text/image/file
+        contentValue: "I want to buy some apple"
+      },{
+        contentType : "image",    
+        contentValue: {
+          name: "***.png",
+          url: "*****/***.png"
+        }
+      },{
+        contentType : "file",    
+        contentValue: {
+          name: "***.doc",
+          url: "*****/***.doc"
+        }
+      }] 
+    }
+  ```
+
+  Action Message Body
+
+  ```javascript
+    const actionMessage = {
+      type: 'action',  
+      transcript: 'I have submit this form.',
+      content: {
+        contentType: "Form",
+        contentValue:[{
+          fieldName: "age",
+          fieldValue: 20
+        },{
+          fieldName: "sex",
+          fieldValue: "female"
+        },]
+      }
+    }
+  ```
+
+  ```javascript
+    const actionMessage = {
+      type: 'action',  
+      transcript: 'I have submit this form.',
+      content: {
+        contentType: "helpful",
+        contentValue:{
+          messageId: "has79fasjhfla0",
+          intentId: "hjkashdf797a9sf",
+          ifHelpful: true    //是否有帮助， helpful： true   nothelpful ： false
+        }
+      }
+    }
+  ```
+
+  Custom Message Body
+
+  ```javascript
+    const actionMessage = {
+      type: 'custom',  // text/image/file
+      transcript: 'this is a custom message.',
+      content: { 
+        // 动态对象, custom类型用户可以设置任意的属性和值, 
+        // 这个对象是由Bot自己在访客端提交的时候定义的, 在bot engine中处理
+      }
+    }
+  ```
+
+  2. Bot收到ChatServer转发过来的问题后，可返回标准的Message/form类型的答案，也可以返回custom类型的用户自定义答案，如下：
 
   Message response Anwser
   
   ```javascript
     const messageAnswer = {
       type: 'message',   //消息类型： message/form/custom
-      content: 'This is a message answer!',
-      extend: {
-        messages:
-        [
-          {
-            messageType : "text",    //text/htmlLink/intentLink/image/signIn
-            messageValue: "Sure,here are some apples Image FYI,please click the"
-          },{
-            messageType : "htmlLink",  
-            messageValue: {
-              textDisplay: "link",
-              url: "http://******html",
-              openIn: "SideWindow", //打开方式 :NewWindow/Tab;CurrentBrowserWindow;SideWindow
-              pushPage: true
-            }
-          },{
-            messageType : "text",
-            messageValue: "to buy them"
-          },{
-            messageType : "intentLink",
-            messageValue: {
-              textDisplay: "link",
-              intentId: "696asdhfashlfa070",
-              intentName: "intall"
-            }
-          },{
-            messageType : "image",
-            messageValue: {
-              name: "apple.png",
-              url: "https://resources.chatbot.com/download/ig923udjfoew89"
-            }
+      transcript: 'This is a message answer!',    //用于ChatServer保存聊天记录脚本
+      messageId: "jlkasdf7979asfhkah",
+      content: [                          //真实消息内容，用于标准化答案或自定义答案处理
+        {
+          contentType : "text",    //text/htmlLink/intentLink/image/signIn
+          contentValue: "Sure,here are some apples Image FYI,please click the"
+        },{
+          contentType : "htmlLink",  
+          contentValue: {
+            textDisplay: "link",
+            url: "http://******html",
+            openIn: "SideWindow", //打开方式 :NewWindow/Tab;CurrentBrowserWindow;SideWindow
+            pushPage: true
           }
-        ],
-        requireUsefulButton: true  //是否需要useful/notuseful按钮，true：需要 false：不需要
-      }
+        },{
+          contentType : "text",
+          contentValue: "to buy them"
+        },{
+          contentType : "intentLink",
+          contentValue: {
+            textDisplay: "link",
+            intentId: "696asdhfashlfa070",
+            intentName: "intall"
+          }
+        },{
+          contentType : "image",
+          contentValue: {
+            name: "apple.png",
+            url: "https://resources.chatbot.com/download/ig923udjfoew89"
+          }
+        }
+      ],
+      ifDisplayHelpful: true  //是否需要helpful/nothelpful按钮，true：需要 false：不需要
     }
   ```
 
@@ -265,25 +322,23 @@ Chat Server收到visitor的消息时会调用message接口
   ```javascript
     const signInResponse = {
       type: 'message',
-      content: 'Please verify yourself by signing into your account.',
-      extend: 
+      transcript: 'Please verify yourself by signing into your account.',  //用于ChatServer保存聊天记录脚本
+      messageId: "jlkasdf7979asfhkah",
+      content:   //真实消息内容，用于标准化答案或自定义答案处理
       {
-        messages:
-        [
-          {
-            messageType : "signIn",  
-            messageValue: {
-              textDisplay: "Sign in",
-              url: "http://******html",
-              openIn: "SideWindow", //打开方式 :NewWindow/Tab;CurrentBrowserWindow;SideWindow
-              pushPage: false,
-              question: "this is the last question which need sign in!",
-              intentId: "asdfaj423402sajfl"
-            }
-          }
-        ],
-        requireUsefulButton: false  //是否需要useful/notuseful按钮，true：需要 false：不需要
-      }
+        contentType : "signIn",     //Signin类型为一类特殊的message答案
+        contentValue: {
+          textDisplay: "Sign in",
+          ifVisitorSSO: false             //是否是SSO标记
+          url: "http://******html",       //如果ifVisitorSSO标记为false的情况，url可设置为空，由系统自动生成登录地址；否则需要设置相应的SignIn地址
+          openIn: "SideWindow", //打开方式 :NewWindow/Tab;CurrentBrowserWindow;SideWindow
+          pushPage: false,
+          question: "I want apples",                   //用于访客登录成功后将问题重新发回到bot在访客端的显示
+          intentId: "asdfaj423402sajfl",               //用于Bot直接通过之前查询的意向结果直接返回答案
+          intentdName: "I want to buy some apples!",   //和intentId用途一致，如果不需要可为空
+        }
+      },
+      ifDisplayHelpful: false  //是否需要helpful/nothelpful按钮，true：需要 false：不需要
     }
   ```
 
@@ -292,8 +347,9 @@ Chat Server收到visitor的消息时会调用message接口
   ```javascript
     const formAnswer = {
       type: 'form',
-      content: 'This is a webhook answer!',
-      extend: 
+      transcript: 'This is a webhook answer!',  //用于ChatServer保存聊天记录脚本
+      messageId: "jlkasdf7979asfhkah",
+      content: //真实消息内容，用于标准化答案或自定义答案处理
       {
         fields:[
           {
@@ -317,9 +373,9 @@ Chat Server收到visitor的消息时会调用message接口
             }
           }
         ],
-        ifConfirm: true,
-        requireUsefulButton: false  //是否需要useful/notuseful按钮，true：需要 false：不需要
-      }
+        ifDisplayConfirm: true   //提交form的时候是否需要进行confirm确认
+      },
+      ifDisplayHelpful: false  //是否需要helpful/nothelpful按钮，true：需要 false：不需要
     }
   ```
 
@@ -328,8 +384,9 @@ Chat Server收到visitor的消息时会调用message接口
   ```javascript
     const customAnswer = {
       type: 'custom',
-      content: '[Booking Room]',
-      extend: { 
+      transcript: '[Booking Room]',   //用于ChatServer保存聊天记录脚本，FORM表单只保存[表单名称]
+      messageId: "jlkasdf7979asfhkah",
+      content: {    //真实消息内容，用于标准化答案或自定义答案处理
         // 动态对象, 针对custom类型用户可以设置任意的属性和值, Bot可以在访客端前端处理这个对象来构建一个自己的界面
         intent: {
           id: 'jlasuo70978jhlasdf',
@@ -358,7 +415,7 @@ Chat Server收到visitor的消息时会调用message接口
           },
           openIn: "SideWindow", //打开方式 :NewWindow/Tab;CurrentBrowserWindow;SideWindow 
         },
-      requireUsefulButton: true  //是否需要useful/notuseful按钮，true：需要 false：不需要
+      ifDisplayHelpful: true  //是否需要helpful/nothelpful按钮，true：需要 false：不需要
       }
     }
   ```
@@ -431,64 +488,6 @@ Chat Server收到visitor的消息时会调用message接口
         }
       } 
     } 
-  }
-
-  // 将form置为disable, 其实质就是修改form中的数据
-  const disableForm = (messageId) => {
-    const messages = Comm100API.get('livechat.chat.message');
-    const newMessages = messages.update((msg) => {
-      if (msg.id === messageId) {
-        // set message.extend.form.disabled = true;
-        // return msg
-      }
-      return msg;
-    })
-    Comm100API.set('livechat.chat.message', newMessages);
-  }
-
-  const selectIntent = (intentId, message) => {
-    const message = {
-      type: 'custom',
-      content: 'Install code',
-      extend: {
-        type: 'select_intent',
-        intentId: '@intent_id',
-      }
-    }
-
-    Comm100API.do('livechat.chat.message.send', message);
-  }
-
-  const setAnswerHelpful = (helpful, messageId, intentId) => {
-    // 更新状态, 将这个回复标记为helpful or not
-    updateMessageHelpful(messageId, helpful);
-  
-    // 提交这个操作到bot server
-    submitAnswerHelpful(intentId, helpful);
-  }
-
-  // 访客提交form
-  const submitForm = (messageId, intentId, fields) => {
-    // 更新状态, 将form置为已提交
-    updateMessageFormSubmitted(messageId);
-
-    // 组织form的内容
-    const message = {
-      type: 'custom',
-      content: 'I submit a form. \n name: allon \n email: allon.lu@comm100.com',
-      extend: {
-        type: 'form_submit',
-        messageId: '@message_id',
-        intentId: '@intent_id',
-        data: {
-          name: 'allon',
-          email: 'allon.lu@comm100.com',
-        }
-      } 
-    }
-
-    // 将Form提交到chat server
-    Comm100API.do('livechat.chat.message.send', message);
   }
 ```
 
