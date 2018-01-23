@@ -6,8 +6,8 @@
 3. [用户可以通过manifest中的配置添加一个Agent Console NavigationBar](#agent-console-navigationBar)
 4. [用户可以通过manifest中的配置添加一个Agent Console SideBar](#agent-console-mychats-sidebar)
 5. [用户可以通过manifest中的配置添加一个Agent Console Background](#agent-console-background)
-6. [用户可以通过Manifest中的配置添加一个配置页面](#phone-settings)
-7. [用户可以通过API设置topbar菜单弹出页面的大小及显示状态](#topbar-popoverwindow)
+6. [用户可以通过Manifest中的配置添加一个后台管理页面](#phone-manage)
+7. [用户可以通过API设置topbar菜单弹出页面的大小及显示状态](#topbar-popupwindow)
 8. [用户可以通过API获取/设置Agent状态](#agent-status)
 9. [自定义通知](#custom-notification)
 # 开放平台 Phone的接入点
@@ -29,10 +29,13 @@
   "frameworkVersion": "2.0",
   "location": {
     "agent": {
-      "topbar":  "/topbar/index.html",
+      "topbar": "/topbar/index.html",
       "navigationBar": "navigationBar/list.html",
       "chat_tabSide":"/chat_tabSide/index.html",
       "background": "/assets/inital.html"
+    },
+    "admin": {
+      "productBar": "/manage/index.html"
     }
   }
 }
@@ -40,7 +43,7 @@
 
 ## AgentConsole Global Menu
 
-用户可以在AgentConsole端配置一个全局菜单用来处理Phone的相关操作及配置；可以在APP的manifest中可以声明这个菜单，安装这个APP以后，系统会在AgentConsole的右侧全局菜单区域生成一个ID为{appName}\_topBar\_{title}的按钮.
+用户可以在AgentConsole端配置一个全局菜单用来处理Phone的相关操作及配置；可以在APP的manifest中可以声明这个菜单.
 
 ```json
   {
@@ -86,7 +89,7 @@
 ```
 ## Agent Console Background
 
-用户可以通过manifest配置一个Agent Console Background页面，来做一些app初始化工作
+用户可以通过manifest配置一个Agent Console Background页面，该配置页面不会在系统中展示出来，但是会在系统启动的时候加载这个页面，可用该页面来做一些app初始化工作
 
 ```json
   {
@@ -98,14 +101,16 @@
   }
 ```
 
-## Phone settings
+## Phone Manage
 
-用户可以通过Manifest中的配置添加一个配置页面，来进行Phone的相关配置，如Agent与分机号的配置.
+用户可以通过Manifest中的配置添加一个配置页面，来进行Phone的管理及配置，如Agent与分机号的配置.
 
 ```json
 {
-  "settings":{
-    "url": "/assets/phoneSettings.html"
+  "location": {
+    "admin": {
+      "productBar": "/manage/phoneManage.html"
+    }
   }
 }
 ```
@@ -167,33 +172,35 @@ Comm100AgentConsoleAPI.set("agentconsole.app.metadata",relations);
 Comm100AgentConsoleAPI.get("agentconsole.app.metadata");
 ```
 
-## TopBar PopOver
+## TopBar PopupWindow
 
 用户在点击Topbar全局菜单的时候，系统会在按钮下方的合适位置自动生成一个Pane区域，并激活pane.activated事件，将Manifest中Topbar中设置的`/chat_tabSide/index.html`的内容加载到pane的iframe中，可以通过下面的API设置弹出区域的大小及显示状态
 
 ```javascript
-  const popover = {
+  const popupWindow = {
     size: {
       width: '300',
       height: '200'      
     },
+    location: "TopRight",   //弹出区域位置：TopRight/Center/BottomRight/绝对位置对象{left/right:10px;top/bottom:10px} 
+    ifModal: false, //是否是模态窗口: true/false 默认false
     visible: "show"  //显示状态: show/hide/toggle 默认show
   }
 ```
 ```javascript
   Comm100AgentConsoleAPI.on("topbar.pane.activated", function(){
-    //当用户点击topbar菜单，激活popoverWindow的时候进行的处理，如设置页面大小
-    Comm100AgentConsoleAPI.set("topbar.popover.size",{
+    //当用户点击topbar菜单，激活popupWindow的时候进行的处理，如设置页面大小
+    Comm100AgentConsoleAPI.set("topbar.popupWindow.size",{
       width:300,
       height:200
     });
 
-    Comm100AgentConsoleAPI.set("topbar.popover.visible","show");
+    Comm100AgentConsoleAPI.set("topbar.popupWindow.visible","show");
   });
 ```
 ```javascript
   Comm100AgentConsoleAPI.on("topbar.pane.deactivated", function(){
-    //在已经激活popoverWindow的情况下，当用户再点击topbar菜单
+    //在已经激活popupWindow的情况下，当用户再点击topbar菜单
     //handler code
   });
 ```
@@ -202,12 +209,12 @@ Comm100AgentConsoleAPI.get("agentconsole.app.metadata");
 ```javascript
   Comm100AgentConsoleAPI.do("topbar.pane.preload", function(){
     //handler code
-    Comm100AgentConsoleAPI.set("topbar.popover.size",{
+    Comm100AgentConsoleAPI.set("topbar.popupWindow.size",{
       width:300,
       height:200
     });
 
-    Comm100AgentConsoleAPI.set("topbar.popover.visible","show");
+    Comm100AgentConsoleAPI.set("topbar.popupWindow.visible","show");
   });
 ```
 
