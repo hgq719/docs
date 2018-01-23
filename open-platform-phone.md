@@ -101,9 +101,9 @@
   }
 ```
 
-## Phone Manage
+## Control Panel Phone Manage
 
-用户可以通过Manifest中的配置添加一个配置页面，来进行Phone的管理及配置，如Agent与分机号的配置.
+用户可以通过Manifest中的配置在Control Panel后台添加一个ProductBar产品级菜单，Control Panel的右上角会显示`/manage/phoneManage.html`页面，用户可以用来进行Phone的管理及配置，如Agent与分机号的配置.
 
 ```json
 {
