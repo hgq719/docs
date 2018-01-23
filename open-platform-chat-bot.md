@@ -72,10 +72,8 @@
 ```json
   {
     "location": {
-      "product": {
-        "name": "Bot",
-        "title": "Bot",
-        "url": "/manage/index.html"
+      "admin": {
+        "productBar": "/manage/index.html"
       }
     }
   }
@@ -190,7 +188,7 @@
     }
     message:       
     {    
-      type: "question",   //question / action / custom  
+      type: "message",   //message/ action / custom  
       ...... 
       //消息主体，包括访客问的问题、访客进行的操作、用户自定义消息三个大类
       //如下所示
@@ -198,28 +196,42 @@
   }
   ```
 
-  Question Message Body
+  ```javascript
+    const questionMessage = {
+      type: 'message',  
+      transcript: 'text message.',
+      content: {
+        type : "text",    // text/image/file
+        value: "I want to buy some apple"
+      }
+    }
+  ```
 
   ```javascript
     const questionMessage = {
-      type: 'question',  
-      transcript: 'I have submit this form.',
-      content: [{
-        contentType : "text",    // text/image/file
-        contentValue: "I want to buy some apple"
-      },{
-        contentType : "image",    
-        contentValue: {
+      type: 'message',  
+      transcript: 'image message.',
+      content: {
+        type : "image",    
+        value: {
           name: "***.png",
           url: "*****/***.png"
         }
-      },{
-        contentType : "file",    
-        contentValue: {
+      }
+    }
+  ```
+
+    ```javascript
+    const questionMessage = {
+      type: 'message',  
+      transcript: 'file message.',
+      content: {
+        type : "file",    
+        value: {
           name: "***.doc",
           url: "*****/***.doc"
         }
-      }] 
+      }
     }
   ```
 
@@ -229,9 +241,10 @@
     const actionMessage = {
       type: 'action',  
       transcript: 'I have submit this form.',
+      messageId: "jlkasdf7979asfhkah",
       content: {
-        contentType: "Form",
-        contentValue:[{
+        type: "form",
+        value:[{
           fieldName: "age",
           fieldValue: 20
         },{
@@ -245,11 +258,11 @@
   ```javascript
     const actionMessage = {
       type: 'action',  
-      transcript: 'I have submit this form.',
+      transcript: 'do helpful.',
+      messageId: "jlkasdf7979asfhkah",
       content: {
-        contentType: "helpful",
-        contentValue:{
-          messageId: "has79fasjhfla0",
+        type: "helpful",
+        value:{
           intentId: "hjkashdf797a9sf",
           ifHelpful: true    //是否有帮助， helpful： true   nothelpful ： false
         }
@@ -281,29 +294,29 @@
       messageId: "jlkasdf7979asfhkah",
       content: [                          //真实消息内容，用于标准化答案或自定义答案处理
         {
-          contentType : "text",    //text/htmlLink/intentLink/image/signIn
-          contentValue: "Sure,here are some apples Image FYI,please click the"
+          type : "text",    //text/htmlLink/intentLink/image/signIn
+          value: "Sure,here are some apples Image FYI,please click the"
         },{
-          contentType : "htmlLink",  
-          contentValue: {
+          type : "htmlLink",  
+          value: {
             textDisplay: "link",
             url: "http://******html",
             openIn: "SideWindow", //打开方式 :NewWindow/Tab;CurrentBrowserWindow;SideWindow
             pushPage: true
           }
         },{
-          contentType : "text",
-          contentValue: "to buy them"
+          type : "text",
+          value: "to buy them"
         },{
-          contentType : "intentLink",
-          contentValue: {
+          type : "intentLink",
+          value: {
             textDisplay: "link",
             intentId: "696asdhfashlfa070",
             intentName: "intall"
           }
         },{
-          contentType : "image",
-          contentValue: {
+          type : "image",
+          value: {
             name: "apple.png",
             url: "https://resources.chatbot.com/download/ig923udjfoew89"
           }
@@ -322,10 +335,10 @@
       messageId: "jlkasdf7979asfhkah",
       content:   //真实消息内容，用于标准化答案或自定义答案处理
       {
-        contentType : "signIn",     //Signin类型为一类特殊的message答案
-        contentValue: {
+        type : "signIn",     //Signin类型为一类特殊的message答案
+        value: {
           textDisplay: "Sign in",
-          ifVisitorSSO: false             //是否是SSO标记
+          ifVisitorSSO: false             //是否Comm100 LiveChat Visitor SSO标记
           url: "http://******html",       //如果ifVisitorSSO标记为false的情况，url可设置为空，由系统自动生成登录地址；否则需要设置相应的SignIn地址
           openIn: "SideWindow", //打开方式 :NewWindow/Tab;CurrentBrowserWindow;SideWindow
           pushPage: false,
@@ -353,20 +366,14 @@
             name: "Fruit",
             required: true,
             masked: true,
-            entity:{
-              id: "hlahfs797897ashf",
-              name: "Fruit"
-            },
+            id: "hlahfs797897ashf",
             options: ["Apple","Banana","Pear"]
           },{
             type: "text"
             name: "Weight",
             required: true,
             isMasked: false,
-            entity:{
-              id: "hlasodfanlj79234hkh",
-              name: "Weight"
-            }
+            id: "hlasodfanlj79234hkh"
           }
         ],
         ifDisplayConfirm: true   //提交form的时候是否需要进行confirm确认
