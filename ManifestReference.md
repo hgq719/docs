@@ -110,6 +110,7 @@
   + agent 指定当前App安装在Comm100中Agent Console提供的对应界面接口中
     * topBar 指定将App安装在Agent Console的头部全局菜单区域
     * navigationBar 指定将App安装在Agent Console的左侧列表菜单区域
+    * chatHeadTag 指定将App安装在Agent Console的聊天窗口的用户Tag区域
     * chatSideBar 指定将App安装在Agent Console的聊天窗口的右侧Tab区域
     * chatToolBar 指定将App安装在Agent Console的聊天窗口的工具栏区域
     * background 指定App在Agent Console启动后需要初始化的信息  
