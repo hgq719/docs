@@ -27,41 +27,37 @@
   "version": "1.0",
   "frameworkVersion": "2.0",
   "location": {
-    "Menu": {
-      "level": 1,
-      "name": "Bot",
-      "url": "/manage/index.html"
+    "admin": {
+      "productBar": "/manage/index.html"
     },
-    "chat": {
-      "agent": {
+    "agent": {
         "chatsSidebar": "/sidebar/index.html",
-      },
-      "visitor": {
-        "customCSS": [
-          "/assets/visitor_custom_css.css"
-        ],
-        "customJS": [
-          "/assets/visitor_custom_js.js"
-        ],
-      },
-      "bot": {
-        "endpoint": {
-          "list": {     //机器人列表Endpoint配置
-            "method": "POST",
-            "url": "https://api.chatbot.com/comm100/{siteId}/bots", // {siteId}为宏, Comm100在处理这个地址时会替换掉这个参数
-            "headers": [
-              "Authorization": "Bearer {app.metadata.token}", // {app.metadata.token} 为后台安装这个app时设置的元数据, 
-              "x-api-version": "v2",
-            ]
-          },
-          "message": {   //机器人列表回答问题Endpoint配置
-            "method": "POST", //必须为post
-            "url": "https://api.chatbot.com/comm100/{siteId}/bots/{botId}/message", // {botId}为宏参，表示使用的bot Id, 用户可以选择设置或者不设置, body中的内容也会有botId的属性
-            "headers": [
-              "Authorization": "Bearer {app.metadata.token}", // {app.metadata.token} 为后台安装这个app时设置的元数据, 
-              "x-api-version": "v2",
-            ]
-          }
+    },
+    "visitor": {
+      "customCSS": [
+        "/assets/visitor_custom_css.css"
+      ],
+      "customJS": [
+        "/assets/visitor_custom_js.js"
+      ],
+    },
+    "bot": {
+      "endpoint": {
+        "list": {     //机器人列表Endpoint配置
+          "method": "POST",
+          "url": "https://api.chatbot.com/comm100/{siteId}/bots", // {siteId}为宏, Comm100在处理这个地址时会替换掉这个参数
+          "headers": [
+            "Authorization": "Bearer {app.metadata.token}", // {app.metadata.token} 为后台安装这个app时设置的元数据, 
+            "x-api-version": "v2",
+          ]
+        },
+        "message": {   //机器人列表回答问题Endpoint配置
+          "method": "POST", //必须为post
+          "url": "https://api.chatbot.com/comm100/{siteId}/bots/{botId}/message", // {botId}为宏参，表示使用的bot Id, 用户可以选择设置或者不设置, body中的内容也会有botId的属性
+          "headers": [
+            "Authorization": "Bearer {app.metadata.token}", // {app.metadata.token} 为后台安装这个app时设置的元数据, 
+            "x-api-version": "v2",
+          ]
         }
       }
     }
