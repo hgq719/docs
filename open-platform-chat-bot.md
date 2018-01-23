@@ -163,7 +163,7 @@
 
 ### Bot Engine Handle Visitor Message
 
-  1. Chat Server收到visitor的消息时会将使用下面的Request来请求message接口
+1. Chat Server收到visitor的消息时会将使用下面的Request来请求message接口
 
   `POST 'https://api.chatbot.com/comm100/10000/bots/i934ru90ruoewq/message'`
 
@@ -274,7 +274,7 @@
     }
   ```
 
-  2. Bot收到ChatServer转发过来的问题后，可返回标准的Message/form类型的答案，也可以返回custom类型的用户自定义答案，如下：
+2. Bot收到ChatServer转发过来的问题后，可返回标准的Message/form类型的答案，也可以返回custom类型的用户自定义答案，如下：
 
   Message response Anwser
   
@@ -342,7 +342,7 @@
     }
   ```
 
-  form response Answer
+  Form response Answer
   
   ```javascript
     const formAnswer = {
@@ -379,7 +379,7 @@
     }
   ```
 
-  custom response answer 
+  Custom response answer 
 
   ```javascript
     const customAnswer = {
