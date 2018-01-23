@@ -135,7 +135,7 @@
 
 ### Bot List
 
-用户加载campaign >> bot页面时请求对应的接口获取具体的bot列表, 另外Chat Server将聊天分配到具体的bot时，需要从这个接口重新获取列表，检查列表中的具体id的bot, 读取name, avatar, greetingMessage等信息用作具体的聊天 
+用户加载campaign >> bot页面时请求对应的接口获取具体的bot列表, 另外Chat Server将聊天分配到具体的bot时，需要从这个接口重新获取列表，检查列表中的具体id的bot, 读取name, avatar, greetingMessage等信息用作具体的聊天 ,接口中可用的宏包括Site、App和Chat, 具体属性见最后宏定义部分
 
   1. Request
 
@@ -157,7 +157,7 @@
 
 ### Bot Engine Handle Visitor Message
 
-1. Chat Server收到visitor的消息时会将使用下面的Request来请求message接口
+1. Chat Server收到visitor的消息时会将使用下面的Request来请求message接口 ,接口中可用的宏包括Site、App和Chat, 具体属性见最后宏定义部分
 
   `POST 'https://api.chatbot.com/comm100/10000/bots/i934ru90ruoewq/message'`
 
