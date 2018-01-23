@@ -317,7 +317,7 @@
     }
   ```
 
-    signin response Answer
+  Signin response Answer
 
   ```javascript
     const signInResponse = {
