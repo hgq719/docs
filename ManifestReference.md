@@ -33,18 +33,18 @@
       "list": {     //机器人列表Endpoint配置
         "method": "POST",
         "url": "https://api.chatbot.com/comm100/{siteId}/bots", // {siteId}为宏, Comm100在处理这个地址时会替换掉这个参数
-        "headers": [
+        "headers": {
           "Authorization": "Bearer {app.metadata.token}", // {app.metadata.token} 为后台安装这个app时设置的元数据, 
           "x-api-version": "v2",
-        ]
+        }
       },
       "message": {   //机器人列表回答问题Endpoint配置
         "method": "POST", //必须为post
         "url": "https://api.chatbot.com/comm100/{siteId}/bots/{botId}/message", // {botId}为宏参，表示使用的bot Id, 用户可以选择设置或者不设置, body中的内容也会有botId的属性
-        "headers": [
+        "headers": {
           "Authorization": "Bearer {app.metadata.token}", // {app.metadata.token} 为后台安装这个app时设置的元数据, 
           "x-api-version": "v2",
-        ]
+        }
       }
     }
   }
@@ -103,7 +103,7 @@
 
 - 按不同的使用角色将Comm100的产品分成三个区域，每个区域都有自己的自定义界面位置。
   + admin 指定当前App安装在Comm100中Control panel提供的对应界面接口中
-    * productBar 指定将App安装在ontrol Panel的右上方产品级(一级)菜单区域
+    * productBar 指定将App安装在Control Panel的右上方产品级(一级)菜单区域
     * navigationBar 指定将App安装在Control Panel的对应产品的左侧功能级(二级)菜单区域
     * background 指定App在Control panel启动后需要初始化的信息  
 
@@ -198,18 +198,18 @@
        "list": {     //机器人列表Endpoint配置
          "method": "POST",
          "url": "https://api.chatbot.com/comm100/{siteId}/bots", // {siteId}为宏, Comm100在处理这个地址时会替换掉这个参数
-         "headers": [
+         "headers": {
            "Authorization": "Bearer {app.metadata.token}", // {app.metadata.token} 为后台安装这个app时设置的元数据, 
            "x-api-version": "v2",
-         ]
+         }
        },
        "message": {   //机器人列表回答问题Endpoint配置
          "method": "POST", //必须为post
          "url": "https://api.chatbot.com/comm100/{siteId}/bots/{botId}/message", // {botId}为宏参，表示使用的bot Id, 用户可以选择设置或者不设置, body中的内容也会有botId的属性
-         "headers": [
+         "headers": {
            "Authorization": "Bearer {app.metadata.token}", // {app.metadata.token} 为后台安装这个app时设置的元数据, 
            "x-api-version": "v2",
-         ]
+         }
        }
      }
    }
