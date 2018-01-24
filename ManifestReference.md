@@ -67,7 +67,7 @@
   - [version](#version)
   - [frameworkVersion](#frameworkversion)
   - [location](#location)
-  - [objects](#external-objects)
+  - [objects](#objects)
   - [visitor](#visitor)
   - [bot](#bot)
 
