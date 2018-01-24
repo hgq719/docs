@@ -1,4 +1,4 @@
-# Manifest reference
+# Manifest Reference
 
 ## Manifest.json文件示例
 ```json
@@ -64,10 +64,10 @@
   指定App的名字，在Manifest中定义的App出现的位置也会以这个名字命名，如应用程序管理、产品菜单、tab标题等位置。必须指定。
 
 ## author 
-  指定App开发者的信息，为一个包含name、email、url属性的json对象。
-   - name 指定当前App的开发者的名字。必须指定。
-   - email 指定当前App的开发者的邮箱。必须指定。
-   - url 指定当前App的开发者的主页地址或App的主页地址。必须指定。
+  指定App开发者的信息，为一个包含name、email、url属性的json对象。必须指定。
+   - name 指定当前App的开发者的名字。
+   - email 指定当前App的开发者的邮箱。
+   - url 指定当前App的开发者的主页地址或App的主页地址。
 
    ```json
    "author": {
