@@ -28,6 +28,16 @@
       "/assets/visitor_custom_js.js"
     ]
   },
+  "objects":[{
+    "name": "Bot",
+    "property":[{
+      "name": "BotId",
+      "type": "string"
+    },{
+      "name": "BotName",
+      "type": "string"
+    }]
+  }],
   "bot": {
     "endpoint": {
       "list": {     //机器人列表Endpoint配置
@@ -57,6 +67,7 @@
   - [version](#version)
   - [frameworkVersion](#frameworkversion)
   - [location](#location)
+  - [objects](#external-objects)
   - [visitor](#visitor)
   - [bot](#bot)
 
@@ -165,10 +176,30 @@
   }
    ```
 
+## objects
+  指定将外部对象引入到Comm100中，通过配置外部对象属性与Comm100对象属性的映射关系来实现系统之间的数据流转。安装App以后，可以通过Comm100的API来设置和获取外部对象。
+  - name - 指定需要引入的外部对象的对象名
+  - property - 指定当前引入的外部对象的属性
+  - fieldName - 指定外部对象的字段名称
+  - fieldType - 指定外部对象的数据类型,类型包括:`int/float/string/date`
+
+  ```json
+  "objects":[{
+      "name": "Bot",
+      "property":[{
+        "fieldName": "BotId",
+        "fileType": "string"
+      },{
+        "fieldName": "BotName",
+        "fileType": "string"
+      }]
+    }]
+  ```
+
 ## visitor
-  指定需要在访客端需要引入的对象，包括自定义CSS和JavaScript，安装APP以后, 前端在加载完系统的访客端对象的时候会加载该区域设置的自定义对象。
-   - customCSS 指定当前App在访客端需要引用的自定义CSS。
-   - customJS 指定当前App在访客端需要引用的自定义JavaScript。  
+  指定需要在访客端需要引入的对象，包括自定义CSS和JavaScript。安装APP以后, 前端在加载完系统的访客端对象的时候会加载该区域设置的自定义对象。
+   - customCSS - 指定当前App在访客端需要引用的自定义CSS。
+   - customJS - 指定当前App在访客端需要引用的自定义JavaScript。  
 
 
    ```json
