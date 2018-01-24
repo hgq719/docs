@@ -197,7 +197,7 @@
   ```
 
   ```javascript
-    const questionMessage = {
+    const textMessage = {
       type: 'message',  
       transcript: 'text message.',
       content: {
@@ -208,7 +208,7 @@
   ```
 
   ```javascript
-    const questionMessage = {
+    const imageMessage = {
       type: 'message',  
       transcript: 'image message.',
       content: {
@@ -222,7 +222,7 @@
   ```
 
     ```javascript
-    const questionMessage = {
+    const fileMessage = {
       type: 'message',  
       transcript: 'file message.',
       content: {
@@ -245,9 +245,11 @@
       content: {
         type: "form",
         value:[{
+          fieldId: "asufoajsklf797879asdjfl",
           fieldName: "age",
           fieldValue: 20
         },{
+          fieldId: "yioasjldkfas87089f0asfjol",
           fieldName: "sex",
           fieldValue: "female"
         },]
