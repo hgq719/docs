@@ -14,7 +14,11 @@
   "frameworkVersion": "1.0",
   "location": {
     "controlPanel_topBar": "/manage/index.html",
-    "agentConsole_chatsSidebar": "/sidebar/index.html"
+    "agentConsole_chatSidebar": "/sidebar/index.html",
+    "controlPanel_navigationBar":{
+       "url":"/navigationBar/secondMenu.html", //指定二级菜单
+       "product": "livechat"                   //指定二级菜单所在的产品
+     }
   },
   "visitor": {
     "customCSS": [
