@@ -21,10 +21,10 @@
      }
   },
   "visitor": {           //访客端需要引入的对象
-    "customCSS": [
+    "customCSS": [       //访客端引入的css
       "/assets/visitor_custom_css.css"
     ],
-    "customJS": [
+    "customJS": [        //访客端引入的js
       "/assets/visitor_custom_js.js"
     ]
   },
@@ -35,8 +35,8 @@
   "objects":[{                          //需要引入到Comm100的外部对象
     "name": "Bot",                      //外部对象的名字
     "property":[{                       //外部对象的属性
-      "name": "BotId",
-      "type": "string"
+      "name": "BotId",                  //字段名字
+      "type": "string"                  //字段类型
     },{
       "name": "BotName",
       "type": "string"
@@ -52,7 +52,7 @@
           "x-api-version": "v2",
         }
       },
-      "message": {   //机器人列表回答问题Endpoint配置
+      "message": {   //机器人回答问题Endpoint配置
         "method": "POST", //必须为post
         "url": "https://api.chatbot.com/comm100/{siteId}/bots/{botId}/message", // {botId}为宏参，表示使用的bot Id, 用户可以选择设置或者不设置, body中的内容也会有botId的属性
         "headers": {
