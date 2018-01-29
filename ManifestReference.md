@@ -10,17 +10,17 @@
     "url": "https://www.comm100.com/bot" //开发者的主页地址或App的主页地址
   },
   "private": false,  //该APP是否是私有APP的标志
-  "version": "1.0",
-  "frameworkVersion": "1.0",
-  "location": {
+  "version": "1.0",  //App版本
+  "frameworkVersion": "1.0",  //Comm100API框架版本
+  "location": {            //App的安装位置
     "controlPanel_topBar": "/manage/index.html",
     "agentConsole_chatSidebar": "/sidebar/index.html",
     "controlPanel_navigationMenu":{
-       "url":"/navigationBar/secondMenu.html", 
-       "product": "livechat"                   
+       "url":"/navigationBar/secondMenu.html", //功能菜单的页面
+       "product": "livechat"                   //功能菜单所在的产品
      }
   },
-  "visitor": {
+  "visitor": {           //访客端需要引入的对象
     "customCSS": [
       "/assets/visitor_custom_css.css"
     ],
@@ -28,13 +28,13 @@
       "/assets/visitor_custom_js.js"
     ]
   },
-  "webhook":[{
+  "webhook":[{                          //Webhook配置
     "name": "app.installed",            //webhook名称 
     "url": "******/logicalProcess"      //webhook请求地址
   }],
-  "objects":[{
-    "name": "Bot",
-    "property":[{
+  "objects":[{                          //需要引入到Comm100的外部对象
+    "name": "Bot",                      //外部对象的名字
+    "property":[{                       //外部对象的属性
       "name": "BotId",
       "type": "string"
     },{
@@ -97,21 +97,21 @@
   指定当前App是否是私有的，默认值为`true`。私有的App只能被App开发者安装和使用，需要提交到Marketplace的App该属性必须设置为`false`。
 
    ```json
-   "private": false
+   "private": false             //指定当前App是否是私有的，默认值为`true`
    ```
 
 ## version
   指定当前App的版本。该版本信息出现在Marketplace的App详细信息中。
 
    ```json
-   "version": "1.0"
+   "version": "1.0"              //指定App的版本
    ```
 
 ## frameworkVersion
   指定当前App开发过程中使用Comm100的框架版本。必须指定。
 
    ```json
-   "frameworkVersion": "1.0"
+   "frameworkVersion": "1.0"    //指定当前App开发过程中使用Comm100的框架版本     
    ```
 
 ## location
@@ -150,8 +150,8 @@
    ```json
    "location": {
      "agentConsole_chatSideBar": {
-       "autoHide": false,
-       "autoLoad": false,
+       "autoHide": false,  //自动隐藏
+       "autoLoad": false,  //自动加载
        "url": "/sidebar/index.html"
      }
    }
@@ -188,10 +188,10 @@
 
    ```json
    "visitor": {
-     "customCSS": [   
+     "customCSS": [        //自定义css
        "/assets/visitor_custom_css.css"
      ],
-     "customJS": [             
+     "customJS": [         //自定义js    
        "/assets/visitor_custom_js.js"
      ]
    }
@@ -205,8 +205,8 @@
 
    ```json
    "webhook": [{
-     "name": "app.installed",
-     "url": "****/logicalProcess"
+     "name": "app.installed",        //Comm100定义的webhook名字
+     "url": "****/logicalProcess"    //配置webhook中的请求地址
    }]
    ```
 
@@ -219,10 +219,10 @@
 
   ```json
   "objects":[{
-      "name": "Bot",
-      "property":[{
-        "fieldName": "BotId",
-        "fileType": "string"
+      "name": "Bot",    //外部对象名字
+      "property":[{            //外部对象属性数组
+        "fieldName": "BotId",    //字段名
+        "fileType": "string"     //字段类型
       },{
         "fieldName": "BotName",
         "fileType": "string"
