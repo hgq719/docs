@@ -18,7 +18,7 @@
     + 109：[Chat.ended](#chat-ended)
     + 110：[Chat.wrapup](#chat-wrapup)
   - OfflineMessage Webhook API (No:201~299)
-    + 201：[OfflineMessage.submitted](#offlinemessage-submitted)
+    + 201：[OfflineMessage.submitted](#offline-message-submitted)
   - APP Webhook API (No:301~399)
     + 301：[App.installed](#app-installed)
 
@@ -26,45 +26,52 @@
   - 超时重试  
     Webhook的超时时间默认为10s，如果10s内没有返回结果则超时；超时后默认重试三次，每次间隔60s；若重试继续超时，则1个小时后继续重试三次；若再超时，24小时后继续重试三次；2天后重试失败则丢弃。
 
-## Chat.request.start
-  当聊天请求开始的时候触发。
+## Chat Request Start
+  当聊天请求开始的时候触发。Webhook中可用的对象如下：
+  - [Visitor object](#visitor-object)
 
-## Chat.beforeAssigning
-  当聊天分配到Agent之前触发
+## Chat BeforeAssigning
+  当聊天分配到Agent之前触发。Webhook中可用的对象如下：
+  - [Visitor object](#visitor-object)
 
-## Chat.afterAssigning
-  当聊天分配到Agent之后触发
+## Chat AfterAssigning
+  当聊天分配到Agent之后触发。Webhook中可用的对象如下：
+  - [Visitor object](#visitor-object)
 
-## Chat.started
+## Chat Started
   当聊天开始的时候触发。Webhook中可用的对象如下：
+  - [Visitor object](#visitor-object)
+
+## Chat Message Received
+  当Agent收到一条消息以后触发。Webhook中可用的对象如下：
+  - [Visitor object](#visitor-object)
+
+## Chat Message Sent
+  当Agent发出一条消息以后触发。Webhook中可用的对象如下：
+  - [Visitor object](#visitor-object)
+
+## Chat Agent JoinChat
+  当Agent加入到某个聊天的时候触发。Webhook中可用的对象如下：
+  - [Visitor object](#visitor-object)
+
+## Chat Visitor Banned
+  当访客被ban的时候触发。Webhook中可用的对象如下：
   - [Visitor object](#visitor-object)
   - [Chat object](#chat-object)
 
-## Chat.Message.received
-  当Agent收到一条消息以后触发
-
-## Chat.Message.sent
-  当Agent发出一条消息以后触发
-
-## Chat.Agent.joinChat
-  当Agent加入到某个聊天的时候触发
-
-## Chat.Visitor.banned
-  当访客被ban的时候触发
-
-## Chat.ended
+## Chat Ended
   当聊天结束的时候触发。Webhook中可用的对象如下：
   - [Visitor object](#visitor-object)
 
-## Chat.wrapup
+## Chat Wrapup
   当聊天wrap up的时候触发
 
-## OfflineMessage.submitted
+## Offline Message Submitted
   当离线消息提交的时候触发。Webhook中可用的对象如下：
   - [Visitor object](#visitor-object)
   - [Offline Message object](#offline-message-object)
 
-## App.installed 
+## App Installed 
   当App安装完成以后触发
 
 ## Webhook Objects
