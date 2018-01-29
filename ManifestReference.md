@@ -15,9 +15,9 @@
   "location": {
     "controlPanel_topBar": "/manage/index.html",
     "agentConsole_chatSidebar": "/sidebar/index.html",
-    "controlPanel_navigationBar":{
-       "url":"/navigationBar/secondMenu.html", //指定二级菜单
-       "product": "livechat"                   //指定二级菜单所在的产品
+    "controlPanel_navigationMenu":{
+       "url":"/navigationBar/secondMenu.html", 
+       "product": "livechat"                   
      }
   },
   "visitor": {
@@ -117,8 +117,8 @@
 ## location
   指定当前App安装以后App出现在Comm100的产品界面中的位置。必须指定。  
 
-  - `controlPanel_topBar` 指定将App安装在Control Panel的右上方产品级(一级)菜单区域
-  - `controlPanel_navigationBar` 指定将App安装在Control Panel的对应产品的左侧功能级(二级)菜单区域
+  - `controlPanel_topBar` 指定将App安装在Control Panel的右上方产品级菜单区域
+  - `controlPanel_navigationMenu` 指定将App安装在Control Panel的对应产品的左侧功能级菜单区域
   - `controlPanel_background` 指定App在Control panel启动后需要初始化的信息  
   - `agentConsole_topBar` 指定将App安装在Agent Console的头部全局菜单区域
   - `agentConsole_navigationBar` 指定将App安装在Agent Console的左侧列表菜单区域
@@ -128,13 +128,25 @@
   - `agentConsole_background` 指定App在Agent Console启动后需要初始化的信息  
 
 
-  每个位置可指定下面的`autoHide`、`autoLoad`、`url`属性，而`product`属性为`controlPanel_navigationBar`所特有，其他位置无效。
+  每个位置可指定下面的`autoHide`、`autoLoad`、`url`属性，而`product`和`parent`属性为`controlPanel_navigationMenu`所特有，其他位置无效。
   + `autoHide` 指定当前App在系统启动后是否默认隐藏。默认值为`false`。
   + `autoLoad` 指定当前App在系统启动以后是否自动加载。默认是为`false`。
   + `url` 指定当前位置下的iframe中显示的页面地址。必须指定。
-  + `product` 指定当前App安装后应用在哪个产品的二级菜单中，仅在controlPanel_navigationBar中有效，目前提供的product为`livechat`，controlPanel__navigationBar中必须指定。
+  + `product` 指定当前App安装后应用在哪个产品的功能菜单中，仅在controlPanel_navigationMenu中有效。目前提供的`product`为`livechat`，controlPanel__navigationMenu中必须指定。
+  + `parent` 指定当前App安装后应用在菜单中那个父亲节点下，仅在controlPanel_navigationMenu中有效。如果为一级菜单，则不需要设置`parent`节点，若需要设置为二级菜单，则需要设置作为下面那个菜单的子菜单。安装后默认作为所在菜单的最后一个子菜单。
+    - `dashboard` 指定App安装后设置到Livechat产品的`dashboard`目录的最后一个子菜单
+    - `getOnline` 指定App安装后设置到Livechat产品的`Get Online & Chat`目录的最后一个子菜单
+    - `installation` 指定App安装后设置到Livechat产品的`Installation`目录的最后一个子菜单
+    - `campaign` 指定App安装后设置到Livechat产品的`Campaign`目录的最后一个子菜单
+    - `settings` 指定App安装后设置到Livechat产品的`Settings`目录的最后一个子菜单
+    - `chatbot` 指定App安装后设置到Livechat产品的`Chatbot Question Base`目录的最后一个子菜单
+    - `security` 指定App安装后设置到Livechat产品的`Security`目录的最后一个子菜单
+    - `history` 指定App安装后设置到Livechat产品的`History`目录的最后一个子菜单
+    - `reports` 指定App安装后设置到Livechat产品的`Reports`目录的最后一个子菜单
+    - `social` 指定App安装后设置到Livechat产品的`Social Media`目录的最后一个子菜单
+    - `integrations` 指定App安装后设置到Livechat产品的`Integrations & API`目录的最后一个子菜单
+    - `maximumOn` 指定App安装后设置到Livechat产品的`MaximumOn`目录的最后一个子菜单
     
-
    ```json
    "location": {
      "agentConsole_chatSideBar": {
@@ -149,7 +161,7 @@
 
    ```json
    "location": {
-     "agentconsole_chatsSidebar": "/sidebar/index.html"
+     "agentconsole_chatSidebar": "/sidebar/index.html"
    }
    ```
 
@@ -160,9 +172,10 @@
      "agentConsole_topbar": "/topbar/index.html",
      "agentConsole_background": "/assets/inital.html",
      "controlPanel_topBar": "/manage/index.html",         //指定产品级菜单
-     "controlPanel_navigationBar":{
-       "url":"/navigationBar/secondMenu.html", //指定二级菜单
-       "product": "livechat"                   //指定二级菜单所在的产品
+     "controlPanel_navigationMenu":{
+       "url":"/navigationBar/secondMenu.html", //指定菜单的页面
+       "product": "livechat",                  //指定菜单所在的产品为livechat
+       "parent": "integrations"                //指定菜单作为Integrations & API菜单下面的子菜单
      }
    }
    ```
