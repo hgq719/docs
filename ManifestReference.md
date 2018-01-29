@@ -119,7 +119,7 @@
   - `agentConsole_background` 指定App在Agent Console启动后需要初始化的信息  
 
 
-- 每个位置可指定下面的属性。
+  每个位置可指定下面的`autoHide`、`autoLoad`、`url`属性，而`product`属性为`controlPanel_navigationBar`所特有，其他位置无效。
   + `autoHide` 指定当前App在系统启动后是否默认隐藏。默认值为`false`。
   + `autoLoad` 指定当前App在系统启动以后是否自动加载。默认是为`false`。
   + `url` 指定当前位置下的iframe中显示的页面地址。必须指定。
