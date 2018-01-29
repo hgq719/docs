@@ -13,12 +13,8 @@
   "version": "1.0",
   "frameworkVersion": "1.0",
   "location": {
-    "admin": {
-      "productBar": "/manage/index.html"
-    },
-    "agent": {
-      "chatsSidebar": "/sidebar/index.html",
-    }
+    "controlPanel_topBar": "/manage/index.html",
+    "agentConsole_chatsSidebar": "/sidebar/index.html"
   },
   "visitor": {
     "customCSS": [
@@ -112,38 +108,30 @@
 ## location
   指定当前App安装以后App出现在Comm100的产品界面中的位置。必须指定。  
 
-- 按不同的使用角色将Comm100的产品分成三个区域，每个区域都有自己的自定义界面位置。
-  + `admin` 指定当前App安装在Comm100中Control panel提供的对应界面接口中
-    * `productBar` 指定将App安装在Control Panel的右上方产品级(一级)菜单区域
-    * `navigationBar` 指定将App安装在Control Panel的对应产品的左侧功能级(二级)菜单区域
-    * `background` 指定App在Control panel启动后需要初始化的信息  
-
-  + `agent` 指定当前App安装在Comm100中Agent Console提供的对应界面接口中
-    * `topBar` 指定将App安装在Agent Console的头部全局菜单区域
-    * `navigationBar` 指定将App安装在Agent Console的左侧列表菜单区域
-    * `chatHeadTag` 指定将App安装在Agent Console的聊天窗口的用户Tag区域
-    * `chatSideBar` 指定将App安装在Agent Console的聊天窗口的右侧Tab区域
-    * `chatToolBar` 指定将App安装在Agent Console的聊天窗口的工具栏区域
-    * `background` 指定App在Agent Console启动后需要初始化的信息  
-
-  + `visitor` 指定当前App安装在Comm100中Visitor Side提供的对应界面接口中  
+  - `controlPanel_topBar` 指定将App安装在Control Panel的右上方产品级(一级)菜单区域
+  - `controlPanel_navigationBar` 指定将App安装在Control Panel的对应产品的左侧功能级(二级)菜单区域
+  - `controlPanel_background` 指定App在Control panel启动后需要初始化的信息  
+  - `agentConsole_topBar` 指定将App安装在Agent Console的头部全局菜单区域
+  - `agentConsole_navigationBar` 指定将App安装在Agent Console的左侧列表菜单区域
+  - `agentConsole_chatHeadTag` 指定将App安装在Agent Console的聊天窗口的用户Tag区域
+  - `agentConsole_chatSideBar` 指定将App安装在Agent Console的聊天窗口的右侧区域
+  - `agentConsole_chatToolBar` 指定将App安装在Agent Console的聊天窗口的工具栏区域
+  - `agentConsole_background` 指定App在Agent Console启动后需要初始化的信息  
 
 
 - 每个位置可指定下面的属性。
   + `autoHide` 指定当前App在系统启动后是否默认隐藏。默认值为`false`。
   + `autoLoad` 指定当前App在系统启动以后是否自动加载。默认是为`false`。
   + `url` 指定当前位置下的iframe中显示的页面地址。必须指定。
-  + `product` 指定当前App安装后应用在哪个产品的二级菜单中，仅在admin中navigationBar中有效，目前提供的product为`livechat`，admin中navigationBar必须指定。
+  + `product` 指定当前App安装后应用在哪个产品的二级菜单中，仅在controlPanel_navigationBar中有效，目前提供的product为`livechat`，controlPanel__navigationBar中必须指定。
     
 
    ```json
    "location": {
-     "agent": {
-       "chatsSidebar": {
-         "autoHide": false,
-         "autoLoad": false,
-         "url": "/sidebar/index.html"
-       }
+     "agentConsole_chatSideBar": {
+       "autoHide": false,
+       "autoLoad": false,
+       "url": "/sidebar/index.html"
      }
    }
    ```
@@ -152,28 +140,22 @@
 
    ```json
    "location": {
-     "agent": {
-       "chatsSidebar": "/sidebar/index.html"
-     }
+     "agentconsole_chatsSidebar": "/sidebar/index.html"
    }
    ```
 
-   同一区域可以指定多个位置，也可指定多个区域的位置
+   可以指定多个位置
 
    ```json
    "location": {
-    "agent": {
-      "topbar": "/topbar/index.html",
-      "background": "/assets/inital.html"
-    },
-    "admin": {
-      "productBar": "/manage/index.html",         //指定产品级菜单
-      "navigationBar":{
-          "url":"/navigationBar/secondMenu.html", //指定二级菜单
-          "product": "livechat"                   //指定二级菜单所在的产品
-      }
-    }
-  }
+     "agentConsole_topbar": "/topbar/index.html",
+     "agentConsole_background": "/assets/inital.html",
+     "controlPanel_topBar": "/manage/index.html",         //指定产品级菜单
+     "controlPanel_navigationBar":{
+       "url":"/navigationBar/secondMenu.html", //指定二级菜单
+       "product": "livechat"                   //指定二级菜单所在的产品
+     }
+   }
    ```
 
 ## objects
