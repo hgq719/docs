@@ -193,7 +193,7 @@
    ```json
    "webhook": [{
      "name": "app.installed",
-     "url": "****/logic"
+     "url": "****/logicalProcess"
    }]
    ```
 
