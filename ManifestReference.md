@@ -185,7 +185,7 @@
    ```
 
 ## webhook
-  指定在Comm100的特定webhook中的请求地址。安装APP以后, Comm100会在Manifest文件中`webhook`配置的`name`的Webhook的位置请求`url`的地址。
+  指定在Comm100的特定webhook中的请求地址。安装APP以后, Comm100会在Manifest文件的`webhook`属性中配置的`name`的Webhook的位置请求`url`的地址。
    - `name` - 指定Webhook的名称，详情可参考[Webhook API](https://github.com/hgq719/docs/blob/master/WebhookApi.md)。
    - `url` - 指定当前的webhook中需要请求的地址。  
 
