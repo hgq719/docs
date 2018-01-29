@@ -109,17 +109,17 @@
 ### Restful API Error
   1.在请求未正常执行时，Server会根据真实情况返回对应的http status code，在此基础上会从http response中返回Comm100定义的的`error code`和`error message`  
 
-  2.错误规范
+  2.错误规范  
 
 
-| Http Status Code               | 返回结果                                                                                                                   |
-| ------------------------------ |:------------------------------------------------------------------------------------------------------------------------ :|
-| 200 - OK                       | 一切正常，且Response里面返回正确的结果                                                                                       |
-| 400 - Bad Request              | 参数传入不正确或者不合法。Response里面包含Comm100的`error code`和`error string`                                               |
-| 401 - Unauthorized             | 无授权，用户验证不通过                                                                                                      |
-| 403 - Forbidden                | 调用超出限制, Agent本身没有权限。Response里面包含Comm100的`error code`和`error string`                                        |
-| 404 - Not Found                | 请求资源不存在。Response里面包含Comm100的`error code`和`error string`                                                        |
-| 500 - Internal Error           | 服务器内部错误。Response里面包含Comm100的`error code`和`error string`。这个错误包含比较广泛，上述错误外，其他的错误都会在500中返回|  
+| Http Status Code               | 返回结果                                                                                                                    |
+| ------------------------------ |--------------------------------------------------------------------------------------------------------------------------- |
+| 200 - OK                       | 一切正常，且Response里面返回正确的结果                                                                                        |
+| 400 - Bad Request              | 参数传入不正确或者不合法。Response里面包含Comm100的`error code`和`error string`                                                |
+| 401 - Unauthorized             | 无授权，用户验证不通过                                                                                                        |
+| 403 - Forbidden                | 调用超出限制, Agent本身没有权限。Response里面包含Comm100的`error code`和`error string`                                         |
+| 404 - Not Found                | 请求资源不存在。Response里面包含Comm100的`error code`和`error string`                                                         |
+| 500 - Internal Error           | 服务器内部错误。Response里面包含Comm100的`error code`和`error string`。这个错误包含比较广泛，上述错误外，其他的错误都会在500中返回 |  
 
 
   3.Error Response，以json格式返回具体的错误信息
