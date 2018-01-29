@@ -1,8 +1,10 @@
 # General
 
 1. [Webhook](#webhook)
-2. [Webhook Fault Tolerant](#webhook-fault-tolerant)
-3. [Webhook Objects](#webhook-objects)
+2. [Webhook Request](#webhook-request)
+3. [Webhook Response](#webhook-response)
+4. [Webhook Fault Tolerant](#webhook-fault-tolerant)
+5. [Webhook Objects](#webhook-objects)
 
 ## Webhook
   为了让Webhook的使用者能识别到当前执行的事件来源于Comm100的哪个Webhook，Comm100为每个Webhook添加了自己的编号。
@@ -22,57 +24,79 @@
   - APP Webhook API (No:301~399)
     + 301：[App.installed](#app-installed)
 
-## Webhook Fault Tolerant
-  - 超时重试  
-    Webhook的超时时间默认为10s，如果10s内没有返回结果则超时；超时后默认重试三次，每次间隔60s；若重试继续超时，则1个小时后继续重试三次；若再超时，24小时后继续重试三次；2天后重试失败则丢弃。
-
-## Chat Request Start
+### Chat Request Start
   当聊天请求开始的时候触发。Webhook中可用的对象如下：
   - [Visitor object](#visitor-object)
 
-## Chat BeforeAssigning
+### Chat BeforeAssigning
   当聊天分配到Agent之前触发。Webhook中可用的对象如下：
   - [Visitor object](#visitor-object)
 
-## Chat AfterAssigning
+### Chat AfterAssigning
   当聊天分配到Agent之后触发。Webhook中可用的对象如下：
   - [Visitor object](#visitor-object)
 
-## Chat Started
+### Chat Started
   当聊天开始的时候触发。Webhook中可用的对象如下：
   - [Visitor object](#visitor-object)
 
-## Chat Message Received
+### Chat Message Received
   当Agent收到一条消息以后触发。Webhook中可用的对象如下：
   - [Visitor object](#visitor-object)
 
-## Chat Message Sent
+### Chat Message Sent
   当Agent发出一条消息以后触发。Webhook中可用的对象如下：
   - [Visitor object](#visitor-object)
 
-## Chat Agent JoinChat
+### Chat Agent JoinChat
   当Agent加入到某个聊天的时候触发。Webhook中可用的对象如下：
   - [Visitor object](#visitor-object)
 
-## Chat Visitor Banned
+### Chat Visitor Banned
   当访客被ban的时候触发。Webhook中可用的对象如下：
   - [Visitor object](#visitor-object)
   - [Chat object](#chat-object)
 
-## Chat Ended
+### Chat Ended
   当聊天结束的时候触发。Webhook中可用的对象如下：
   - [Visitor object](#visitor-object)
 
-## Chat Wrapup
+### Chat Wrapup
   当聊天wrap up的时候触发
 
-## Offline Message Submitted
+### Offline Message Submitted
   当离线消息提交的时候触发。Webhook中可用的对象如下：
   - [Visitor object](#visitor-object)
   - [Offline Message object](#offline-message-object)
 
-## App Installed 
+### App Installed 
   当App安装完成以后触发
+
+## Webhook Request
+  用户可以从Webhook的Request中获取Webhook编号、请求时间、身份认证token及其他数据来进行自己的业务逻辑处理。
+
+```json
+Request：{
+    "webhookNo":"101", //webhook编号
+    "requestTime": "/Date(13584868423)/", //请求时间
+    "token":"*****", //身份认证token
+    //其他业务数据
+}
+```
+
+## Webhook Response
+  Comm100需要在调用用户配置的Webhook的地址中的Response中获取Webhook的请求结果，来判断是否需要进行Webhook容错处理。
+
+```json
+Response：{
+    "status":"200", //请求状态
+    //其他业务数据
+}
+```
+
+## Webhook Fault Tolerant
+  - 超时重试  
+    Webhook的超时时间默认为10s，如果10s内没有返回结果则超时；超时后默认重试三次，每次间隔60s；若重试继续超时，则1个小时后继续重试三次；若再超时，24小时后继续重试三次；2天后重试失败则丢弃。
 
 ## Webhook Objects
   - [Visitor object](#visitor-object)
