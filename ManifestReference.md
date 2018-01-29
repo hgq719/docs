@@ -28,6 +28,10 @@
       "/assets/visitor_custom_js.js"
     ]
   },
+  "webhook":[{
+    "name": "app.installed",            //webhook名称 
+    "url": "******/logicalProcess"      //webhook请求地址
+  }],
   "objects":[{
     "name": "Bot",
     "property":[{
@@ -67,8 +71,9 @@
   - [version](#version)
   - [frameworkVersion](#frameworkversion)
   - [location](#location)
-  - [objects](#objects)
   - [visitor](#visitor)
+  - [webhook](#webhook)
+  - [objects](#objects)
   - [bot](#bot)
 
 ## Name
@@ -162,6 +167,36 @@
    }
    ```
 
+## visitor
+  指定需要在访客端需要引入的对象，包括自定义CSS和JavaScript。安装APP以后, 前端在加载完系统的访客端对象的时候会加载该区域设置的自定义对象。
+   - `customCSS` - 指定当前App在访客端需要引用的自定义CSS。
+   - `customJS` - 指定当前App在访客端需要引用的自定义JavaScript。  
+
+
+   ```json
+   "visitor": {
+     "customCSS": [   
+       "/assets/visitor_custom_css.css"
+     ],
+     "customJS": [             
+       "/assets/visitor_custom_js.js"
+     ]
+   }
+   ```
+
+## webhook
+  指定在Comm100的特定webhook中的请求地址。安装APP以后, Comm100会在Manifest文件中`webhook`配置的`name`的Webhook的位置请求`url`的地址。
+   - `name` - 指定Webhook的名称，详情可参考[Webhook API](https://github.com/hgq719/docs/blob/master/WebhookApi.md)。
+   - `url` - 指定当前的webhook中需要请求的地址。  
+
+
+   ```json
+   "webhook": [{
+     "name": "app.installed",
+     "url": "****/logic"
+   }]
+   ```
+
 ## objects
   指定将外部对象引入到Comm100中，通过配置外部对象属性与Comm100对象属性的映射关系来实现系统之间的数据流转。安装App以后，可以通过Comm100的API来设置和获取外部对象。
   - `name` - 指定需要引入的外部对象的对象名
@@ -181,23 +216,6 @@
       }]
     }]
   ```
-
-## visitor
-  指定需要在访客端需要引入的对象，包括自定义CSS和JavaScript。安装APP以后, 前端在加载完系统的访客端对象的时候会加载该区域设置的自定义对象。
-   - `customCSS` - 指定当前App在访客端需要引用的自定义CSS。
-   - `customJS` - 指定当前App在访客端需要引用的自定义JavaScript。  
-
-
-   ```json
-   "visitor": {
-     "customCSS": [   
-       "/assets/visitor_custom_css.css"
-     ],
-     "customJS": [             
-       "/assets/visitor_custom_js.js"
-     ]
-   }
-   ```
 
 ## bot
   指定需要将自己的Bot系统接入Comm100产品需要进行的配置，安装该Bot App以后，可配置使用当前Bot参与聊天。
