@@ -132,7 +132,7 @@
   + `autoHide` 指定当前App在系统启动后是否默认隐藏。默认值为`false`。
   + `autoLoad` 指定当前App在系统启动以后是否自动加载。默认是为`false`。
   + `url` 指定当前位置下的iframe中显示的页面地址。必须指定。
-  + `product` 指定当前App安装后应用在哪个产品的功能菜单中，仅在controlPanel_navigationMenu中有效。目前提供的`product`为`livechat`，controlPanel__navigationMenu中必须指定。
+  + `product` 指定当前App安装后应用在哪个产品的功能菜单中，仅在controlPanel_navigationMenu中有效。目前提供的`product`为`livechat`。controlPanel__navigationMenu中必须指定。
   + `parent` 指定当前App安装后应用在菜单中那个父亲节点下，仅在controlPanel_navigationMenu中有效。如果为一级菜单，则不需要设置`parent`节点，若需要设置为二级菜单，则需要设置作为下面那个菜单的子菜单。安装后默认作为所在菜单的最后一个子菜单。
     - `dashboard` 指定App安装后设置到Livechat产品的`dashboard`目录的最后一个子菜单
     - `getOnline` 指定App安装后设置到Livechat产品的`Get Online & Chat`目录的最后一个子菜单
