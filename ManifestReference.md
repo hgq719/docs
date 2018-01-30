@@ -97,7 +97,7 @@
   指定当前App是否是私有的，默认值为`true`。私有的App只能被App开发者安装和使用，需要提交到Marketplace的App该属性必须设置为`false`。
 
    ```json
-   "private": false             //指定当前App是否是私有的，默认值为`true`
+   "private": false             //指定当前App是否是私有的，默认值为true
    ```
 
 ## version
