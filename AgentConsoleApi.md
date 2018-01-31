@@ -6,16 +6,17 @@
   - [Chat Object](#chat-object)
   - [PopupWindow Object](#popupWindow-object)
   - [HeadTag Object](#headTag-object)
+  - [ToolItem Object](#toolItem-object)
 
 ### Chat Object
 #### currentChat
 - Properties
-   + `currentChat.headTags` -当前聊天的访客的所有tag对象
-
+   + `currentChat.headTags` -当前聊天的访客的所有tag对象集合
+   + `currentChat.toolItems` -当前聊天的toolItem对象集合
 
 - Actions
-   + `get` -获取当前访客的所有Tag对象
-   + `set` -设置当前访客的Tag对象
+   + `get` -获取当前访客的所有Tag/ToolItem对象
+   + `set` -设置当前访客的Tag/ToolItem对象
 
 ```javascript
   var headTags = Comm100AgentConsoleAPI.get("agentconsole.currentChat.headTags");
@@ -30,9 +31,11 @@
 ```
 
 ### PopupWindow Object
+  Agent Console中弹出对话框对象。
+
 #### currentPopupWindow
 - Properties
-    + `popupWindow.name` -弹出窗口的名字
+    + `popupWindow.name` -弹出窗口的名称
     + `popupWindow.title` -弹出窗口的标题
     + `popupWindow.size`-弹出区域的大小
       * `width`-弹出区域的宽度
@@ -45,6 +48,7 @@
 
 - Actions
   + `open` -弹出一个窗口
+  + `close`
     
 ```javascript
   const popupWindow = {
@@ -61,8 +65,9 @@
 ```
 
 ### HeadTag Object
+  Agent Console的聊天页面头部的Tag对象。
 - Properties
-  + `headTag.name` -HeadTag的名字
+  + `headTag.name` -HeadTag的名称
   + `headTag.icon` -HeadTag的图标
   + `headTag.tip` -HeadTag的tips
 
@@ -80,6 +85,30 @@
 ```javascript
     Comm100AgentConsoleAPI.on("agentconsole.headTag.actived",function(headTag){
         if("myHeadTag" == headTag.name){
+            //handler code
+        }
+    });
+``` 
+
+### ToolItem Object
+  Agent Console的聊天页面中聊天窗口中间的ToolBar里面的对象。
+  - Properties
+    + `toolItem.name` -toolItem对象的名称
+    + `toolItem.icon` -toolItem对象的图标
+
+```javascript
+  const toolItem = {
+      name: "myToolItem",
+      icon: "https://***.ico"
+  }
+```
+
+- Events
+  + `toolItem.actived` -当点击toolItem的时候触发
+
+```javascript
+    Comm100AgentConsoleAPI.on("agentconsole.toolItem.actived",function(toolItem){
+        if("myToolItem" == toolItem.name){
             //handler code
         }
     });
