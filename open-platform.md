@@ -44,12 +44,23 @@
 
   ```json
   "location": {
-    "admin": {
-      "productBar": "/manage/index.html"
-    }
+    "agentConsole_topbar": "/manage/index.html"
   }
   ```
   所有可用位置可以查看[location](https://github.com/hgq719/docs/blob/master/ManifestReference.md#location)。
+
+## Instance
+  标识App的运行实例，每一个iframe都是一个实例。同一个App在Manifest中定义了多个位置，则这个App就存在多个App Instance。可以通过API来获取当前App的实例信息。
+
+  - Control Panel API
+  ```javascript
+    Comm100API.get('app.instance')
+  ```
+
+  - Agent Console API
+  ```javascript
+    Comm100AgentConsoleAPI.get('app.instance')
+  ```
 
 ## API
   Developer可以在不同的场景通过调用不同类型的API来开发第三方应用集成。
@@ -80,8 +91,18 @@
 
   2.Developer对Comm100的身份认证  
   - User Meta  
-  
-   Developer可通过Comm100提供的Api来获取当前用户的元数据信息，从元数据中获取当前用户的token来进行身份验证。
+    Developer可通过Comm100提供的Api来获取当前用户的元数据信息，从元数据中获取当前用户的token来进行身份验证。
+  - JSON Web Token 
+    安装在Comm100产品中的App能包含一个由开发者远程托管的的页面，该页面会加载在Comm100的某一个特定的iframe中。当打开Comm100产品中的app的时候，Comm100必须去请求这个远程托管的原始页面，为了帮助开发者对这个请求进行验证，Comm100可以在这个请求中加入JSON Web Token，开发者的远程托管页面可以通过这个JWT来验证当前请求是否是来自于一个Comm100的合法请求。
+
+    - 一旦启用JWT Token，Comm100会做如下的事情：
+      + 将请求类型由GET变为POST
+      + 在POST请求中包含一个`token`字段，这个`token`包含JWT Token的信息  
+
+    - 为了完成验证，开发者需要完成以下的事情：
+      + 处理当前的POST请求
+      + 从请求的数据中获取Token信息
+      + 校验JWT信息  
 
 
   3.用户系统对访客的身份认证  
@@ -94,6 +115,9 @@
   ```json
     "Authorization": "bearer {access_token}"
   ```
+
+## JSON Web Token
+  JSON Web Token简称JWT，是一种紧凑的URL安全方法，用于在网络通讯的双方之间传递。
 
 ## Rate Limits
   - API允许同一时刻的并发数量限制。
