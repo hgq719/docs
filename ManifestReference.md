@@ -12,13 +12,13 @@
   "private": false,  //该APP是否是私有APP的标志
   "version": "1.0",  //App版本
   "frameworkVersion": "1.0",  //Comm100API框架版本
+  "signedUrls": "false",    //指定是否所有页面都需要添加JWT，让开发者通过JWT来校验location中配置的页面接收的请求是否来自Comm100 
   "location": {            //App的安装位置
     "controlPanel_topBar": "/manage/index.html",
-    "agentConsole_chatSidebar": "/sidebar/index.html",
-    "controlPanel_navigationMenu":{
-       "url":"/navigationBar/secondMenu.html", //功能菜单的页面
-       "product": "livechat"                   //功能菜单所在的产品
-     }
+    "agentConsole_chatSideBar": "/sidebar/index.html"
+  },
+  "settings":{            //App配置页面
+    "url": "assets/settings.html"
   },
   "visitor": {           //访客端需要引入的对象
     "customCSS": [       //访客端引入的css
@@ -70,7 +70,9 @@
   - [private](#private)
   - [version](#version)
   - [frameworkVersion](#frameworkversion)
+  - [signedUrls](#signedurls)
   - [location](#location)
+  - [settings](#settings)
   - [visitor](#visitor)
   - [webhook](#webhook)
   - [objects](#objects)
@@ -84,6 +86,7 @@
    - `name` 指定当前App的开发者的名字。
    - `email` 指定当前App的开发者的邮箱。
    - `url` 指定当前App的开发者的主页地址或App的主页地址。
+
 
    ```json
    "author": {
@@ -114,45 +117,39 @@
    "frameworkVersion": "1.0"    //指定当前App开发过程中使用Comm100的框架版本     
    ```
 
+## signedUrls
+  指定是否所有页面都需要添加JSON Web Token(JWT)，让开发者通过JWT来校验打开location中配置的页面的请求是否来自Comm100。默认值为`false`。
+
+  ```json
+  "signedUrls": false 
+  ```
+
 ## location
   指定当前App安装以后App出现在Comm100的产品界面中的位置。必须指定。  
 
-  - `controlPanel_topBar` 指定将App安装在Control Panel的右上方产品级菜单区域
-  - `controlPanel_navigationMenu` 指定将App安装在Control Panel的对应产品的左侧功能级菜单区域
-  - `controlPanel_background` 指定App在Control panel启动后需要初始化的信息  
-  - `agentConsole_topBar` 指定将App安装在Agent Console的头部全局菜单区域
-  - `agentConsole_navigationBar` 指定将App安装在Agent Console的左侧列表菜单区域
-  - `agentConsole_chatHeadTag` 指定将App安装在Agent Console的聊天窗口的用户Tag区域
-  - `agentConsole_chatSideBar` 指定将App安装在Agent Console的聊天窗口的右侧区域
-  - `agentConsole_chatToolBar` 指定将App安装在Agent Console的聊天窗口的工具栏区域
-  - `agentConsole_background` 指定App在Agent Console启动后需要初始化的信息  
+  - [controlPanel_topBar](#control-panel-topbar) 
+  - [controlPanel_background](#control-panel-background)
+  - [agentConsole_topBar](#agent-console-topbar)
+  - [agentConsole_navigationBar](#agent-console-navigations)
+  - [agentConsole_chatHeadTag](#agent-console-chatheadtag)
+  - [agentConsole_chatSideBar](#agent-console-chatsidebar)
+  - [agentConsole_chatToolBar](#agent-console-chattoolbar)
+  - [agentConsole_background](#agent-console-background)  
 
 
-  每个位置可指定下面的`autoHide`、`autoLoad`、`url`属性，而`product`和`parent`属性为`controlPanel_navigationMenu`所特有，其他位置无效。
+  每个位置可指定下面的属性。
   + `autoHide` 指定当前App在系统启动后是否默认隐藏。默认值为`false`。
-  + `autoLoad` 指定当前App在系统启动以后是否自动加载。默认是为`false`。
-  + `url` 指定当前位置下的iframe中显示的页面地址。必须指定。
-  + `product` 指定当前App安装后应用在哪个产品的功能菜单中，仅在controlPanel_navigationMenu中有效。目前提供的`product`为`livechat`。controlPanel__navigationMenu中必须指定。
-  + `parent` 指定当前App安装后应用在菜单中那个父亲节点下，仅在controlPanel_navigationMenu中有效。如果为一级菜单，则不需要设置`parent`节点，若需要设置为二级菜单，则需要设置作为下面那个菜单的子菜单。安装后默认作为所在菜单的最后一个子菜单。
-    - `dashboard` 指定App安装后设置到Livechat产品的`dashboard`目录的最后一个子菜单
-    - `getOnline` 指定App安装后设置到Livechat产品的`Get Online & Chat`目录的最后一个子菜单
-    - `installation` 指定App安装后设置到Livechat产品的`Installation`目录的最后一个子菜单
-    - `campaign` 指定App安装后设置到Livechat产品的`Campaign`目录的最后一个子菜单
-    - `settings` 指定App安装后设置到Livechat产品的`Settings`目录的最后一个子菜单
-    - `chatbot` 指定App安装后设置到Livechat产品的`Chatbot Question Base`目录的最后一个子菜单
-    - `security` 指定App安装后设置到Livechat产品的`Security`目录的最后一个子菜单
-    - `history` 指定App安装后设置到Livechat产品的`History`目录的最后一个子菜单
-    - `reports` 指定App安装后设置到Livechat产品的`Reports`目录的最后一个子菜单
-    - `social` 指定App安装后设置到Livechat产品的`Social Media`目录的最后一个子菜单
-    - `integrations` 指定App安装后设置到Livechat产品的`Integrations & API`目录的最后一个子菜单
-    - `maximumOn` 指定App安装后设置到Livechat产品的`MaximumOn`目录的最后一个子菜单
-    
+  + `autoLoad` 指定当前App在系统启动以后是否自动加载。默认值为`false`。
+  + `url` 指定当前位置下的iframe中显示的页面地址，该地址可以是开发者远程托管的绝对页面地址，也可以是由Comm100托管的相对路径地址。必须指定。
+  + `signed` 当前位置下的iframe为远程托管(非Comm100托管)页面时，开发者可通过指定该属性是否在Comm100当前页面中的请求包含一个JSON Web Token(JWT)，开发者可以用来验证该请求是否来自Comm100合法请求。默认值为`false`。  
+
    ```json
    "location": {
      "agentConsole_chatSideBar": {
        "autoHide": false,  //自动隐藏
        "autoLoad": false,  //自动加载
-       "url": "/sidebar/index.html"
+       "signed": true,     //包含JWT
+       "url": "https：//*****/index.html"    //非Comm100托管，开发者远程托管页面
      }
    }
    ```
@@ -169,19 +166,201 @@
 
    ```json
    "location": {
-     "agentConsole_topbar": "/topbar/index.html",
+     "agentConsole_topBar": "/topBar/index.html",
      "agentConsole_background": "/assets/inital.html",
-     "controlPanel_topBar": "/manage/index.html",         //指定产品级菜单
-     "controlPanel_navigationMenu":{
-       "url":"/navigationBar/secondMenu.html", //指定菜单的页面
-       "product": "livechat",                  //指定菜单所在的产品为livechat
-       "parent": "integrations"                //指定菜单作为Integrations & API菜单下面的子菜单
-     }
+     "controlPanel_topBar": "/manage/index.html"       //指定产品级菜单
    }
    ```
 
+### Control Panel TopBar
+  指定将App安装在Control Panel的右上方产品级菜单区域。安装此App以后，在Control Panel的右上方会多一个名字为`App Name`的产品级菜单，点击菜单，默认在菜单的下方弹出一块区域，该区域的显示内容为配置的`url`的内容。
+
+  ```json
+  "location": {
+    "controlPanel_topBar": "/assets/index.html"
+  }
+  ```
+
+### Control Panel Background 
+  指定App在Control Panel中以后台形式(不显示UI)启动的页面。安装此App以后，默认在Control Panel启动后自动加载`background`中配置的页面内容，但该页面不显示。
+
+  ```json
+  "location": {
+    "controlPanel_background": "/assets/controlPanel_initial.html"
+  }
+  ```
+
+### Agent Console TopBar
+  指定将App安装在Agent Console的头部全局菜单区域。安装此App以后，在Agent Console的头部全局菜单区域中的最后一个位置会添加一个App的菜单，点击该菜单，默认弹出一个窗口，窗口的内容为该处配置的页面内容。
+
+  ```json
+  "location": {
+    "agentConsole_topBar": "/assets/topBar.html"
+  }
+  ```
+
+#### Events
+  在Control Panel的TopBar中，app可使用的下面的事件：
+  - [pane.activated](#topbar-pane-activated)
+  - [pane.deactivated](#topbar-pane-deactivated)
+
+##### TopBar pane.activated
+  可通过下面的API来设置在pane激活的时候需要做的事情。
+
+  ```javascript
+    Comm100AgentConsoleAPI.on("topBar.pane.activated", function(){
+      //handler code
+    }
+  ```
+
+##### TopBar pane.deactivated
+  可通过下面的API来设置在pane取消激活的时候需要做的事情。
+
+  ```javascript
+    Comm100AgentConsoleAPI.on("topBar.pane.deactivated", function(){
+      //handler code
+    }
+  ```
+
+#### Objects
+  - [TopBar PopupWindow](#topbar-popupWindow-object)
+
+##### TopBar PopupWindow Object
+  - Properties
+    + `topBar.popupWindow.size`-弹出区域的大小
+      * `width`-弹出区域的宽度
+      * `height`-弹出区域的高度
+    + `topBar.popupWindow.location`-弹出区域位置：TopRight/Center/BottomRight/绝对位置对象{left/right:10px;top/bottom:10px} ,默认值为TopRight，即在topBar菜单下方
+    + `topBar.popupWindow.ifmodal`-是否是模态窗口：true/false 默认false
+    + `topBar.popupWindow.visible`-弹出窗口的显示状态: show/hide/toggle 默认show
+
+### Agent Console NavigationBar
+  指定将App安装在Agent Console的左侧列表菜单区域。安装此App以后，默认在Agent Console的左侧列表菜单中的最后一个位置添加一个App菜单，点击该菜单，右侧内容区域展示的内容为该处配置的页面内容。
+
+  ```json
+  "location": {
+    "agentConsole_navigationBar": "/assets/navigationBar.html"
+  }
+  ```
+
+### Agent Console ChatHeadTag
+  指定将App安装在Agent Console的聊天窗口的用户Tag区域。安装此App以后，在Agent Console聊天窗口的头部用户Tag区域中的右侧添加一个App图标，点击该图标，默认弹出一个窗口，窗口的内容为该处配置的页面内容。
+
+  ```json
+  "location": {
+    "agentConsole_chatHeadTag": "/assets/headTag.html"
+  }
+  ```
+
+  #### Events
+  在Control Panel的ChatHeadTag中，app可使用的下面的事件：
+  - [pane.activated](#chatheadtag-pane-activated)
+  - [pane.deactivated](#chatheadtag-pane-deactivated)
+
+##### ChatHeadTag pane.activated
+  可通过下面的API来设置在pane激活的时候需要做的事情。
+
+  ```javascript
+    Comm100AgentConsoleAPI.on("chatHeadTag.pane.activated", function(){
+      //handler code
+    }
+  ```
+
+##### ChatHeadTag pane.deactivated
+  可通过下面的API来设置在pane取消激活的时候需要做的事情。
+
+  ```javascript
+    Comm100AgentConsoleAPI.on("chatHeadTag.pane.deactivated", function(){
+      //handler code
+    }
+  ```
+
+#### Objects
+  - [ChatHeadTag PopupWindow](#chatheadtag-popupWindow-object)
+
+##### ChatHeadTag PopupWindow Object
+  - Properties
+    + `chatHeadTag.popupWindow.size`-弹出区域的大小
+      * `width`-弹出区域的宽度
+      * `height`-弹出区域的高度
+    + `chatHeadTag.popupWindow.location`-弹出区域位置：Center/绝对位置对象{left/right:10px;top/bottom:10px} ,默认值为Center，即在页面中间位置
+    + `chatHeadTag.popupWindow.ifmodal`-是否是模态窗口：true/false 默认false
+    + `chatHeadTag.popupWindow.visible`-弹出窗口的显示状态: show/hide/toggle 默认show
+ 
+### Agent Console ChatSideBar
+  指定将App安装在Agent Console的聊天窗口的右侧区域。安装此App以后，在Agent Console的聊天窗口的右侧区域的最后一个位置添加一个Tab菜单，点击该菜单，下方的内容区域展示的内容为该处配置的页面内容。
+
+  ```json
+  "location": {
+    "agentConsole_chatSideBar": "/assets/chatSideBar.html"
+  }
+  ```
+
+### Agent Console ChatToolBar
+  指定将App安装在Agent Console的聊天窗口的工具栏区域。安装此App以后，在Agent Console的聊天窗口的工具栏区域中的右侧位置加入一个App图标，点击该图标，默认弹出一个窗口，窗口的内容为该处配置的页面内容。
+  
+  ```json
+  "location": {
+    "agentConsole_chatToolBar": "/assets/chatToolBar.html"
+  }
+  ```
+
+  #### Events
+  在Control Panel的ChatToolBar中，app可使用的下面的事件：
+  - [pane.activated](#chattoolbar-pane-activated)
+  - [pane.deactivated](#chattoolbar-pane-deactivated)
+
+##### ChatToolBar pane.activated
+  可通过下面的API来设置在pane激活的时候需要做的事情。
+
+  ```javascript
+    Comm100AgentConsoleAPI.on("chatToolBar.pane.activated", function(){
+      //handler code
+    }
+  ```
+
+##### ChatToolBar pane.deactivated
+  可通过下面的API来设置在pane取消激活的时候需要做的事情。
+
+  ```javascript
+    Comm100AgentConsoleAPI.on("chatToolBar.pane.deactivated", function(){
+      //handler code
+    }
+  ```
+
+#### Objects
+  - [ChatToolBar PopupWindow](#chattoolbar-popupWindow-object)
+
+##### ChatToolBar PopupWindow Object
+  - Properties
+    + `chatToolBar.popupWindow.size`-弹出区域的大小
+      * `width`-弹出区域的宽度
+      * `height`-弹出区域的高度
+    + `chatToolBar.popupWindow.location`-弹出区域位置：Top/Center/Bottom/绝对位置对象{left/right:10px;top/bottom:10px} ,默认值为Top，即在点击图标的上方区域
+    + `chatToolBar.popupWindow.ifmodal`-是否是模态窗口：true/false 默认false
+    + `chatToolBar.popupWindow.visible`-弹出窗口的显示状态: show/hide/toggle 默认show
+ 
+### Agent Console Background
+  指定App在Agent Console中以后台形式(不显示UI)启动的页面。安装此App以后，默认在Agent Console启动后自动加载`background`中配置的页面内容，但该页面不显示。
+
+  ```json
+  "location": {
+    "agentConsole_background": "/assets/agentConsole_initial.html"
+  }
+  ```
+
+## settings
+  指定当前App安装以后的配置页面。安装App以后，Control Panel的应用管理中会增加一个当前App的对应菜单，点击按钮菜单上的配置按钮，会在应用配置tab中加载`settings`中配置的`url`页面。
+   - `url` - 指定App的配置页面的地址。
+
+  ```json
+  "settings":{            //App配置页面
+    "url": "assets/settings.html"
+  }
+  ```
+
 ## visitor
-  指定需要在访客端需要引入的对象，包括自定义CSS和JavaScript。安装APP以后, 前端在加载完系统的访客端对象的时候会加载该区域设置的自定义对象。
+  指定需要在访客端需要引入的对象，包括自定义CSS和JavaScript。安装App以后, 前端在加载完系统的访客端对象的时候会加载该区域设置的自定义对象。
    - `customCSS` - 指定当前App在访客端需要引用的自定义CSS。
    - `customJS` - 指定当前App在访客端需要引用的自定义JavaScript。  
 
@@ -198,7 +377,7 @@
    ```
 
 ## webhook
-  指定在Comm100的特定webhook中的请求地址。安装APP以后, Comm100会在Manifest文件的`webhook`属性中配置的`name`的Webhook的位置请求`url`的地址。
+  指定在Comm100的特定webhook中的请求地址。安装App以后, Comm100会在Manifest文件的`webhook`属性中配置的`name`的Webhook的位置请求`url`的地址。
    - `name` - 指定Webhook的名称，详情可参考[Webhook API](https://github.com/hgq719/docs/blob/master/WebhookApi.md)。
    - `url` - 指定当前的webhook中需要请求的地址。  
 
@@ -216,6 +395,7 @@
   - `property` - 指定当前引入的外部对象的属性
   - `fieldName` - 指定外部对象的字段名称
   - `fieldType` - 指定外部对象的数据类型,类型包括:`int/float/string/date`
+
 
   ```json
   "objects":[{
