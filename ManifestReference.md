@@ -131,9 +131,7 @@
   - [controlPanel_background](#control-panel-background)
   - [agentConsole_topBar](#agent-console-topbar)
   - [agentConsole_navigationBar](#agent-console-navigations)
-  - [agentConsole_chatHeadTag](#agent-console-chatheadtag)
   - [agentConsole_chatSideBar](#agent-console-chatsidebar)
-  - [agentConsole_chatToolBar](#agent-console-chattoolbar)
   - [agentConsole_background](#agent-console-background)  
 
 
@@ -223,16 +221,27 @@
   ```
 
 #### Objects
-  - [TopBar PopupWindow](#topbar-popupWindow-object)
+  - [PopupOver](#popupover-object)
 
-##### TopBar PopupWindow Object
+##### PopupOver Object
   - Properties
-    + `topBar.popupWindow.size`-弹出区域的大小
+    + `popupOver.size`-弹出区域的大小
       * `width`-弹出区域的宽度
       * `height`-弹出区域的高度
-    + `topBar.popupWindow.location`-弹出区域位置：TopRight/Center/BottomRight/绝对位置对象{left/right:10px;top/bottom:10px} ,默认值为TopRight，即在topBar菜单下方
-    + `topBar.popupWindow.ifmodal`-是否是模态窗口：true/false 默认false
-    + `topBar.popupWindow.visible`-弹出窗口的显示状态: show/hide/toggle 默认show
+    + `popupOver.visible`-弹出窗口的显示状态: show/hide/toggle 默认show
+
+  - Actions
+    + `set` -设置popupOver的属性，如：
+
+
+  ```javascript
+    Comm100AgentConsoleAPI.set("topBar.popupOver.size",{
+      width:  300,
+      height: 200
+    });   //设置popupover区域大小
+
+    Comm100AgentConsoleAPI.set("topBar.popupOver.visible","show"); //设置popupover区域的可见性
+  ```
 
 ### Agent Console NavigationBar
   指定将App安装在Agent Console的左侧列表菜单区域。安装此App以后，默认在Agent Console的左侧列表菜单中的最后一个位置添加一个App菜单，点击该菜单，右侧内容区域展示的内容为该处配置的页面内容。
@@ -243,50 +252,6 @@
   }
   ```
 
-### Agent Console ChatHeadTag
-  指定将App安装在Agent Console的聊天窗口的用户Tag区域。安装此App以后，在Agent Console聊天窗口的头部用户Tag区域中的右侧添加一个App图标，点击该图标，默认弹出一个窗口，窗口的内容为该处配置的页面内容。
-
-  ```json
-  "location": {
-    "agentConsole_chatHeadTag": "/assets/headTag.html"
-  }
-  ```
-
-  #### Events
-  在Control Panel的ChatHeadTag中，app可使用的下面的事件：
-  - [pane.activated](#chatheadtag-pane-activated)
-  - [pane.deactivated](#chatheadtag-pane-deactivated)
-
-##### ChatHeadTag pane.activated
-  可通过下面的API来设置在pane激活的时候需要做的事情。
-
-  ```javascript
-    Comm100AgentConsoleAPI.on("chatHeadTag.pane.activated", function(){
-      //handler code
-    }
-  ```
-
-##### ChatHeadTag pane.deactivated
-  可通过下面的API来设置在pane取消激活的时候需要做的事情。
-
-  ```javascript
-    Comm100AgentConsoleAPI.on("chatHeadTag.pane.deactivated", function(){
-      //handler code
-    }
-  ```
-
-#### Objects
-  - [ChatHeadTag PopupWindow](#chatheadtag-popupWindow-object)
-
-##### ChatHeadTag PopupWindow Object
-  - Properties
-    + `chatHeadTag.popupWindow.size`-弹出区域的大小
-      * `width`-弹出区域的宽度
-      * `height`-弹出区域的高度
-    + `chatHeadTag.popupWindow.location`-弹出区域位置：Center/绝对位置对象{left/right:10px;top/bottom:10px} ,默认值为Center，即在页面中间位置
-    + `chatHeadTag.popupWindow.ifmodal`-是否是模态窗口：true/false 默认false
-    + `chatHeadTag.popupWindow.visible`-弹出窗口的显示状态: show/hide/toggle 默认show
- 
 ### Agent Console ChatSideBar
   指定将App安装在Agent Console的聊天窗口的右侧区域。安装此App以后，在Agent Console的聊天窗口的右侧区域的最后一个位置添加一个Tab菜单，点击该菜单，下方的内容区域展示的内容为该处配置的页面内容。
 
@@ -295,50 +260,6 @@
     "agentConsole_chatSideBar": "/assets/chatSideBar.html"
   }
   ```
-
-### Agent Console ChatToolBar
-  指定将App安装在Agent Console的聊天窗口的工具栏区域。安装此App以后，在Agent Console的聊天窗口的工具栏区域中的右侧位置加入一个App图标，点击该图标，默认弹出一个窗口，窗口的内容为该处配置的页面内容。
-  
-  ```json
-  "location": {
-    "agentConsole_chatToolBar": "/assets/chatToolBar.html"
-  }
-  ```
-
-  #### Events
-  在Control Panel的ChatToolBar中，app可使用的下面的事件：
-  - [pane.activated](#chattoolbar-pane-activated)
-  - [pane.deactivated](#chattoolbar-pane-deactivated)
-
-##### ChatToolBar pane.activated
-  可通过下面的API来设置在pane激活的时候需要做的事情。
-
-  ```javascript
-    Comm100AgentConsoleAPI.on("chatToolBar.pane.activated", function(){
-      //handler code
-    }
-  ```
-
-##### ChatToolBar pane.deactivated
-  可通过下面的API来设置在pane取消激活的时候需要做的事情。
-
-  ```javascript
-    Comm100AgentConsoleAPI.on("chatToolBar.pane.deactivated", function(){
-      //handler code
-    }
-  ```
-
-#### Objects
-  - [ChatToolBar PopupWindow](#chattoolbar-popupWindow-object)
-
-##### ChatToolBar PopupWindow Object
-  - Properties
-    + `chatToolBar.popupWindow.size`-弹出区域的大小
-      * `width`-弹出区域的宽度
-      * `height`-弹出区域的高度
-    + `chatToolBar.popupWindow.location`-弹出区域位置：Top/Center/Bottom/绝对位置对象{left/right:10px;top/bottom:10px} ,默认值为Top，即在点击图标的上方区域
-    + `chatToolBar.popupWindow.ifmodal`-是否是模态窗口：true/false 默认false
-    + `chatToolBar.popupWindow.visible`-弹出窗口的显示状态: show/hide/toggle 默认show
  
 ### Agent Console Background
   指定App在Agent Console中以后台形式(不显示UI)启动的页面。安装此App以后，默认在Agent Console启动后自动加载`background`中配置的页面内容，但该页面不显示。
