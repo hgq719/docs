@@ -6,10 +6,10 @@
 4. [Setting The Location](#app-the-location)
 5. [API](#api)
 6. [Security and Authentication](#security-and-authentication)
-7. [OAuth2.0](#oauth2.0)
-8. [Rate Limits](#rate-limits)
-9. [Error Manage](#error-manage)
-10. [Response Format](#response-format)
+7. [Rate Limits](#rate-limits)
+8. [Error Manage](#error-manage)
+9. [Response Format](#response-format)
+10. [Popup Window](#popup-window)
 
 ## App Developer Account
   Comm100专门为App开发者新增一套Developer账号系统，该系统基于现有系统进行身份验证，可以直接将Comm100的现有账号升级为Developer账号。通过Developer可以：
@@ -92,17 +92,8 @@
   2.Developer对Comm100的身份认证  
   - User Meta  
     Developer可通过Comm100提供的Api来获取当前用户的元数据信息，从元数据中获取当前用户的token来进行身份验证。
-  - JSON Web Token 
+  - [JSON Web Token](#json-web-token)  
     安装在Comm100产品中的App能包含一个由开发者远程托管的的页面，该页面会加载在Comm100的某一个特定的iframe中。当打开Comm100产品中的app的时候，Comm100必须去请求这个远程托管的原始页面，为了帮助开发者对这个请求进行验证，Comm100可以在这个请求中加入JSON Web Token，开发者的远程托管页面可以通过这个JWT来验证当前请求是否是来自于一个Comm100的合法请求。
-
-    - 一旦启用JWT Token，Comm100会做如下的事情：
-      + 将请求类型由GET变为POST
-      + 在POST请求中包含一个`token`字段，这个`token`包含JWT Token的信息  
-
-    - 为了完成验证，开发者需要完成以下的事情：
-      + 处理当前的POST请求
-      + 从请求的数据中获取Token信息
-      + 校验JWT信息  
 
 
   3.用户系统对访客的身份认证  
@@ -110,14 +101,51 @@
   
   Comm100的访客对象中包含SSO标志和Custom Variable，可以通过这些属性来判断当前访客是否已经登录。
 
-## OAuth2.0
+### JSON Web Token
+  JSON Web Token简称[JWT](http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html)，是一种紧凑的URL安全方法，用于在网络通讯的双方之间传递。Comm100的JWT Token包含下面主要属性，用户可以通过这些属性来对这个请求进行验证。
+  - `iss` -JWT的签发者
+  - `sub` -JWT所面向的用户
+  - `aud` -JWT的接收方
+  - `exp` -时间戳，JWT的过期时间
+  - `iat` -时间戳，JWT的签发时间
+  - `nbf` -时间戳，JWT的生效开始时间，在此之前JWT无效
+
+### 处理JWT Token
+  - 一旦[启用JWT Token]()，Comm100会做如下的事情：
+      + 将请求类型由GET变为POST
+      + 在POST请求中包含一个`token`字段，这个`token`包含JWT Token的信息  
+
+  - 为了完成验证，开发者需要完成以下的事情：
+      + 处理当前的POST请求
+      + 从请求的数据中获取Token信息
+      + 校验JWT Token  
+
+
+  Comm100使用RSA来签名这个JWT token，需要校验它，则需要[获取app的公钥](#get-app-public-key)来解密这个token。如
+
+  ```javascript
+    public_key = getPublicKey();
+    decoded_token = JWT.decode(data["token"],public_key,"RS256");
+    jwt_claims = decoded_token.claims;
+    user_info = jwt_claims.userInfo
+    user_name = user_info["user"]["name"];
+    iss = jwt_claims.iss;    //如：comm100.com
+    aud = jwt_claims.aud;    //如：myApp.com
+  ```  
+
+
+### Get app public key
+  可以通过`client_secret`，访问下面的API来获取App的公钥。开发者可以使用这个公钥来识别某个特定的请求是否是来自Comm100的合法请求。
+
+  ```javascript
+    Get /api/v1/apps/public_key
+  ```
+
+### OAuth2.0
   OAuth2.0采用了OAuth2.0标准协议来进行用户身份验证和获取用户授权，其认证流程简单、安全。开发者需要在自己的请求头中指定`access_token`，格式如下：
   ```json
     "Authorization": "bearer {access_token}"
   ```
-
-## JSON Web Token
-  JSON Web Token简称JWT，是一种紧凑的URL安全方法，用于在网络通讯的双方之间传递。
 
 ## Rate Limits
   - API允许同一时刻的并发数量限制。
