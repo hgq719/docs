@@ -118,14 +118,26 @@
    ```
 
 ## signedUrls
-  指定是否所有页面都需要添加JSON Web Token(JWT)，让开发者通过JWT来校验打开location中配置的页面的请求是否来自Comm100。默认值为`false`。
+  指定页面是否需要添加JSON Web Token(JWT)，让开发者通过JWT来校验打开location中配置的页面的请求是否来自Comm100。默认值为`false`。当前属性只适用于远程托管的页面，不适用于由Comm100托管的页面。   
+  开发者可以通过`signedUrls`属性来设置是否对所有App中所有页面启用JWT。
 
   ```json
   "signedUrls": false 
   ```
 
+  开发者还可以通过给`location`中特定位置添加`signed`属性来设置是否对当前位置的App页面启用JWT。
+
+   ```json
+   "location": {
+     "agentConsole_chatSideBar": {
+       "signed": true,     //包含JWT
+       "url": "https：//*****/index.html"    //非Comm100托管，开发者远程托管页面
+     }
+   }
+   ```
+
 ## location
-  指定当前App安装以后App出现在Comm100的产品界面中的位置。必须指定。  
+  指定当前App安装以后App出现在Comm100的产品界面中的位置。必须指定。目前Comm100的`Livechat`产品开放的界面位置如下：  
 
   - [controlPanel_topBar](#control-panel-topbar) 
   - [controlPanel_background](#control-panel-background)
@@ -156,7 +168,7 @@
 
    ```json
    "location": {
-     "agentconsole_chatSidebar": "/sidebar/index.html"
+     "agentconsole_chatSidebar": "/assets/index.html"
    }
    ```
 
@@ -164,9 +176,9 @@
 
    ```json
    "location": {
-     "agentConsole_topBar": "/topBar/index.html",
+     "agentConsole_topBar": "/assets/ac_topBar.html",
      "agentConsole_background": "/assets/inital.html",
-     "controlPanel_topBar": "/manage/index.html"       //指定产品级菜单
+     "controlPanel_topBar": "/assets/cp_topBar.html"       //指定产品级菜单
    }
    ```
 
