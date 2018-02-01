@@ -4,9 +4,9 @@
 
 ## Objects
   - [Chat Object](#chat-object)
-  - [PopupWindow Object](#popupWindow-object)
-  - [HeadTag Object](#headTag-object)
-  - [ToolItem Object](#toolItem-object)
+  - [PopupWindow Object](#popupwindow-object)
+  - [HeadTag Object](#headtag-object)
+  - [ToolItem Object](#toolitem-object)
 
 ### Chat Object
 #### currentChat
