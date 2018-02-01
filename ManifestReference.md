@@ -346,11 +346,11 @@
 ## bot
   指定需要将自己的Bot系统接入Comm100产品需要进行的配置，安装该Bot App以后，可配置使用当前Bot参与聊天。
   - `endpoint` 指定接入Bot需要配置的Endpoint节点。
-  - `list` 指定接入Bot时获取Bot列表的接口信息
-  - `message` 指定接入Bot时，Bot回答问题的接口信息
+  - `list` 指定接入Bot时获取Bot列表的接口信息，具体方式参考[Bot List](https://github.com/hgq719/docs/blob/master/open-platform-chat-bot.md#bot-list)
+  - `message` 指定接入Bot时，Bot回答问题的接口信息,具体方式参考[Bot Message](https://github.com/hgq719/docs/blob/master/open-platform-chat-bot.md#bot-engine-handle-visitor-message)
   - `method` 指定接入Bot时对应接口的请求方式：`POST/GET` ,目前Bot的两个接口全部为`POST`
   - `url` 指定接入Bot时调用的Bot的接口地址
-  - `headers` 指定接入Bot调用Bot的接口的头部信息
+  - `headers` 指定接入Bot调用Bot的接口的头部信息,可用宏定义参考[Micro Define](https://github.com/hgq719/docs/blob/master/open-platform-chat-bot.md#micro-define)
 
 
    ```json
