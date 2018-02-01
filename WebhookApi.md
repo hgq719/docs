@@ -107,56 +107,56 @@ Response：{
 
 ```json
 "visitor":{
-    "browser":"Google Chrome 29.0.1547.76",
-    "chats":2,
-    "city":"Vancouver",
-    "company":"Comm100",
-    "country":"Canada",
-    "current_browsing":"https://www.comm100.com/",
-    "custom_fields":[
-        {
-        "field_id":5000001,
-        "name":"order_id",
-        "value":"1780064"
-        },
-        {
-        "field_id":5000002,
-        "name":"bill_amount",
-        "value":"500.00"
-        }
-    ],
-    "custom_variable":[
-        {
-        "name":"user_login",
-        "value":"facebook"
-        },
-        {
-        "name":"have_sales",
-        "value":"yes"
-        }
-    ],
-    "department":"livechat",
-    "email":"allon@comm100.com",
-    "first_visit_time":"/Date(13584868423)/",
-    "flash_version":"11.8.800.170",
-    "id":1024768,
-    "ip":"192.168.8.1",
-    "keywords":"comm100",
-    "landing_page":"https://www.comm100.com/livechat/",
-    "language":"en_us",
-    "name":"allon",
-    "operating_system":"Windows 7",
-    "page_views":3,
-    "phone":"12983782710",
-    "product_service":"livechat",
-    "referrer_url":"http://www.google.com/q=comm100",
-    "screen_resolution":"1440*900",
-    "search_engine":"Google",
-    "state":"British Columbia",
-    "status":1,
-    "time_zone":"UTC-08:00",
-    "visit_time":"/Date(13584868542)/",
-    "visits":5
+  "browser":"Google Chrome 29.0.1547.76",
+  "chats":2,
+  "city":"Vancouver",
+  "company":"Comm100",
+  "country":"Canada",
+  "current_browsing":"https://www.comm100.com/",
+  "custom_fields":[
+    {
+      "field_id":5000001,
+      "name":"order_id",
+      "value":"1780064"
+    },
+    {
+      "field_id":5000002,
+      "name":"bill_amount",
+      "value":"500.00"
+    }
+  ],
+  "custom_variable":[
+    {
+      "name":"user_login",
+      "value":"facebook"
+    },
+    {
+      "name":"have_sales",
+      "value":"yes"
+    }
+  ],
+  "department":"livechat",
+  "email":"allon@comm100.com",
+  "first_visit_time":"/Date(13584868423)/",
+  "flash_version":"11.8.800.170",
+  "id":1024768,
+  "ip":"192.168.8.1",
+  "keywords":"comm100",
+  "landing_page":"https://www.comm100.com/livechat/",
+  "language":"en_us",
+  "name":"allon",
+  "operating_system":"Windows 7",
+  "page_views":3,
+  "phone":"12983782710",
+  "product_service":"livechat",
+  "referrer_url":"http://www.google.com/q=comm100",
+  "screen_resolution":"1440*900",
+  "search_engine":"Google",
+  "state":"British Columbia",
+  "status":1,
+  "time_zone":"UTC-08:00",
+  "visit_time":"/Date(13584868542)/",
+  "visits":5
 }
 ```
 
@@ -164,47 +164,47 @@ Response：{
 
 ```json
 "chat": {
-    "attachment": {
-        "name": "screen_capture.png",
-                                "uri": "http://hosted.comm100.com/livechatreport/download.ashx?siteId=10014&downloadtype==chatattachment&id=3679"
+  "attachment": {
+    "name": "screen_capture.png",
+    "uri": "http://hosted.comm100.com/livechatreport/download.ashx?siteId=10014&downloadtype==chatattachment&id=3679"
+  },
+  "chat_transcript": "Agent Henry - Comm100 has joined the chat.\\n[19:16:06] Henry - Comm100: Hi Allon, this is Henry. How may I help you?\\n....... ",
+  "company": "comm100",   
+  "custom_fields": [
+    {
+      "field_id": 5000001,
+      "name": "order_id",
+      "value": "1780064"
     },
-        "chat_transcript": "Agent Henry - Comm100 has joined the chat.\\n[19:16:06] Henry - Comm100: Hi Allon, this is Henry. How may I help you?\\n....... ",
-    "company": "comm100",   
-    "custom_fields": [
-        {
-        "field_id": 5000001,
-        "name": "order_id",
-        "value": "1780064"
-        },
-        {
-        "field_id": 5000002,
-        "name": "bill_amount",
-        "value": "500.00"
-        }
-    ],
-    "custom_variable": [         
-        {
-        "name": "user_login",
-        "value": "facebook"
-        },
-        {
-        "name": "have_sales",
-        "value": "yes"
-        }
-    ],                                                 
-    "department": "livechat",
-    "email": "allon@comm100.com",                                                 
-    "end_time": "/Date(1358455857)/",
-    "id": 1098,                                                 
-    "name": "Allon",
-    "agent_comment": "paid",                                                 
-    "agents": "henry",
-    "phone": "1-877-305-0464",                                                 
-    "product_service": "livechat",
-    "rating": "1",                                                 
-    "rating_comment": "very good",
-    "start_time": "/Date(1358453897)/",                                                 
-    "waiting_time": "10s"
+    {
+      "field_id": 5000002,
+      "name": "bill_amount",
+      "value": "500.00"
+    }
+  ],
+  "custom_variable": [         
+    {
+      "name": "user_login",
+      "value": "facebook"
+    },
+    {
+      "name": "have_sales",
+      "value": "yes"
+    }
+  ],                                                 
+  "department": "livechat",
+  "email": "allon@comm100.com",                                                 
+  "end_time": "/Date(1358455857)/",
+  "id": 1098,                                                 
+  "name": "Allon",
+  "agent_comment": "paid",                                                 
+  "agents": "henry",
+  "phone": "1-877-305-0464",                                                 
+  "product_service": "livechat",
+  "rating": "1",                                                 
+  "rating_comment": "very good",
+  "start_time": "/Date(1358453897)/",                                                 
+  "waiting_time": "10s"
 }
 ```
 
@@ -212,32 +212,32 @@ Response：{
 
 ```json
 "offline_message":{
-    "attachment": {
-        "name": "screen_capture.png",
-        "url":"//hosted.comm100.com/livechatreport/download.ashx?siteId=10014&downloadtype=MessageAttachment&id=3679"
+  "attachment": {
+    "name": "screen_capture.png",
+    "url":"//hosted.comm100.com/livechatreport/download.ashx?siteId=10014&downloadtype=MessageAttachment&id=3679"
+  },
+  "company": "comm100",   
+  "content":"I have an problem about Comm100 live chat. ",
+  "custom_fields":[
+    {    
+      "field_id": 5000001,
+      "name": "order_id",
+      "value": "1780064"
     },
-    "company": "comm100",   
-    "content":"I have an problem about Comm100 live chat. ",
-    "custom_fields":[
-        {    
-        "field_id": 5000001,
-        "name": "order_id",
-        "value": "1780064"
-        },
-        {
-        "field_id": 5000002,
-        "name": "bill_amount",
-        "value": "500.00"
-        }
-    ],
-    "department":"livechat",
-    "email":"allon@comm100.com",
-    "id":1,
-    "name":"Allon",
-    "phone":"1-877-305-0464",
-    "subject":"comm100 live chat",
-    "time": "/Date(1358453897)/", 
-    "pages":1,
-    "total":7
+    {
+      "field_id": 5000002,
+      "name": "bill_amount",
+      "value": "500.00"
+    }
+  ],
+  "department":"livechat",
+  "email":"allon@comm100.com",
+  "id":1,
+  "name":"Allon",
+  "phone":"1-877-305-0464",
+  "subject":"comm100 live chat",
+  "time": "/Date(1358453897)/", 
+  "pages":1,
+  "total":7
 }   
 ```
