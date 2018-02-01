@@ -64,7 +64,7 @@
   }
 }
 ```
-## Manifest属性
+## Manifest Properties
   - [name](#name)
   - [author](#author)
   - [private](#private)
@@ -350,7 +350,7 @@
   - `message` 指定接入Bot时，Bot回答问题的接口信息,具体方式参考[Bot Message](https://github.com/hgq719/docs/blob/master/open-platform-chat-bot.md#bot-engine-handle-visitor-message)
   - `method` 指定接入Bot时对应接口的请求方式：`POST/GET` ,目前Bot的两个接口全部为`POST`
   - `url` 指定接入Bot时调用的Bot的接口地址
-  - `headers` 指定接入Bot调用Bot的接口的头部信息,可用宏定义参考[Micro Define](https://github.com/hgq719/docs/blob/master/open-platform-chat-bot.md#micro-define)
+  - `headers` 指定接入Bot调用Bot的接口的头部信息,Manifest中可用宏定义参考[Micro Define](https://github.com/hgq719/docs/blob/master/open-platform-chat-bot.md#micro-define)
 
 
    ```json
