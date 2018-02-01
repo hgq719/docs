@@ -91,15 +91,14 @@
 
   2.Developer对Comm100的身份认证  
   - User Meta  
-    Developer可通过Comm100提供的Api来获取当前用户的元数据信息，从元数据中获取当前用户的token来进行身份验证。
+    Agent Console和Control Panel只有在用户登录的情况下才能进行操作，Developer可通过Comm100提供的Api来获取User Meta(当前登录用户的元数据信息)，从元数据中获取当前用户的身份信息来进行身份验证。
   - [JSON Web Token](#json-web-token)  
     安装在Comm100产品中的App能包含一个由开发者远程托管的的页面，该页面会加载在Comm100的某一个特定的iframe中。当打开Comm100产品中的app的时候，Comm100必须去请求这个远程托管的原始页面，为了帮助开发者对这个请求进行验证，Comm100可以在这个请求中加入JSON Web Token，开发者的远程托管页面可以通过这个JWT来验证当前请求是否是来自于一个Comm100的合法请求。
 
 
   3.用户系统对访客的身份认证  
   - Visitor Property  
-  
-  Comm100的访客对象中包含SSO标志和Custom Variable，可以通过这些属性来判断当前访客是否已经登录。
+    Comm100的访客对象中包含SSO标志和Custom Variable，可以通过这些属性来判断当前访客的登录状态或信息。
 
 ### JSON Web Token
   JSON Web Token简称[JWT](http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html)，是一种紧凑的URL安全方法，用于在网络通讯的双方之间传递。Comm100的JWT Token包含下面主要属性，用户可以通过这些属性来对这个请求进行验证。
