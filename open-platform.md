@@ -9,7 +9,6 @@
 7. [Rate Limits](#rate-limits)
 8. [Error Manage](#error-manage)
 9. [Response Format](#response-format)
-10. [Popup Window](#popup-window)
 
 ## App Developer Account
   Comm100专门为App开发者新增一套Developer账号系统，该系统基于现有系统进行身份验证，可以直接将Comm100的现有账号升级为Developer账号。通过Developer可以：
@@ -36,18 +35,19 @@
   - manifest.json - App的描述和配置文件，具体属性配置可查看[Manifest Reference](https://github.com/hgq719/docs/blob/master/ManifestReference.md)。
   - assets - 用来存放当前App需要使用的其他相关文件的文件夹
   - assets/logo.png - Comm100应用管理中的App图标
-  - assets/logo-small.png - Comm100产品安装App的位置的icon图标
+  - assets/logo-small.png - Comm100产品安装App的位置的icon图标,包括Agent Console的topBar、navigationBar、sideBar中的图标
 
 ## Setting The Location
-  开发者可以通过`manifest.json`文件中的`location`属性来配置App安装后出现在Comm100产品界面的位置。
+  开发者可以通过`manifest.json`文件中的`location`属性来配置App安装后出现在Comm100产品界面的位置。这个配置的路径地址可以是相对路径(指向`assets`文件夹下的一个html文件)，也可以是绝对路径(指向一个外部页面)。  
   例如，开发者可以在Control Panel的头部添加一个产品级菜单。
 
   ```json
   "location": {
-    "agentConsole_topbar": "/manage/index.html"
+    "agentConsole_topbar": "/assets/index.html"
   }
   ```
-  所有可用位置可以查看[location](https://github.com/hgq719/docs/blob/master/ManifestReference.md#location)。
+  所有可用位置可以查看[location](https://github.com/hgq719/docs/blob/master/ManifestReference.md#location)。  
+  注：如果使用绝对路径，建议使用`https`页面。
 
 ## Instance
   标识App的运行实例，每一个iframe都是一个实例。同一个App在Manifest中定义了多个位置，则这个App就存在多个App Instance。可以通过API来获取当前App的实例信息。
