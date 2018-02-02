@@ -1,14 +1,15 @@
 # General
 
 1. [App Developer Account](#app-developer-account)
-2. [App Apply](#app-apply)
-3. [App File Requirements](#app-file-requirements)
-4. [Setting The Location](#app-the-location)
-5. [API](#api)
-6. [Security and Authentication](#security-and-authentication)
-7. [Rate Limits](#rate-limits)
-8. [Error Manage](#error-manage)
-9. [Response Format](#response-format)
+2. [Marketplace](#marketplace)
+3. [App Apply](#app-apply)
+4. [App File Requirements](#app-file-requirements)
+5. [Setting The Location](#app-the-location)
+6. [API](#api)
+7. [Security and Authentication](#security-and-authentication)
+8. [Rate Limits](#rate-limits)
+9. [Error Manage](#error-manage)
+10. [Response Format](#response-format)
 
 ## App Developer Account
   Comm100专门为App开发者新增一套Developer账号系统，该系统基于现有系统进行身份验证，可以直接将Comm100的现有账号升级为Developer账号。通过Developer可以：
@@ -16,6 +17,9 @@
   - 开发共有App并注册到Comm100的Marketplace供其他的客户安装及使用
   - 在Marketplace中维护自己开发的App的基本信息
   - 查看App的安装、使用报表
+
+## Marketplace
+  App开发者可以将自己的App设置为公有的，申请发布到Comm100 Marketplace中，Comm100审核通过后，客户可以在这个Marketplace中发现该App并将他们安装到自己的Comm100产品中。  
 
 ## App Apply
   Developer在开发App之前必须先通过Comm100提供的页面申请App的访问权限，才能进行Api调用。通过提供`AppName`、`CompanyName`、`AppIdentity`等信息获取到下面的信息
@@ -75,7 +79,12 @@
   1.Comm100的身份认证  
   - Restful API 
 
-    Comm100对于Restful的Api采取标准的[OAuth2.0](#oauth2.0)的方式对调用者进行身份验证。Developer可以通过[App Apply](#app-apply)中获取的`client_secret`来换取`Access_token`进行Api的调用。  
+    Comm100对于Restful的Api采取标准的OAuth2.0的方式对调用者进行身份验证。Developer可以通过[App Apply](#app-apply)中获取的`client_secret`来换取`Access_token`进行Api的调用，格式如下：  
+
+  
+  ```json
+    "Authorization": "bearer {access_token}"
+  ```
 
   - Agent Console和Control Panel API  
 
@@ -97,8 +106,8 @@
 
 
   3.用户系统对访客的身份认证  
-  - Visitor Property  
-    Comm100的访客对象中包含SSO标志和Custom Variable，可以通过这些属性来判断当前访客的登录状态或信息。
+  - Visitor Properties  
+    Comm100的访客对象中包含SSO标志和Custom Variable，可以通过这些属性来获取当前访客的登录状态信息。
 
 ### JSON Web Token
   JSON Web Token简称[JWT](http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html)，是一种紧凑的URL安全方法，用于在网络通讯的双方之间传递。Comm100的JWT Token包含下面主要属性，用户可以通过这些属性来对这个请求进行验证。
@@ -110,7 +119,7 @@
   - `nbf` -时间戳，JWT的生效开始时间，在此之前JWT无效
 
 ### 处理JWT Token
-  - 一旦[启用JWT Token]()，Comm100会做如下的事情：
+  - 一旦启用JWT Token，Comm100会做如下的事情：
       + 将请求类型由GET变为POST
       + 在POST请求中包含一个`token`字段，这个`token`包含JWT Token的信息  
 
@@ -132,18 +141,11 @@
     aud = jwt_claims.aud;    //如：myApp.com
   ```  
 
-
 ### Get app public key
   可以通过`client_secret`，访问下面的API来获取App的公钥。开发者可以使用这个公钥来识别某个特定的请求是否是来自Comm100的合法请求。
 
   ```javascript
     Get /api/v1/apps/public_key
-  ```
-
-### OAuth2.0
-  OAuth2.0采用了OAuth2.0标准协议来进行用户身份验证和获取用户授权，其认证流程简单、安全。开发者需要在自己的请求头中指定`access_token`，格式如下：
-  ```json
-    "Authorization": "bearer {access_token}"
   ```
 
 ## Rate Limits
