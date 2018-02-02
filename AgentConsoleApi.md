@@ -48,7 +48,6 @@
 
 - Actions
   + `open` -弹出一个窗口
-  + `close`
     
 ```javascript
   const popupWindow = {
