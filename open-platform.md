@@ -43,7 +43,7 @@
 
   ```json
   "location": {
-    "agentConsole_topbar": "/assets/index.html"
+    "agentConsole_topBar": "/assets/index.html"
   }
   ```
   所有可用位置可以查看[location](https://github.com/hgq719/docs/blob/master/ManifestReference.md#location)。  
