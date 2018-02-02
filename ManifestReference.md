@@ -14,8 +14,8 @@
   "frameworkVersion": "1.0",  //Comm100API框架版本
   "signedUrls": "false",    //指定是否所有页面都需要添加JWT，让开发者通过JWT来校验location中配置的页面接收的请求是否来自Comm100 
   "location": {            //App的安装位置
-    "controlPanel_topBar": "/manage/index.html",
-    "agentConsole_chatSideBar": "/sidebar/index.html"
+    "controlPanel_topBar": "/assets/cp_topBar.html",
+    "agentConsole_chatSideBar": "/assets/ac_chatSideBar.html"
   },
   "settings":{            //App配置页面
     "url": "assets/settings.html"
