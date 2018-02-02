@@ -79,7 +79,7 @@
   1.Comm100的身份认证  
   - Restful API 
 
-    Comm100对于Restful的Api采取标准的OAuth2.0的方式对调用者进行身份验证。Developer可以通过[App Apply](#app-apply)中获取的`client_secret`来换取`Access_token`进行Api的调用，格式如下：  
+    Comm100对于Restful的Api采取标准的[OAuth2.0](#oauth-authorization)的方式对调用者进行身份验证。Developer可以通过[App Apply](#app-apply)中获取的`client_secret`来换取`Access_token`进行Api的调用，格式如下：  
 
   
   ```json
@@ -108,6 +108,99 @@
   3.用户系统对访客的身份认证  
   - Visitor Properties  
     Comm100的访客对象中包含SSO标志和Custom Variable，可以通过这些属性来获取当前访客的登录状态信息。
+
+### OAuth Authorization
+  为了实现OAuth授权，开发者必须在自己的应用中增加以下功能：
+  - [发送Comm100授权页面给用户](#send-authorization-page)
+  - [处理用户授权](#handle-authorization-decision)
+  - [从Comm100获取access_token](#get-access-token)
+  - [使用access_token调用API](#call-api)
+
+#### Send Authorization Page
+  开发者需要通过下面的API来向Comm100发起一个授权请求。
+
+  `GET https://hosted.comm100.com/api/v1/livechat/oauth/authorizations/new`
+
+  Request Parameters:
+  - response_type -默认证`code`，Comm100会根据要求返回一个Authorization Code，必须指定。
+  - redirect_url -指定用户授权以后的重定向页面，该url必须是一个绝对地址。必须指定。
+  - client_id -App申请时给定的唯一id，必须指定。
+  - scope -指定Comm100资源的访问权限列表，包括`read`、`write`，还可以指定访问特定的资源或所有资源，具体参考[Request Scope Setting](#request-scope-setting)，必须指定。
+
+##### Request Scope Setting
+  开发者可以指定`Scope`来控制App对Comm100资源的访问。`read`指定App有权限使用`GET`方式请求终端接口，`write`指定App有权限使用`POST`、`PUT`和`DELETE`方式请求终端接口来创建、更新和删除资源。可以同时给予两种`scope`设置，如：
+  `scope=read write`
+
+  另外，开发者还可以对特定的资源进行授权范围的设置，资源如下：
+  - visitor
+  - operater
+  - chat
+  - offlineMessage
+  - department
+
+
+  设置语法如下：`scope=resource:scope`,不指定资源则标识针对所有资源有效。
+  单个资源请求设置如下： 
+
+
+  `scope=offlineMessage:read`
+
+
+  多个资源的请求设置如下：
+
+
+  `scope=visitor:read visitor:write offlineMessage:read`
+
+#### Handle Authorization Decision
+  当用户做出授权决策以后，开发者必须处理这个响应。如果用户决定授权给应用来访问自己在Comm100的资源，Comm100将在重定向页面地址后添加一个授权码，如：
+  
+  `{redirect_url}?code=98asjdfka1729`
+
+  如果用户拒绝授权给应用，Comm100则会在后面加上错误信息，如:
+
+  `{redirect_url}?error=access_denied&error_message=****`
+
+#### Get Access Token
+  开发者在收到Comm100给的`authorization_code`以后，可以通过下面的API来交换`access_token`。
+
+  `POST https://hosted.comm100.com/api/v1/livechat/oauth/token`
+
+  Request Parameters:
+  - grant_type -指定授权类型，默认值为`authorization_code`，必须指定。
+  - code -指定上面得到的`authorization_code`的值，必须指定。
+  - client_id -App申请时给定的唯一id，必须指定。
+  - client_secret -App申请时给定的client_secret，必须指定。
+  - redirect_url -授权完成后重定向页面，该url必须是一个绝对地址。必须指定。
+  - scope -指定访问权限，默认值为`read`
+
+  Request示例：
+  ```json
+    {
+      "grant_type": "authorization_code",
+      "code": "{authorization_code}",
+      "client_id": "{client_id}",
+      "client_secret" : "{client_secret}",
+      "redirect_url":"{redirect_url}",
+      "scope": "read"
+    }
+  ```
+  Response示例：
+  ```json
+    Status: 200 OK
+
+    {
+      "access_token":"yhoaHL698huysOhs6a8e9HhoKdL",
+      "token_type": "bearer",
+      "scope": "read"
+    }
+  ```
+
+#### Call API
+  开发者可以通过上面获取的`access_token`来进行API调用，格式如下：  
+
+  ```json
+    "Authorization": "bearer {access_token}"
+  ```
 
 ### JSON Web Token
   JSON Web Token简称[JWT](http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html)，是一种紧凑的URL安全方法，用于在网络通讯的双方之间传递。Comm100的JWT Token包含下面主要属性，用户可以通过这些属性来对这个请求进行验证。
