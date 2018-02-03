@@ -79,20 +79,19 @@
   1.Comm100的身份认证  
   - Restful API 
 
-    Comm100对于Restful的Api采取标准的[OAuth2.0](#oauth-authorization)的方式对调用者进行身份验证。Developer可以通过[App Apply](#app-apply)中获取的`client_secret`来换取`Access_token`进行Api的调用，格式如下：  
-
-  
-  ```json
-    "Authorization": "bearer {access_token}"
-  ```
+    Comm100对于Restful的Api采取标准的OAuth2.0的方式对调用者进行身份验证，具体方式参考[Auth Authorization](#oauth-authorization)。  
+    
 
   - Agent Console和Control Panel API  
 
-    这两端的JS开放的Api只能在Agent登录的情况下才能进行调用，而Developer开发的嵌入在Comm100的iframe中的页面就只能让用户在当前用户和当前App的身份下进行Api的调用，不做额外的身份验证。  
+    这两端的JS开放的Api只能在Agent登录的情况下才能进行调用，而Developer开发的嵌入在Comm100的iframe中的页面就只能让用户在当前用户和当前App的身份下进行Api的调用，不做额外的身份验证。
+
+
   - Visitor Side Javascript  
 
     该端开放的Api只能让用户操作访客端前端的一些UI或者event交互，涉及的数据都是当前访客的数据，不涉及到受限的资源，不做身份验证。  
     
+
   - 后台权限配置   
   
     通过该配置，Site Manager能对一些特定的功能进行相应的权限配置，如配置App的配置界面只有Site Manager才有权限访问。
@@ -100,7 +99,9 @@
 
   2.Developer对Comm100的身份认证  
   - User Meta  
-    Agent Console和Control Panel只有在用户登录的情况下才能进行操作，Developer可通过Comm100提供的Api来获取User Meta(当前登录用户的元数据信息)，从元数据中获取当前用户的身份信息来进行身份验证。
+    Agent Console和Control Panel只有在用户登录的情况下才能进行操作，Developer可通过Comm100提供的Api来获取User Meta(当前登录用户的元数据信息)，从元数据中获取当前用户的身份信息来进行身份验证，若开发者需要在自己的App页面中请求远程托管服务，可通过[获取JWT Token](#get-jwt-api)来对该请求进行身份验证。  
+
+
   - [JSON Web Token](#json-web-token)  
     安装在Comm100产品中的App能包含一个由开发者远程托管的的页面，该页面会加载在Comm100的某一个特定的iframe中。当打开Comm100产品中的app的时候，Comm100必须去请求这个远程托管的原始页面，为了帮助开发者对这个请求进行验证，Comm100可以在这个请求中加入JSON Web Token，开发者的远程托管页面可以通过这个JWT来验证当前请求是否是来自于一个Comm100的合法请求。
 
@@ -119,7 +120,7 @@
 #### Send Authorization Page
   开发者需要通过下面的API来向Comm100发起一个授权请求。
 
-  `GET https://hosted.comm100.com/api/v1/livechat/oauth/authorizations/new`
+  `GET https://hosted.comm100.com/api/v1/livechat/oauth/authorizations`
 
   Request Parameters:
   - response_type -默认证`code`，Comm100会根据要求返回一个Authorization Code，必须指定。
@@ -198,9 +199,7 @@
 #### Call API
   开发者可以通过上面获取的`access_token`来进行API调用，格式如下：  
 
-  ```json
-    "Authorization": "bearer {access_token}"
-  ```
+  `Authorization": "bearer {access_token}"`
 
 ### JSON Web Token
   JSON Web Token简称[JWT](http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html)，是一种紧凑的URL安全方法，用于在网络通讯的双方之间传递。Comm100的JWT Token包含下面主要属性，用户可以通过这些属性来对这个请求进行验证。
@@ -211,10 +210,17 @@
   - `iat` -时间戳，JWT的签发时间
   - `nbf` -时间戳，JWT的生效开始时间，在此之前JWT无效
 
-### 处理JWT Token
+### Get JWT API
+  开发者也可以从下面的Agent Console的Api中直接获取当前App的JWT信息直接作为自己远程服务调用的token使用，开发者远程托管的服务中就可以通过这个token来对该请求的身份进行验证，具体验证过程可参考[Handle JWT](#hanle-jwt-token)中的Token校验。
+
+  `Comm100AgentConsoleAPI.get('agentconsole.app.jwt');`
+  
+
+### Handle JWT Token
   - 一旦启用JWT Token，Comm100会做如下的事情：
       + 将请求类型由GET变为POST
       + 在POST请求中包含一个`token`字段，这个`token`包含JWT Token的信息  
+
 
   - 为了完成验证，开发者需要完成以下的事情：
       + 处理当前的POST请求
@@ -237,9 +243,7 @@
 ### Get app public key
   可以通过`client_secret`，访问下面的API来获取App的公钥。开发者可以使用这个公钥来识别某个特定的请求是否是来自Comm100的合法请求。
 
-  ```javascript
-    Get /api/v1/apps/public_key
-  ```
+  `Get /api/v1/apps/public_key`
 
 ## Rate Limits
   - API允许同一时刻的并发数量限制。
