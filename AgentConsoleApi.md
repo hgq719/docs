@@ -7,19 +7,20 @@
   - [PopupWindow Object](#popupwindow-object)
   - [HeadTag Object](#headtag-object)
   - [ToolItem Object](#toolitem-object)
+  - [App Object](#app-object)
 
 ### Chat Object
 #### currentChat
 - Properties
-   + `currentChat.headTags` -当前聊天的访客的所有tag对象集合
-   + `currentChat.toolItems` -当前聊天的toolItem对象集合
+   + `currentChat.currentApp.customHeadTags` -当前聊天访客、当前App的所有自定义tag对象集合
+   + `currentChat.currentApp.customToolBarItems` -当前聊天、当前App的所有自定义toolBarItem对象集合
 
 - Actions
-   + `get` -获取当前访客的所有Tag/ToolItem对象
-   + `set` -设置当前访客的Tag/ToolItem对象
+   + `get` -获取当前App的所有自定义Tag/ToolItem对象
+   + `set` -设置当前App自定义Tag/ToolItem对象
 
 ```javascript
-  var headTags = Comm100AgentConsoleAPI.get("agentconsole.currentChat.headTags");
+  var headTags = Comm100AgentConsoleAPI.get("agentconsole.currentChat.currentApp.customHeadTags");
 
   const newHeadTag = {
     name: "myHeadTag",
@@ -27,7 +28,7 @@
     tip: "myHeadTag"
   }
   headTags.add(newHeadTag);
-  Comm100AgentConsoleAPI.set("agentconsole.currentChat.headTags",headTags);
+  Comm100AgentConsoleAPI.set("agentconsole.currentChat.currentApp.customHeadTags",headTags);
 ```
 
 ### PopupWindow Object
@@ -47,7 +48,7 @@
 
 
 - Actions
-  + `open` -弹出一个窗口
+  + `create` -弹出一个窗口
     
 ```javascript
   const popupWindow = {
@@ -60,7 +61,7 @@
       url: "https://****.html"
   }
 
-  Comm100AgentConsoleAPI.do("agentconsole.popupWindow.open",popupWindow);
+  Comm100AgentConsoleAPI.do("agentconsole.popupWindow.create",popupWindow);
 ```
 
 ### HeadTag Object
@@ -79,36 +80,58 @@
 ```
 
 - Events
-  + `headTag.actived` -当点击headTag的时候触发
+  + `customeHeadTag.actived` -当点击当前App的自定义headTag的时候触发
 
 ```javascript
-    Comm100AgentConsoleAPI.on("agentconsole.headTag.actived",function(headTag){
+    Comm100AgentConsoleAPI.on("agentconsole.customeHeadTag.actived",function(headTag){
         if("myHeadTag" == headTag.name){
             //handler code
         }
     });
 ``` 
 
-### ToolItem Object
+### ToolBarItem Object
   Agent Console的聊天页面中聊天窗口中间的ToolBar里面的对象。
   - Properties
-    + `toolItem.name` -toolItem对象的名称
-    + `toolItem.icon` -toolItem对象的图标
+    + `toolBarItem.name` -toolBarItem对象的名称
+    + `toolBarItem.icon` -toolBarItem对象的图标
 
 ```javascript
-  const toolItem = {
-      name: "myToolItem",
+  const toolBarItem = {
+      name: "myToolBarItem",
       icon: "https://***.ico"
   }
 ```
 
 - Events
-  + `toolItem.actived` -当点击toolItem的时候触发
+  + `customToolBarItem.actived` -当点击toolItem的时候触发
 
 ```javascript
-    Comm100AgentConsoleAPI.on("agentconsole.toolItem.actived",function(toolItem){
-        if("myToolItem" == toolItem.name){
+    Comm100AgentConsoleAPI.on("agentconsole.customToolBarItem.actived",function(toolBarItem){
+        if("myToolBarItem" == toolBarItem.name){
             //handler code
         }
     });
 ``` 
+
+### App Object
+  Agent Console中的App对象。
+  - Properties
+    + `metadata` -Site级别的App元数据信息，保存数据的格式为json格式
+    + `agent.metadata` -Agent级别的App元数据信息
+    - `object.{objectName}` -App中导入的外部对象的值，其中objectName为导入的外部对象的名称
+
+  - Actions
+    + `get` -获取当前App对象的属性
+    + `set` -设置当前App对象的属性
+
+    
+```javascript
+  var appMetadata = Comm100AgentConsoleAPI.get("app.metadata");
+
+  const metadata = {  //自定义json对象
+    name: "firstCustomField",
+    type: "customValue"
+  }
+  Comm100AgentConsoleAPI.set("app.metadata",metadata);
+```
