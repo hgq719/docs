@@ -118,7 +118,7 @@
    ```
 
 ## signedUrls
-  指定页面是否需要添加JSON Web Token(JWT)，让开发者通过JWT来校验打开location中配置的页面的请求是否来自Comm100。默认值为`false`。当前属性只适用于远程托管的页面，不适用于由Comm100托管的页面。   
+  指定页面是否需要添加JSON Web Token(JWT)，让开发者通过JWT来校验打开location中配置的页面的请求是否来自Comm100，具体流程可参考[JSON Web Token](https://github.com/hgq719/docs/blob/master/open-platform.md#json-web-token)  。默认值为`false`。当前属性只适用于远程托管的页面，不适用于由Comm100托管的页面。   
   开发者可以通过`signedUrls`属性来设置是否对所有App中所有页面启用JWT。
 
   ```json
