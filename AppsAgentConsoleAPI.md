@@ -194,14 +194,16 @@ Methods
 
 ### Core Properties
   - [instances](#instances-property)
+  - [customHeadTags](#customheadtags-property)
+  - [customToolBarItems](#customtoolbaritems-property)
 
 #### Instances Property
-  表示App的所有正在运行的实例，每一个iframe都是一个实例。同一个App在Manifest中定义了多个位置，则这个App就存在多个App Instance。
+  表示App的所有正在运行的实例，每一个iframe都是一个实例，返回一个`promise`对象。同一个App在Manifest中定义了多个位置，则这个App就存在多个App Instance。
 
   get
   
   ```javascript
-    var instancesData = client.get('instances').then(function(instancesData){
+    client.get('instances').then(function(instancesData){
         console.log(instancesData);
         /*
         {
@@ -213,6 +215,55 @@ Methods
         }
          */
     });
+  ```
+
+#### CustomHeadTags Property
+  表示在Agent Console的聊天区域的头部，App的所有自定义HeadTag集合，返回一个`promise`对象。
+
+  get
+
+  ```javascript
+    client.get('customHeadTags').then(function(headTags){
+            //handler code
+     });
+  ```
+  
+  set
+
+  ```javascript
+    const newHeadTag = {
+        name: "myHeadTag",
+        icon: "https://***.ico",
+        tip: "myHeadTag"
+    };
+
+    client.set('customHeadTags', headTags).then(function(){
+            //handler code
+     });
+  ```
+
+#### CustomToolBarItems Property
+  表示在Agent Console的聊天区域的toolBar区域，App的所有自定义toolBarItem集合，返回一个`promise`对象。
+
+  get
+
+  ```javascript
+    client.get('customToolBarItems').then(function(toolBarItem){
+            //handler code
+     });
+  ```
+  
+  set
+
+  ```javascript
+    const toolBarItem = {
+        name: "myToolBarItem",
+        icon: "https://***.ico"
+    }
+
+    client.set('customToolBarItems', toolBarItem).then(function(){
+            //handler code
+     });
   ```
 
 ### Core Actions
