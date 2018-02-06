@@ -27,10 +27,9 @@ Methods
   - context
   - get
   - instance
-  - invoke
+  - do
   - on
-  - addEvent
-  - removeEvent
+  - off
   - set
   - trigger
 
@@ -77,12 +76,12 @@ Methods
     var otherClient = Comm100AgentConsoleAPI.instance("013B7322-6895-F01E-5EAE-F4DF50016AF5");
   ```
 
-### client.invoke(Name [,...args])
+### client.do(Name [,...args])
   调用`name`标识的操作，根据要求传递参数，返回一个`promise`对象。
   
   ```javascript
     var client = Comm100AgentConsoleAPI.init();
-    client.invoke("preload").then(function(){
+    client.do("preload").then(function(){
         //handler code
     });
   ```
@@ -98,24 +97,23 @@ Methods
   });
   ```
 
-### client.removeEvent(hame handler)
+  也可以通过`on`给当前实例添加一个`name`事件。
+
+  ```javascript
+  var client = Comm100AgentConsoleAPI.init();
+
+  client.on("comming_call",function(){
+      //handler code
+  });
+  ```
+
+### client.off(hame handler)
   给当前实例移除一个`name`事件。
 
   ```javascript
   var client = Comm100AgentConsoleAPI.init();
 
-  client.removeEvent("comming_call",function(){
-      //handler code
-  });
-  ```
-
-### client.addEvent(hame handler)
-  给当前实例增加一个`name`事件。
-
-  ```javascript
-  var client = Comm100AgentConsoleAPI.init();
-
-  client.addEvent("comming_call",function(){
+  client.off("comming_call",function(){
       //handler code
   });
   ```
@@ -137,7 +135,7 @@ Methods
   ```javascript
     var client = Comm100AgentConsoleAPI.init();
 
-    client.addEvent("comming_call",function(){
+    client.on("comming_call",function(){
         //handler code
     });
 
@@ -274,7 +272,7 @@ Methods
   重新设置App所在的iframe的页面大小，大小规格中的`width`和`height`可以是`px`、`%`或`vw/vh`。
 
   ```javascript
-    client.invoke("resize",{
+    client.do("resize",{
         width: "300px",
         height:"200px"
     });
@@ -284,7 +282,7 @@ Methods
   创建一个App的实例，实例属性包含`location`和`instance_id`两个属性，其中`instance_id`属性不指定时，Comm100将自动生成一个实例id，推荐不指定该属性。
 
   ```javascript
-    client.invoke("instance.create",{
+    client.do("instance.create",{
         "location": "agentConsole_topBar",
         "instance_id": "013B7322-6895-F01E-5EAE-F4DF50016AF5" //建议不指定id，让系统自动生成
     });
@@ -370,14 +368,14 @@ Methods
  `hide` -隐藏当前app的实例
 
  ```javascript
- client.invoke("hide");
+ client.do("hide");
  ```
 
  #### Show Action
  `show` -显示当前app的实例
 
  ```javascript
- client.invoke("show");
+ client.do("show");
  ```
 
 #### Notify Action
@@ -409,7 +407,7 @@ Methods
     }
   }
 
-  client.invoke("notify",notification);
+  client.do("notify",notification);
 ```
 
 #### Popup Action
@@ -437,10 +435,69 @@ Methods
       url: "https://****.html"
   }
 
-  client.invoke("popup",popupWindow);
+  client.do("popup",popupWindow);
 ```
 
 ## Agent Console TopBar
+  指定将App安装在Agent Console的头部全局菜单区域，呈现的方式是一个icon图标，点击该图标即可打开App。当App第一次被打开的时候，Comm100会在Dom中添加一个`Pane`容器，容器中展示的即为用户配置的地址的页面内容。
+
+  ```json
+  "location": {
+    "agentConsole_topBar": "/assets/topBar.html"
+  }
+  ```
+
+#### TopBar Actions
+  在Control Panel的TopBar中，app可执行下面的动作：
+  - [popover](#popover-action)
+  - [preloadPane](#preloadpane-action)
+
+##### Popover Action
+  开发者可通过`popover`的API来显示、隐藏topBar App窗口或调整窗口的大小。
+
+ popover Properties
++ `size`-弹出区域的大小
+    * `width`-弹出区域的宽度
+    * `height`-弹出区域的高度
++ `visible`-弹出窗口的显示状态: show/hide 默认show
+
+ ```javascript
+  client.do("popover",{
+      width: 300,
+      height: 200
+  });
+
+  client.do("popover","show");
+ ```
+
+##### PreloadPane Action
+  在TopBar App还没有被打开过的情况下，`Pane`容易还没有被加载到Dom中来，开发者可通过`preloadPane`的API来预加载`Pane`。
+
+  ```javascript
+    client.do("preloadPane");
+  ```
+
+#### TopBar Events
+  在Control Panel的TopBar中，app可使用的下面的事件：
+  - [pane.activated](#topbar-pane-activated)
+  - [pane.deactivated](#topbar-pane-deactivated)
+
+##### TopBar pane.activated
+  可通过下面的API来设置在pane激活的时候需要做的事情。
+
+  ```javascript
+    client.on("pane.activated", function(){
+      //handler code
+    }
+  ```
+
+##### TopBar pane.deactivated
+  可通过下面的API来设置在pane取消激活的时候需要做的事情。
+
+  ```javascript
+    client.on("pane.deactivated", function(){
+      //handler code
+    }
 
 ## Agent Console NavigationBar
 
