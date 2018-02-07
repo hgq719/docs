@@ -228,15 +228,15 @@ Methods
   ```
 
 #### Instance Create Action
-  创建一个App的实例，实例属性包含`location`和`instance_id`两个属性，其中`instance_id`属性不指定时，Comm100将自动生成一个实例id，推荐不指定该属性。
+  创建一个App的实例，实例属性包含`location`、`url`和`instance_id`三个属性，其中`instance_id`属性不指定时，Comm100将自动生成一个实例id，推荐不指定该属性。
 
   ```javascript
     client.do("instance.create",{
-        "location": "agentConsole_topBar",
-        "instance_id": "013B7322-6895-F01E-5EAE-F4DF50016AF5" //建议不指定id，让系统自动生成
+        location: "agentConsole_topBar",
+        instance_id: "013B7322-6895-F01E-5EAE-F4DF50016AF5", //建议不指定id，让系统自动生成
+        url:"****.html"
     });
   ```
-
 
 ## Agent Console Location
   Comm100在Agent Console端提供了可用的事件、对象、属性及操作，开发者可以使用这些来开发自己的App。每一个App实例都存在于Agent Console的某一个位置接口的iframe中，这些位置都定义了：
@@ -251,6 +251,7 @@ Methods
   - [agentConsole chat toolBar](#agent-console-chat-toolBar) -Agent Console的聊天页面中间的toolBar区域。
   - [agentConsole navigationBar](#agent-console-navigations) -Agent Console的左侧列表菜单区域。
   - [agentConsole chatSideBar](#agent-console-chatsidebar) -Agent Console的聊天窗口的右侧区域。
+  - [agentConsole modal](#agent-console-modal) -Agent Console中配置一个模态窗口的形式的页面。
   - [agentConsole background](#agent-console-background) -Agent Console中以后台形式(不显示UI)启动的页面。
 
 
@@ -266,7 +267,6 @@ Methods
 
   Additional actions
   - [notify](#notify-action)
-  - [popup](#popup-action)  
 
 ### Agent Object
   `currentAgent` -当前登录的agent对象
@@ -305,57 +305,24 @@ Methods
  `notify` -发送一个通知
 
   Notification Properties
-+ `body` -通知的消息主体内容
-+ `renotify` -是否替换之前的通知
-+ `sound`-通知声音
-+ `location`-通知区域
-  * `notificationArea` -是否显示右下角通知区域显示通知
-  * `navigationBar` -是否在左侧List菜单区域显示通知
-  * `topBar` -是否在右上角全局菜单区域显示通知
++ `message` -通知的消息主体内容
++ `duration` -通知的持续显示时间，默认3秒
++ `sticky`-通知是否一直显示，直到用户点击关闭才消息的标志。`true/false`，默认为`false`，即消息不会一直显示。
++ `type`-通知类型
+  * `notice` -普通通知
+  * `warning` -警告
+  * `error` -错误
 
  ```javascript
   // body struct
   const notification =  {
-    body: "there is a phone call for you!",
-    icon: "***.ico",
-    renotify: "true", //是否替换之前的通知
-    sound: "https://***/call.mp3" ,  //来电声音
-    location: {      
-      notificationArea: true,    //右下角通知区域闪动，点击后激活AgentConsole
-      navigationBar: true,       //左侧List菜单区域，点击后打开Manifest中配置的list页面
-      topBar: true               //右上角全局菜单区域，点击后打开Manifest中配置的菜单页面
-    }
+    message: "there is a phone call for you!",
+    duration: 4,
+    sticky: false, 
+    type: "notice" 
   }
 
   client.do("notify",notification);
-```
-
-#### Popup Action
- `popup` -打开一个弹出窗口。
-
- PopupWindow Properties
-+ `name` -弹出窗口的名称
-+ `title` -弹出窗口的标题
-+ `size`-弹出区域的大小
-    * `width`-弹出区域的宽度
-    * `height`-弹出区域的高度
-+ `location`-弹出区域位置：TopRight/Center/BottomRight/绝对位置对象{left/right:10px; top/bottom:10px} ,默认值为Center，即页面中间位置
-+ `ifmodal`-是否是模态窗口：true/false 默认false
-+ `visible`-弹出窗口的显示状态: true/false 默认true
-+ `url` -弹出窗口展示的内容地址
-
- ```javascript
-  const popupWindow = {
-      name: "myPopup",
-      title: "popupTitle",
-      size: {
-          width:  300,
-          height: 200
-      },
-      url: "https://****.html"
-  }
-
-  client.do("popup",popupWindow);
 ```
 
 ## Agent Console TopBar
@@ -804,6 +771,54 @@ Properties
   ```javascript
     client.on('chats.chatStart',function(visitor){
         //handler code
+    });
+  ```
+
+## Agent Console Modal
+  开发者可通过[instance.create](#instance-create-action)指定其`location`参数为`agentConsole_modal`来创建一个模态窗口实例。
+
+  ```javascript
+    client.do("instance.create",{
+        location: "agentConsole_modal",
+        url:"*****.html"
+    }).then(function(modalContext){
+        //模态窗口直接显示出来
+        var modalClient = client.instance(modalContext.instanceId);
+        modalClient.on("modal.close",function(){
+            //关闭当前模态窗口时需要进行的处理
+        });
+    });
+  ```
+### Modal Actions
+  -[resize](#modal-resize-action)
+  -[close](#modal-close-action)
+
+#### Modal Resize Action
+  开发者可通过此方法来修改模态窗口的大小。
+
+  ```javascript
+    client.do("resize",{
+        width: "60vw",
+        height: "50vh"
+    });
+  ```
+
+#### Modal Close Action
+  开发者可通过此方法来关闭当前模态窗口。
+
+  ```javascript
+    client.do("close",);
+  ```
+
+### Modal Events
+  -[modal.close](modal-close-event)
+
+#### Modal Close Event
+  开发者可以在模态窗口关闭的时候指定需要进行的处理。
+
+  ```javascript
+    Client.on("modal.close",function(){
+      //关闭当前模态窗口时需要进行的处理
     });
   ```
 
