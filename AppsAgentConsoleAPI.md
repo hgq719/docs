@@ -267,7 +267,7 @@ Methods
 
   Additional actions
   - [notify](#notify-action)
-  - [routeTo](#routeTo-action)
+  - [routeTo](#routeto-action)
 
 ### Agent Object
   `currentAgent` -当前登录的agent对象
@@ -332,7 +332,8 @@ Methods
   Arguments
 + `tabType` -tab的类型，默认值为`navigationBar`
 + `tabName` -打开tab的名称，目前包括`Visitors`、`MyChats`、`Agents`和自定义的tab。
-+ `appSection`-可选参数，目前在`tabName=Mychats`时有效，可设置为访客名称定位到对应访客的聊天。
++ `appSection`-可选参数，目前在`tabName=Mychats`时有效，可设置为访客名称定位到对应访客的聊天
+。
 
  ```javascript
   client.do("routeTo","navigationBar","MyChats","kim");
