@@ -745,16 +745,81 @@ Properties
 ```
 
 ### ChatSideBar Events
-  在Control Panel的ChatSideBar中，app可使用的下面的事件：
-  - [Chat Events](#chatsidebar-chat-events)
-
-#### ChatSideBar Chat Events
   在ChatSideBar中，对于聊天对象可用的事件如下：
-  - `chats.chatStart` -聊天开始的时候
-  - `chats.chatEnd` -聊天结束的时候
-  - `currentChat.submitWrapup` -当前聊天提交Wrapup的时候
+  - [chats.chatStart](#chats-start)
+  - [chats.chatEnd](#chats-end)
+  - [Chats.selectChange](#chats-select-change)` 
+  - [currentChat.submitWrapup](#chat-submit-Wrapup)`
+  - [currentChat.receiveVisitorMessage](#chat-receive-visitor-message)`
+  - [currentChat.visitor.status.change](#visitor-status-change)
 
+#### Chats Start
+  `chats.chatStart`事件发生在聊天开始的时候，开发者可以通过该事件指定需要在聊天开始的时候所做的事情，该事件的处理程序接收一个[Chat](#chat-object)对象。
 
+  ```javascript
+    client.on('chats.chatStart',function(chat){
+        //handler code
+    });
+  ```
+
+#### Chats End
+  `chats.chatEnd`事件发生在聊天结束的时候，开发者可以通过该事件指定需要在聊天结束的时候所做的事情，该事件的处理程序接收一个[Chat](#chat-object)对象。
+
+  ```javascript
+    client.on('chats.chatEnd',function(chat){
+        //handler code
+    });
+  ```
+  
+#### Chats Select Change
+  `chats.selectChange`事件发生在聊天选择变更的时候，开发者可以通过该事件指定需要在聊天选择变更的时候所做的事情，该事件的处理程序接收一个[Chat](#chat-object)对象。
+
+  ```javascript
+    client.on('chats.selectChange',function(chat){
+        //handler code
+    });
+  ``` 
+
+#### Chat Submit Wrapup
+  `currentChat.submitWrapup`事件发生在聊天提交Wrapup的时候，开发者可以通过该事件指定需要在聊天提交Wrapup的时候所做的事情，该事件的处理程序接收一个[Chat](#chat-object)对象。
+
+  ```javascript
+    client.on('currentChat.submitWrapup',function(chat){
+        //handler code
+    });
+  ``` 
+
+#### Chat Receive Visitor Message
+  `currentChat.receiveVisitorMessage`事件发生在当前聊天接收到访客信息的时候，开发者可以通过该事件指定需要在当前聊天接收到访客信息的时候所做的事情，该事件的处理程序接收一个`message`字符串。
+
+  ```javascript
+    client.on('currentChat.receiveVisitorMessage',function(message){
+        //handler code
+    });
+  ``` 
+
+#### Visitor Status Change
+  `currentChat.visitor.status.change`事件发生在当前聊天的访客状态发生变更的时候，开发者可以通过该事件指定需要在聊当前聊天的访客状态发生变更的时候所做的事情，该事件的处理程序接收一个[Visitor](#visitor-object)对象。
+
+  ```javascript
+    client.on('chats.chatStart',function(visitor){
+        //handler code
+    });
+  ```
 
 ## Agent Console Background
-  
+  指定App在Agent Console中以后台形式(不显示UI)启动的页面，一般用于App初始化或持续运行的一些服务。
+
+  ```json
+  "location": {
+    "agentConsole_background": "/assets/agentConsole_initial.html"
+  }
+  ```
+
+### Agent Console Background Events
+  除了框架本身的一些[核心事件](#core-events)外，在Agent Console的Background中还可以使用下面的事件来进行App的开发。
+  - [chats.chatStart](#chats-start)
+  - [chats.chatEnd](#chats-end)
+
+
+
