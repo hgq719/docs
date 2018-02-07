@@ -76,7 +76,7 @@ Methods
     var otherClient = Comm100AgentConsoleAPI.instance("013B7322-6895-F01E-5EAE-F4DF50016AF5");
   ```
 
-### client.do(Name [,...args])
+### client.do(name [,...args])
   调用`name`标识的操作，根据要求传递参数，返回一个`promise`对象。
   
   ```javascript
@@ -86,7 +86,7 @@ Methods
     });
   ```
 
-### client.on(hame handler)
+### client.on(name, handler)
   在当前实例指定的`name`事件时，执行handler事件。
 
   ```javascript
@@ -107,7 +107,7 @@ Methods
   });
   ```
 
-### client.off(hame handler)
+### client.off(name, handler)
   给当前实例移除一个`name`事件。
 
   ```javascript
@@ -267,6 +267,7 @@ Methods
 
   Additional actions
   - [notify](#notify-action)
+  - [routeTo](#routeTo-action)
 
 ### Agent Object
   `currentAgent` -当前登录的agent对象
@@ -302,7 +303,7 @@ Methods
 ### Additional Actions  
 
 #### Notify Action
- `notify` -发送一个通知
+ 发送一个通知
 
   Notification Properties
 + `message` -通知的消息主体内容
@@ -323,6 +324,18 @@ Methods
   }
 
   client.do("notify",notification);
+```
+
+#### RouteTo Action
+  直接定位到特定的Tab
+
+  Arguments
++ `tabType` -tab的类型，默认值为`navigationBar`
++ `tabName` -打开tab的名称，目前包括`Visitors`、`MyChats`、`Agents`和自定义的tab。
++ `appSection`-可选参数，目前在`tabName=Mychats`时有效，可设置为访客名称定位到对应访客的聊天。
+
+ ```javascript
+  client.do("routeTo","navigationBar","MyChats","kim");
 ```
 
 ## Agent Console TopBar
@@ -502,7 +515,7 @@ Methods
   ```
 
 ## Agent Console ChatSideBar
-  指定将App安装在Agent Console的聊天窗口的右侧SideBar中，呈现的方式是一个`tab`,，点击该tab激活app，在tab的下方展示app的内容。
+  指定将App安装在Agent Console的聊天窗口的右侧SideBar中，呈现的方式是一个`tab`，点击该tab激活app，在tab的下方展示app的内容。
 
 ```json
   "location": {
