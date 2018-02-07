@@ -790,8 +790,8 @@ Properties
     });
   ```
 ### Modal Actions
-  -[resize](#modal-resize-action)
-  -[close](#modal-close-action)
+  - [resize](#modal-resize-action)
+  - [close](#modal-close-action)
 
 #### Modal Resize Action
   开发者可通过此方法来修改模态窗口的大小。
@@ -811,7 +811,7 @@ Properties
   ```
 
 ### Modal Events
-  -[modal.close](modal-close-event)
+  - [modal.close](modal-close-event)
 
 #### Modal Close Event
   开发者可以在模态窗口关闭的时候指定需要进行的处理。
