@@ -24,18 +24,18 @@
 
 ## Client Object
 Methods
-  - context
-  - get
-  - instance
-  - do
-  - on
-  - off
-  - set
-  - trigger
+  - [context](#client-context)
+  - [get](#client-get)
+  - [instance](#client-instance)
+  - [do](#client-do)
+  - [on](#client-on)
+  - [off](#client-off)
+  - [set](#client-set)
+  - [trigger](#client-trigger)
 
 
-### client.context()
-  请求当前对象的上下文信息，包括当前实例的id、位置等信息，返回一个`promise`对象。
+### Client Context
+  `client.context()` -请求当前对象的上下文信息，包括当前实例的id、位置等信息，返回一个`promise`对象。
 
   ```javascript
     var client = Comm100AgentConsoleAPI.init();
@@ -51,8 +51,8 @@ Methods
     });
   ```
 
-### client.get(parameters)
-  获取当前参数对应的值，返回一个`promise`对象。
+### Client Get
+  `client.get(parameters)` -获取当前参数对应的值，返回一个`promise`对象。
 
   ```javascript
     var client = Comm100AgentConsoleAPI.init();
@@ -68,16 +68,16 @@ Methods
     });
   ```
 
-### client.instance(instanceId)
-  初始化一个App的另外一个位置实例，用在实例间信息交互的时候。
+### Client Instance
+  `client.instance(instanceId)` -初始化一个App的另外一个位置实例，用在实例间信息交互的时候。
 
   ```javascript
     var client = Comm100AgentConsoleAPI.init();
     var otherClient = Comm100AgentConsoleAPI.instance("013B7322-6895-F01E-5EAE-F4DF50016AF5");
   ```
 
-### client.do(name [,...args])
-  调用`name`标识的操作，根据要求传递参数，返回一个`promise`对象。
+### Client Do
+  `client.do(name [,...args])` -调用`name`标识的操作，根据要求传递参数，返回一个`promise`对象。
   
   ```javascript
     var client = Comm100AgentConsoleAPI.init();
@@ -86,8 +86,8 @@ Methods
     });
   ```
 
-### client.on(name, handler)
-  在当前实例指定的`name`事件时，执行handler事件。
+### Client On
+  `client.on(name, handler)` -在当前实例指定的`name`事件时，执行handler事件。
 
   ```javascript
   var client = Comm100AgentConsoleAPI.init();
@@ -107,8 +107,8 @@ Methods
   });
   ```
 
-### client.off(name, handler)
-  给当前实例移除一个`name`事件。
+### Client Off
+  `client.off(name, handler)` -给当前实例移除一个`name`事件。
 
   ```javascript
   var client = Comm100AgentConsoleAPI.init();
@@ -118,8 +118,8 @@ Methods
   });
   ```
 
-### client.set(key, value)
-  设置当前`key`对应的属性的值为`value`，返回一个`promise`对象。
+### Client Set
+  `client.set(key, value)` -设置当前`key`对应的属性的值为`value`，返回一个`promise`对象。
 
   ```javascript
   var client = Comm100AgentConsoleAPI.init();
@@ -129,8 +129,8 @@ Methods
   });
   ```
 
-### client.trigger(name, [data])
-  触发指定的`name`的事件，`data`为该事件的参数
+### Client Trigger
+  `client.trigger(name, [data])` -触发指定的`name`的事件，`data`为该事件的参数
 
   ```javascript
     var client = Comm100AgentConsoleAPI.init();
@@ -144,15 +144,15 @@ Methods
 
 ## Core Apps API
   Comm100在App开发框架中提供了下面一些核心的事件、核心和行为供开发者在开发App的时候使用。
-  - [Core Events](core-events)
-  - [Core Properties](core-properties)
-  - [core Actions](core-actions)
+  - [Core Events](#core-events)
+  - [Core Properties](#core-properties)
+  - [core Actions](#core-actions)
 
 ### Core Events
-  - [app.loaded](app-loaded)
-  - [app.activated](app-activated)
-  - [app.deactivated](app-deactivated)
-  - [instance.created](instance-created)
+  - [app.loaded](#app-loaded)
+  - [app.activated](#app-activated)
+  - [app.deactivated](#app-deactivated)
+  - [instance.created](#instance-created)
 
 #### App Loaded
   当App加载以后触发的事件。
@@ -240,12 +240,11 @@ Methods
 
 ## Agent Console Location
   Comm100在Agent Console端提供了可用的事件、对象、属性及操作，开发者可以使用这些来开发自己的App。每一个App实例都存在于Agent Console的某一个位置接口的iframe中，这些位置都定义了：
-  - 所有的位置都共享了一些事件、属性及操作
+  - 所有的位置都共享了一些事件、属性及操作，详情参考[All Locations](#all-locations)
   - 每个位置有自己独特的事件、属性及操作
   
 
   下表中列出了Agent Console端所有可用的位置：
-  - [all locations](#all-locations) -所有可用位置。
   - [agentConsole topBar](#agent-console-topbar) -Agent Console的头部全局菜单区域。
   - [agentConsole chat headTag](#agent-console-chat-headtag) -Agent Console的聊天页面中的访客头部tag区域。
   - [agentConsole chat toolBar](#agent-console-chat-toolBar) -Agent Console的聊天页面中间的toolBar区域。
