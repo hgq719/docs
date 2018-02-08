@@ -149,16 +149,16 @@ Methods
   - [core Actions](#core-actions)
 
 ### Core Events
-  - [app.loaded](#app-loaded)
+  - [app.registered](#app-registered)
   - [app.activated](#app-activated)
   - [app.deactivated](#app-deactivated)
   - [instance.created](#instance-created)
 
-#### App Loaded
-  当App加载以后触发的事件。
+#### App Registered
+  当App加载的时候触发的事件。
 
   ```javascript
-  client.on("app.loaded",function(){
+  client.on("app.registered",function(){
       //hanler code
   });
   ```
@@ -182,7 +182,7 @@ Methods
   ```
 
 ### Instance Created
-  开发者可以通过`instance.create`在一个特定的App实例中创建另外一个app的实例，比如在`agentconsole_background`实例中创建`agentconsole_topbar`实例。在`agentconsole_topbar`这个实例创建的时候，系统将触发`instance.created`事件通知。
+  当一个App的实例被创建的时候，其他的实例将收到`instance.created`事件通知。
 
   ```javascript
   client.on("insance.created",function(){
@@ -215,7 +215,7 @@ Methods
 
 ### Core Actions
   - [resize](#resize-action)
-  - [instance.create](#instance-create-action)
+  - [instances.create](#instance-create-action)
 
 #### Resize Action
   重新设置App所在的iframe的页面大小，大小规格中的`width`和`height`可以是`px`、`%`或`vw/vh`。
@@ -227,13 +227,12 @@ Methods
     });
   ```
 
-#### Instance Create Action
-  创建一个App的实例，实例属性包含`location`、`url`和`instance_id`三个属性，其中`instance_id`属性不指定时，Comm100将自动生成一个实例id，推荐不指定该属性。
+#### Instances Create Action
+  创建一个App的实例，实例属性包含`location`、`url`两个属性，目前`location`只支持`modal`，用来创建一个模态窗口的实例。
 
   ```javascript
-    client.do("instance.create",{
-        location: "agentConsole_topBar",
-        instance_id: "013B7322-6895-F01E-5EAE-F4DF50016AF5", //建议不指定id，让系统自动生成
+    client.do("instances.create",{
+        location: "modal",
         url:"****.html"
     });
   ```
