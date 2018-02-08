@@ -182,7 +182,7 @@ Methods
   ```
 
 ### Instance Created
-  当App的实例状态创建以后触发的事件。
+  开发者可以通过`instance.create`在一个特定的App实例中创建另外一个app的实例，比如在`agentconsole_background`实例中创建`agentconsole_topbar`实例。在`agentconsole_topbar`这个实例创建的时候，系统将触发`instance.created`事件通知。
 
   ```javascript
   client.on("insance.created",function(){
