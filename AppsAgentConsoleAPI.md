@@ -245,9 +245,8 @@ Methods
 
   下表中列出了Agent Console端所有可用的位置：
   - [agentConsole topBar](#agent-console-topbar) -Agent Console的头部全局菜单区域。
-  - [agentConsole chat headTag](#agent-console-chat-headtag) -Agent Console的聊天页面中的访客头部tag区域。
-  - [agentConsole chat toolBar](#agent-console-chat-toolBar) -Agent Console的聊天页面中间的toolBar区域。
   - [agentConsole navigationBar](#agent-console-navigations) -Agent Console的左侧列表菜单区域。
+  - [agentConsole chat toolBar](#agent-console-chat-toolBar) -Agent Console的聊天页面中间的toolBar区域。
   - [agentConsole chatSideBar](#agent-console-chatsidebar) -Agent Console的聊天窗口的右侧区域。
   - [agentConsole modal](#agent-console-modal) -Agent Console中配置一个模态窗口的形式的页面。
   - [agentConsole background](#agent-console-background) -Agent Console中以后台形式(不显示UI)启动的页面。
@@ -399,111 +398,6 @@ Methods
     }
   ```
 
-## Agent Console Chat HeadTag
-  指定在Agent Console的聊天窗口的访客头部Tag区域添加一个自定义`HeadTag`，此区域可通过API进行配置，不需要在Manifest中的location中配置该区域。
-
-### HeadTag Object
-  Agent Console的聊天页面头部的Tag对象。
-- Properties
-  + `headTag.name` -HeadTag的名称
-  + `headTag.icon` -HeadTag的图标
-  + `headTag.tip` -HeadTag的tips
-
-```javascript
-  const headTag = {
-      name: "myHeadTag",
-      icon: "https://***.ico",
-      tip: "myHeadTag"
-  }
-```
-
-- Actions
-  + `get/set` -表示在Agent Console的聊天区域的头部，App的所有自定义HeadTag集合，返回一个`promise`对象。
-
-  get
-
-  ```javascript
-    client.get('customHeadTags').then(function(headTags){
-            //handler code
-     });
-  ```
-  
-  set
-
-  ```javascript
-    const newHeadTag = {
-        name: "myHeadTag",
-        icon: "https://***.ico",
-        tip: "myHeadTag"
-    };
-
-    client.set('customHeadTags', headTags).then(function(){
-            //handler code
-     });
-  ```
-
-- Events
-  + `customeHeadTag.actived` -当点击当前App的自定义headTag的时候触发
-
-```javascript
-    client.on("customeHeadTag.actived",function(headTag){
-        if("myHeadTag" == headTag.name){
-            //handler code
-        }
-    });
-``` 
-
-## Agent Console Chat ToolBar
-  指定在Agent Console的聊天窗口的中间ToolBar区域添加一个自定义`ToolBarItem`，此区域可通过API进行配置，不需要在Manifest中的location中配置该区域。
-
-### ToolBarItem Object
-  Agent Console的聊天页面中聊天窗口中间的ToolBar里面的对象。
-  - Properties
-    + `toolBarItem.name` -toolBarItem对象的名称
-    + `toolBarItem.icon` -toolBarItem对象的图标
-
-```javascript
-  const toolBarItem = {
-      name: "myToolBarItem",
-      icon: "https://***.ico"
-  }
-```
-
-- Actions
-  + `get/set` 表示在Agent Console的聊天区域的toolBar区域，App的所有自定义toolBarItem集合，返回一个`promise`对象。
-
-  get
-
-  ```javascript
-    client.get('customToolBarItems').then(function(toolBarItem){
-            //handler code
-     });
-  ```
-  
-  set
-
-  ```javascript
-    const toolBarItem = {
-        name: "myToolBarItem",
-        icon: "https://***.ico"
-    }
-
-    client.set('customToolBarItems', toolBarItem).then(function(){
-            //handler code
-     });
-  ```
-
-- Events
-  + `customToolBarItem.actived` -当点击toolItem的时候触发
-
-```javascript
-    client.on("customToolBarItem.actived",function(toolBarItem){
-        if("myToolBarItem" == toolBarItem.name){
-            //handler code
-        }
-    });
-``` 
-
 ## Agent Console NavigationBar
   指定将App安装在Agent Console的左侧导航区域，呈现的方式是一个`tab`，点击该tab即可打开App。
   
@@ -511,6 +405,68 @@ Methods
   "location": {
     "agentConsole_navigationBar": "/assets/navBar.html"
   }
+  ```
+
+## Agent Console Chat ToolBar
+  指定将App安装在Agent Console的聊天窗口中间的ToolBar中，呈现的方式是一个icon图标，点击该图标即可打开App。当App第一次被打开的时候，Comm100会在Dom中添加一个`Pane`容器，容器中展示的即为用户配置的地址的页面内容。
+
+ ```json
+  "location": {
+    "agentConsole_chatToolBar": "/assets/toolBar.html"
+  }
+  ```
+
+#### ToolBar Actions
+  在Control Panel的ToolBar中，app可执行下面的动作：
+  - [popover](#toolbar-popover-action)
+  - [preloadPane](#toolbar-preloadpane-action)
+
+##### ToolBar Popover Action
+  开发者可通过`popover`的API来显示、隐藏ToolBar App窗口或调整窗口的大小。
+
+ popover Properties
++ `size`-弹出区域的大小
+    * `width`-弹出区域的宽度
+    * `height`-弹出区域的高度
++ `visible`-弹出窗口的显示状态: show/hide 默认show
+
+ ```javascript
+  client.do("popover",{
+      width: 300,
+      height: 200
+  });
+
+  client.do("popover","show");
+ ```
+
+##### ToolBar PreloadPane Action
+  在ToolBar App还没有被打开过的情况下，`Pane`容易还没有被加载到Dom中来，开发者可通过`preloadPane`的API来预加载`Pane`。
+
+  ```javascript
+    client.do("preloadPane");
+  ```
+
+#### ToolBar Events
+  在Control Panel的ToolBar中，app可使用的下面的事件：
+  - [pane.activated](#toolbar-pane-activated)
+  - [pane.deactivated](#toolbar-pane-deactivated)
+
+##### ToolBar pane.activated
+  可通过下面的API来设置在pane激活的时候需要做的事情。
+
+  ```javascript
+    client.on("pane.activated", function(){
+      //handler code
+    }
+  ```
+
+##### ToolBar pane.deactivated
+  可通过下面的API来设置在pane取消激活的时候需要做的事情。
+
+  ```javascript
+    client.on("pane.deactivated", function(){
+      //handler code
+    }
   ```
 
 ## Agent Console ChatSideBar
