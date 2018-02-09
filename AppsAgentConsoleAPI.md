@@ -246,7 +246,7 @@ Methods
   下表中列出了Agent Console端所有可用的位置：
   - [agentConsole topBar](#agent-console-topbar) -Agent Console的头部全局菜单区域。
   - [agentConsole navigationBar](#agent-console-navigations) -Agent Console的左侧列表菜单区域。
-  - [agentConsole chatToolBar](#agent-console-chat-toolBar) -Agent Console的聊天页面中间的toolBar区域。
+  - [agentConsole chatToolBar](#agent-console-chattoolbar) -Agent Console的聊天页面中间的toolBar区域。
   - [agentConsole chatSideBar](#agent-console-chatsidebar) -Agent Console的聊天窗口的右侧区域。
   - [agentConsole modal](#agent-console-modal) -Agent Console中配置一个模态窗口的形式的页面。
   - [agentConsole background](#agent-console-background) -Agent Console中以后台形式(不显示UI)启动的页面。
@@ -407,7 +407,7 @@ Methods
   }
   ```
 
-## Agent Console Chat ToolBar
+## Agent Console ChatToolBar
   指定将App安装在Agent Console的聊天窗口中间的ToolBar中，呈现的方式是一个icon图标，点击该图标即可打开App。当App第一次被打开的时候，Comm100会在Dom中添加一个`Pane`容器，容器中展示的即为用户配置的地址的页面内容。
 
  ```json
