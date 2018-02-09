@@ -144,6 +144,7 @@
   - [agentConsole_topBar](#agent-console-topbar)
   - [agentConsole_navigationBar](#agent-console-navigations)
   - [agentConsole_chatSideBar](#agent-console-chatsidebar)
+  - [agentConsole_chatToolBar](#agent-console-chattoolbar)
   - [agentConsole_background](#agent-console-background)  
 
 
@@ -152,6 +153,7 @@
   + `autoLoad` 指定当前App在系统启动以后是否自动加载。默认值为`false`。
   + `url` 指定当前位置下的iframe中显示的页面地址，该地址可以是开发者远程托管的绝对页面地址，也可以是由Comm100托管的相对路径地址。必须指定。
   + `signed` 当前位置下的iframe为远程托管(非Comm100托管)页面时，开发者可通过指定该属性是否在Comm100当前页面中的请求包含一个JSON Web Token(JWT)，开发者可以用来验证该请求是否来自Comm100合法请求。默认值为`false`。  
+  + `popupStyle` 当前位置激活弹出框的类型，包括`popover`和`modal`，默认值为`popover`。目前仅在`agentConsole_chatSideBar`和`agentConsole_chatToolBar`有效。
 
    ```json
    "location": {
@@ -218,7 +220,7 @@
   可通过下面的API来设置在pane激活的时候需要做的事情。
 
   ```javascript
-    Comm100AgentConsoleAPI.on("topBar.pane.activated", function(){
+    client.on("pane.activated", function(){
       //handler code
     }
   ```
@@ -227,32 +229,29 @@
   可通过下面的API来设置在pane取消激活的时候需要做的事情。
 
   ```javascript
-    Comm100AgentConsoleAPI.on("topBar.pane.deactivated", function(){
+    client.on("pane.deactivated", function(){
       //handler code
     }
   ```
 
-#### Objects
-  - [PopupOver](#popupover-object)
-
-##### PopupOver Object
+##### PopOver Object
   - Properties
-    + `popupOver.size`-弹出区域的大小
+    + `popOver.size`-弹出区域的大小
       * `width`-弹出区域的宽度
       * `height`-弹出区域的高度
-    + `popupOver.visible`-弹出窗口的显示状态: show/hide/toggle 默认show
+    + `popOver.visible`-弹出窗口的显示状态: show/hide/toggle 默认show
 
   - Actions
-    + `set` -设置popupOver的属性，如：
+    + `popover` -设置popOver的属性，如：
 
 
   ```javascript
-    Comm100AgentConsoleAPI.set("topBar.popupOver.size",{
+    client.do("popover",{
       width:  300,
       height: 200
-    });   //设置popupover区域大小
+    });   //设置popover区域大小
 
-    Comm100AgentConsoleAPI.set("topBar.popupOver.visible","show"); //设置popupover区域的可见性
+    client.do("popover","show"); //设置popover区域的可见性
   ```
 
 ### Agent Console NavigationBar
@@ -270,6 +269,15 @@
   ```json
   "location": {
     "agentConsole_chatSideBar": "/assets/chatSideBar.html"
+  }
+  ```
+
+### Agent Console ChatToolBar
+  指定将App安装在Agent Console的聊天窗口的中间ToolBar区域。安装此App以后，在Agent Console的聊天窗口的ToolBar区域的最后一个位置添加一个Icon形式的App菜单，点击该菜单，默认弹出一个窗口，窗口的内容为该处配置的页面内容。
+
+  ```json
+  "location": {
+    "agentConsole_chatToolBar": "/assets/chatToolBar.html"
   }
   ```
  
