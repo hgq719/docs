@@ -69,7 +69,7 @@ Methods
   ```
 
 ### Client Instance
-  `client.instance(instanceId)` -初始化一个App的另外一个位置实例，用在实例间信息交互的时候。
+  `client.instance(instanceId)` -App的每一个位置都是一个单独的实例，可以通过该方法来初始化App的一个特定位置的实例，用在实例间信息交互的时候。
 
   ```javascript
     var client = Comm100AgentConsoleAPI.init();
