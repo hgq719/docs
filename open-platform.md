@@ -4,7 +4,7 @@
 2. [Marketplace](#marketplace)
 3. [App Apply](#app-apply)
 4. [App File Requirements](#app-file-requirements)
-5. [Setting The Location](#app-the-location)
+5. [Setting The Location](#setting-the-location)
 6. [API](#api)
 7. [Security and Authentication](#security-and-authentication)
 8. [Rate Limits](#rate-limits)
@@ -54,16 +54,27 @@
   注：如果使用绝对路径，建议使用`https`页面。
 
 ## Instance
-  标识App的运行实例，每一个iframe都是一个实例。同一个App在Manifest中定义了多个位置，则这个App就存在多个App Instance。可以通过API来获取当前App的实例信息。
+  标识App的运行实例，每一个iframe都是一个实例。同一个App在Manifest中定义了多个位置，则这个App就存在多个App Instance。可以通过API来获取当前App的所有实例信息。
 
-  - Control Panel API
   ```javascript
-    Comm100API.get('app.instance')
+    var instancesData = client.get('instances')
   ```
 
-  - Agent Console API
+### Interactive between Instance
+  开发者可以通过Instance API来让Comm100中的App多个实例间进行交互。如：
   ```javascript
-    Comm100AgentConsoleAPI.get('app.instance')
+    var agentConsoleTopBarPromise = client.get('instances').then(function(instancesData){
+      var instances = instancesData.instances;
+      for(var instanceId in instances){
+        if('agentConsole_topBar'==instances[instanceId].location){
+          return client.instance(instanceId);
+        }
+      }
+    });
+
+    agentConsoleTopBarPromise.then(function(topBarInstance){
+      //handler code
+    });
   ```
 
 ## API
@@ -80,7 +91,7 @@
   - Restful API 
 
     Comm100对于Restful的Api采取标准的OAuth2.0的方式对调用者进行身份验证，具体方式参考[Auth Authorization](#oauth-authorization)。  
-    
+
 
   - Agent Console和Control Panel API  
 
