@@ -361,7 +361,7 @@ Methods
  ```
 
 ##### PreloadPane Action
-  在TopBar App还没有被打开过的情况下，`Pane`容易还没有被加载到Dom中来，开发者可通过`preloadPane`的API来预加载`Pane`。
+  在TopBar App还没有被打开过的情况下，`Pane`容器还没有被加载到Dom中来，开发者可通过`preloadPane`的API来预加载`Pane`。
 
   ```javascript
     client.do("preloadPane");
