@@ -489,7 +489,7 @@ Methods
 
   get
   ```javascript
-  client.get("currentChat.visitor").then(function(visitor){
+  client.get("currentVisitor").then(function(visitor){
       console.log(visitor);
       /*
       {
@@ -538,13 +538,13 @@ Methods
       */
   });
 
-  client.get("currentChat.visitor.email").then(function(email){
+  client.get("currentVisitor.email").then(function(email){
       console.log(email);
   ```
 
   set
   ```javascript
-    client.set("currentChat.visitor.email","kim@comm100.com").then(function(){
+    client.set("currentVisitor.email","kim@comm100.com").then(function(){
         //handler code
     });
   ```
@@ -683,9 +683,9 @@ Properties
   在ChatSideBar中，对于聊天对象可用的事件如下：
   - [chats.chatStart](#chats-start)
   - [chats.chatEnd](#chats-end)
-  - [Chats.selectChange](#chats-select-change)` 
-  - [currentChat.submitWrapup](#chat-submit-Wrapup)`
-  - [currentChat.receiveVisitorMessage](#chat-receive-visitor-message)`
+  - [Chats.selectChange](#chats-select-change)
+  - [currentChat.submitWrapup](#chat-submit-Wrapup)
+  - [currentChat.receiveVisitorMessage](#chat-receive-visitor-message)
   - [currentChat.visitor.status.change](#visitor-status-change)
 
 #### Chats Start
