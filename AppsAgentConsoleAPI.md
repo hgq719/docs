@@ -149,16 +149,16 @@ Methods
   - [core Actions](#core-actions)
 
 ### Core Events
-  - [app.registered](#app-registered)
+  - [app.loaded](#app-loaded)
   - [app.activated](#app-activated)
   - [app.deactivated](#app-deactivated)
   - [instance.created](#instance-created)
 
-#### App Registered
+#### App Loaded
   当App加载的时候触发的事件。
 
   ```javascript
-  client.on("app.registered",function(){
+  client.on("app.loaded",function(){
       //hanler code
   });
   ```
