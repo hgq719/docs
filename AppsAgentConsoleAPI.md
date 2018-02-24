@@ -247,7 +247,7 @@ Methods
   - [agentConsole topBar](#agent-console-topbar) -Agent Console的头部全局菜单区域。
   - [agentConsole navigationBar](#agent-console-navigations) -Agent Console的左侧列表菜单区域。
   - [agentConsole chatToolBar](#agent-console-chattoolbar) -Agent Console的聊天页面中间的toolBar区域。
-  - [agentConsole chatSideBar](#agent-console-chatsidebar) -Agent Console的聊天窗口的右侧区域。
+  - [agentConsole chatTabBar](#agent-console-chattabbar) -Agent Console的聊天窗口的右侧区域。
   - [agentConsole modal](#agent-console-modal) -Agent Console中配置一个模态窗口的形式的页面。
   - [agentConsole background](#agent-console-background) -Agent Console中以后台形式(不显示UI)启动的页面。
 
@@ -347,25 +347,17 @@ Methods
 
 #### TopBar Actions
   在Control Panel的TopBar中，app可执行下面的动作：
-  - [popover](#popover-action)
+  - [popup](#popup-action)
   - [preloadPane](#preloadpane-action)
 
-##### Popover Action
-  开发者可通过`popover`的API来显示、隐藏topBar App窗口或调整窗口的大小。
+##### Popup Action
+  开发者可通过`popup`的API来显示、隐藏topBar App窗口。
 
- popover Properties
-+ `size`-弹出区域的大小
-    * `width`-弹出区域的宽度
-    * `height`-弹出区域的高度
+ popup Properties
 + `visible`-弹出窗口的显示状态: show/hide 默认show
 
  ```javascript
-  client.do("popover",{
-      width: 300,
-      height: 200
-  });
-
-  client.do("popover","show");
+  client.do("popup","show");
  ```
 
 ##### PreloadPane Action
@@ -418,25 +410,17 @@ Methods
 
 #### ToolBar Actions
   在Control Panel的ToolBar中，app可执行下面的动作：
-  - [popover](#toolbar-popover-action)
+  - [popup](#toolbar-popup-action)
   - [preloadPane](#toolbar-preloadpane-action)
 
-##### ToolBar Popover Action
-  开发者可通过`popover`的API来显示、隐藏ToolBar App窗口或调整窗口的大小。
+##### ToolBar Popup Action
+  开发者可通过`popup`的API来显示、隐藏ToolBar App窗口。
 
- popover Properties
-+ `size`-弹出区域的大小
-    * `width`-弹出区域的宽度
-    * `height`-弹出区域的高度
+ popup Properties
 + `visible`-弹出窗口的显示状态: show/hide 默认show
 
  ```javascript
-  client.do("popover",{
-      width: 300,
-      height: 200
-  });
-
-  client.do("popover","show");
+  client.do("popup","show");
  ```
 
 ##### ToolBar PreloadPane Action
@@ -469,17 +453,17 @@ Methods
     }
   ```
 
-## Agent Console ChatSideBar
-  指定将App安装在Agent Console的聊天窗口的右侧SideBar中，呈现的方式是一个`tab`，点击该tab激活app，在tab的下方展示app的内容。
+## Agent Console ChatTabBar
+  指定将App安装在Agent Console的聊天窗口的右侧TabBar中，呈现的方式是一个`tab`，点击该tab激活app，在tab的下方展示app的内容。
 
 ```json
   "location": {
-    "agentConsole_chatSideBar": "/assets/chatSideBar.html"
+    "agentConsole_chatTabBar": "/assets/chatTabBar.html"
   }
   ```
 
-### ChatSideBar Objects
-  在聊天区域的SideBar中，可用的对象如下：
+### ChatTabBar Objects
+  在聊天区域的TabBar中，可用的对象如下：
   - [visitor](#visitor-object)
   - [chat](#chat-object)
   - [agent](#agent-object)
@@ -665,12 +649,12 @@ Properties
     + `time` -信息发送时间
     + `content` -信息内容
 
-### ChatSideBar Actions
-  在ChatSideBar中，App中可使用下面的行为:
-  - [Chat Acionts](#chatsidebar-chat-actions)
+### ChatTabBar Actions
+  在ChatTabBar中，App中可使用下面的行为:
+  - [Chat Acionts](#chattabbar-chat-actions)
 
-#### ChatSideBar Chat Actions
-  在ChatSideBar中，对于聊天对象app可用的行为如下：
+#### ChatTabBar Chat Actions
+  在ChatTabBar中，对于聊天对象app可用的行为如下：
   - `send` -在当前聊天中发送一条信息
   - `input` -在当前聊天的输入框中插入一条信息
 
@@ -679,8 +663,8 @@ Properties
   client.do("currentChat.input","inputMessage");
 ```
 
-### ChatSideBar Events
-  在ChatSideBar中，对于聊天对象可用的事件如下：
+### ChatTabBar Events
+  在ChatTabBar中，对于聊天对象可用的事件如下：
   - [chats.chatStart](#chats-start)
   - [chats.chatEnd](#chats-end)
   - [Chats.selectChange](#chats-select-change)
