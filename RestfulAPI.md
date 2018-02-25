@@ -35,7 +35,7 @@
   - [ChatWindow property](#chatwindow-property)
   - [PreChat property](#prechat-property)
   - [PostChat property](#post-property)
-  - [OfflineMessage property](#offlinemessage-property)
+  - [OfflineMessage property](#offline-message-property)
   - [Invitation property](#invitation-property)
   - [AgentWrapup property](#agentwrapup-property)
   - [RoutingRule property](#routingrule-property)
@@ -87,7 +87,69 @@
   - `InvitationTextColor`  -Invitaion文本颜色
 
 #### ChatWindow Property
+- `ChatWindowStyle`  -Chat window的类型：0 – Classic;1 – Circle;2 – Bubble
+- `ChatWindowHeaderType`  -0 – Banner Image;1 – Operator Avatar & Company Logo;2:Agent Info
+- `ChatWindowHeaderIfShowTitle`  -ChatWindowHeaderType为2时，该值有效:Chat Window Header是否显示Agent Title：0 – 不显示；1 – 显示
+- `ChatWindowHeaderIfShowBio`  -ChatWindowHeaderType为2时，该值有效:Chat Window Header是否显示Agent Bio:0 – 不显示;1 – 显示
+- `ChatWindowIfShowAvatar`  -ChatWindowHeaderType为1时，该值有效:0 – 不展示Avatar;1 – 展示Avatar
+- `ChatWindowIfShowLogo`  -ChatWindowHeaderType为1时，该值有效:0 – 不展示Logo;1 – 展示Logo
+- `ChatWindowLogoImageId`  -Logo的ImageId
+- `ChatContentIfShowAvatar`  -Chat Window聊天内容区域是否显示Agent Avatar:0 – 不显示;1 – 显示
+- `ChatContentIfShowTexture`  -Chat Window聊天内容区域是否有背景:0 – 不显示;1 – 显示
+- `ChatContentTextureType`  -Chat Window聊天内容区域的背景类型
+- `ChatButtonColor`  -Adaptive Button的颜色
+- `ChatWindowCustomCSSClassic`  -Classic的自定义CSS样式
+- `ChatWindowCustomCSSCircle`  -Circle的自定义CSS样式
+- `ChatWindowIfPrintTranscript`  -Chatwindow是否展示打印聊天记录
+- `ChatWindowIfShowEmailButton`  -Chatwindow是否展示EmailButton
+- `ChatWindowIfCanSwitchToOffline`  -Chatwindow能否转成offline
+- `ChatWindowIfCanSendFile`  -Chatwindow能否传送文件
+- `IfEnableAudioChat`  -Chat window是否开启Allow visitors to request audio chats
+- `IfEnableVideoChat`  -Chat window是否开启Allow visitors to request video chats
+- `ChatWindowIfEndChatWhenVisitorInactivity`  -Visitor处于Inactivity后是否结束chat
+- `ChatWindowIfEnableSendTranscriptEmail`  -是否开启发送transcript
+- `ChatWindowGreetingMessage` -Greeting Message内容
+- `IfEnableCustomJS`  -是否开启自定义js
+- `CustomJS`  -用户自定义的JavaScript
 
+#### PreChat Property
+- `PreChatIfEnabled`  -是否允许Prechat
+- `PreChatHeaderIfShowTeamName`  -Pre-Chat是否显示Team Name：0 – 不显示；1 – 显示
+- `PreChatTeamName` - Pre-Chat中team Name,PreChatHeaderIfShowTeamName为1时有效。
+- `PreChatHeaderIfShowAgentAvatars`  -Pre-Chat是否显示Agent Avatars：0 – 不显示；1 – 显示
+- `prechatsocialmedia`	-是否选中socialMedia：0 – none;1 – google;2 – facebook;3 – both;
+- `PreChatIfNotRecordCookie`	-Prechat是否记录cookie
+- `PreChatWindowFormStyle`	-ChatWindow表单样式
+- [PreChatFields](#custom-fields)  -Prechat页面自定义字段
+
+##### Custom Fileds
+- `Id` -字段的主键
+- `TranscriptType` -0-Chat;1-Offline Message
+- `TranscriptId` -Transcritp的主键
+- `FormType` -0-Pre-Chat Form;1-Offline Message Form;2-Post Chat Form;3-Wrap-up Form;4-PCI Form (在聊天结束后不存储，看不到该表单数据);5-Custom Variable
+- `FieldId` -自定义字段Id
+- `Name` -自定义字段Name或者自定义变量的Name
+- `Value` -自定义字段的值或者自定义变量的值
+- `Url` -自定义变量的url
+
+#### PostChat Property
+- `PostChatIfEnabled`  -是否允许Postchat
+- `PostChatGreetingMessage` -Greeting Message内容
+- `PostChatWindowFormStyle`	-ChatWindow表单样式
+- [PostChatFields](#custom-fields)  -自定义字段
+
+#### Offline Message Property
+- `OfflineMessageIfUse`  -是否使用Comm100的OfflineMessage。0：不使用；1：使用
+- `OfflineMessageHeaderIfShowTeamName`  -OfflineMessageIfEnable为1时有效：Offline Message是否显示Team Name：0 – 不显示；1 – 显示
+- `OfflineMessageTeamName` - Offline Message中team Name,OfflineMessageIfEnable为1时且PreChatHeaderIfShowTeamName为1时有效。
+- `OfflineMessageHeaderIfShowAgentAvatars`  -OfflineMessageIfEnable为1时有效：Offline Message是否显示Agent Avatars：0 – 不显示；1 – 显示
+- `OfflineMessageGreetingMessage` -OfflineMessageIfEnable为1时有效：Greeting Message内容
+- `OfflineMessageWindowFormStyle`	-OfflineMessageIfEnable为1时有效：ChatWindow表单样式
+- [OfflineMessageFields](#custom-fields)  -OfflineMessageIfEnable为1时有效：自定义字段
+- `OfflineMessageIfOpenInNewWindow`  -OfflineMessageIfEnable为0时有效：OfflineMessage是否在新窗口打开
+- `OfflineMessageUrl`  -OfflineMessageIfEnable为0时有效：OfflineMessageURL
+
+#### Invitation Property
 
 ## Config Object 
 `GET /api/v1/livechat/campaign/configs` -Get campaign config  
