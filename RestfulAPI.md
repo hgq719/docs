@@ -41,58 +41,58 @@
   - [language property](#language-property)
 
 #### ChatButton Property
-  - `chatButtonType` -ChatButton的类型：0：ImageButton;1：LinkText;2：MonitorOnly;3: Adaptive
-  - `chatButtonIfFloat` -Chatbutton是否浮动
-  - `chatButtonPosition` -Chatbutton的位置
-  - `chatButtonXOffset` -若XOffsetIfPixel=1则，该字段表示X坐标的偏移像素值;若XOffsetIfPixel=0则，该字段表示X坐标的偏移比例;
-  - `chatButtonXOffsetIfPixels` -ChatButtonXOffsetIfPixels	X坐标的偏移量是否为像素
-  - `chatButtonYOffset` -若YOffsetIfPixel =1则，该字段表示y坐标的偏移像素值;若YOffsetIfPixel =0则，该字段表示y坐标的偏移比例;
-  - `chatButtonYOffsetIfPixels` -Y坐标的偏移量是否为像素
-  - `chatButtonImageType` -ChatButtonImage的类型:0：Online;1：Offline;2：Invitation;3：InvitationAccept;4：InvitationRefuse;5：Brannding;6：Poweredby;7：WindowColorStyle
-  - `chatButtonOnlineURL` -当Operator处于 online时chatbutton的链接
-  - `chatButtonOnlineImageId` - 当Operator处于 online时chatbutton的图片
-  - `chatButtonOfflineURL` -当Operator处于 offline时chatbutton的链接
-  - `chatButtonYOfflineImageId` -当Operator处于 offline时chatbutton的图片
-  - `chatButtonIfHideOffline` -Chatbutton在offline时是否隐藏
-  - `chatButtonRouteToType` -Route类型：0：site;1: Department;2:RouteToOperator;
-  - `chatButtonRouteToId` -如果route类型是2，则为OperatorId;如果route类型是1则为departmentId
+  - `buttonType` -ChatButton的类型：0：ImageButton;1：LinkText;2：MonitorOnly;3: Adaptive
+  - `ifFloat` -Chatbutton是否浮动
+  - `buttonPosition` -Chatbutton的位置
+  - `xOffset` -若XOffsetIfPixel=1则，该字段表示X坐标的偏移像素值;若XOffsetIfPixel=0则，该字段表示X坐标的偏移比例;
+  - `xOffsetIfPixels` -ChatButtonXOffsetIfPixels	X坐标的偏移量是否为像素
+  - `yOffset` -若YOffsetIfPixel =1则，该字段表示y坐标的偏移像素值;若YOffsetIfPixel =0则，该字段表示y坐标的偏移比例;
+  - `yOffsetIfPixels` -Y坐标的偏移量是否为像素
+  - `imageType` -ChatButtonImage的类型:0：Online;1：Offline;2：Invitation;3：InvitationAccept;4：InvitationRefuse;5：Brannding;6：Poweredby;7：WindowColorStyle
+  - `onlineURL` -当Operator处于 online时chatbutton的链接
+  - `onlineImageId` - 当Operator处于 online时chatbutton的图片
+  - `offlineURL` -当Operator处于 offline时chatbutton的链接
+  - `offlineImageId` -当Operator处于 offline时chatbutton的图片
+  - `ifHideOffline` -Chatbutton在offline时是否隐藏
+  - `routeToType` -Route类型：0：site;1: Department;2:RouteToOperator;
+  - `routeToId` -如果route类型是2，则为OperatorId;如果route类型是1则为departmentId
 
 #### ChatWindow Property
-- `chatWindowStyle`  -Chat window的类型：0 – Classic;1 – Circle;2 – Bubble
-- `chatWindowHeaderType`  -0 – Banner Image;1 – Operator Avatar & Company Logo;2:Agent Info
-- `chatWindowHeaderIfShowTitle`  -ChatWindowHeaderType为2时，该值有效:Chat Window Header是否显示Agent Title：0 – 不显示；1 – 显示
-- `chatWindowHeaderIfShowBio`  -ChatWindowHeaderType为2时，该值有效:Chat Window Header是否显示Agent Bio:0 – 不显示;1 – 显示
-- `chatWindowIfShowAvatar`  -ChatWindowHeaderType为1时，该值有效:0 – 不展示Avatar;1 – 展示Avatar
-- `chatWindowIfShowLogo`  -ChatWindowHeaderType为1时，该值有效:0 – 不展示Logo;1 – 展示Logo
-- `chatWindowLogoImageId`  -Logo的ImageId
-- `chatContentIfShowAvatar`  -Chat Window聊天内容区域是否显示Agent Avatar:0 – 不显示;1 – 显示
-- `chatContentIfShowTexture`  -Chat Window聊天内容区域是否有背景:0 – 不显示;1 – 显示
-- `chatContentTextureType`  -Chat Window聊天内容区域的背景类型
-- `chatButtonColor`  -Adaptive Button的颜色
-- `chatWindowCustomCSSClassic`  -Classic的自定义CSS样式
-- `chatWindowCustomCSSCircle`  -Circle的自定义CSS样式
-- `chatWindowIfPrintTranscript`  -Chatwindow是否展示打印聊天记录
-- `chatWindowIfShowEmailButton`  -Chatwindow是否展示EmailButton
-- `chatWindowIfCanSwitchToOffline`  -Chatwindow能否转成offline
-- `chatWindowIfCanSendFile`  -Chatwindow能否传送文件
+- `windowStyle`  -Chat window的类型：0 – Classic;1 – Circle;2 – Bubble
+- `headerType`  -0 – Banner Image;1 – Operator Avatar & Company Logo;2:Agent Info
+- `ifShowTitle`  -ChatWindowHeaderType为2时，该值有效:Chat Window Header是否显示Agent Title：0 – 不显示；1 – 显示
+- `ifShowBio`  -ChatWindowHeaderType为2时，该值有效:Chat Window Header是否显示Agent Bio:0 – 不显示;1 – 显示
+- `ifShowAvatar`  -ChatWindowHeaderType为1时，该值有效:0 – 不展示Avatar;1 – 展示Avatar
+- `ifShowLogo`  -ChatWindowHeaderType为1时，该值有效:0 – 不展示Logo;1 – 展示Logo
+- `logoImageId`  -Logo的ImageId
+- `ifShowAvatar`  -Chat Window聊天内容区域是否显示Agent Avatar:0 – 不显示;1 – 显示
+- `ifShowTexture`  -Chat Window聊天内容区域是否有背景:0 – 不显示;1 – 显示
+- `contentTextureType`  -Chat Window聊天内容区域的背景类型
+- `buttonColor`  -Adaptive Button的颜色
+- `customCSSClassic`  -Classic的自定义CSS样式
+- `customCSSCircle`  -Circle的自定义CSS样式
+- `ifPrintTranscript`  -Chatwindow是否展示打印聊天记录
+- `ifShowEmailButton`  -Chatwindow是否展示EmailButton
+- `ifCanSwitchToOffline`  -Chatwindow能否转成offline
+- `ifCanSendFile`  -Chatwindow能否传送文件
 - `ifEnableAudioChat`  -Chat window是否开启Allow visitors to request audio chats
 - `ifEnableVideoChat`  -Chat window是否开启Allow visitors to request video chats
-- `chatWindowIfEndChatWhenVisitorInactivity`  -Visitor处于Inactivity后是否结束chat
-- `chatWindowIfEnableSendTranscriptEmail`  -是否开启发送transcript
-- `chatWindowGreetingMessage` -Greeting Message内容
+- `ifEndChatWhenVisitorInactivity`  -Visitor处于Inactivity后是否结束chat
+- `ifEnableSendTranscriptEmail`  -是否开启发送transcript
+- `greetingMessage` -Greeting Message内容
 - `ifEnableCustomJS`  -是否开启自定义js
 - `customJS`  -用户自定义的JavaScript
 
 #### PreChat Property
-- `preChatIfEnabled`  -是否允许Prechat
-- `preChatHeaderIfShowTeamName`  -Pre-Chat是否显示Team Name：0 – 不显示；1 – 显示
-- `preChatTeamName` - Pre-Chat中team Name,PreChatHeaderIfShowTeamName为1时有效。
-- `preChatHeaderIfShowAgentAvatars`  -Pre-Chat是否显示Agent Avatars：0 – 不显示；1 – 显示
-- `preChatGreetingMessage` -Greeting Message内容
-- `prechatsocialmedia`	-是否选中socialMedia：0 – none;1 – google;2 – facebook;3 – both;
-- `preChatIfNotRecordCookie`	-Prechat是否记录cookie
-- `preChatWindowFormStyle`	-ChatWindow表单样式
-- `preChatFields`  -Prechat页面自定义字段集合
+- `ifEnabled`  -是否允许Prechat
+- `ifShowTeamName`  -Pre-Chat是否显示Team Name：0 – 不显示；1 – 显示
+- `teamName` - Pre-Chat中team Name,PreChatHeaderIfShowTeamName为1时有效。
+- `ifShowAgentAvatars`  -Pre-Chat是否显示Agent Avatars：0 – 不显示；1 – 显示
+- `greetingMessage` -Greeting Message内容
+- `socialmedia`	-是否选中socialMedia：0 – none;1 – google;2 – facebook;3 – both;
+- `ifNotRecordCookie`	-Prechat是否记录cookie
+- `windowFormStyle`	-ChatWindow表单样式
+- `fields`  -Prechat页面自定义字段集合
   + [customField](#custom-field)  -自定义字段
 
 ##### Custom Field
@@ -104,23 +104,23 @@
 - `url` -自定义变量的url
 
 #### PostChat Property
-- `postChatIfEnabled`  -是否允许Postchat
-- `postChatGreetingMessage` -Greeting Message内容
-- `postChatWindowFormStyle`	-ChatWindow表单样式
-- `postChatFields`  -自定义字段集合
+- `ifEnabled`  -是否允许Postchat
+- `greetingMessage` -Greeting Message内容
+- `windowFormStyle`	-ChatWindow表单样式
+- `fields`  -自定义字段集合
   + [customField](#custom-field)  -自定义字段
 
 #### Offline Message Property
-- `offlineMessageIfUse`  -是否使用Comm100的OfflineMessage。0：不使用；1：使用
-- `offlineMessageHeaderIfShowTeamName`  -OfflineMessageIfEnable为1时有效：Offline Message是否显示Team Name：0 – 不显示；1 – 显示
-- `offlineMessageTeamName` - Offline Message中team Name,OfflineMessageIfEnable为1时且PreChatHeaderIfShowTeamName为1时有效。
-- `offlineMessageHeaderIfShowAgentAvatars`  -OfflineMessageIfEnable为1时有效：Offline Message是否显示Agent Avatars：0 – 不显示；1 – 显示
-- `offlineMessageGreetingMessage` -OfflineMessageIfEnable为1时有效：Greeting Message内容
-- `offlineMessageWindowFormStyle`	-OfflineMessageIfEnable为1时有效：ChatWindow表单样式
-- `offlineMessageFields`  -OfflineMessageIfEnable为1时有效：自定义字段集合
+- `ifUseOfflineMessage`  -是否使用Comm100的OfflineMessage。0：不使用；1：使用
+- `ifShowTeamName`  -OfflineMessageIfEnable为1时有效：Offline Message是否显示Team Name：0 – 不显示；1 – 显示
+- `teamName` - Offline Message中team Name,OfflineMessageIfEnable为1时且PreChatHeaderIfShowTeamName为1时有效。
+- `ifShowAgentAvatars`  -OfflineMessageIfEnable为1时有效：Offline Message是否显示Agent Avatars：0 – 不显示；1 – 显示
+- `greetingMessage` -OfflineMessageIfEnable为1时有效：Greeting Message内容
+- `windowFormStyle`	-OfflineMessageIfEnable为1时有效：ChatWindow表单样式
+- `fields`  -OfflineMessageIfEnable为1时有效：自定义字段集合
   + [customFields](#custom-fields)  -自定义字段
-- `offlineMessageIfOpenInNewWindow`  -OfflineMessageIfEnable为0时有效：OfflineMessage是否在新窗口打开
-- `offlineMessageUrl`  -OfflineMessageIfEnable为0时有效：OfflineMessageURL
+- `ifOpenInNewWindow`  -OfflineMessageIfEnable为0时有效：OfflineMessage是否在新窗口打开
+- `url`  -OfflineMessageIfEnable为0时有效：OfflineMessageURL
 
 #### Invitation Property
 - `invitationStyle` -邀请的样式：1：Bubble；2：Popup invitation image；3：Greeting message in chat window
@@ -131,31 +131,31 @@
 
 ##### InvitationButton Property
   - `invitationPosition` -邀请框的位置：0:Center with Overlay;1:Center;2:Top Left ;3:Top Middle; 4:Top Right;5:Bottom Left;6:Bottom Middle;7:Bottom Right
-  - `invitationXOffset` -若XOffsetIfPixel=1则，该字段表示X坐标的偏移像素值;若XOffsetIfPixel=0则，该字段表示X坐标的偏移比例;
-  - `invitationXOffsetIfPixels` -X坐标的偏移量是否为像素
-  - `invitationYOffset` -若YOffsetIfPixel =1则，该字段表示y坐标的偏移像素值;若YOffsetIfPixel =0则，该字段表示y坐标的偏移比例;
-  - `invitationYOffsetIfPixels` -Y坐标的偏移量是否为像素
-  - `invitationPositionStyle` -Y坐标的偏移量是否为像素
-  - `invitationImageStyle` -图片类型：0：URL；1：from gallery  ；2：from my computer
-  - `invitationImageId` -图片ID
-  - `invitationNoImageURL` -No图片的URL
-  - `invitationNoImageId` -No图片ID
-  - `invitationYesImageURL` -Yes图片的URL
-  - `invitationYesImageId` -Yes图片ID
-  - `invitationCloseAreaXOffset` -Close图标的x坐标
-  - `invitationCloseAreaYOffset` -Close图标的y坐标
-  - `invitationCloseAreaWidth`  -Close图标的宽度
-  - `invitationCloseAreaHeight`  -Close图标的高度
-  - `invitationTextAreaXOffset`  -Invitaion文本内容的x坐标
-  - `invitationTextAreaYOffset`  -Invitaion文本内容的y坐标
-  - `invitationTextAreaWidth`  -Invitaion文本内容的宽度
-  - `invitationTextAreaHeight`  -Invitaion文本内容的高度
-  - `invitationText`  -Invitaion文本内容
-  - `invitationTextFont`  -Invitaion文本内容字体
-  - `invitationTextSize`  -Invitaion文本字体大小
-  - `invitationTextIfBold`  -Invitaion文本内容是否加粗
-  - `invitationTextIfItalic`  -Invitaion文本内容是否斜体
-  - `invitationTextColor`  -Invitaion文本颜色
+  - `xOffset` -若XOffsetIfPixel=1则，该字段表示X坐标的偏移像素值;若XOffsetIfPixel=0则，该字段表示X坐标的偏移比例;
+  - `xOffsetIfPixels` -X坐标的偏移量是否为像素
+  - `yOffset` -若YOffsetIfPixel =1则，该字段表示y坐标的偏移像素值;若YOffsetIfPixel =0则，该字段表示y坐标的偏移比例;
+  - `yOffsetIfPixels` -Y坐标的偏移量是否为像素
+  - `positionStyle` -Y坐标的偏移量是否为像素
+  - `imageStyle` -图片类型：0：URL；1：from gallery  ；2：from my computer
+  - `imageId` -图片ID
+  - `noImageURL` -No图片的URL
+  - `noImageId` -No图片ID
+  - `yesImageURL` -Yes图片的URL
+  - `yesImageId` -Yes图片ID
+  - `closeAreaXOffset` -Close图标的x坐标
+  - `closeAreaYOffset` -Close图标的y坐标
+  - `closeAreaWidth`  -Close图标的宽度
+  - `closeAreaHeight`  -Close图标的高度
+  - `textAreaXOffset`  -Invitaion文本内容的x坐标
+  - `textAreaYOffset`  -Invitaion文本内容的y坐标
+  - `textAreaWidth`  -Invitaion文本内容的宽度
+  - `textAreaHeight`  -Invitaion文本内容的高度
+  - `text`  -Invitaion文本内容
+  - `textFont`  -Invitaion文本内容字体
+  - `textSize`  -Invitaion文本字体大小
+  - `textIfBold`  -Invitaion文本内容是否加粗
+  - `textIfItalic`  -Invitaion文本内容是否斜体
+  - `textColor`  -Invitaion文本颜色
 
 ##### AutoInvitation Rule 
   - `id` -规则主键
