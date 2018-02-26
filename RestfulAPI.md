@@ -95,7 +95,7 @@
 - `preChatFields`  -Prechat页面自定义字段集合
   + [customField](#custom-field)  -自定义字段
 
-##### Custom Filed
+##### Custom Field
 - `id` -字段的主键
 - `formType` -0-Pre-Chat Form;1-Offline Message Form;2-Post Chat Form;3-Wrap-up Form;4-PCI Form (在聊天结束后不存储，看不到该表单数据);5-Custom Variable
 - `fieldId` -自定义字段Id
