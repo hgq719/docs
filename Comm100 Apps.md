@@ -1,10 +1,10 @@
 # General
 
 1. [Manifest](#manifest-reference)
-3. [CAF SDK](caf-sdk)
-3. [CAF Client API](client-api)
-5. [Apps Core API](apps-core-api)
-6. [Apps LiveChat API](apps-livechat-api)
+3. [CAF SDK](#caf-sdk)
+3. [CAF Client API](#client-api)
+5. [Apps Core API](#apps-core-api)
+6. [Apps LiveChat API](#apps-livechat-api)
 
 ## Manifest Reference
   Comm100 Apps Framework(CAF)能让开发者在自己的Comm100产品中增加功能、开发第三方集成。所有的App都有一个`Manifest.json`文件。开发者可以在该文件中指定自己的app安装在Comm100产品的一个或者多个位置，例如`TopBar`或聊天窗口的`TabBar`中。开发者可以指定在这些位置的iframe中显示的页面地址，如：
@@ -273,7 +273,7 @@ Comm100在Agent Console端提供了可用的事件、对象、属性及操作，
   - [agentConsole modal](#agent-console-modal) -Agent Console中配置一个模态窗口的形式的页面。
   - [agentConsole background](#agent-console-background) -Agent Console中以后台形式(不显示UI)启动的页面。
  
- 
+
   如果开发者指定`agentconsole_topBar`，App只展示一个图标，点击图标可以打开这个App。
 
 ## All Locations
