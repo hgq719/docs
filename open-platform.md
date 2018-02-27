@@ -81,7 +81,7 @@
   Developer可以在不同的场景通过调用不同类型的API来开发第三方应用集成。
   - [Restful API](https://www.comm100.com/doc/api/introduction.htm)
   - Javascript API
-    + [Agent Console API](https://github.com/Comm100/agent-console-extension-sample/blob/master/doc/agent-console-api.md)
+    + [Agent Console API](https://github.com/hgq719/docs/blob/master/AppsAgentConsoleAPI.md)
     + [Control Panel API](#control-panel-api)
     + [Visitor Side API](https://ent.comm100.com/LiveChatFunc/doc/CustomJS/index.html#/)
   - [Webhook](https://www.comm100.com/livechat/knowledgebase/category/live-chat-api-good-practices/)
