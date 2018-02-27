@@ -247,7 +247,7 @@ Methods
   - [agentConsole topBar](#agent-console-topbar) -Agent Console的头部全局菜单区域。
   - [agentConsole navigationBar](#agent-console-navigations) -Agent Console的左侧列表菜单区域。
   - [agentConsole chatToolBar](#agent-console-chattoolbar) -Agent Console的聊天页面中间的toolBar区域。
-  - [agentConsole chatTabBar](#agent-console-chattabbar) -Agent Console的聊天窗口的右侧区域。
+  - [agentConsole chatTabBar](#agent-console-chattabbar) -Agent Console的聊天窗口的右侧Tab区域。
   - [agentConsole modal](#agent-console-modal) -Agent Console中配置一个模态窗口的形式的页面。
   - [agentConsole background](#agent-console-background) -Agent Console中以后台形式(不显示UI)启动的页面。
 
