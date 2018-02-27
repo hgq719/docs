@@ -15,7 +15,7 @@
   "signedUrls": "false",    //指定是否所有页面都需要添加JWT，让开发者通过JWT来校验location中配置的页面接收的请求是否来自Comm100 
   "location": {            //App的安装位置
     "controlPanel_topBar": "/assets/cp_topBar.html",
-    "agentConsole_chatSideBar": "/assets/ac_chatSideBar.html"
+    "agentConsole_chatTabBar": "/assets/ac_chatTabBar.html"
   },
   "settings":{            //App配置页面
     "url": "assets/settings.html"
@@ -129,7 +129,7 @@
 
    ```json
    "location": {
-     "agentConsole_chatSideBar": {
+     "agentConsole_chatTabBar": {
        "signed": true,     //包含JWT
        "url": "https：//*****/index.html"    //非Comm100托管，开发者远程托管页面
      }
@@ -143,7 +143,7 @@
   - [controlPanel_background](#control-panel-background)
   - [agentConsole_topBar](#agent-console-topbar)
   - [agentConsole_navigationBar](#agent-console-navigations)
-  - [agentConsole_chatSideBar](#agent-console-chatsidebar)
+  - [agentConsole_chatTabBar](#agent-console-chattabbar)
   - [agentConsole_chatToolBar](#agent-console-chattoolbar)
   - [agentConsole_background](#agent-console-background)  
 
@@ -153,11 +153,11 @@
   + `autoLoad` 指定当前App在系统启动以后是否自动加载。默认值为`false`。
   + `url` 指定当前位置下的iframe中显示的页面地址，该地址可以是开发者远程托管的绝对页面地址，也可以是由Comm100托管的相对路径地址。必须指定。
   + `signed` 当前位置下的iframe为远程托管(非Comm100托管)页面时，开发者可通过指定该属性是否在Comm100当前页面中的请求包含一个JSON Web Token(JWT)，开发者可以用来验证该请求是否来自Comm100合法请求。默认值为`false`。  
-  + `popupStyle` 当前位置激活弹出框的类型，包括`popover`和`modal`，默认值为`popover`。目前仅在`agentConsole_chatSideBar`和`agentConsole_chatToolBar`有效。
+  + `popupStyle` 当前位置激活弹出框的类型，包括`popover`和`modal`，默认值为`popover`。目前仅在`agentConsole_topBar`和`agentConsole_chatToolBar`有效。
 
    ```json
    "location": {
-     "agentConsole_chatSideBar": {
+     "agentConsole_chatTabBar": {
        "autoHide": false,  //自动隐藏
        "autoLoad": false,  //自动加载
        "signed": true,     //包含JWT
@@ -170,7 +170,7 @@
 
    ```json
    "location": {
-     "agentconsole_chatSidebar": "/assets/index.html"
+     "agentconsole_chatTabbar": "/assets/index.html"
    }
    ```
 
@@ -234,24 +234,16 @@
     }
   ```
 
-##### PopOver Object
+##### Popup Object
   - Properties
-    + `popOver.size`-弹出区域的大小
-      * `width`-弹出区域的宽度
-      * `height`-弹出区域的高度
-    + `popOver.visible`-弹出窗口的显示状态: show/hide/toggle 默认show
+    + `popup.visible`-弹出窗口的显示状态: show/hide/toggle 默认show
 
   - Actions
-    + `popover` -设置popOver的属性，如：
+    + `popup` -设置popup的属性，如：
 
 
   ```javascript
-    client.do("popover",{
-      width:  300,
-      height: 200
-    });   //设置popover区域大小
-
-    client.do("popover","show"); //设置popover区域的可见性
+    client.do("popup","show"); //设置popup区域的可见性
   ```
 
 ### Agent Console NavigationBar
@@ -263,12 +255,12 @@
   }
   ```
 
-### Agent Console ChatSideBar
+### Agent Console ChatTabBar
   指定将App安装在Agent Console的聊天窗口的右侧区域。安装此App以后，在Agent Console的聊天窗口的右侧区域的最后一个位置添加一个Tab菜单，点击该菜单，下方的内容区域展示的内容为该处配置的页面内容。
 
   ```json
   "location": {
-    "agentConsole_chatSideBar": "/assets/chatSideBar.html"
+    "agentConsole_chatTabBar": "/assets/chatTabBar.html"
   }
   ```
 
