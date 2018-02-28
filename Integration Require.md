@@ -29,6 +29,7 @@
   + Authority Manage  
      - Partner可以在自己的用户管理界面中通过调用Comm100 RESTful API来配置自己系统中的账户在Comm100中权限。
   + Account Login
+     - Comm100需要提供SSO和AD的身份认证方式，让Partner能够选择性的采取需要的方式进行账户登录认证
      - Partner在登录自己的系统后，可以直接使用嵌入在自己系统中的Comm100的页面、组件或Api，不需要再进行登录, Comm100需要提供登录的方式和接口
      - 完全通过链接嵌入Agent Console，当Partner的用户登录以后，可以直接点击链接进入Agent Console
 
@@ -62,6 +63,7 @@ Api
   - Refuse -拒绝聊天
   - Ban -Ban当前Visitor的Id或Ip
   - Transfer -将当前聊天转交给其他Agent或ChatBot
++ Comm100的ChatServer提供Api能够让Partner自己来构建自己的访客与客服的聊天
 
 ### Control Panel Settings
   Control Panel中的功能集成一般考虑UI直接集成，Comm100也会提供相应的Restful的Api，Partner也可以通过Api来进行深度集成。  
