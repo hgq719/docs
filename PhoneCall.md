@@ -45,9 +45,9 @@
   将聊天功能集成到Partner的界面中，或者直接使用Comm100的Agent Console与访客进行聊天，查看访客列表等。
 + List
      * visitors   
-         Partner可以在自己的界面中嵌入访客列表的界面，其Agent可以查看访客列表，并对访客列表进行相应操作
+         Partner的Agent可以查看访客列表，并对访客列表进行相应操作
      * mychats    
-         Partner可以在自己的界面中嵌入聊天窗口，其Agent可以与访客进行聊天
+         Partner的Agent可以与访客进行聊天
 + tabs
      * info  
          Partner的Agent可以在聊天窗口页面查看当前聊天的信息
@@ -57,11 +57,11 @@
 + 状态切换  
    Partner可以在界面中切换Comm100 Agent的状态或者切换自己系统中的状态的同时通过接口来改变Comm100 Agent的状态
 
-+ Settings： Partner可以在界面中嵌入Comm100 Agent Console中的Settings页面
++ Settings： Partner可以在界面中使用Comm100 Agent Console中的Settings页面
 
 ### Control Panel Settings
    - Site管理
-     + Update Site Profile ：Partner可以通过界面修改Site信息，需要Comm100提供Site修改接口
+     + Update Site Profile ：Partner可以通过界面修改Site信息
    - Agents管理
    - 权限配置
      + Agent Permissions：Partner可以在界面中配置自己系统中的账户在Comm100中权限
