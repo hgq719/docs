@@ -94,5 +94,5 @@ Api
      + Visitor Sementation
      + Visitor Single Sign-On  
      
-### Reports
+### Report
   用户可以通过ReportApi获取到报表数据，集成到自己的报表系统中。如果不考虑深度集成，也可直接将Comm100的UI直接集成。
