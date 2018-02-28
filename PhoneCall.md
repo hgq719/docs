@@ -21,7 +21,7 @@
   - 组件集成    
      通过引入Comm100的组件代码将Comm100的功能集成Partner的页面中，这种方式需要Partner的终端支持Comm100的组件。
   - 接口集成   
-    Partner通过调用Comm100的Api，自己构建界面或后台来完成特定逻辑。
+     Partner通过调用Comm100的Api，自己构建界面或后台来完成特定逻辑。
 
 ## Account Integration
   - Account Manage -Partner可以直接通过接口创建、删除或修改Comm100的Agent或Department
@@ -89,4 +89,4 @@
      + Visitor Single Sign-On  
      
 ### Reports
-  用户可以通过ReportApi获取到报表数据，集成到自己的报表系统中。
+  Partner可以通过ReportApi获取到报表数据，集成到自己的报表系统中。
