@@ -49,7 +49,7 @@
           Partner的Agent可以与访客进行聊天
   + tabs
       * info  
-          Partner的Agent可以在聊天窗口页面查看当前聊天的信息
+          Partner的Agent可以在聊天页面查看当前聊天的信息
       * canned   
           Partner的Agent可以在聊天页面使用canned messages
       * wrap-up
