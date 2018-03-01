@@ -59,13 +59,15 @@ Api
 + 状态切换  
    Partner可以在界面中切换Comm100 Agent的状态或者切换自己系统中的状态的同时通过接口来改变Comm100 Agent的状态
 + 聊天的部分操作
+  - ListVisitor -聊天访客列表
   - Accept -接受聊天
   - Refuse -拒绝聊天
   - Ban -Ban当前Visitor的Id或Ip
-  - invite -邀请访客进行聊天
-+ ChatServer提供Api能够让Partner自己来构建自己的访客与客服的聊天
-  - init -初始化一个聊天  
+  - Invite -邀请访客进行聊天
++ ChatServer提供Api能够让Partner自己来构建自己的访客与客服的聊天  
   - Send -发送消息
+  - Heartbeat -心跳包
+  - GetMessage -获取聊天信息
   - Transfer -将当前聊天转交给其他Agent或ChatBot
 
 ### Control Panel Settings
