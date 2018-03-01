@@ -28,7 +28,7 @@
      - Delete Department -Partner可以在删除自己的部门的同时删除相应的Comm100 Department；或者只删除Comm100 Department    
   + Authority Manage  
      - Partner可以在自己的用户管理界面中通过调用Comm100 RESTful API来配置自己系统中的账户在Comm100中权限。
-  + Account Login
+  + Account Login    
      Comm100可以提供SSO和AD的身份认证方式，让Partner的用户可以在登录自己的系统以后   
      - 直接使用嵌入在自己系统中的Comm100的页面、组件或Api，不需要再进行登录, Comm100需要提供登录的方式和接口
      - 完全通过链接嵌入Agent Console，直接点击链接进入Agent Console
