@@ -62,7 +62,9 @@ Api
   - Accept -接受聊天
   - Refuse -拒绝聊天
   - Ban -Ban当前Visitor的Id或Ip
-+ ChatServer提供Api能够让Partner自己来构建自己的访客与客服的聊天  
+  - invite -邀请访客进行聊天
++ ChatServer提供Api能够让Partner自己来构建自己的访客与客服的聊天
+  - init -初始化一个聊天  
   - Send -发送消息
   - Transfer -将当前聊天转交给其他Agent或ChatBot
 
