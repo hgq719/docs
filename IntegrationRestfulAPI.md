@@ -4,7 +4,7 @@
  3. [Settings API](#settings-api)
 
 
-  ## Authority Managment API
+## Authority Managment API
   Partner可以在自己的用户管理界面中通过调用Comm100 RESTful API来配置自己系统中的账户在Comm100中权限，Comm100 Live Chat公开了下面的API来对站点下的权限资源进行操作：
   - Permission Managment  
     + `GET /api/v1/livechat/permisstions` -获取所有的Permission的信息   
@@ -15,7 +15,7 @@
     + `PUT /api/v1/livechat/agents/{agent_id}/permisstions/{permission_info}` -更新agent的某一个权限配置   
     + `DELETE /api/v1/livechat/agents/{agent_id}/permisstions/{permission_id}` -删除当前agent的某一个权限配置   
 
-## Campaigns API
+## Campaign API
   Comm100 Live Chat公开了下面的API来对站点下的[Campaign Object](#campaign-object)资源进行操作：  
 `GET /api/v1/livechat/campaigns` -Get list of campaigns  
 `GET /api/v1/livechat/campaigns/{id}` -Get a single campaign  
