@@ -284,9 +284,9 @@
      `https://partnerSecondDomain.comm100.com/sso/saml/acs`
 
   流程
-  1. 未认证的用户在请求Comm100的资源时，被重定向到Partner配置SAML SSO的Login URL地址  
-  2. Partner对用户身份进行认证，认证完成向Comm100返回SAML身份认证Response并重定向到Comm100的SAML的endpoint：`https://partnerSecondDomain.comm100.com/sso/saml/acs/`  
-  3. Comm100对SAML Response进行验证，验证成功完成Agent的认证，并重定向到Agent请求的资源  
+  - 未认证的用户在请求Comm100的资源时，被重定向到Partner配置SAML SSO的Login URL地址  
+  - Partner对用户身份进行认证，认证完成向Comm100返回SAML身份认证Response并重定向到Comm100的SAML的endpoint：`https://partnerSecondDomain.comm100.com/sso/saml/acs/`  
+  - Comm100对SAML Response进行验证，验证成功完成Agent的认证，并重定向到Agent请求的资源  
 
 2. JWT
 
@@ -301,10 +301,10 @@
   - `return_to` -身份验证通过后用户将看到的页面
   
   流程
-  1. 未认证的用户在请求Comm100的资源时，被重定向到Partner配置的JWT SSO的Login Url地址  
-  2. 由Partner对Agent进行身份认证，构建一个包含身份信息的JWT，并重定向到Comm100的Endpoint：`https://hosted.comm100.com/access/jwt`   
-  3. Comm100解析JWT完成Agent的认证   
-  4. 写cookie, 用来维护状态   
+  - 未认证的用户在请求Comm100的资源时，被重定向到Partner配置的JWT SSO的Login Url地址  
+  - 由Partner对Agent进行身份认证，构建一个包含身份信息的JWT，并重定向到Comm100的Endpoint：`https://hosted.comm100.com/access/jwt`   
+  - Comm100解析JWT完成Agent的认证   
+  - 写cookie, 用来维护状态   
   
 ### JWT Payload
   JWT的Payload中包含以下参数：
