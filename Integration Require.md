@@ -120,6 +120,11 @@
   `Authorization": "bearer {access_token}"`
 
 ### UI Integration
+  Partner可采用以下的方式将Comm100的页面集成到自己的系统中：
+  - iframe嵌入页面
+     通过iframe的src设置Comm100的页面。该方式可以让Partner将Comm100的菜单、header、footer隐藏起来，使用Partner自己的相关部分。但是这种方式交互的内容只影响到该iframe，如弹出框。
+  - 直接指定页面地址
+     通过直接指定页面地址嵌入整个Comm100的页面。
   Comm100提供的可供Partner集成的界面如下：  
   - [Control Panel UI](#control-panel-ui)
   - [Agent Console UI](#agent-console-ui)
