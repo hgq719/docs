@@ -18,11 +18,11 @@
      通过直接指定Comm100的页面地址将Comm100的功能引入到Partner的界面中。主要是后台配置界面和Agent Console中的部分界面, 用户可以通过指定的url参数来控制页面中的部分内容，如头部，菜单等可以隐藏。Comm100将自己产品中的CSS抽象出来，Partner可以根据自己的需求，配置一套符合自己公司样式的产品给自己的客户使用，只是这部分样式的配置目前由Comm100进行配置。  
      以下以Campaign List为例：   
          
-     `https://hosted.comm100.com/livechat/campaigns.aspx?siteId=10000118&onlyDisplayBody=true&jwt=xxxxx.xxx.xxxx`   
+     `https://hosted.comm100.com/livechat/campaigns.aspx?siteId=10000118&onlyDisplayBody=true`   
 
      参数说明：     
       `onlyDisplayBody`: 是否只显示主体内容，true：只显示主体内容，菜单、header和footer隐藏；false：显示所有内容，即菜单、header、主体内容和footer。   
-      `token`: 用于jwt验证的token。   
+      `siteId`: Site主键，可关联到Partner，获取Partner配置的样式。   
     
       样式控制： 根据站点信息获取到partner的信息，加载partner中配置的样式文件   
 
@@ -32,19 +32,19 @@
     Partner通过调用Comm100的RESTful API，自己构建界面或后台来完成特定功能和逻辑。API的调用采取OAuth的方式进行身份验证： 
     + [发送Comm100授权页面给用户](#send-authorization-page)
     + [处理用户授权](#handle-authorization-decision)
-    + [从Comm100获取access_token](#get-access-token)
     + [使用access_token调用API](#call-api) 
 
 ### Send Authorization Page
   开发者需要通过下面的API来向Comm100发起一个授权请求。
 
-  `GET https://hosted.comm100.com/api/v1/livechat/oauth/authorizations`
+  `GET https://hosted.comm100.com/oauth/authorizations`
 
   Request Parameters:
-  - response_type -默认证`code`，Comm100会根据要求返回一个Authorization Code，必须指定。
-  - redirect_url -指定用户授权以后的重定向页面，该url必须是一个绝对地址。必须指定。
-  - client_id -App申请时给定的唯一id，必须指定。
-  - scope -指定Comm100资源的访问权限列表，包括`read`、`write`，还可以指定访问特定的资源或所有资源，具体参考[Request Scope Setting](#request-scope-setting)，必须指定。
+  - `response_type` -授权类型，默认值`token`，必须指定。
+  - `redirect_url` -指定用户授权以后的重定向页面，该url必须是一个绝对地址。必须指定。
+  - `client_id` -App申请时给定的唯一id，必须指定。
+  - `scope` -指定Comm100资源的访问权限列表，包括`read`、`write`，还可以指定访问特定的资源或所有资源，具体参考[Request Scope Setting](#request-scope-setting)，必须指定。
+  - `state` -客户端的当前状态，任意值，认证服务器会原封不动的返回。
 
 #### Request Scope Setting
   开发者可以指定`Scope`来控制App对Comm100资源的访问。`read`指定App有权限使用`GET`方式请求终端接口，`write`指定App有权限使用`POST`、`PUT`和`DELETE`方式请求终端接口来创建、更新和删除资源。可以同时给予两种`scope`设置，如：
@@ -71,49 +71,10 @@
   `scope=visitor:read visitor:write offlineMessage:read`
 
 ### Handle Authorization Decision
-  当用户做出授权决策以后，开发者必须处理这个响应。如果用户决定授权给应用来访问自己在Comm100的资源，Comm100将在重定向页面地址后添加一个授权码，如：
+  当用户做出授权决策以后，开发者必须处理这个响应。如果用户决定授权给应用来访问自己在Comm100的资源，Comm100将在重定向页面地址的hash部分包含一个访问令牌，如：
   
-  `{redirect_url}?code=98asjdfka1729`
-
-  如果用户拒绝授权给应用，Comm100则会在后面加上错误信息，如:
-
-  `{redirect_url}?error=access_denied&error_message=****`
-
-### Get Access Token
-  开发者在收到Comm100给的`authorization_code`以后，可以通过下面的API来交换`access_token`。
-
-  `POST https://hosted.comm100.com/api/v1/livechat/oauth/token`
-
-  Request Parameters:
-  - grant_type -指定授权类型，默认值为`authorization_code`，必须指定。
-  - code -指定上面得到的`authorization_code`的值，必须指定。
-  - api_key -用户访问API的key，必须指定。
-  - agent_id -agent的唯一标识，必须指定。
-  - redirect_url -授权完成后重定向页面，该url必须是一个绝对地址。必须指定。
-  - scope -指定访问权限，默认值为`read`
-
-  Request示例：
-  ```json
-    {
-      "grant_type": "authorization_code",
-      "code": "{authorization_code}",
-      "api_key": "{api_key}",
-      "agent_id" : "{agent_id}",
-      "redirect_url":"{redirect_url}",
-      "scope": "read"
-    }
-  ```
-  Response示例：
-  ```json
-    Status: 200 OK
-
-    {
-      "access_token":"yhoaHL698huysOhs6a8e9HhoKdL",
-      "token_type": "bearer",
-      "scope": "read"
-    }
-  ```
-
+  `{redirect_url}#access_token=98asjdfka1729&state=aaa&token_type=example&expires_in=3600`
+     
 ### Call API
   开发者可以通过上面获取的`access_token`来进行API调用，格式如下：  
 
@@ -253,17 +214,17 @@
 
 ##### SSO Settings
   - SAML
-    + `Cert` -SAML Certificate
-    + `Endpoint` 
+    + `cert` -SAML Certificate
+    + `endpoint` 
       * `loginUrl`   
-        SAML方式配置的登录页面，如：`https://partnerSecondDomain.comm100.com/sso/saml/login.html`
+        SAML方式配置的登录页面，如：`https://partnerCompany.com/services/login.html`
       * `logoutUrl`   
         SAML方式配置的登出页面，如：`https://partnerCompany.com/services/comm100_logout.html`   
   - JWT
-    + `Cert` -JWT Certificate
-    + `Endpoint`
+    + `secret` -Comm100与Partner之间用于jwt签发和验证的密钥
+    + `endpoint`
       * `loginUrl`   
-        JWT方式配置的SSO登录页面，如：`https://partnerSecondDomain.comm100.com/sso/jwt/login.html`
+        JWT方式配置的SSO登录页面，如：`https://partnerCompany.com/services/login.html`
       * `logoutUrl`   
         JWT方式配置的登录页面，如：`https://partnerCompany.com/services/comm100_logout.html`
 
@@ -290,7 +251,7 @@
 
   流程
   - 未认证的用户在请求Comm100的资源时，被重定向到Partner配置SAML SSO的Login URL地址  
-  - Partner对用户身份进行认证，认证完成向Comm100返回SAML身份认证Response并重定向到Comm100的SAML的endpoint：`https://partnerSecondDomain.comm100.com/sso/saml/acs/`  
+  - Partner对用户身份进行认证，认证完成向Comm100返回SAML身份认证Response并重定向到Comm100的SAML的endpoint：`https://partnerSecondDomain.comm100.com/sso/saml/acs`  
   - Comm100对SAML Response进行验证，验证成功完成Agent的认证，并重定向到Agent请求的资源  
 
 2. JWT
