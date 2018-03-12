@@ -28,7 +28,9 @@
 
     {
       "access_token":"98asjdfka172dsfsd9s2342sdfs",
-      "expires_in": "3600"
+      "expires_in": "3600",
+      "token_type": "bearer",
+      "scope": "read"
     }
   ```
 

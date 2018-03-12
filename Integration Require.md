@@ -103,7 +103,7 @@
     NSURL* url = [NSURL URLWithString: @"Comm100://login?jwt=xxx.xxx.xx"];  
     [[UIApplication sharedApplication] openURL: url];  
   ```
-  
+
 ### JWT Payload
   JWT的Payload中包含以下参数：
   * `iat` -JWT的发行时间
@@ -114,7 +114,30 @@
   * `phone` -电话号码
 
 ## Partner API
-   Partner通过下面的Api给他的客户开户，创建[Site Object](#site-object)，维护自己客户的对应站点，Partner API不支持跨域请求。具体的API调用方式参考[API Authentication](https://github.com/hgq719/docs/blob/master/IntegrationRestfulAPI.md#security-and-authentication)。    
+   Partner通过下面的Api给他的客户开户，创建[Site Object](#site-object)，维护自己客户的对应站点，Partner API不支持跨域请求。
+   
+   开发者需要通过下面的API来向Comm100请求访问API的token。
+
+  `GET https://hosted.comm100.com/auth/token`
+
+  Request Parameters:
+  - `client_id` -用户的唯一id，如agentId，必须指定。
+  - `api_key` -访问Api时使用的key，Agent只能访问自己所属站点的数据
+
+  Response示例：
+  ```json
+    Status: 200 OK
+
+    {
+      "access_token":"98asjdfka172dsfsd9s2342sdfs",
+      "expires_in": "3600"
+    }
+  ```
+  开发者可以通过上面获取的`access_token`来进行API调用，格式如下：  
+     
+  `Authorization": "bearer {access_token}"`
+     
+  开户中，Partner可用的API如下：
   - `GET /api/v1/livechat/partner/sites` -获取当前Partner的所有客户的站点信息   
   - `GET /api/v1/livechat/partner/sites/{site_id}` -获取当前Partner的某一个站点的信息   
   - `POST /api/v1/livechat/partner/sites` -给自己的客户开户，新建一个[Site对象](site-object)，同时为这个Site对象生成一个管理员   
