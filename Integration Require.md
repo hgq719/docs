@@ -21,10 +21,6 @@
 2. Branding/Logo，Partner可以定义自己的Branding以及Logo，这些会显示在界面中
 3. Agent Console Desktop/iOS/Android客户端需要为每个客户单独编译，iOS和Android需要手动发布到App Store和Google Play。不同Partner的客户端不能登录到其他Partner下面站点
 
-#### iOS & Android 登录
-
-comm100://login?jwt=xxx.xxx.xx
-
 ## Partner Configuration
   Parter在使用Comm100的产品之前，必须要进行相应的配置。如下所示：
   1. 基本信息 -包括名字、邮箱、电话号码等  
@@ -61,7 +57,7 @@ comm100://login?jwt=xxx.xxx.xx
       * `logoutUrl`   
         SAML方式配置的登出页面，如：`https://partnerCompany.com/services/comm100_logout.html`   
   - JWT
-    + `secret` -Comm100与Partner之间用于jwt签发和验证的密钥
+    + `secret` -Comm100与Partner之间用于jwt签发和验证的密钥,可使用api_key作为该密钥
     + `endpoint`
       * `loginUrl`   
         JWT方式配置的登录页面，如：`https://partnerCompany.com/services/login.html`
@@ -72,7 +68,7 @@ comm100://login?jwt=xxx.xxx.xx
   Partner可以使用两种方式进行登录验证的集成：NoSSO和SSO。使用NoSSO的方式集成，Agent在登录到Partner的Site以后还需要重新进入到Comm100的登录页面认证完成使用Comm100的功能；而使用SSO的方式，Partner的用户可以在登录自己的系统以后，直接使用嵌入在自己系统中的Comm100的页面、组件或Api，不需要再进行其他认证了。目前Comm100 提供两种SSO登录验证集成的方式, 一种为基于[SAML2.0](https://en.wikipedia.org/wiki/SAML_2.0), 另一种为[JWT](http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html)。
 1. SAML
 
-  endpoint：  
+  签名验证服务endpoint：  
      `https://partnerSecondDomain.comm100.com/sso/saml/acs`
 
   流程
@@ -84,8 +80,8 @@ comm100://login?jwt=xxx.xxx.xx
 
  State - support cookie
 
-  endpoint:
-   - `https://hosted.comm100.com/access/jwt?jwt=xxx.xxx.xx&return_to=https://hosted.comm100.com/livechatdashboard/dashboard.aspx?siteId=111111`
+  身份认证endpoint:
+   - `https://hosted.comm100.com/sso/jwt?jwt=xxx.xxx.xx&return_to=https://hosted.comm100.com/livechatdashboard/dashboard.aspx?siteId=111111`
 
   参数说明
   - `jwt`
@@ -94,9 +90,28 @@ comm100://login?jwt=xxx.xxx.xx
   
   流程
   - 未认证的用户在请求Comm100的资源时，被重定向到Partner配置的JWT SSO的Login Url地址  
-  - 由Partner对Agent进行身份认证，构建一个包含身份信息的JWT，并重定向到Comm100的Endpoint：`https://hosted.comm100.com/access/jwt`   
+  - 由Partner对Agent进行身份认证，构建一个包含身份信息的JWT，并重定向到Comm100的Endpoint：`https://hosted.comm100.com/sso/jwt`   
   - Comm100解析JWT完成Agent的认证   
   - 写cookie, 用来维护状态   
+
+   移动设备登录：  
+  iOS  
+
+  ```java
+    NSURL* url = [NSURL URLWithString: @"Comm100://login?jwt=xxx.xxx.xx"];  
+    [[UIApplication sharedApplication] openURL: url];  
+  ```
+  Android 
+
+  ```java
+    //android:scheme="c100"
+    //android:host="comm100"
+    //android:path="/service"
+    //android:port="8888"/>
+
+    Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("c100://comm100:8888/service/login?jwt=xxx.xxx.xx"));
+    startActivity(intent); 
+  ```
   
 ### JWT Payload
   JWT的Payload中包含以下参数：
@@ -104,12 +119,11 @@ comm100://login?jwt=xxx.xxx.xx
   * `jti` -JWT的唯一ID
   * `email` -登录用户的email地址
   * `name` -登录用户的名称
-  * `externalId` -如果系统中不是通过email来唯一标识一个用户，则可用系统中的唯一id来标识这个用户
+  * `id` -系统中的唯一标识这个用户的id
   * `phone` -电话号码
-  * `user_fields` -json格式的其他自定义用户字段
 
-## Partner Open Account
-   Partner通过下面的Api给他的客户开户，创建[Site Object](#site-object)，维护自己客户的对应站点。在Partner的账户系统中，每个[Partner对象](#partner-object)在生成的时候就对应生成了一个`api_key`，Partner可以通过这个`api_key`和自己配置的IP白名单来进行下列这些API的访问。    
+## Partner API
+   Partner通过下面的Api给他的客户开户，创建[Site Object](#site-object)，维护自己客户的对应站点。在Partner的账户系统中，每个[Partner对象](#partner-object)在生成的时候就对应生成了一个`api_key`，Partner可以通过这个`api_key`和自己配置的IP白名单来进行下列这些API的访问，该API不支持跨域请求。    
   - `GET /api/v1/livechat/partner/sites` -获取当前Partner的所有客户的站点信息   
   - `GET /api/v1/livechat/partner/sites/{site_id}` -获取当前Partner的某一个站点的信息   
   - `POST /api/v1/livechat/partner/sites` -给自己的客户开户，新建一个[Site对象](site-object)，同时为这个Site对象生成一个管理员   
@@ -151,53 +165,6 @@ comm100://login?jwt=xxx.xxx.xx
     + [发送Comm100授权页面给用户](#send-authorization-page)
     + [处理用户授权](#handle-authorization-decision)
     + [使用access_token调用API](#call-api) 
-
-### Send Authorization Page
-  开发者需要通过下面的API来向Comm100发起一个授权请求。
-
-  `GET https://hosted.comm100.com/oauth/authorizations`
-
-  Request Parameters:
-  - `response_type` -授权类型，默认值`token`，必须指定。
-  - `redirect_url` -指定用户授权以后的重定向页面，该url必须是一个绝对地址。必须指定。
-  - `client_id` -用户的唯一id，如agentId，必须指定。
-  - `api_key` -访问Api时使用的key
-  - `scope` -指定Comm100资源的访问权限列表，包括`read`、`write`，还可以指定访问特定的资源或所有资源，具体参考[Request Scope Setting](#request-scope-setting)，必须指定。
-  - `state` -客户端的当前状态，任意值，认证服务器会原封不动的返回。
-
-#### Request Scope Setting
-  开发者可以指定`Scope`来控制App对Comm100资源的访问。`read`指定App有权限使用`GET`方式请求终端接口，`write`指定App有权限使用`POST`、`PUT`和`DELETE`方式请求终端接口来创建、更新和删除资源。可以同时给予两种`scope`设置，如：
-  `scope=read write`
-
-  另外，开发者还可以对特定的资源进行授权范围的设置，资源如下：
-  - visitor
-  - operater
-  - chat
-  - offlineMessage
-  - department
-
-
-  设置语法如下：`scope=resource:scope`,不指定资源则标识针对所有资源有效。
-  单个资源请求设置如下： 
-
-
-  `scope=offlineMessage:read`
-
-
-  多个资源的请求设置如下：
-
-
-  `scope=visitor:read visitor:write offlineMessage:read`
-
-### Handle Authorization Decision
-  当用户做出授权决策以后，开发者必须处理这个响应。如果用户决定授权给应用来访问自己在Comm100的资源，Comm100将在重定向页面地址的hash部分包含一个访问令牌，如：
-  
-  `{redirect_url}#access_token=98asjdfka1729&state=aaa&token_type=example&expires_in=3600`
-     
-### Call API
-  开发者可以通过上面获取的`access_token`来进行API调用，格式如下：  
-
-  `Authorization": "bearer {access_token}"`
 
 ### UI Integration
   Partner可采用以下的方式将Comm100的页面集成到自己的系统中：
