@@ -15,8 +15,12 @@
   `GET https://hosted.comm100.com/oauth/token`
 
   Request Parameters:
+  - `response_type` -授权类型，默认值`token`，必须指定。
+  - `redirect_url` -指定用户授权以后的重定向页面，该url必须是一个绝对地址。必须指定。
   - `client_id` -用户的唯一id，如agentId，必须指定。
   - `api_key` -访问Api时使用的key，Agent只能访问自己所属站点的数据
+  - `scope` -指定Comm100资源的访问权限列表，包括`read`、`write`，还可以指定访问特定的资源或所有资源，具体参考[Request Scope Setting](#request-scope-setting)，必须指定。
+  - `state` -客户端的当前状态，任意值，认证服务器会原封不动的返回。
 
   Response示例：
   ```json
