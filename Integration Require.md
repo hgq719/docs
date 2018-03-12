@@ -1,13 +1,32 @@
 # General
+
 1. [Role](#role)
-2. [Partner Object](#partner-object)
-3. [Open Account](#partner-open-account)
-4. [Integration Ways](#integration-ways)
+2. [Deployment](#deployment)
+3. [Partner Object](#partner-object)
+4. [Open Account](#partner-open-account)
+5. [Integration Ways](#integration-ways)
 
 ## Role
   - Comm100 
   - Partner -合作伙伴，需要集成Comm100产品的客户，如某个PhoneCall公司。Comm100的代理商
-  - 客户 -合作伙伴的客户
+  - 客户 - 合作伙伴的客户
+
+## Deployment
+
+合作伙伴可以选择直接使用Comm100的Partner平台，或者选择单独部署一个平台。Partner平台使用二级域名来区分不同的Partner (如：cisco.comm100.com, avaya.comm100.com)，而单独部署平台则可以使用用户自己的域名(如：chat.cisco.com)。
+
+每一个Partner在部署时需要确定几个内容
+1. 样式，每一个Partner可以定义一套自己的前端样式，由Comm100根据对方的需求来定义， Partner客户打开Live Chat产品会显示Partner定义的样式
+  - 样式通过静态资源的UrlRewrite来完成，不同二级域名下的静态资源重写到指定的目录下面
+2. Branding/Logo，Partner可以定义自己的Branding以及Logo，这些会显示在界面中
+3. Agent Console Desktop/iOS/Android客户端需要为每个客户单独编译，iOS和Android需要手动发布到App Store和Google Play。不同Partner的客户端不能登录到其他Partner下面站点
+
+#### iOS & Android 登录
+
+comm100://login?jwt=xxx.xxx.xx
+
+## Partner Configuration
+
 
 ## Partner Object
   Comm100中的Partner对象包括下面的属性：  
@@ -27,7 +46,7 @@
   + Partner Site的Agent的验证方式配置
     - [SSO Settings](#sso-settings) -SSO配置  
     - No SSO  
-       Partner的Site不使用SSO的情况，Agent默认采用Comm100的标准身份认证方式进行验证，在未认证的情况下，重定向到Comm100的登录页面进行登录，如`https://www.comm100.com/secure/Login.aspx`。
+       Partner的Site不使用SSO的情况，Agent默认采用Comm100的标准身份认证方式进行验证，在未认证的情况下，重定向到Comm100的登录页面进行登录，如`https://www.comm100.com/secure/login.aspx`。
 
 #### SSO Settings
   - SAML
@@ -281,9 +300,3 @@
 
 ### Report
   用户可以通过ReportApi获取到报表数据，集成到自己的报表系统中，ReportApi的详情可参考[Report API](https://gist.github.com/chendesheng/50e9b63573f09a1c1a76c1f4ec074ac9)。部分报表如果不考虑深度集成，也可采用界面集成的方式直接将该报表的UI集成到Partner的界面中。
-
-
-
-
- 
-
