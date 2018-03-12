@@ -25,8 +25,7 @@
     - `apiKey` -Partner调用Api时使用的apiKey，使用basic partner_id:api_key来访问API 
     - `ipWhiteList` -允许Partner使用Comm100的Partner API的IP白名单
   + Partner Site的Agent的验证方式配置
-    - [SSO Settings](#sso-settings)   
-       SSO配置
+    - [SSO Settings](#sso-settings) -SSO配置  
     - No SSO  
        Partner的Site不使用SSO的情况，Agent默认采用Comm100的标准身份认证方式进行验证，在未认证的情况下，重定向到Comm100的登录页面进行登录，如`https://www.comm100.com/secure/Login.aspx`。
 
@@ -42,7 +41,7 @@
     + `secret` -Comm100与Partner之间用于jwt签发和验证的密钥
     + `endpoint`
       * `loginUrl`   
-        JWT方式配置的SSO登录页面，如：`https://partnerCompany.com/services/login.html`
+        JWT方式配置的登录页面，如：`https://partnerCompany.com/services/login.html`
       * `logoutUrl`   
         JWT方式配置的登录页面，如：`https://partnerCompany.com/services/comm100_logout.html`
 
@@ -68,7 +67,7 @@
   参数说明
   - `jwt`
       jwt中包含三部分内容：Header头部、[Payload负载](#jwt-payload)和Signature。将header和payload使用Base64编码，Signature根据编码后的header、payload和特定的密钥(Comm100为每个Partner生成的特定密钥)，使用header中指定的签名算法(HS256)进行签名。
-  - `return_to` -身份验证通过后用户将看到的页面
+  - `return_to` -身份验证通过后浏览器重定向的页面
   
   流程
   - 未认证的用户在请求Comm100的资源时，被重定向到Partner配置的JWT SSO的Login Url地址  
@@ -87,7 +86,7 @@
   * `user_fields` -json格式的其他自定义用户字段
 
 ## Partner Open Account
-   由Partner通过Api给他的客户开户，创建[Site Object](#site-object)，Partner可以通过下面的Api来完成开户，维护自己客户的对应站点。在Partner的账户系统中，每个[Partner对象](#partner-object)在生成的时候就对应生成了一个`api_key`，Partner可以通过这个`api_key`来进行下列这些API的访问。    
+   Partner通过下面的Api给他的客户开户，创建[Site Object](#site-object)，维护自己客户的对应站点。在Partner的账户系统中，每个[Partner对象](#partner-object)在生成的时候就对应生成了一个`api_key`，Partner可以通过这个`api_key`和自己配置的IP白名单来进行下列这些API的访问。    
   - `GET /api/v1/livechat/partner/sites` -获取当前Partner的所有客户的站点信息   
   - `GET /api/v1/livechat/partner/sites/{site_id}` -获取当前Partner的某一个站点的信息   
   - `POST /api/v1/livechat/partner/sites` -给自己的客户开户，新建一个[Site对象](site-object)，同时为这个Site对象生成一个管理员   
