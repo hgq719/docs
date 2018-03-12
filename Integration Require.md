@@ -101,17 +101,30 @@
     NSURL* url = [NSURL URLWithString: @"Comm100://login?jwt=xxx.xxx.xx"];  
     [[UIApplication sharedApplication] openURL: url];  
   ```
+  WebView
+    
+  ```java
+    CGFloat width = self.view.frame.size.width;
+    CGFloat height = self.view.frame.size.height-20;
+    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 20, width, height)];
+    NSURL *url = [NSURL URLWithString:@"Comm100://login?jwt=xxx.xxx.xx"];
+    NSURLRequest *request =[NSURLRequest requestWithURL:url];
+    [webView loadRequest:request];
+  ```
+
   Android 
 
   ```java
-    //android:scheme="c100"
-    //android:host="comm100"
-    //android:path="/service"
-    //android:port="8888"/>
-
-    Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("c100://comm100:8888/service/login?jwt=xxx.xxx.xx"));
+    Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("Comm100://login?jwt=xxx.xxx.xx"));
     startActivity(intent); 
   ```
+  WebView  
+
+    ```java
+    mWebView = (WebView) findViewById(R.id.webview);
+    mWebView.loadUrl("Comm100://login?jwt=xxx.xxx.xx");
+  ```
+
   
 ### JWT Payload
   JWT的Payload中包含以下参数：
@@ -165,6 +178,8 @@
     + [发送Comm100授权页面给用户](#send-authorization-page)
     + [处理用户授权](#handle-authorization-decision)
     + [使用access_token调用API](#call-api) 
+  - App集成
+    目前Comm100对于移动端App的集成采用的是单独App方式，可通过WebView或者原生App直接打开，暂时不考虑深度集成。  
 
 ### UI Integration
   Partner可采用以下的方式将Comm100的页面集成到自己的系统中：
