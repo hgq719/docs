@@ -136,7 +136,7 @@
   * `phone` -电话号码
 
 ## Partner API
-   Partner通过下面的Api给他的客户开户，创建[Site Object](#site-object)，维护自己客户的对应站点。在Partner的账户系统中，每个[Partner对象](#partner-object)在生成的时候就对应生成了一个`api_key`，Partner可以通过这个`api_key`和自己配置的IP白名单来进行下列这些API的访问，该API不支持跨域请求。    
+   Partner通过下面的Api给他的客户开户，创建[Site Object](#site-object)，维护自己客户的对应站点，Partner API不支持跨域请求。具体的API调用方式参考[API Authentication](https://github.com/hgq719/docs/blob/master/IntegrationRestfulAPI.md#security-and-authentication)。    
   - `GET /api/v1/livechat/partner/sites` -获取当前Partner的所有客户的站点信息   
   - `GET /api/v1/livechat/partner/sites/{site_id}` -获取当前Partner的某一个站点的信息   
   - `POST /api/v1/livechat/partner/sites` -给自己的客户开户，新建一个[Site对象](site-object)，同时为这个Site对象生成一个管理员   
