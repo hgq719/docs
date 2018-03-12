@@ -105,7 +105,6 @@
   ```objective-c
      NSURL* url = [NSURL URLWithString: @"Comm100://login?jwt=xxx.xxx.xx"];  
      [[UIApplication sharedApplication] openURL: url];  
-   ```
   ```
 
   Android 
