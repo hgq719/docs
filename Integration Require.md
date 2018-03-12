@@ -94,24 +94,35 @@
   - Comm100解析JWT完成Agent的认证   
   - 写cookie, 用来维护状态   
 
-   移动设备登录：  
-  开发者可以通过直接调用登录地址`Comm100://login?jwt=xxx.xxx.xx`，进行Comm100的App的授权。
-      
-  如： iOS  
+  移动App增加直接接收JWT登录认证的接口：  
 
+   `Comm100://login?jwt=xx.xxx.xx`
+
+  这个接口允许用户在打开上面的login接口的时候跳转到自己的APP中, 实现从自己的APP验证的业务, 用户验证完以后通过上面地址跳转回Comm100 APP
+    
+ iOS  
+    
+  ```objective-c
+     NSURL* url = [NSURL URLWithString: @"Comm100://login?jwt=xxx.xxx.xx"];  
+     [[UIApplication sharedApplication] openURL: url];  
+   ```
+  ```
+
+  Android 
+    
   ```java
-    NSURL* url = [NSURL URLWithString: @"Comm100://login?jwt=xxx.xxx.xx"];  
-    [[UIApplication sharedApplication] openURL: url];  
+    Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("Comm100://login?jwt=xxx.xxx.xx"));
+    startActivity(intent); 
   ```
 
 ### JWT Payload
   JWT的Payload中包含以下参数：
-  * `iat` -JWT的发行时间
-  * `jti` -JWT的唯一ID
-  * `email` -登录用户的email地址
-  * `name` -登录用户的名称
-  * `id` -系统中的唯一标识这个用户的id
-  * `phone` -电话号码
+  * `iat` - JWT的发行时间
+  * `jti` - JWT的唯一ID
+  * `email` - 登录用户的email地址
+  * `name` - 登录用户的名称
+  * `userId` - 用户系统中的唯一标识这个用户的id, 可以为email/phone, 也可以是自己的id, 只需要保证唯一
+  * `phone` - 电话号码
 
 ## Partner API
    Partner通过下面的Api给他的客户开户，创建[Site Object](#site-object)，维护自己客户的对应站点，Partner API不支持跨域请求。
