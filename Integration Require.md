@@ -95,36 +95,14 @@
   - 写cookie, 用来维护状态   
 
    移动设备登录：  
-  iOS  
+  开发者可以通过直接调用登录地址`Comm100://login?jwt=xxx.xxx.xx`，进行Comm100的App的授权。
+      
+  如： iOS  
 
   ```java
     NSURL* url = [NSURL URLWithString: @"Comm100://login?jwt=xxx.xxx.xx"];  
     [[UIApplication sharedApplication] openURL: url];  
   ```
-  WebView
-    
-  ```java
-    CGFloat width = self.view.frame.size.width;
-    CGFloat height = self.view.frame.size.height-20;
-    UIWebView *webView = [[UIWebView alloc] initWithFrame:CGRectMake(0, 20, width, height)];
-    NSURL *url = [NSURL URLWithString:@"Comm100://login?jwt=xxx.xxx.xx"];
-    NSURLRequest *request =[NSURLRequest requestWithURL:url];
-    [webView loadRequest:request];
-  ```
-
-  Android 
-
-  ```java
-    Intent intent = new Intent(Intent.ACTION_VIEW,Uri.parse("Comm100://login?jwt=xxx.xxx.xx"));
-    startActivity(intent); 
-  ```
-  WebView  
-
-    ```java
-    mWebView = (WebView) findViewById(R.id.webview);
-    mWebView.loadUrl("Comm100://login?jwt=xxx.xxx.xx");
-  ```
-
   
 ### JWT Payload
   JWT的Payload中包含以下参数：
