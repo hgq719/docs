@@ -26,7 +26,11 @@
 comm100://login?jwt=xxx.xxx.xx
 
 ## Partner Configuration
-
+  Parter在使用Comm100的产品之前，必须要进行相应的配置。如下所示：
+  1. 基本信息 -包括名字、邮箱、电话号码等  
+  2. IP白名单 -配置使用Comm100的Partner API的IP白名单  
+  3. SSO配置 -Partner根据自己的需求，进行相应的SSO配置  
+  4. Branding/Logo -配置Partner的品牌信息以显示在相应的界面中  
 
 ## Partner Object
   Comm100中的Partner对象包括下面的属性：  
