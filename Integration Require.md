@@ -1,17 +1,113 @@
 # General
 1. [Role](#role)
-2. [Open Account](#open-account)
-3. [Integration Ways](#integration-ways)
-4. [Account Integration](#account-integration)
-5. [Function Integration](#function-integration)
+2. [Partner Object](#partner-object)
+3. [Open Account](#partner-open-account)
+4. [Integration Ways](#integration-ways)
 
 ## Role
   - Comm100 
   - Partner -合作伙伴，需要集成Comm100产品的客户，如某个PhoneCall公司。Comm100的代理商
   - 客户 -合作伙伴的客户
 
-## Open Account
-   由Partner通过Api给他的客户开户，创建Site
+## Partner Object
+  Comm100中的Partner对象包括下面的属性：  
+  + 基本信息
+    - `id` -主键id
+    - `name` -Partner的name
+    - `email` -Partner的email地址
+    - `phone` -Partner的电话号码
+    - `ifActive` -该Partner是否处于激活状态
+    - `siteList` -该Partner对应的所有站点的列表
+      * `siteObject` -Site对象
+  + 样式控制
+    - `css` -使用哪套样式
+  + Partner API的验证信息, Partner用以下内容来调用Partner API
+    - `apiKey` -Partner调用Api时使用的apiKey，使用basic partner_id:api_key来访问API 
+    - `ipWhiteList` -允许Partner使用Comm100的Partner API的IP白名单
+  + Partner Site的Agent的验证方式配置
+    - [SSO Settings](#sso-settings)   
+       SSO配置
+    - No SSO  
+       Partner的Site不使用SSO的情况，Agent默认采用Comm100的标准身份认证方式进行验证，在未认证的情况下，重定向到Comm100的登录页面进行登录，如`https://www.comm100.com/secure/Login.aspx`。
+
+#### SSO Settings
+  - SAML
+    + `cert` -SAML Certificate
+    + `endpoint` 
+      * `loginUrl`   
+        SAML方式配置的登录页面，如：`https://partnerCompany.com/services/login.html`
+      * `logoutUrl`   
+        SAML方式配置的登出页面，如：`https://partnerCompany.com/services/comm100_logout.html`   
+  - JWT
+    + `secret` -Comm100与Partner之间用于jwt签发和验证的密钥
+    + `endpoint`
+      * `loginUrl`   
+        JWT方式配置的SSO登录页面，如：`https://partnerCompany.com/services/login.html`
+      * `logoutUrl`   
+        JWT方式配置的登录页面，如：`https://partnerCompany.com/services/comm100_logout.html`
+
+### Account Login Integration
+  Partner可以使用两种方式进行登录验证的集成：NoSSO和SSO。使用NoSSO的方式集成，Agent在登录到Partner的Site以后还需要重新进入到Comm100的登录页面认证完成使用Comm100的功能；而使用SSO的方式，Partner的用户可以在登录自己的系统以后，直接使用嵌入在自己系统中的Comm100的页面、组件或Api，不需要再进行其他认证了。目前Comm100 提供两种SSO登录验证集成的方式, 一种为基于SAML2.0, 另一种为JWT。
+1. SAML
+
+  endpoint：  
+     `https://partnerSecondDomain.comm100.com/sso/saml/acs`
+
+  流程
+  - 未认证的用户在请求Comm100的资源时，被重定向到Partner配置SAML SSO的Login URL地址  
+  - Partner对用户身份进行认证，认证完成向Comm100返回SAML身份认证Response并重定向到Comm100的SAML的endpoint：`https://partnerSecondDomain.comm100.com/sso/saml/acs`  
+  - Comm100对SAML Response进行验证，验证成功完成Agent的认证，并重定向到Agent请求的资源  
+
+2. JWT
+
+ State - support cookie
+
+  endpoint:
+   - `https://hosted.comm100.com/access/jwt?jwt=xxx.xxx.xx&return_to=https://hosted.comm100.com/livechatdashboard/dashboard.aspx?siteId=111111`
+
+  参数说明
+  - `jwt`
+      jwt中包含三部分内容：Header头部、[Payload负载](#jwt-payload)和Signature。将header和payload使用Base64编码，Signature根据编码后的header、payload和特定的密钥(Comm100为每个Partner生成的特定密钥)，使用header中指定的签名算法(HS256)进行签名。
+  - `return_to` -身份验证通过后用户将看到的页面
+  
+  流程
+  - 未认证的用户在请求Comm100的资源时，被重定向到Partner配置的JWT SSO的Login Url地址  
+  - 由Partner对Agent进行身份认证，构建一个包含身份信息的JWT，并重定向到Comm100的Endpoint：`https://hosted.comm100.com/access/jwt`   
+  - Comm100解析JWT完成Agent的认证   
+  - 写cookie, 用来维护状态   
+  
+### JWT Payload
+  JWT的Payload中包含以下参数：
+  * `iat` -JWT的发行时间
+  * `jti` -JWT的唯一ID
+  * `email` -登录用户的email地址
+  * `name` -登录用户的名称
+  * `externalId` -如果系统中不是通过email来唯一标识一个用户，则可用系统中的唯一id来标识这个用户
+  * `phone` -电话号码
+  * `user_fields` -json格式的其他自定义用户字段
+
+## Partner Open Account
+   由Partner通过Api给他的客户开户，创建[Site Object](#site-object)，Partner可以通过下面的Api来完成开户，维护自己客户的对应站点。在Partner的账户系统中，每个[Partner对象](#partner-object)在生成的时候就对应生成了一个`api_key`，Partner可以通过这个`api_key`来进行下列这些API的访问。    
+  - `GET /api/v1/livechat/partner/sites` -获取当前Partner的所有客户的站点信息   
+  - `GET /api/v1/livechat/partner/sites/{site_id}` -获取当前Partner的某一个站点的信息   
+  - `POST /api/v1/livechat/partner/sites` -给自己的客户开户，新建一个[Site对象](site-object)，同时为这个Site对象生成一个管理员   
+  - `PUT /api/v1/livechat/partner/sites/{site_info}` -更新Partner的某一个客户的站点信息
+  - `PUT /api/v1/livechat/partner/sites/{site_id}/disable` -关闭Partner的某个客户的站点
+  - `DELETE /api/v1/livechat/partner/sites/{site_id}` -给自己的客户销户，删除这个客户的站点信息
+
+### Site Object
+  Comm100中Site对象包含下面的属性：
+  - `id` -主键id
+  - `company` -站点所属的公司name
+  - `companySize` -公司规模
+  - `website` -站点的网站地址
+  - `phoneNumber` -电话号码
+  - `mobilePhone` -手机号码
+  - `country` -国家
+  - `city` -城市
+  - `ifClose` -是否关闭
+  - `ifActive` -是否处于激活状态  
+  还有一些其他属性待后续添加进来。  
 
 ## Integration Ways
   - [界面集成](#ui-integration)     
@@ -42,7 +138,8 @@
   Request Parameters:
   - `response_type` -授权类型，默认值`token`，必须指定。
   - `redirect_url` -指定用户授权以后的重定向页面，该url必须是一个绝对地址。必须指定。
-  - `client_id` -App申请时给定的唯一id，必须指定。
+  - `client_id` -用户的唯一id，如agentId，必须指定。
+  - `api_key` -访问Api时使用的key
   - `scope` -指定Comm100资源的访问权限列表，包括`read`、`write`，还可以指定访问特定的资源或所有资源，具体参考[Request Scope Setting](#request-scope-setting)，必须指定。
   - `state` -客户端的当前状态，任意值，认证服务器会原封不动的返回。
 
@@ -179,159 +276,15 @@
   - Control Panel
     + [Campaign API](https://github.com/hgq719/docs/blob/master/IntegrationRestfulAPI.md#campaign-api)
     + [Settings API](https://github.com/hgq719/docs/blob/master/IntegrationRestfulAPI.md#settings-api)
-    + [Report API](#report-managment)
+    + [Report API](#report)
   - [Agent Console API](#agent-console-api) 
-
-#### Site Managment
-  Partner可以通过下面的Api来完成开户，维护自己客户的对应站点。在Partner的账户系统中，每个[Partner对象](#partner-object)在生成的时候就对应生成了一个`api_key`，Partner可以通过这个`api_key`来进行下列这些API的访问。    
-  - `GET /api/v1/livechat/partner/sites` -获取当前Partner的所有客户的站点信息   
-  - `GET /api/v1/livechat/partner/sites/{site_id}` -获取当前Partner的某一个站点的信息   
-  - `POST /api/v1/livechat/partner/sites` -给自己的客户开户，新建一个[Site对象](site-object)，同时为这个Site对象生成一个管理员   
-  - `PUT /api/v1/livechat/partner/sites/{site_info}` -更新Partner的某一个客户的站点信息
-  - `PUT /api/v1/livechat/partner/sites/{site_id}/disable` -关闭Partner的某个客户的站点
-  - `DELETE /api/v1/livechat/partner/sites/{site_id}` -给自己的客户销户，删除这个客户的站点信息
-
-##### Partner Object
-  Comm100中的Partner对象包括下面的属性：  
-  + 基本信息
-    - `id` -主键id
-    - `name` -Partner的name
-    - `email` -Partner的email地址
-    - `phone` -Partner的电话号码
-    - `ifActive` -该Partner是否处于激活状态
-    - `siteList` -该Partner对应的所有站点的列表
-      * `siteObject` -Site对象
-  + 样式控制
-    - `css` -使用哪套样式
-  + Partner API的验证信息, Partner用以下内容来调用Partner API
-    - `apiKey` -Partner调用Api时使用的apiKey，使用basic partner_id:api_key来访问API 
-    - `ipWhiteList` -允许Partner使用Comm100的Partner API的IP白名单
-  + Partner Site的Agent的验证方式配置
-    - [SSO Settings](#sso-settings)   
-       SSO配置
-    - No SSO  
-       Partner的Site不使用SSO的情况，Agent默认采用Comm100的标准身份认证方式进行验证，在未认证的情况下，重定向到Comm100的登录页面进行登录，如`https://www.comm100.com/secure/Login.aspx`。
-
-##### SSO Settings
-  - SAML
-    + `cert` -SAML Certificate
-    + `endpoint` 
-      * `loginUrl`   
-        SAML方式配置的登录页面，如：`https://partnerCompany.com/services/login.html`
-      * `logoutUrl`   
-        SAML方式配置的登出页面，如：`https://partnerCompany.com/services/comm100_logout.html`   
-  - JWT
-    + `secret` -Comm100与Partner之间用于jwt签发和验证的密钥
-    + `endpoint`
-      * `loginUrl`   
-        JWT方式配置的SSO登录页面，如：`https://partnerCompany.com/services/login.html`
-      * `logoutUrl`   
-        JWT方式配置的登录页面，如：`https://partnerCompany.com/services/comm100_logout.html`
-
-##### Site Object
-  Comm100中Site对象包含下面的属性：
-  - `id` -主键id
-  - `company` -站点所属的公司name
-  - `companySize` -公司规模
-  - `website` -站点的网站地址
-  - `phoneNumber` -电话号码
-  - `mobilePhone` -手机号码
-  - `country` -国家
-  - `city` -城市
-  - `ifClose` -是否关闭
-  - `ifActive` -是否处于激活状态  
-  还有一些其他属性待后续添加进来。  
-
-## Account Login Integration
-  Partner可以使用两种方式进行登录验证的集成：NoSSO和SSO。使用NoSSO的方式集成，Agent在登录到Partner的Site以后还需要重新进入到Comm100的登录页面认证完成使用Comm100的功能；而使用SSO的方式，Partner的用户可以在登录自己的系统以后，直接使用嵌入在自己系统中的Comm100的页面、组件或Api，不需要再进行其他认证了。目前Comm100 提供两种SSO登录验证集成的方式, 一种为基于SAML2.0, 另一种为JWT。
-1. SAML
-
-  endpoint：  
-     `https://partnerSecondDomain.comm100.com/sso/saml/acs`
-
-  流程
-  - 未认证的用户在请求Comm100的资源时，被重定向到Partner配置SAML SSO的Login URL地址  
-  - Partner对用户身份进行认证，认证完成向Comm100返回SAML身份认证Response并重定向到Comm100的SAML的endpoint：`https://partnerSecondDomain.comm100.com/sso/saml/acs`  
-  - Comm100对SAML Response进行验证，验证成功完成Agent的认证，并重定向到Agent请求的资源  
-
-2. JWT
-
- State - support cookie
-
-  endpoint:
-   - `https://hosted.comm100.com/access/jwt?jwt=xxx.xxx.xx&return_to=https://hosted.comm100.com/livechatdashboard/dashboard.aspx?siteId=111111`
-
-  参数说明
-  - `jwt`
-      jwt中包含三部分内容：Header头部、[Payload负载](#jwt-payload)和Signature。将header和payload使用Base64编码，Signature根据编码后的header、payload和特定的密钥(Comm100为每个Partner生成的特定密钥)，使用header中指定的签名算法(HS256)进行签名。
-  - `return_to` -身份验证通过后用户将看到的页面
-  
-  流程
-  - 未认证的用户在请求Comm100的资源时，被重定向到Partner配置的JWT SSO的Login Url地址  
-  - 由Partner对Agent进行身份认证，构建一个包含身份信息的JWT，并重定向到Comm100的Endpoint：`https://hosted.comm100.com/access/jwt`   
-  - Comm100解析JWT完成Agent的认证   
-  - 写cookie, 用来维护状态   
-  
-### JWT Payload
-  JWT的Payload中包含以下参数：
-  * `iat` -JWT的发行时间
-  * `jti` -JWT的唯一ID
-  * `email` -登录用户的email地址
-  * `name` -登录用户的名称
-  * `externalId` -如果系统中不是通过email来唯一标识一个用户，则可用系统中的唯一id来标识这个用户
-  * `phone` -电话号码
-  * `user_fields` -json格式的其他自定义用户字段
 
 
 ### Report
   用户可以通过ReportApi获取到报表数据，集成到自己的报表系统中，ReportApi的详情可参考[Report API](https://gist.github.com/chendesheng/50e9b63573f09a1c1a76c1f4ec074ac9)。部分报表如果不考虑深度集成，也可采用界面集成的方式直接将该报表的UI集成到Partner的界面中。
 
-### Agent Console API
 
 
-## Account Integration
-  + Account Manage -Partner可以直接通过接口创建、删除或修改Comm100的Agent或Department
-     - New Agent -Partner可以在界面中选择自己系统中的某个/某些账户直接生成对应的Comm100 Agent
-     - Delete Agent -Partner在删除自己的账户的同时删除相应的Comm100 Agent；或者只删除Comm100 Agent
-     - New Department -Partner可以选择自己的系统中对应的Department生成对应的Comm100 Department,生成的同时可以选择性将该部门下面的人员自动生成Comm100 Agent并加入到当前部门中
-     - Delete Department -Partner可以在删除自己的部门的同时删除相应的Comm100 Department；或者只删除Comm100 Department    
-  + Authority Manage  
-     - Partner可以在自己的用户管理界面中通过调用Comm100 RESTful API来配置自己系统中的账户在Comm100中权限。
-  + Account Login    
-     Comm100可以提供SSO和AD的身份认证方式，让Partner的用户可以在登录自己的系统以后   
-     - 直接使用嵌入在自己系统中的Comm100的页面、组件或Api，不需要再进行登录, Comm100需要提供登录的方式和接口
-     - 完全通过链接嵌入Agent Console，直接点击链接进入Agent Console
-
-## Function Integration
-  - [Agent Console](#agent-console)
-  - [Control Panel Settings](#control-panel-settings)
-  - [Report](#report)
-
-### Agent Console
-  将聊天功能集成到Partner的界面中，或者直接使用Comm100的Agent Console与访客进行聊天，查看访客列表等。
-
-  UI & 功能
-  + Visitors
-      * visitors   
-          Partner的Agent可以查看访客列表，并对访客列表进行相应操作
-      * mychats    
-          Partner的Agent可以与访客进行聊天
-  + Settings： Partner可以在界面中使用Comm100 Agent Console中的Settings页面
-
-Api      
-+ 状态切换  
-   Partner可以在界面中切换Comm100 Agent的状态或者切换自己系统中的状态的同时通过接口来改变Comm100 Agent的状态
-+ 聊天的部分操作
-  - ListVisitor -聊天访客列表
-  - Accept -接受聊天
-  - Refuse -拒绝聊天
-  - Ban -Ban当前Visitor的Id或Ip
-  - Invite -邀请访客进行聊天
-+ ChatServer提供Api能够让Partner自己来构建自己的访客与客服的聊天  
-  - Send -发送消息
-  - Heartbeat -心跳包
-  - GetMessage -获取聊天信息
-  - Transfer -将当前聊天转交给其他Agent或ChatBot
 
  
 
