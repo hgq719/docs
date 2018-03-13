@@ -386,11 +386,6 @@
   ```javascript
     app.do('ban', visitorId); // ban chat
   ```
-  - promote -将当前visitor变成user或者是contact
-  ```javascript
-    app.do('promote', visitorId，'user'); // promote to a user
-    app.do('promote', visitorId，'contact'); //promote to a contact
-  ```
   - sendMessage -在当前聊天中发送一条信息
   ```javascript
     app.do('sendMessage', chatId, message); // send a message
