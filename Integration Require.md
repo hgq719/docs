@@ -259,7 +259,7 @@
      + Visitor Single Sign-On    
         `https://hosted.comm100.com/LiveChat/SingleSignOnSettings.html?siteId=000000`   
 
-#### Agent Console UI
+#### Agent Console UI Integration
   Agent Console中Partner可用于集成的界面如下：     
   - Agent Console -整个Agent Console页面，包含Agent Console的所有功能（Settings、状态切换、Visitors等）   
     `https://hosted.comm100.com/LiveChat/AgentConsole.html?siteId=000000`  
@@ -274,12 +274,90 @@
   - Agents -当前在线的agent列表   
     `https://hosted.comm100.com/LiveChat/AgentConsole/Agents.html?siteId=000000`  
 
-### Component Integration
+### Agent Console Component Integration
+
+  引用Comm100 Agent Console的JS SDK可以在自己的页面中轻松构建Agent Console, 可供用户集成的模块为visitors和chats, 
+
+  ```javascript
+    const container = document.getElement('container');
+    const config = {
+      server: 'https://partner.comm100.com',
+      modules: ['visitors', 'chats'],
+      visitors: {
+        enterSite: enterSiteHandler,
+        //...
+      },
+      chats: {
+        startChat: startChatHandler,
+        //...
+      },
+      display: 'visitors',  // default
+    }
+    const app = Comm100AgentConsole.init(container, config);    // 初始化app
+    app.do('login',{
+        type: 'jwt',
+        data: 'xxx.xxx.xx',
+        // type: 'password',
+        // data: {
+        //   email: 'allon@comm100.com',
+        //   password: 'Aa000000',
+        // },
+      }
+    );
+    app.do('display', 'chats'); // show chats module
+
+    const visitors = app.get('visitors');
+
+    app.do('acceptChat', visitorId); // accept chat
+  ```
+  
   Comm100将系统中的部分功能编译成了组件，Partner可以通过引入这些组件，将功能集成到自己的系统中供客户使用，目前Comm100提供下面的js组件：  
-  - settings -当前agent的agent console配置
-  - visitors -当前的访客列表
-  - currentChat -当前正在进行的聊天
-  - agents -当前在线的agent列表
+  - [visitors](#visitors-module) - 访客列表, 只有modules中包含了该模块才会显示
+  - [chats](#chats-module) - 聊天列表以及聊天窗口
+
+#### Visitors Module
+  在visitors模块中，Partner可用的对象、属性及操作为：
+  - Objects
+    + Visitor
+  - Properties
+    + `visitors` -访客模块中的在线访客列表
+    ```javascript
+      const visitors = app.get('visitors');
+    ```
+  - [Actions](#visitors-actions)
+
+##### Visitors Actions
+  在visitors模块中，Partner可用的操作如下：
+  - refuse -拒绝当前访客的聊天  
+  ```javascript
+    app.do('refuse', visitorId); // refuse chat
+  ```
+  - invite -邀请当前访客进行聊天
+  ```javascript
+    app.do('invite', visitorId); // invite chat
+  ```
+  - capture -将当前访客固定在访客列表中，不管访客是否退出站点都显示在列表中
+  ```javascript
+    app.do('capture', visitorId); // capture chat
+  ```
+  - release -将当前访客从capture状态释放，访客退出站点后将从访客列表中消失
+  ```javascript
+    app.do('release', visitorId); // release chat
+  ```
+  - ban -禁止当前访客聊天，且让访客不显示在列表中
+  ```javascript
+    app.do('ban', visitorId); // ban chat
+  ```
+  - join -加入当前访客正在进行的聊天
+  ```javascript
+    app.do('join', visitorId); // join chat
+  ```
+  - monitor -监视当前访客正在进行的聊天
+  ```javascript
+    app.do('monitor', visitorId); // monitor chat
+  ```
+
+#### Chats Module
 
 ### API Integration
   - Partner API
