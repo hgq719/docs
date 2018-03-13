@@ -358,6 +358,29 @@
   ```
 
 #### Chats Module
+在chats模块中，Partner可用的对象、属性及操作为：
+  - Objects
+    + Chat
+      * `chatId` -聊天主键id
+      * `messages` -聊天信息
+      * `visitor` -聊天访客
+  - Properties
+    + `chats` -当前Agent正在进行的聊天列表
+    ```javascript
+      const visitors = app.get('chats');
+    ```
+  - [Actions](#chats-actions)
+
+##### Chats Actions
+  在chats模块中，Partner可用的操作如下：
+  - leave -离开当前聊天  
+  ```javascript
+    app.do('leave', chatId); // leave chat
+  ```
+  - ban -禁止当前访客聊天，且让访客不显示在列表中
+  ```javascript
+    app.do('ban', visitorId); // ban chat
+  ```
 
 ### API Integration
   - Partner API
