@@ -370,7 +370,7 @@
   - Properties
     + `chats` -当前Agent正在进行的聊天列表
     ```javascript
-      const visitors = app.get('chats');
+      const chats = app.get('chats');
     ```
   - Events -在模块的配置中，Partner可以在聊天的这些事件中添加自己的操作
     + `startChat` -开始聊天的时候
