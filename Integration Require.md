@@ -186,7 +186,7 @@
      通过引入Comm100的组件代码将Comm100的功能集成Partner的页面中，这种方式需要Partner的终端支持Comm100的组件。目前只会考虑JS的组件, 用户可以通过这些组件重新编译生成自己的客户端。
   - [接口集成](#api-integration)       
     Partner通过调用Comm100的RESTful API，自己构建界面或后台来完成特定功能和逻辑。API的调用采取[OAuth](https://github.com/hgq719/docs/blob/master/IntegrationRestfulAPI.md#authentication)的方式进行身份验证.
-  - App集成
+  - App集成    
     目前Comm100对于移动端App的集成采用的是单独App方式，可通过WebView或者原生App直接打开，暂时不考虑深度集成。  
 
 ### UI Integration
