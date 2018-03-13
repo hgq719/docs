@@ -66,13 +66,21 @@
 ## Authority Managment API
   Partner可以在自己的用户管理界面中通过调用Comm100 RESTful API来配置自己系统中的账户在Comm100中权限，Comm100 Live Chat公开了下面的API来对站点下的权限资源进行操作：
   - Permission Managment  
-    + `GET /api/v1/livechat/permisstions` -获取所有的Permission的信息   
-    + `GET /api/v1/livechat/permisstions/{permission_id}` -获取指定的Permission的信息   
+    + `GET /api/v1/livechat/permissions` -获取所有的Permission的信息   
+    + `GET /api/v1/livechat/permissions/{permission_id}` -获取指定的Permission的信息   
   - Permission Configuration
-    + `GET /api/v1/livechat/agents/{agent_id}/permisstions` -获取当前agent的所有权限信息   
-    + `POST /api/v1/livechat/agents/{agent_id}/permisstions` -给当前agent新增一个权限
-    + `PUT /api/v1/livechat/agents/{agent_id}/permisstions/{permission_info}` -更新agent的某一个权限配置   
-    + `DELETE /api/v1/livechat/agents/{agent_id}/permisstions/{permission_id}` -删除当前agent的某一个权限配置   
+    + `GET /api/v1/livechat/agents/{agent_id}/permissions` -获取当前agent的所有权限信息   
+    + `POST /api/v1/livechat/agents/{agent_id}/permissions` -给当前agent新增一个权限
+    + `PUT /api/v1/livechat/agents/{agent_id}/permissions/{permission_info}` -更新agent的某一个权限配置   
+    + `DELETE /api/v1/livechat/agents/{agent_id}/permissions/{permission_id}` -删除当前agent的某一个权限配置   
+
+### Permission Object
+  Permission对象包含以下属性：
+  - `id` -主键id
+  - `name` -权限名字
+  - `module` -所属模块
+  - `subject` -权限主题
+  - `description` -权限描述
 
 ## Campaign API
   Comm100 Live Chat公开了下面的API来对站点下的[Campaign Object](#campaign-object)资源进行操作：  
