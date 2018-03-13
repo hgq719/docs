@@ -316,7 +316,7 @@
   - [chats](#chats-module) - 聊天列表以及聊天窗口
 
 #### Visitors Module
-  在visitors模块中，Partner可用的对象、属性及操作为：
+  在visitors模块中，Partner可用的对象、属性、时间及操作为：
   - Objects
     + Visitor
   - Properties
@@ -324,6 +324,9 @@
     ```javascript
       const visitors = app.get('visitors');
     ```
+  - Events -在模块的配置中，Partner可以在visitor的这些事件中添加自己的操作
+    + `enterSite` -访客进入站点
+    + `leaveSite` -访客离开站点
   - [Actions](#visitors-actions)
 
 ##### Visitors Actions
@@ -369,6 +372,11 @@
     ```javascript
       const visitors = app.get('chats');
     ```
+  - Events -在模块的配置中，Partner可以在聊天的这些事件中添加自己的操作
+    + `startChat` -开始聊天的时候
+    + `endChat` -结束聊天的时候
+    + `receivedMessage` -agent接收到一条消息的时候
+    + `sentMessage` -agent发送一条信息的以后
   - [Actions](#chats-actions)
 
 ##### Chats Actions
@@ -380,6 +388,15 @@
   - ban -禁止当前访客聊天，且让访客不显示在列表中
   ```javascript
     app.do('ban', visitorId); // ban chat
+  ```
+  - promote -将当前visitor变成user或者是contact
+  ```javascript
+    app.do('promote', visitorId，'user'); // promote to a user
+    app.do('promote', visitorId，'contact'); //promote to a contact
+  ```
+  - sendMessage -在当前聊天中发送一条信息
+  ```javascript
+    app.do('sendMessage', chatId, message); // send a message
   ```
 
 ### API Integration
