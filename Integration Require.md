@@ -392,8 +392,6 @@
   ```
 
 ### API Integration
-  - Partner API
-    + [Site Managment](#site-managment)
   - Account Managment API
     + [Agent Managment](https://www.comm100.com/doc/api/operators.htm)
     + [Department Managment](https://www.comm100.com/doc/api/departments.htm)
