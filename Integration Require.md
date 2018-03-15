@@ -39,7 +39,7 @@
   + 样式控制
     - `theme` - 该partner使用的主题名字, 包含对应的资源和样式, 如果需要Comm100会为Partner创建对应的主题, 由Comm100维护, Partner不能修改
   + Partner API的Credentials
-    - `apiKey` - Partner调用Api时使用的apiKey，使用basic partner_id:api_key来访问Partner API 
+    - `apiKey` - Partner调用Api时使用的apiKey换取access_token来访问Partner API 
     - `ipRestrictions` - 允许调用Comm100的Partner API的IP
   + Partner Site的Agent的验证方式配置
     - [SSO Settings](#sso-settings) -SSO配置  
@@ -53,7 +53,7 @@
       * `loginUrl`   
         SAML方式配置的登录页面，如：`https://partnerCompany.com/saml/sso`
       * `logoutUrl`   
-        SAML方式配置的登出页面，如：`https://partnerCompany.com/saml/logout`   
+        SAML方式配置的登出页面，如：`https://partnerCompany.com/logout`   
   - JWT
     + `endpoint`
       * `loginUrl`   
@@ -63,6 +63,7 @@
     + `other instructions`
       * `alg` Comm100只支持HS256的加密算法
       * `signature` jwt的签名密钥使用上面的`apiKey`
+      
 
 ### Account Login Integration
   Partner可以使用两种方式进行登录验证的集成：NoSSO和SSO。使用NoSSO的方式集成，Agent在登录到Partner的Site以后还需要重新进入到Comm100的登录页面认证完成使用Comm100的功能；而使用SSO的方式，Partner的用户可以在登录自己的系统以后，直接使用嵌入在自己系统中的Comm100的页面、组件或Api，不需要再进行其他认证了。目前Comm100 提供两种SSO登录验证集成的方式, 一种为基于[SAML2.0](https://en.wikipedia.org/wiki/SAML_2.0), 另一种为[JWT](http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html)。
@@ -147,8 +148,8 @@
       "expires_in": "3600"
     }
   ```
-  开发者可以通过上面获取的`access_token`来进行API调用，格式如下：  
-     
+  开发者可以通过上面获取的`access_token`来进行API调用，格式如下：
+
   `Authorization": "bearer {access_token}"`
      
   开户中，Partner可用的API如下：
@@ -189,8 +190,8 @@
   - [组件集成](#component-integration)        
      通过引入Comm100的组件代码将Comm100的功能集成Partner的页面中，这种方式需要Partner的终端支持Comm100的组件。目前只会考虑JS的组件, 用户可以通过这些组件重新编译生成自己的客户端。
   - [接口集成](#api-integration)       
-    Partner通过调用Comm100的RESTful API，自己构建界面或后台来完成特定功能和逻辑。API的调用采取[OAuth](https://github.com/hgq719/docs/blob/master/IntegrationRestfulAPI.md#authentication)的方式进行身份验证.
-  - App集成    
+    Partner通过调用Comm100的RESTful API，自己构建界面或后台来完成特定功能和逻辑。API的调用采取[OAuth](https://github.com/hgq719/docs/blob/master/IntegrationRestfulAPI.md#authentication)的方式进行身份验证。
+  - App集成
     目前Comm100对于移动端App的集成采用的是单独App方式，可通过WebView或者原生App直接打开，暂时不考虑深度集成。  
 
 ### UI Integration
@@ -394,6 +395,7 @@
   ```javascript
     app.do('sendMessage', chatId, message); // send a message
   ```
+
 
 ### API Integration
   - Partner API
