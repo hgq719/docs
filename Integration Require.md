@@ -31,44 +31,44 @@
 ## Partner Object
   Comm100中的Partner对象包括下面的属性：  
   + 基本信息
-    - `id` -主键id
-    - `name` -Partner的name
-    - `email` -Partner的email地址
-    - `phone` -Partner的电话号码
-    - `ifActive` -该Partner是否处于激活状态
-    - `siteList` -该Partner对应的所有站点的列表
-      * `siteObject` -Site对象
+    - `id` - Partner的唯一Id
+    - `contactName` - Partner的联系人名字
+    - `contactEmail` - Partner的联系人邮箱
+    - `phone` - Partner的电话号码
+    - `ifActive` - 该Partner是否处于激活状态
   + 样式控制
-    - `css` -使用哪套样式
-  + Partner API的验证信息, Partner用以下内容来调用Partner API
-    - `apiKey` -Partner调用Api时使用的apiKey，使用basic partner_id:api_key来访问API 
-    - `ipWhiteList` -允许Partner使用Comm100的Partner API的IP白名单
+    - `theme` - 该partner使用的主题名字, 包含对应的资源和样式, 如果需要Comm100会为Partner创建对应的主题, 由Comm100维护, Partner不能修改
+  + Partner API的Credentials
+    - `apiKey` - Partner调用Api时使用的apiKey，使用basic partner_id:api_key来访问Partner API 
+    - `ipRestrictions` - 允许调用Comm100的Partner API的IP
   + Partner Site的Agent的验证方式配置
     - [SSO Settings](#sso-settings) -SSO配置  
     - No SSO  
        Partner的Site不使用SSO的情况，Agent默认采用Comm100的标准身份认证方式进行验证，在未认证的情况下，重定向到Comm100的登录页面进行登录，如`https://www.comm100.com/secure/login.aspx`。
 
-#### SSO Settings
+### SSO Settings
   - SAML
     + `cert` -SAML Certificate
     + `endpoint` 
       * `loginUrl`   
-        SAML方式配置的登录页面，如：`https://partnerCompany.com/services/login.html`
+        SAML方式配置的登录页面，如：`https://partnerCompany.com/saml/sso`
       * `logoutUrl`   
-        SAML方式配置的登出页面，如：`https://partnerCompany.com/services/comm100_logout.html`   
+        SAML方式配置的登出页面，如：`https://partnerCompany.com/saml/logout`   
   - JWT
-    + `secret` -Comm100与Partner之间用于jwt签发和验证的密钥,可使用api_key作为该密钥
     + `endpoint`
       * `loginUrl`   
-        JWT方式配置的登录页面，如：`https://partnerCompany.com/services/login.html`
+        JWT方式配置的登录页面，如：`https://partnerCompany.com/login`
       * `logoutUrl`   
-        JWT方式配置的登录页面，如：`https://partnerCompany.com/services/comm100_logout.html`
+        JWT方式配置的登录页面，如：`https://partnerCompany.com/logout`
+    + `other instructions`
+      * `alg` Comm100只支持HS256的加密算法
+      * `signature` jwt的签名密钥使用上面的`apiKey`
 
 ### Account Login Integration
   Partner可以使用两种方式进行登录验证的集成：NoSSO和SSO。使用NoSSO的方式集成，Agent在登录到Partner的Site以后还需要重新进入到Comm100的登录页面认证完成使用Comm100的功能；而使用SSO的方式，Partner的用户可以在登录自己的系统以后，直接使用嵌入在自己系统中的Comm100的页面、组件或Api，不需要再进行其他认证了。目前Comm100 提供两种SSO登录验证集成的方式, 一种为基于[SAML2.0](https://en.wikipedia.org/wiki/SAML_2.0), 另一种为[JWT](http://self-issued.info/docs/draft-ietf-oauth-json-web-token.html)。
 1. SAML
 
-  签名验证服务endpoint：  
+  Comm100 Assertion Consumer Service Url：  
      `https://partnerSecondDomain.comm100.com/sso/saml/acs`
 
   流程
@@ -116,23 +116,27 @@
 
 ### JWT Payload
   JWT的Payload中包含以下参数：
-  * `iat` - JWT的发行时间
-  * `jti` - JWT的唯一ID
+  * `iss` -- jwt 签发者
+  * `iat` -- jwt 的签发时间
+  * `jti` -- jwt 的唯一身份标识, 防止重放攻击
+  * `nbf` -- jwt 在该时间之前不能使用, 否则无效
+  * `exp` -- jwt 的过期时间, 这个过期时间必须要大于签发时间
   * `email` - 登录用户的email地址
   * `name` - 登录用户的名称
   * `userId` - 用户系统中的唯一标识这个用户的id, 可以为email/phone, 也可以是自己的id, 只需要保证唯一
   * `phone` - 电话号码
 
 ## Partner API
-   Partner通过下面的Api给他的客户开户，创建[Site Object](#site-object)，维护自己客户的对应站点，Partner API不支持跨域请求。
+   Partner通过下面的Api给他的客户开户，创建[Site](#site-object)，维护自己客户的对应站点。Partner API不支持跨域请求， 即在跨域的情况下只允许后台调用，浏览器中不能调用。
    
    开发者需要通过下面的API来向Comm100请求访问API的token。
 
-  `GET https://hosted.comm100.com/auth/token`
+  `GET https://hosted.comm100.com/partner/oauth/token`
 
   Request Parameters:
-  - `client_id` -用户的唯一id，如agentId，必须指定。
-  - `api_key` -访问Api时使用的key，Agent只能访问自己所属站点的数据
+  - `grant_type` - `password`, 指定获取token的方式为partner
+  - `client_id` - partner id
+  - `client_secret` - 访问Api时使用的key，Agent只能访问自己所属站点的数据
 
   Response示例：
   ```json
@@ -303,7 +307,7 @@
     );
     app.do('display', 'chats'); // show chats module
 
-    const visitors = app.get('visitors');
+    const visitors = app.get('visitors'); // get current visitor list
 
     app.do('acceptChat', visitorId); // accept chat
   ```
@@ -392,6 +396,8 @@
   ```
 
 ### API Integration
+  - Partner API
+    + [Site Managment](#site-managment)
   - Account Managment API
     + [Agent Managment](https://www.comm100.com/doc/api/operators.htm)
     + [Department Managment](https://www.comm100.com/doc/api/departments.htm)
