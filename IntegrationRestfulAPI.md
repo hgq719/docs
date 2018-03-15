@@ -5,63 +5,7 @@
  4. [Settings API](#settings-api)
 
 ## Authentication
-  开发者可以通过下面的步骤来调用相应的API:
-  - [Request Access Token](#request-access-token)
-  - [Call API](#call-api)
-
-### Request Access Token
-  开发者需要通过下面的API来向Comm100请求访问API的token。
-
-  `GET https://hosted.comm100.com/oauth/token`
-
-  Request Parameters:
-  - `response_type` -授权类型，默认值`token`，必须指定。
-  - `redirect_url` -指定用户授权以后的重定向页面，该url必须是一个绝对地址。必须指定。
-  - `client_id` -客户端id，如partnerId，必须指定。
-  - `client_secret` - 客户端身份密钥，用于换取`Access_token`来访问Comm100的Api
-  - `scope` -指定Comm100资源的访问权限列表，包括`read`、`write`，还可以指定访问特定的资源或所有资源，具体参考[Request Scope Setting](#request-scope-setting)，必须指定。
-  - `state` -客户端的当前状态，任意值，认证服务器会原封不动的返回。
-
-  Response示例：
-  ```json
-    Status: 200 OK
-
-    {
-      "access_token":"98asjdfka172dsfsd9s2342sdfs",
-      "expires_in": "3600",
-      "token_type": "bearer",
-      "scope": "read"
-    }
-  ```
-
-#### Request Scope Setting
-  开发者可以指定`Scope`来控制App对Comm100资源的访问。`read`指定App有权限使用`GET`方式请求终端接口，`write`指定App有权限使用`POST`、`PUT`和`DELETE`方式请求终端接口来创建、更新和删除资源。可以同时给予两种`scope`设置，如：
-  `scope=read write`
-
-  另外，开发者还可以对特定的资源进行授权范围的设置，资源如下：
-  - visitor
-  - operater
-  - chat
-  - offlineMessage
-  - department
-
-
-  设置语法如下：`scope=resource:scope`,不指定资源则标识针对所有资源有效。
-  单个资源请求设置如下： 
-
-
-  `scope=offlineMessage:read`
-
-
-  多个资源的请求设置如下：
-
-
-  `scope=visitor:read visitor:write offlineMessage:read`
-
-### Call API
-  开发者可以通过上面获取的`access_token`来进行API调用，格式如下：  
-
-  `Authorization": "bearer {access_token}"`
+  Comm100对于Restful的Api采取标准的OAuth2.0的方式对调用者进行身份验证，具体方式参考[Auth Authorization](https://github.com/hgq719/docs/blob/master/open-platform.md#oauth-authorization)。   
 
 ## Authority Managment API
   Partner可以在自己的用户管理界面中通过调用Comm100 RESTful API来配置自己系统中的账户在Comm100中权限，Comm100 Live Chat公开了下面的API来对站点下的权限资源进行操作：
