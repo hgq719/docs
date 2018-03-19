@@ -96,7 +96,20 @@
 ## LiveChat API
   Comm100 Live Chat中可以获取或设置下面的资源：
   - [Campaign Object](#campaign-object)
-  - [Campaign Object](#campaign-object)
+  - [ChatButton Object](#chatbutton-object)
+  - [ChatWindow Object](#chatwindow-object)
+  - [PreChat Object](#prechat-object)
+  - [PostChat Object](#postchat-object)
+  - [OfflineMessage Object](#offline-message-object)
+  - [AutoInvitation Object](#autoInvitation-object)
+  - [AgentWrapup Object](#agent-wrapup-object)
+  - [RoutingRule Object](#routing-rule-object)
+  - [Language Object](#language-object)
+  - [Config Object](#config-object)
+  - [Canned Messages Object](#canned-messages-object)
+  - [Custom Away Status Object](#custom-away-status-object)
+  - [Ban List Object](#ban-list-object)
+  - [Visitor Segmentation Object](#visitor-segmentation-object)
 
 ### Campaign Object
   Campaign对象包含以下属性：  
@@ -333,20 +346,6 @@
   - `routeId` -路由到对应的id
   - `routePriority` -路由优先级:Lowest;Low;Normal;High;Highest
 
-## Settings API
-  Comm100 Live Chat公开了下面的API来进行站点的相关设置：
-  - [Config API](#config-api)  
-  - [Canned Messages API](#canned-messages-api)
-  - [Custom Away Status API](#custom-away-status-api)
-  - [Ban List API](#ban-list-api)
-  - [Visitor Segmentation API](#visitor-segmentation-api)
-
-### Config API
-  Comm100 Live Chat公开了下面的API对站点进行相关配置：
-  - `GET /api/v1/livechat/configs` -获取站点的配置
-  - `POST /api/v1/livechat/configs` -创建站点的配置
-  - `PUT /api/v1/livechat/configs/{config_id}` -更新站点的配置
-
 #### Config Object
   Comm100中Livechat的Config对象中包含以下属性：
   - `siteId` -站点编号
@@ -384,7 +383,21 @@
   - `isEnableAdvancedCategoryMode` -是否开启高级模式的wrapup
   - `isNotAllocateWhenVideoAudio` -是否不分配聊天给正在Audio/Video Chat中的Agent
 
-### Canned Messages API
+#### Config API
+  Comm100 Live Chat公开了下面的API对站点进行相关配置：
+  - `GET /api/v1/livechat/configs` -获取站点的配置
+  - `POST /api/v1/livechat/configs` -创建站点的配置
+  - `PUT /api/v1/livechat/configs/{config_id}` -更新站点的配置
+
+#### Canned Message Object
+  Canned  Message对象包含以下属性：
+  - `id` -主键id
+  - `message`  -内容
+  - `categoryId` -所属类型的主键Id
+  - `isPrivate` -是否为私有
+  - `shortcuts` -快捷键
+
+#### Canned Messages API
   Comm100 Live Chat公开了下面的API来对[Canned Messaged Object](#canned-message-object)进行访问:
   - `GET /api/v1/livechat/cannedMessages` -获取站点下面的所有Canned Messages   
   - `GET /api/v1/livechat/cannedMessages/{cannedMessage_id}` -获取站点下面的一个特定的Canned Messages   
@@ -397,28 +410,12 @@
   - `POST /api/v1/livechat/cannedMessageCategories` -新建一个category   
   - `PUT /api/v1/livechat/cannedMessageCategories/{category_id}` -更新一个category   
   - `DELETE /api/v1/livechat/cannedMessageCategories/{category_id}` -删除一个category  
-  
-##### Canned Message Object
-  Canned  Message对象包含以下属性：
-  - `id` -主键id
-  - `message`  -内容
-  - `categoryId` -所属类型的主键Id
-  - `isPrivate` -是否为私有
-  - `shortcuts` -快捷键
 
 ### Custom Away Status API
   Comm100 Live Chat公开了下面的API来对自定义Away的状态进行访问：
   - `GET /api/v1/livechat/customAwayStatuses` -获取站点所有的自定义Away状态
   - `POST /api/v1/livechat/customAwayStatuses` -创建自定义Away状态
   - `PUT /api/v1/livechat/customAwayStatuses/{status_id}` -更新自定义Away状态
-
-### Visitor Segmentation API
-  Comm100 Live Chat公开了下面的API来对用户细分进行访问：
-  - `GET /api/v1/livechat/customerSegments` -获取站点所有自定义用户细分信息
-  - `GET /api/v1/livechat/customerSegments/{segment_id}` -查询一个用户细分
-  - `POST /api/v1/livechat/customerSegments` -新建一个用户细分
-  - `PUT /api/v1/livechat/customerSegments/{segment_id}` -更新用户细分
-  - `DELETE /api/v1/livechat/customerSegments/{segment_id}` -删除用户细分
 
 #### Customer Segment Object
   用户细分对象中包含了下面的属性：
@@ -434,3 +431,11 @@
   - `isDeleted` -是否已经被删除
   - `enumConditionExpression` -Customer Segment的各个Condition之间的条件关系
   - `conditionExpression` -各个条件之间的关系表达式
+
+### Visitor Segmentation API
+  Comm100 Live Chat公开了下面的API来对用户细分进行访问：
+  - `GET /api/v1/livechat/customerSegments` -获取站点所有自定义用户细分信息
+  - `GET /api/v1/livechat/customerSegments/{segment_id}` -查询一个用户细分
+  - `POST /api/v1/livechat/customerSegments` -新建一个用户细分
+  - `PUT /api/v1/livechat/customerSegments/{segment_id}` -更新用户细分
+  - `DELETE /api/v1/livechat/customerSegments/{segment_id}` -删除用户细分
