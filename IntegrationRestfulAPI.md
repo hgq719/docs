@@ -155,29 +155,35 @@
 `PUT /api/v1/livechat/campaigns/{campaign_id}/RoutingRules` -Update offlineMessage info for a campaign  
 `PUT /api/v1/livechat/campaigns/{campaign_id}/language` -Update offlineMessage info for a campaign  
 
-#### ChatButton Object
-  - `buttonType` -ChatButton的类型：ImageButton;LinkText;Adaptive
-  - `desktopView` -桌面版页面配置
-    + `onlineURL` -当Operator处于 online时chatbutton的链接
-    + `offlineURL` -当Operator处于 offline时chatbutton的链接
-    + `showImageType` -Chatbutton是否浮动
-    + `buttonPosition` -Chatbutton的位置
-    + `xOffset` -若XOffsetIfPixel=1则，该字段表示X坐标的偏移像素值;若XOffsetIfPixel=0则，该字段表示X坐标的偏移比例;
-    + `xOffsetIfPixels` -ChatButtonXOffsetIfPixels	X坐标的偏移量是否为像素
-    + `yOffset` -若YOffsetIfPixel =1则，该字段表示y坐标的偏移像素值;若YOffsetIfPixel =0则，该字段表示y坐标的偏移比例;
-    + `yOffsetIfPixels` -Y坐标的偏移量是否为像素
-    + `imageType` -ChatButtonImage的类型:Online;Offline;Invitation;InvitationAccept;InvitationRefuse;Brannding;Poweredby;WindowColorStyle
-  - `mobileView` -移动页面配置
-    + `showType` -显示类型：text；image
-    + `textOnline` -showType为text时，在线的时候显示文字
-    + `textOffline` -showType为text时，离线的时候显示文字
-    + `backgroundColor` -showType为text时，背景颜色
-    + `imageUrl` -showType为image时，图片路径
-    + `imagePosition` -showType为image时，图片位置:bottomLeft;bottomMiddle;bottomRight;leftMiddle;RightMiddle;leftBottom;rightBottom;
+### Image Button Object
+  - `imageUrl` -图片地址
+  - `showButtonType` -按钮显示类型：static;float;
+  - `buttonPosition` -Chatbutton的位置：centered;topLeft;topMiddle;topRight;buttomLeft;buttomMiddle;buttomRight;leftMiddle;rightMiddle;
+  - `xOffset` -若XOffsetIfPixel=pixels则，该字段表示X坐标的偏移像素值;若XOffsetIfPixel=percent则，该字段表示X坐标的偏移比例;
+  - `xOffsetIfPixels` -ChatButtonXOffsetIfPixels	X坐标的偏移量单位：pixels；percent
+  - `yOffset` -若YOffsetIfPixel=pixels则，该字段表示y坐标的偏移像素值;若YOffsetIfPixel=percent则，该字段表示y坐标的偏移比例;
+  - `yOffsetIfPixels` -Y坐标的偏移量单位：pixels；percent
+
+### ChatButton Object
+  - `buttonType` -ChatButton的类型：Adaptive;ImageButton;TextLink;
+  - `adaptive` -chatButton为Adaptive时的配置
+    + `buttonColor` -按钮的主体颜色
+    + `iconUrl` -图标的地址
+  - `imageButton` -chatButton为ImageButton时的配置
+    + [desktopView](#image-button-object) -桌面版按钮配置
+    + `mobileView` -移动版按钮配置
+      * `showType` -显示类型：text；image
+      * `textOnline` -showType为text时，在线的时候显示文字
+      * `textOffline` -showType为text时，离线的时候显示文字
+      * `backgroundColor` -showType为text时，背景颜色
+      * `imageUrl` -showType为image时，图片路径
+      * `imagePosition` -showType为image时，图片位置:bottomLeft;bottomMiddle;bottomRight;leftMiddle;RightMiddle;leftBottom;rightBottom;
+  - `textLink` -chatButton为TextLink时的配置
+    + `textContent` -显示文本的内容
   - `isHideOffline` -Chatbutton在offline时是否隐藏
   - `sepcifiedDomainsOrUrls` -指定只在当前这些域名或者地址下显示聊天按钮，为一个字符串列表
 
-#### ChatWindow Object
+### ChatWindow Object
 - `windowStyle`  -Chat window的类型：Classic;Circle;Bubble
 - `mainColor`  -聊天窗口的主体颜色
 - `header`
