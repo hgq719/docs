@@ -102,15 +102,15 @@
   Campaign对象包含以下属性：  
   - `name` -Campaign的名字
   - `description` -描述
-  - [chatButton property](#chatButton-object)
-  - [chatWindow property](#chatwindow-object)
-  - [preChat property](#prechat-object)
-  - [postChat property](#post-object)
-  - [offlineMessage property](#offline-message-object)
-  - [invitation property](#invitation-object)
-  - [agentWrapup property](#agent-wrapup-object)
-  - [routingRule property](#routing-rule-object)
-  - [language property](#language-object)
+  - [chatButton](#chatButton-object)
+  - [chatWindow](#chatwindow-object)
+  - [preChat](#prechat-object)
+  - [postChat](#post-object)
+  - [offlineMessage](#offline-message-object)
+  - [invitation](#invitation-object)
+  - [agentWrapup](#agent-wrapup-object)
+  - [routingRule](#routing-rule-object)
+  - [language](#language-object)
 
 ### Campaign API
   Comm100 Live Chat公开了下面的API来对站点下的Campaign资源进行操作：  
@@ -296,7 +296,7 @@
   - `wrapupFields`  -Wrapup页面自定义字段集合
     + [customField](#custom-field)  -自定义字段
 
-#### Language Property
+#### Language Object
   - `language` -语言
   - `isCustomizeLanguage` -是否使用自定义语言。false：不使用，使用默认语言 ；true：使用自定义语言
   - `isRTL` -是否从右到左对齐，IsCustomizeLanguage为true时有效。
@@ -312,12 +312,12 @@
 
 #### Routing Rules Property
   - `isEnableRoute` -是否启用路由规则
-  - `routemethod` -0 - Route visitors to a specific department or operator；1 - Route visitors based on custom rules
+  - `routemethod` -department - Route visitors to a specific department or operator；rules - Route visitors based on custom rules
   - [routeSpecificPoint](#route-specific-point) -路由到指定节点，Routemethod为0时有效
   - `routeRules` -路由规则集合，Routemethod为1时有效
     + [routeRule](#route-rule-object) -路由规则对象
-  - `failRouteType` -0 – 未配置；1 – fail route to department；2 – fail route to operator；3 – redirect to offline message，Routemethod为1时有效
-  - `failRouteId` - 失败时路由到的对应ID，Routemethod为1时有效
+  - `failRouteType` -none – 未配置；department – fail route to department；operator – fail route to operator；offlineMessage – redirect to offline message，Routemethod为department时有效
+  - `failRouteId` - 失败时路由到的对应ID，Routemethod为department时有效
   - `failRouteMessageTo` -FailRouteType选择redirect to offline message时，填写的收邮件的Email，Routemethod为1时有效
 
 ##### Route Rule Object
@@ -331,7 +331,7 @@
 ##### Route Specific Point
   - `routeType` -路由类型：0:Department;1:Agent
   - `routeId` -路由到对应的id
-  - `routePriority` -路由优先级:1:Lowest;2:Low;3:Normal;4:High;5:Highest
+  - `routePriority` -路由优先级:Lowest;Low;Normal;High;Highest
 
 ## Settings API
   Comm100 Live Chat公开了下面的API来进行站点的相关设置：
@@ -366,8 +366,8 @@
   - `aPICallDailyLimit` -每天可以使用API的次数
   - `isEnableZendesk` -是否开启Zendesk
   - `isEnableGoogleAnalytics` -是否开启Google分析
-  - `allocationbywhat` -用于判断Chat Auto-Allocation页面中Auto-allocate chat requests to operators based on下方列表如何显示：0 – department未开启，显示三个分配方式； 1 – department已开启，根据department显示一个列表
-  - `allocationstrategy` -department未开启时，记录分配方式：0 - Load Balancing；1 - Round-Robin；2 - Capability Weighted
+  - `allocationbywhat` -用于判断Chat Auto-Allocation页面中Auto-allocate chat requests to operators based on下方列表如何显示：false – department未开启，显示三个分配方式；true  – department已开启，根据department显示一个列表
+  - `allocationstrategy` -department未开启时，记录分配方式：Load Balancing；Round-Robin；Capability Weighted
   - `isEnableAutoAllocation` -是否开启Chat Auto-Allocation
   - `isEnableChatTranslation` -是否开启Auto Translation
   - `isEnableGoToMeeting` -是否开启GoToMeeting
@@ -433,4 +433,4 @@
   - `alertToIds` -发送通知的对象的Id列表：与Type相关，如果类型为Department则为DepartmentId，如果为Operator，则为OperatorId
   - `isDeleted` -是否已经被删除
   - `enumConditionExpression` -Customer Segment的各个Condition之间的条件关系
-  - `conditionExpression` -若EnumConditionExpression的值为2，各个条件之间的关系表达式
+  - `conditionExpression` -各个条件之间的关系表达式
