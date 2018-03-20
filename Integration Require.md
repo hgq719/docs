@@ -26,7 +26,8 @@
   1. 基本信息 -包括名字、邮箱、电话号码等  
   2. IP白名单 -配置使用Comm100的Partner API的IP白名单  
   3. SSO配置 -Partner根据自己的需求，进行相应的SSO配置  
-  4. Branding/Logo -配置Partner的品牌信息以显示在相应的界面中  
+  4. Branding/Logo -配置Partner的品牌信息以显示在相应的界面中
+  5. OAuth客户端 -如果Partner需要调用RestfulApi来访问用户数据，则必须申请OAuth客户端，由Comm100给Partner生成对应的`client_id`和`client_secret`。  
 
 ## Partner Object
   Comm100中的Partner对象包括下面的属性：  
@@ -269,12 +270,9 @@
     `https://hosted.comm100.com/LiveChat/AgentConsole/Settings.html?siteId=000000`  
   - Visitor -当前可用的访客列表   
     `https://hosted.comm100.com/LiveChat/AgentConsole/Visitors.html?siteId=000000`  
-  - MyChats -当前agent正在进行的聊天列表   
+  - MyChats -当前agent正在进行的聊天列表，可以考虑包含右侧的Tab区域      
     `https://hosted.comm100.com/LiveChat/AgentConsole/MyChats.html?siteId=000000`  
-  - CurrentChat -当前agent当前正在进行的聊天窗口，可以考虑包含右侧的Tab区域   
-    `https://hosted.comm100.com/LiveChat/AgentConsole/CurrentChat.html?siteId=000000`  
-  - Agents -当前在线的agent列表   
-    `https://hosted.comm100.com/LiveChat/AgentConsole/Agents.html?siteId=000000`  
+
 
 ### Agent Console Component Integration
 
@@ -400,16 +398,8 @@
 ### API Integration
   - Partner API
     + [Site Managment](#site-managment)
-  - Account Managment API
-    + [Agent Managment](https://www.comm100.com/doc/api/operators.htm)
-    + [Department Managment](https://www.comm100.com/doc/api/departments.htm)
-  - [Authority Manage API](https://github.com/hgq719/docs/blob/master/IntegrationRestfulAPI.md#authority-managment-api)  
-  - Control Panel
-    + [Campaign API](https://github.com/hgq719/docs/blob/master/IntegrationRestfulAPI.md#campaign-api)
-    + [Settings API](https://github.com/hgq719/docs/blob/master/IntegrationRestfulAPI.md#settings-api)
-    + [Report API](#report)
-  - [Agent Console API](#agent-console-api) 
-
+  - [Acount API](https://github.com/hgq719/docs/blob/master/IntegrationRestfulAPI.md#account-api)  
+  - [LiveChat API](https://github.com/hgq719/docs/blob/master/IntegrationRestfulAPI.md#livechat-api)  
 
 ### Report
   用户可以通过ReportApi获取到报表数据，集成到自己的报表系统中，ReportApi的详情可参考[Report API](https://gist.github.com/chendesheng/50e9b63573f09a1c1a76c1f4ec074ac9)。部分报表如果不考虑深度集成，也可采用界面集成的方式直接将该报表的UI集成到Partner的界面中。
