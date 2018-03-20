@@ -65,7 +65,61 @@
   + `GET /api/v1/account/permissions/{permission_id}` -获取指定的权限的信息   
   + `POST /api/v1/account/permissions` -新增一个权限信息
   + `PUT /api/v1/account/permissions/{permission_id}` -更新一个权限信息   
-  + `DELETE /api/v1/account/permissions/{permission_id}` -删除一个权限信息       
+  + `DELETE /api/v1/account/permissions/{permission_id}` -删除一个权限信息 
+
+### List All Permissions
+Gets the list of permissions.
+
+#### Path
+  `GET https://hosted.comm100.com/api/v1/account/permissions`
+
+#### Parameters
+None.  
+
+#### Response
+| Name | Description
+| --- | ---
+| `name ` | name of the permission.
+| `module` | the module which the permission belong to
+| `subject` | the subject of the permission
+| `description` | the description of the permission
+
+#### Example
+Sample request:
+
+  `curl -u tester@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X GET \`   
+  `"https://hosted.comm100.com/api/v1/account/permissions"`
+
+Sample response:
+
+```json
+    {
+      "permissions": [
+        {
+          "name":"Accept Chats",
+          "module":"LiveChat",
+          "subject":"Chat",
+          "descprition":[
+            "Accept my department's chat requests",
+            "Accept chat requests which do not belong to any departments"
+          ]
+        },
+        {
+          "name":"Manage Users",
+          "module":"User&Contact",
+          "subject":"users",
+          "descprition":[
+            "View user list and user details",
+            "Create/edit/export/delete users",
+            "Restore deleted users form the Recycle Bin",
+            "Add/delete call logs, notes and attachments ",
+            "View user list and user details",
+            "Promote visitors to users"
+          ]
+        }
+      ]
+    }
+```          
 
 ### Agent Permission Object
   Agent的权限对象包含以下属性:
@@ -79,6 +133,44 @@
   + `POST /api/v1/account/agents/{agent_id}/permissions` -给当前agent新增一个权限
   + `PUT /api/v1/account/agents/{agent_id}/permissions/{permission_info}` -更新agent的某一个权限配置   
   + `DELETE /api/v1/account/agents/{agent_id}/permissions/{permission_id}` -删除当前agent的某一个权限配置   
+
+#### Add A Permission For The Agent
+add a permission for the agent.
+
+### Path
+  `POST https://hosted.comm100.com/api/v1/account/agents/{agent_id}/permissions`
+
+### Parameters
+| Name | Description
+| --- | ---
+| `agentId` | required, the id of the agent
+| `permissionId` | required, the id of the permission
+
+### Response
+Returns the details of the newly added agent permission.
+
+| Name | Description
+| --- | ---
+| `id` | the id of the newly added agent permission.
+| `agentId` | the id of the agent
+| `permissionId` | the id of the permission
+
+### Example
+Sample request:
+
+  `curl -u tester@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X POST \`  
+  `-d permissionId=35`   
+  `"https://hosted.comm100.com/api/v1/account/agents/123/permissions"`
+
+Sample response:
+
+```json
+    {
+      "id": 6,
+      "agentId": "123",
+      "permissionId": "35"
+    }
+```
 
 ### Group Permission Object
   Group的权限对象包含以下属性:
@@ -96,15 +188,15 @@
 ## LiveChat API
   Comm100 Live Chat中可以获取或设置下面的资源：
   - [Campaign Object](#campaign-object)
-  - [ChatButton Object](#chatbutton-object)
-  - [ChatWindow Object](#chatwindow-object)
-  - [PreChat Object](#prechat-object)
-  - [PostChat Object](#postchat-object)
-  - [OfflineMessage Object](#offline-message-object)
-  - [AutoInvitation Object](#autoInvitation-object)
-  - [AgentWrapup Object](#agent-wrapup-object)
-  - [RoutingRule Object](#routing-rule-object)
-  - [Language Object](#language-object)
+    + [ChatButton Object](#chatbutton-object)
+    + [ChatWindow Object](#chatwindow-object)
+    + [PreChat Object](#prechat-object)
+    + [PostChat Object](#postchat-object)
+    + [OfflineMessage Object](#offline-message-object)
+    + [AutoInvitation Object](#autoInvitation-object)
+    + [AgentWrapup Object](#agent-wrapup-object)
+    + [RoutingRule Object](#routing-rule-object)
+    + [Language Object](#language-object)
   - [Config Object](#config-object)
   - [Canned Messages Object](#canned-messages-object)
   - [Custom Away Status Object](#custom-away-status-object)
@@ -125,37 +217,7 @@
   - [routingRule](#routing-rule-object)
   - [language](#language-object)
 
-### Campaign API
-  Comm100 Live Chat公开了下面的API来对站点下的Campaign资源进行操作：  
-`GET /api/v1/livechat/campaigns` -Get list of campaigns  
-`GET /api/v1/livechat/campaigns/{id}` -Get a single campaign  
-`DELETE /api/v1/livechat/campaigns/{id}` -Delete a campaign  
-
-`GET /api/v1/livechat/campaigns/{campaign_id}/chatButton` -Get chatButton info for a campaign    
-`GET /api/v1/livechat/campaigns/{campaign_id}/invitationButton` -Get invitationButton info for a campaign  
-`GET /api/v1/livechat/campaigns/{campaign_id}/chatWindow` -Get chatWindow info for a campaign  
-`GET /api/v1/livechat/campaigns/{campaign_id}/preChat` -Get preChat info for a campaign  
-`GET /api/v1/livechat/campaigns/{campaign_id}/postChat` -Get postChat info for a campaign  
-`GET /api/v1/livechat/campaigns/{campaign_id}/offlineMessage` -Get offlineMessage info for a campaign  
-`GET /api/v1/livechat/campaigns/{campaign_id}/autoInvitations` -Get auto invitation info for a campaign  
-`GET /api/v1/livechat/campaigns/{campaign_id}/manualInvitation` -Get manual invitation info for a campaign  
-`GET /api/v1/livechat/campaigns/{campaign_id}/agentWrapup` -Get offlineMessage info for a campaign  
-`GET /api/v1/livechat/campaigns/{campaign_id}/RoutingRules` -Get offlineMessage info for a campaign  
-`GET /api/v1/livechat/campaigns/{campaign_id}/language` -Get offlineMessage info for a campaign  
-
-`PUT /api/v1/livechat/campaigns/{campaign_id}/chatButton` -Update chatButton info for a campaign  
-`PUT /api/v1/livechat/campaigns/{campaign_id}/invitationButton` -Update invitationButton info for a campaign  
-`PUT /api/v1/livechat/campaigns/{campaign_id}/chatWindow` -Update chatWindow info for a campaign  
-`PUT /api/v1/livechat/campaigns/{campaign_id}/preChat` -Update preChat info for a campaign  
-`PUT /api/v1/livechat/campaigns/{campaign_id}/postChat` -Update postChat info for a campaign  
-`PUT /api/v1/livechat/campaigns/{campaign_id}/offlineMessage` -Update offlineMessage info for a campaign  
-`PUT /api/v1/livechat/campaigns/{campaign_id}/autoIvitation` -Update aoto invitation info for a campaign  
-`PUT /api/v1/livechat/campaigns/{campaign_id}/manualInvitation` -Update manual invitation info for a campaign  
-`PUT /api/v1/livechat/campaigns/{campaign_id}/agentWrapup` -Update offlineMessage info for a campaign  
-`PUT /api/v1/livechat/campaigns/{campaign_id}/RoutingRules` -Update offlineMessage info for a campaign  
-`PUT /api/v1/livechat/campaigns/{campaign_id}/language` -Update offlineMessage info for a campaign  
-
-### Image Button Object
+#### Image Button Object
   - `imageUrl` -图片地址
   - `showButtonType` -按钮显示类型：static;float;
   - `buttonPosition` -Chatbutton的位置：centered;topLeft;topMiddle;topRight;buttomLeft;buttomMiddle;buttomRight;leftMiddle;rightMiddle;
@@ -164,7 +226,7 @@
   - `yOffset` -若YOffsetIfPixel=pixels则，该字段表示y坐标的偏移像素值;若YOffsetIfPixel=percent则，该字段表示y坐标的偏移比例;
   - `yOffsetIfPixels` -Y坐标的偏移量单位：pixels；percent
 
-### ChatButton Object
+#### ChatButton Object
   - `buttonType` -ChatButton的类型：Adaptive;ImageButton;TextLink;
   - `adaptive` -chatButton为Adaptive时的配置
     + `buttonColor` -按钮的主体颜色
@@ -183,7 +245,7 @@
   - `isHideOffline` -Chatbutton在offline时是否隐藏
   - `sepcifiedDomainsOrUrls` -指定只在当前这些域名或者地址下显示聊天按钮，为一个字符串列表
 
-### ChatWindow Object
+#### ChatWindow Object
 - `windowStyle`  -Chat window的类型：Classic;Circle;Bubble
 - `mainColor`  -聊天窗口的主体颜色
 - `header`
@@ -272,7 +334,7 @@
 - `fields`  -isUseOfflineMessage为true时有效：自定义字段集合
   + [customFields](#custom-fields)  -自定义字段
    
-##### InvitationButton Object
+#### InvitationButton Object
   - `invitationPosition` -邀请框的位置：Center with Overlay;Center;Top Left ;Top Middle; Top Right;Bottom Left;Bottom Middle;Bottom Right
   - `imageUrl` -邀请按钮图片url
   - `noImageURL` -No图片的URL
@@ -351,6 +413,82 @@
   - `routeType` -路由类型：0:Department;1:Agent
   - `routeId` -路由到对应的id
   - `routePriority` -路由优先级:Lowest;Low;Normal;High;Highest
+
+### Campaign API
+  Comm100 Live Chat公开了下面的API来对站点下的Campaign资源进行操作.
+
+| Method | Name | Path
+| --- | --- | ---
+| GET | [List All Campaigns](https://github.com/Comm100/restful-api/blob/master/settings-api.md#list-all-campaigns) | `/api/v1/livechat/campaigns`
+| GET | [Details of ChatButton](#details-of-chatbutton) | `/api/v1/livechat/campaigns/{id}/chatButton`  
+| GET | [Details of InvitationButton](#details-of-invitationbutton) | `/api/v1/livechat/campaigns/{id}/invitationButton`  
+| GET | [Details of ChatWindow](#details-of-chatwindow) | `/api/v1/livechat/campaigns/{id}/chatWindow`  
+| GET | [Details of PreChat](https://github.com/Comm100/restful-api/blob/master/settings-api.md#pre-chat) | `/api/v1/livechat/campaigns/{id}/preChat`  
+| GET | [Details of PostChat](https://github.com/Comm100/restful-api/blob/master/settings-api.md#post-chat) | `/api/v1/livechat/campaigns/{id}/postChat`  
+| GET | [Details of OfflineMessage](#dhttps://github.com/Comm100/restful-api/blob/master/settings-api.md#offline-message) | `/api/v1/livechat/campaigns/{id}/offlineMessage`  
+| GET | [Details of AutoInvitation](https://github.com/Comm100/restful-api/blob/master/settings-api.md#auto-invitation) | `/api/v1/livechat/campaigns/{id}/autoInvitation`  
+| GET | [Details of ManualInvitation](#details-of-manualinvitation) | `/api/v1/livechat/campaigns/{id}/manualInvitation`  
+| GET | [Details of Agent Wrap Up](https://github.com/Comm100/restful-api/blob/master/settings-api.md#agent-wrap-up) | `/api/v1/livechat/campaigns/{id}/agentWrapup`  
+| GET | [Details of Routing Rules](#details-of-routing-rules) | `/api/v1/livechat/campaigns/{id}/RoutingRules`  
+| GET | [Details of Language](#details-of-language) | `/api/v1/livechat/campaigns/{id}/language`  
+
+### Details of ChatButton
+Gets the details of ChatButton.
+
+#### Path
+  `GET https://hosted.comm100.com/api/v1/livechat/campaigns/{id}/chatButton`
+
+#### Parameters
+| Name | Description
+| --- | ---
+| `id`| the id of the campaign, which can be obtained from the [list of all campaigns](#list-all-campaigns)
+
+#### Response
+| Name | Description
+| --- | ---
+| `buttonType ` | the type of button,contains `Adaptive`、`ImageButton` and `TextLink`.
+| `buttonColor` | the main color of button,available when buttonType is adaptive
+| `iconUrl` | the url of icon,available when buttonType is adaptive
+| `imageButton` | the information of image button in desktop app view,available when buttonType is imageButton
+| `textContent` | the content of text,available when buttonType is textLink
+| `isHideOffline` | whether to hide the chat button when agent is offline
+| `sepcifiedDomainsOrUrls` | display the chat button on specified domains or urls 
+
+#### Example
+Sample request:
+
+  `curl -u tester@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X GET \`   
+  `"https://hosted.comm100.com/api/v1/livechat/campaigns/1/chatButton"`
+
+Sample response:
+
+```json
+    {
+        "buttonType": "ImageButton",
+        "imageButton": {
+          "desktopView":{
+            "imageUrl":{
+              "online":"****/online.jpg",
+              "offline":"****/offline.jpg"
+            },
+            "showButtonType":"float",
+            "buttonPosition":"rightMiddle",
+            "xOffset":"10",
+            "xOffsetIfPixels":"percent",
+            "yOffset":"10",
+            "yOffsetIfPixels":"percent"
+          },
+          "mobileView":{
+            "showType":"text",
+            "textOnline":"on line",
+            "textOffline":"offline",
+            "backgroundColor":"#FFFFFF"
+          }
+        },
+        "isHideOffline":true,
+        "sepcifiedDomainsOrUrls":"www.myCompany.com"
+    }
+```    
 
 #### Config Object
   Comm100中Livechat的Config对象中包含以下属性：
