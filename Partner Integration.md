@@ -39,8 +39,6 @@
 3. 品牌&样式
   - Branding/Logo，Partner可以定义自己的Branding以及Logo，这些会显示在界面中作为Partner自己的品牌标志
   - 样式，每一个Partner可以定义一套自己的前端样式，Partner客户打开Live Chat产品会显示Partner定义的样式
-    + 前后端完全分离之前，样式由Comm100根据对方的需求来定义
-    + 前后端完全分离之后，由Comm100提供界面接口给Partner自己来配置
 
 4. 开户  
   Partner通过的[Api](#partner-api)给他的客户开户，维护自己客户的对应站点。
@@ -57,7 +55,8 @@
 
 ## Design & Implementation
   - Partner账号系统
-    + [Partner对象](#partner-object)
+    + [Partner Object](#partner-object)
+    + [Partner Configuration](#partner-configuration)
     + [Partner API](#partner-api)
   - Agent Login Integration
     + Comm100账号系统 -Partner直接使用Comm100的账号系统对Agent身份进行认证
@@ -102,10 +101,64 @@
       * `alg` Comm100只支持HS256的加密算法
       * `signature` jwt的签名密钥使用上面的`apiKey`
 
+### Partner Configuration
+  - 基本信息配置   
+  Comm100提供相应的界面给Partner来维护自己的基本信息,包括`name`、`contactName`、`contactEmail`、`phone`
+  - API访问权限配置  
+  Comm100提供相应的界面给Partner配置需要访问Partner API的IP地址，`api_key`由Comm100自动生成
+  - OAuth客户端申请    
+  Comm100提供界面给Partner进行OAuth客户端申请，申请完成后自动生成`client_id`和`client_secret`
+  - Branding/Logo配置、样式  
+  Comm100提供界面给Partner来维护自己的Branding/Logo。前后端完全分离之前，样式由Comm100根据对方的需求来定义；前后端完全分离之后，由Comm100提供界面接口给Partner自己来配置。
+
+#### Partner Table
+t_Partner：Partner基础表，记录Partner基本信息  
+
+| field | Description
+| --- | ---
+| `id` | the primary key of the partner.
+| `name` | the name of the partner
+| `contactName` | the name of the partner's contact
+| `contactEmail` | the email of the partner's contact
+| `phone` | the phone of the partner
+| `isActive` | whether the partner is active or not, defaults to `true`
+| `apiKey` | the key by which you can exchange the access_token when calling partner api
+| `ipRestrictions` | the ip white list for calling partner api
+| `client_id` | the id which you can exchange the access_token when requesting customer's data
+| `client_secret` | the secret which you can exchange the access_token when requesting customer's data
+
+   t_Partner_Config：Partner配置表，记录Partner的配置信息
+
+| field | Description
+| --- | ---
+| `id` | the primary key of the partner config.
+| `partnerId` | the primary key of the partner.
+| `branding` | the branding text of partner
+| `logo` | the url of partner's logo
+
+  t_Partner_SSO：Partner SSO配置表，记录Partner的SSO配置信息
+   
+| field | Description
+| --- | ---
+| `id` | the primary key of the sso settings.
+| `partnerId` | the primary key of the partner.
+| `ssoType` | the type of sso which partner settings,including `SAML` and `JWT`
+| `loginUrl` | the url of login
+| `logoutUrl` | the url of logout
+
+  t_Partner_Theme：Partner主题配置表，记录Partner的主题配置信息
+   
+| field | Description
+| --- | ---
+| `id` | the primary key of the css settings.
+| `partnerId` | the primary key of the partner.
+| `cssKey` | the primary key word of css, ie. `backgroundColor`
+| `cssValue` | the value correspond to the primary key word of css,ie. `#1C86EE`
+
 ### Partner API
    Partner通过下面的Api给他的客户开户，创建[Site](#site-object)，维护自己客户的对应站点。Partner API不支持跨域请求， 即在跨域的情况下只允许后台调用，浏览器中不能调用。
    
-   开发者需要通过下面的API来向Comm100请求访问API的token。
+   开发者需要通过下面的API来向Comm100请求访问API的token，Comm100再结合Partner配置的`ipRestrictions`中的IP来授权Partner API的访问。
 
   `GET https://hosted.comm100.com/partner/oauth/token`
 
