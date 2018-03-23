@@ -100,7 +100,7 @@
     + `other instructions`
       * `alg` Comm100只支持HS256的加密算法
       * `signature` jwt的签名密钥使用上面的`apiKey`
-
+  - `primarySSO` -主SSO，在SAML和JWT同时配置的情况下，Comm100可根据这个主SSO来选择重定向的登录页面
 ### Partner Configuration
   - 基本信息配置   
   Comm100提供相应的界面给Partner来维护自己的基本信息,包括`name`、`contactName`、`contactEmail`、`phone`
@@ -143,6 +143,7 @@ t_Partner：Partner基础表，记录Partner基本信息
 | `id` | the primary key of the sso settings.
 | `partnerId` | the primary key of the partner.
 | `ssoType` | the type of sso which partner settings,including `SAML` and `JWT`
+| `isPrimarySSO` | whether current SSO is primary way  or not, defaults to `false`
 | `loginUrl` | the url of login
 | `logoutUrl` | the url of logout
 
