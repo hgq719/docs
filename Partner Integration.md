@@ -210,7 +210,7 @@ t_Partner：Partner基础表，记录Partner基本信息
   Comm100 Assertion Consumer Service Url：  
   - `https://partnerSecondDomain.comm100.com/sso/saml/acs`
   
-  Logout Url：
+  Comm100 Logout Url：
   - `https://partnerSecondDomain.comm100.com/sso/saml/logout`
      
   Login流程
@@ -263,15 +263,16 @@ t_Partner：Partner基础表，记录Partner基本信息
     
  Logout 
   - 已经认证的用户在Partner的账号系统中Logout的同时，需要将此用户的身份认证Response传给Logout Url，调用成功后Comm100注销当前用户的会话，用户在Comm100完成Logout。
+  - 已经认证的用户在Comm100这边Logout的同时，Comm100会调用Partner在SSO中配置的Logout Url，调用成功后在Comm100注销当前用户会话的同时在Partner的系统中完成Logout。
 
 2. JWT
 
  State - support cookie
 
-  身份认证endpoint:
+  Comm100身份认证endpoint:
    - `https://hosted.comm100.com/sso/jwt?jwt=xxx.xxx.xx&return_to=https://hosted.comm100.com/livechatdashboard/dashboard.aspx?siteId=111111`
 
-  Logout Url：
+  Comm100 Logout Url：
    - `https://partnerSecondDomain.comm100.com/sso/jwt/logout?jwt=xxx.xxx.xx`
 
   参数说明
@@ -324,7 +325,8 @@ t_Partner：Partner基础表，记录Partner基本信息
 
  Logout 
   - 已经认证的用户在Partner的账号系统中Logout的同时，需要将此用户的身份认证Token传给Logout Url，调用成功后Comm100注销当前用户的会话，用户在Comm100完成Logout。
-  `https://partnerSecondDomain.comm100.com/sso/jwt/logout?jwt=xxx.xxx.xx`
+  `https://partnerSecondDomain.comm100.com/sso/jwt/logout?jwt=xxx.xxx.xx`   
+  - 已经认证的用户在Comm100这边Logout的同时，Comm100会调用Partner在SSO中配置的Logout Url，调用成功后在Comm100注销当前用户会话的同时在Partner的系统中完成Logout。
 
 ### Integration Ways
   - [界面集成](#ui-integration)     
