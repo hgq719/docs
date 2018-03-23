@@ -2,7 +2,7 @@
 1. [业务目标](#business-goals)
 2. [角色定义](#role-definition)
 3. [业务场景](business-scenario)
-3. [需求分析](#demand-analysis)
+3. [需求分析](#requirement-analysis)
 4. [设计与实现](#design-implementation)
 
 ## Business Goals
@@ -22,7 +22,7 @@
 1. Partner自定义一套Comm100的产品，直接将这个自定义产品卖给他的客户，供其使用。  
 2. Partner将Comm100产品的功能集成到自己的系统中，提供给他的客户使用。
 
-## Demand Analysis
+## Requirement Analysis
 1. 部署
   - Partner直接使用Comm100的Partner平台
      Partner平台使用二级域名来区分不同的Partner ，如`cisco.comm100.com`、`avaya.comm100.com`。
