@@ -23,35 +23,33 @@
 2. Partner将Comm100产品的功能集成到自己的系统中，提供给他的客户使用。
 
 ## Requirement Analysis
-1. 部署
-  - Partner直接使用Comm100的Partner平台
-     Partner平台使用二级域名来区分不同的Partner ，如`cisco.comm100.com`、`avaya.comm100.com`。
-  - Comm100为Partner单独部署一个平台
-     Partner使用自己的独立域名，如`chat.cisco.com`。
-  - Agent Console Desktop/iOS/Android客户端
-     需要为每个Partner单独编译，iOS和Android需要手动发布到App Store和Google Play。不同Partner的客户端不能登录到其他Partner下面的站点。   
-   
-2. Partner账号
-  - 基本信息 -包括名字、邮箱、电话号码、联系人等  
-  - IP白名单 -使用Comm100的Partner API的IP白名单
-  - OAuth客户端 -如果Partner需要调用RestfulApi来访问用户数据，则必须申请OAuth客户端，由Comm100给Partner生成对应的`client_id`和`client_secret`。  
+1. Partner注册   
+  企业可以通过Comm100提供的入口注册成为一个Partner，注册的过程中需要提供企业的名字、联系人及其电话号码、邮箱及其他一些必要信息，注册完成Comm100给企业生成一个Parter账号.
 
-3. 品牌&样式
-  - Branding/Logo，Partner可以定义自己的Branding以及Logo，这些会显示在界面中作为Partner自己的品牌标志
-  - 样式，每一个Partner可以定义一套自己的前端样式，Partner客户打开Live Chat产品会显示Partner定义的样式
+2. 登录Partner管理系统     
+  Comm100提供Partner管理系统,Partner可以通过注册的账号、密码登录到Partner管理系统中,Comm100需要有Partner账号系统对这个Partner进行认证。
 
-4. 开户  
-  Partner通过的[Api](#partner-api)给他的客户开户，维护自己客户的对应站点。
+3. Partner管理系统菜单 & 功能     
+  - Partner Profile -Partner可以维护自己的基本信息，包括联系人、电话号码、邮箱等。
+  - Settings
+    + Branding/Logo -Partner可以定义自己的Branding/Logo，让客户看到的产品直观上是属于Partner的系统
+    + Theme -Partner可以根据自己的需求定义一套自己的前端样式
+    + Ip Restriction -使用Comm100的Partner API的IP白名单
+    + SSO Settings -Partner可以配置相应的SSO，使用自己的账号系统对客户的Agent进行身份认证。
+  - Apply OAuth -Partner需要调用RestfulApi来访问用户数据时则必须申请OAuth客户端。  
+  - Account
+    + Open Account -Partner可以通过Comm100提供的界面或Api来给自己的客户开户
+    + Account Manage -Partner可以管理自己开户的客户，如关闭或激活某个客户的站点
+  - Deployment -Partner可以根据自己的需求来选择系统的部署方式
+    + Partner公共平台 -Partner平台使用二级域名来区分不同的Partner ，如`cisco.comm100.com`、`avaya.comm100.com`。
+    + 单独部署 -Partner使用自己的独立域名，如`chat.cisco.com`。
+  - Desktop/Mobile -Comm100需要提供桌面版/移动版本系统的接入方式。
+  - Reports -Partner可以查看自己客户的相应报表
+  - Billing -Partner下面的客户的账单管理
 
-5. Agent账号集成
-  - Partner可以直接使用Comm100的账号系统对Agent身份进行认证。
-  - Partner可以配置相应的SSO，使用自己的账号系统进行认证。
-
-6. 功能集成
-   - Partner可以通过直接指定Comm100的页面地址将Comm100的功能引入到Partner的界面中。
-   - Partner可以通过引入Comm100的组件代码将Comm100的功能集成Partner的页面中。
-   - Partner可以调用Comm100的RESTful API，自己构建界面或后台来完成特定功能和逻辑。
-   - Partner可以进行App的集成。
+4. Comm100功能集成    
+  - Partner没有自己的产品，通过代理Comm100的产品及Branding/Logo的配置，将系统出售给他的客户使用，对客户的身份认证也完全采用Comm100的账号系统进行认证。客户可使用Comm100产品提供的所有权限内的功能。
+  - Partner需要将Comm100的功能集成到自己的系统中，可以采取Api或界面集成。如果是界面集成的情况，Partner可以自主的选择界面的Header、Footer和菜单的可见性。客户可使用Partner集成到自己系统中的功能。
 
 ## Design & Implementation
   - Partner账号系统
@@ -347,7 +345,7 @@ t_Partner：Partner基础表，记录Partner基本信息
   - [接口集成](#api-integration)       
     Partner通过调用Comm100的RESTful API，自己构建界面或后台来完成特定功能和逻辑。API的调用采取[OAuth](https://github.com/hgq719/docs/blob/master/IntegrationRestfulAPI.md#authentication)的方式进行身份验证。
   - App集成   
-    目前Comm100对于移动端App的集成采用的是单独App方式，可通过WebView或者原生App直接打开，暂时不考虑深度集成。  
+    目前Comm100对于移动端App的集成采用的是单独App方式，需要为每个Partner单独编译，iOS和Android需要手动发布到App Store和Google Play，可通过WebView或者原生App直接打开。不同Partner的客户端不能登录到其他Partner下面的站点。暂时不考虑深度集成。 
 
 #### UI Integration
   Partner可采用以下的方式将Comm100的页面集成到自己的系统中：
