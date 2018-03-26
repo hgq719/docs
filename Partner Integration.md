@@ -61,7 +61,7 @@
    Comm100可以根据Partner的需求来选择系统的部署方案：  
    + Partner公共平台 -Partner平台使用二级域名来区分不同的Partner ，如`cisco.comm100.com`、`avaya.comm100.com`。
    + 单独部署 -Partner使用自己的独立域名，如`chat.cisco.com`。
-   Desktop/Mobile版本的系统需要由Comm100进行独立编译以后，交由Partner给客户使用。一般来说这种版本的系统需要一定的周期才能完成，特别是iOS版本需要Apple公司的审核通过后才能进行发布。
+   Desktop/Mobile版本的系统需要由Comm100进行独立编译、发布完成以后，交由Partner给客户使用。一般来说这种版本的系统需要一定的周期才能完成，特别是iOS版本需要Apple公司的审核通过后才能进行发布。
 
 7. 收费
   Partner及其客户的收费目前可考虑两种方案：  
