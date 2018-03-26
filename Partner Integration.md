@@ -30,7 +30,7 @@
   该系统用于Comm100管理自己的Partner，包括Partner账号的审核、账号管理、查看Partner的相关报表及账单信息等。
 
 3. Partner应用系统  
-  Partner应用系统为Partner用于管理客户及相关配置的应用系统，Partner应用系统中，Partner应该可以使用下面的功能：  
+  Partner应用系统为Partner用于管理客户及相关配置的应用系统，Partner应用系统中，Partner应该可以使用下面的功能： 
   - 登录 -Partner可以登录Partner应用系统，     
   - 维护基本信息 -Partner可以维护自己的基本信息，包括联系人、电话号码、邮箱等。
   - 定制Branding/Logo -Partner可以定义自己的Branding/Logo，让客户看到的产品直观上是属于Partner的系统
@@ -63,10 +63,10 @@
    + 单独部署 -Partner使用自己的独立域名，如`chat.cisco.com`。
    Desktop/Mobile版本的系统需要由Comm100进行独立编译、发布完成以后，交由Partner给客户使用。一般来说这种版本的系统需要一定的周期才能完成，特别是iOS版本需要Apple公司的审核通过后才能进行发布。
 
-7. 收费
-  Partner的客户的收费目前可考虑两种方案：  
-  1. Partner客户的账单统一由Comm100并收取费用，Comm100再根据Partner的情况进行相应的分成。
-  2. Partner直接在Comm100的Partner账号系统中充钱购买特定量的服务，充多少用多少。
+7. 收费   
+  Partner的客户的收费目前可考虑两种方案：     
+  - Partner客户的账单统一由Comm100并收取费用，Comm100再根据Partner的情况进行相应的分成。    
+  - Partner直接在Comm100的Partner账号系统中充钱购买特定量的服务，充多少用多少。Partner直接向其客户收取费用。
 
 ## Design & Implementation
   - Partner账号系统
