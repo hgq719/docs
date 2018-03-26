@@ -23,11 +23,11 @@
 2. Partner将Comm100产品的功能集成到自己的系统中，提供给他的客户使用。
 
 ## Requirement Analysis
-1. Partner注册   
-  企业可以通过Comm100提供的入口注册成为一个Partner，注册的过程中需要提供企业的名字、联系人及其电话号码、邮箱及其他一些必要信息，注册提交后由Comm100进行审核，审核通过以后Comm100会给企业生成一个Parter账号，该账号可以登录Partner应用系统。Comm100对于Partner的审核过程，包括资质审核、与Partner沟通使用说明、合作方式等。
+1. Partner申请   
+  企业可以通过Comm100提供的入口申请成为一个Partner，申请的过程中需要提供企业的名字、联系人及其电话号码、邮箱及其他一些必要信息，申请提交后由Comm100进行审核，审核通过以后Comm100会给企业生成这个Parter账号，该账号可以用来登录Partner应用系统。Comm100对于Partner的审核过程，包括资质审核、与Partner沟通使用说明、合作方式等。
 
 2. Partner管理系统     
-  该系统用于Comm100管理自己的Partner，查看Partner的相关报表及账单信息等。
+  该系统用于Comm100管理自己的Partner，包括Partner账号的审核、账号管理、查看Partner的相关报表及账单信息等。
 
 3. Partner应用系统  
   Partner应用系统为Partner用于管理客户及相关配置的应用系统，Partner应用系统中，Partner应该可以使用下面的功能：  
@@ -64,9 +64,9 @@
    Desktop/Mobile版本的系统需要由Comm100进行独立编译、发布完成以后，交由Partner给客户使用。一般来说这种版本的系统需要一定的周期才能完成，特别是iOS版本需要Apple公司的审核通过后才能进行发布。
 
 7. 收费
-  Partner及其客户的收费目前可考虑两种方案：  
+  Partner的客户的收费目前可考虑两种方案：  
   1. Partner客户的账单统一由Comm100并收取费用，Comm100再根据Partner的情况进行相应的分成。
-  2. Partner直接在Comm100的Partner账号系统中充钱，充多少用多少。
+  2. Partner直接在Comm100的Partner账号系统中充钱购买特定量的服务，充多少用多少。
 
 ## Design & Implementation
   - Partner账号系统
