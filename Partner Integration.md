@@ -35,7 +35,7 @@
   - 维护基本信息 -Partner可以维护自己的基本信息，包括联系人、电话号码、邮箱等。
   - 定制Branding/Logo -Partner可以定义自己的Branding/Logo，让客户看到的产品直观上是属于Partner的系统
   - 定制Theme -Partner可以根据自己的需求定义一套自己的前端样式
-  - 开户 -Partner可以通过Comm100提供的Partner API来给自己的客户开户
+  - 开户 -Partner可以通过Comm100提供的界面或者api来给自己的客户开户（-to discuss）
   - 客户管理 -Partner可以管理自己开户的客户，如关闭或激活某个客户的站点  
 
 4. 功能集成
@@ -65,7 +65,7 @@
 7. Desktop/Mobile版客户端   
   Agent Console Desktop/iOS/Android客户端需要为每个Partner单独编译，iOS和Android需要手动发布到App Store和Google Play。不同Partner的客户端不能登录到其他Partner下面站点。一般来说这种版本的系统需要一定的周期才能完成，特别是iOS版本需要Apple公司的审核通过后才能进行发布。
 
-8. 收费   
+8. 收费（-to discuss）   
   Partner的客户的收费目前可考虑两种方案：   
   - Partner客户的账单统一由Comm100并收取费用，Comm100再根据Partner的情况进行相应的分成。    
   - Partner直接在Comm100的Partner账号系统中充钱购买特定量的服务，充多少用多少。Partner直接向其客户收取费用。
