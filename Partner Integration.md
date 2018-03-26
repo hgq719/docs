@@ -53,7 +53,7 @@
 
 5. 配置
   为了让Partner的客户能够方便的使用系统，Partner需要进行以下的配置，这些配置也需要在Partner应用系统中添加入口：   
-  - SSO Settings -Partner可以配置相应的SSO，使用自己的账号系统对客户的Agent进行身份认证。Agent无需输入单独的凭证就可以访问Comm100。
+  - SSO -Partner可以配置相应的SSO，使用自己的账号系统对客户的Agent进行身份认证。Agent无需输入单独的凭证就可以访问Comm100。
   - OAuth客户端 -Partner需要调用RestfulApi来访问用户数据时则必须申请OAuth客户端。
   - IP白名单 -使用Comm100的Partner API的IP白名单 
 
