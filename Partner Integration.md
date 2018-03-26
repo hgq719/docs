@@ -30,7 +30,7 @@
   该系统用于Comm100管理自己的Partner，包括Partner账号的审核、账号管理、查看Partner的相关报表及账单信息等。
 
 3. Partner应用系统  
-  Partner应用系统为Partner用于管理客户及相关配置的应用系统，Partner应用系统中，Partner应该可以使用下面的功能： 
+  Partner应用系统为Partner用于管理客户及相关配置的应用系统，Partner应用系统中，Partner应该可以使用下面的功能：
   - 登录 -Partner可以登录Partner应用系统，     
   - 维护基本信息 -Partner可以维护自己的基本信息，包括联系人、电话号码、邮箱等。
   - 定制Branding/Logo -Partner可以定义自己的Branding/Logo，让客户看到的产品直观上是属于Partner的系统
@@ -38,7 +38,7 @@
   - 开户 -Partner可以通过Comm100提供的Partner API来给自己的客户开户
   - 客户管理 -Partner可以管理自己开户的客户，如关闭或激活某个客户的站点  
 
-4. 功能集成    
+4. 功能集成
   - Partner没有自己的产品，通过代理Comm100的产品及Branding/Logo的配置，将系统出售给他的客户使用，对客户的身份认证也完全采用Comm100的账号系统进行认证。客户可使用Comm100产品提供的所有权限内的功能。
   - Partner需要将Comm100的功能集成到自己的系统中，可以采取Api或界面集成。如果是界面集成的情况，Partner可以自主的选择界面的Header、Footer和菜单的可见性。客户可使用Partner集成到自己系统中的功能。
     + 界面集成  
@@ -52,19 +52,19 @@
       * 用户可以通过API控制Agent的状态, 操作Chat
 
 5. 配置
-  为了让Partner的客户能够方便的使用系统，Partner需要进行以下的配置，这些配置也需要在Partner应用系统中添加入口：   
+  为了让Partner的客户能够方便的使用系统，Partner需要进行以下的配置，这些配置也需要在Partner应用系统中添加入口：
   - SSO -Partner可以配置相应的SSO，使用自己的账号系统对客户的Agent进行身份认证。Agent无需输入单独的凭证就可以访问Comm100。
   - OAuth客户端 -Partner需要调用RestfulApi来访问用户数据时则必须申请OAuth客户端。
   - IP白名单 -使用Comm100的Partner API的IP白名单 
 
 6. 部署
-   Comm100可以根据Partner的需求来选择系统的部署方案：  
+   Comm100可以根据Partner的需求来选择系统的部署方案：
    + Partner公共平台 -Partner平台使用二级域名来区分不同的Partner ，如`cisco.comm100.com`、`avaya.comm100.com`。
-   + 单独部署 -Partner使用自己的独立域名，如`chat.cisco.com`。
+   + 单独部署 -Partner使用自己的独立域名，如`chat.cisco.com`。   
    Desktop/Mobile版本的系统需要由Comm100进行独立编译、发布完成以后，交由Partner给客户使用。一般来说这种版本的系统需要一定的周期才能完成，特别是iOS版本需要Apple公司的审核通过后才能进行发布。
 
 7. 收费   
-  Partner的客户的收费目前可考虑两种方案：     
+  Partner的客户的收费目前可考虑两种方案：   
   - Partner客户的账单统一由Comm100并收取费用，Comm100再根据Partner的情况进行相应的分成。    
   - Partner直接在Comm100的Partner账号系统中充钱购买特定量的服务，充多少用多少。Partner直接向其客户收取费用。
 
