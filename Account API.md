@@ -7,7 +7,7 @@
     + `PUT /api/v1/account/sites/{site_id}/profile` -[Update profile of a site](#update-profile-of-a-site)  
   - `Agent` -Agent Manage
     + `GET /api/v1/account/agents` -Get list of agent   
-    + `GET /api/v1/account/agents/{agent_email}` -Get a single agent
+    + `GET /api/v1/account/agents/{agent_email}` -[Get a single agent](#get-a-single-agent)
     + `POST /api/v1/account/agents` -Create a new agent
     + `PUT /api/v1/account/agents/{agent_id}` -Update an agent  
     + `PUT /api/v1/account/agents/{agent_id}/reset_api_key` -Reset an API key   
