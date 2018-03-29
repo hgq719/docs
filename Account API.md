@@ -3,8 +3,8 @@
 ## Account API
   You need `Manage Agent & Agent Groups` permission to manage agent、group and permission.
   - `Site` -Site Manage
-    + `GET /api/v1/account/sites/{site_id}/profile` -Get profile of a single site
-    + `PUT /api/v1/account/sites/{site_id}/profile` -Update profile of a site  
+    + `GET /api/v1/account/sites/{site_id}/profile` -[Get profile of a single site](#get-profile-of-a-single-site)
+    + `PUT /api/v1/account/sites/{site_id}/profile` -[Update profile of a site](#update-profile-of-a-site)  
   - `Agent` -Agent Manage
     + `GET /api/v1/account/agents` -Get list of agent   
     + `GET /api/v1/account/agents/{agent_email}` -Get a single agent
