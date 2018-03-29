@@ -2,6 +2,9 @@
 
 ## Account API
   You need `Manage Agent & Agent Groups` permission to manage agent、group and permission.
+  - `Site` -Site Manage
+    + `GET /api/v1/account/sites/{site_id}/profile` -Get profile of a single site
+    + `PUT /api/v1/account/sites/{site_id}/profile` -Update profile of a site  
   - `Agent` -Agent Manage
     + `GET /api/v1/account/agents` -Get list of agent   
     + `GET /api/v1/account/agents/{agent_email}` -Get a single agent
@@ -29,6 +32,138 @@
     + `GET /api/v1/account/groups/{group_id}/permissions` -Get list of group's permission
     + `POST /api/v1/account/groups/{group_id}/permissions` -Create a new permission for a group
     + `DELETE /api/v1/account/groups/{group_id}/permissions/{permission_id}` -Remove a permission for a group
+
+## Get profile of a single site
+### End Point
+  `GET /api/v1/account/sites/{site_id}/profile`
+
+### Parameters
+  No parameters
+
+### Response
+  - `id ` -id of the site.
+  - `siteName` -name of the site.
+  - `firstName` -first name of the site.
+  - `lastName` -last name of the site.
+  - `company` - company the site belongs to
+  - `website` - website of the site
+  - `phoneNumber` - phone number of the site
+  - `mobileNumber` - mobile number of the site
+  - `title` - title of the site
+  - `faxNumber` - fax number of the site
+  - `mailAddress` - mail address of the site
+  - `city` - city which the site is in
+  - `stateOrProvince` - state or provice which the site is in
+  - `postalOrZipCode` - postal or zip code of the site
+  - `country` - country which the site's company belongs to 
+  - `companySize` - staff number of the site's company
+  - `timeZone` - time zone which the site's company belongs to 
+  - `datetimeFormat` - datatime format which the site will display
+
+### Example
+Sample request:
+
+  `curl -u tester@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X GET \`   
+  `"https://hosted.comm100.com/api/v1/account/sites/1000124/profile"`
+
+Sample Response:
+```javascript
+  { 
+    "id":"1000124",
+    "name":"comm100"
+    "firstName":"comm100",
+    "lastName":"test",
+    "company":"comm100",
+    "website":"www.comm100.com", 
+    "phoneNumber":"09714073257",
+    "mobilePhone":"1-909-6185426",
+    "title":"test",
+    "faxNumber":"09714073257",
+    "mailAddress":"15009 NE Airport Way Ste 100",
+    "city":"Portland", 
+    "stateOrProvince":"Oregon",
+    "postalOrZipCode":"97230-8309",
+    "country":"Unite States",
+    "companySize":"1-20",
+    "timeZone":"GMT-07:00",
+    "datetimeFormat":"yyyy-MM-dd HH:mm:ss",
+  }	       
+```
+
+## Update profile of a site  
+### End Point
+  `PUT /api/v1/account/site/{site_id}/profile`
+
+### Parameters
+  Required parameters:
+  - `siteName` -name of the site.
+  - `firstName` -first name of the site.
+  - `lastName` -last name of the site.
+  - `company` - company the site belongs to
+  - `website` - website of the site
+  Optional parameters:
+  - `phoneNumber` - phone number of the site
+  - `mobileNumber` - mobile number of the site
+  - `title` - title of the site
+  - `faxNumber` - fax number of the site
+  - `mailAddress` - mail address of the site
+  - `city` - city which the site is in
+  - `stateOrProvince` - state or provice which the site is in
+  - `postalOrZipCode` - postal or zip code of the site
+  - `country` - country which the site's company belongs to 
+  - `companySize` - staff number of the site's company
+  - `timeZone` - time zone which the site's company belongs to 
+  - `datetimeFormat` - datatime format which the site will display
+
+### Response
+  - `id ` -id of the site.
+  - `siteName` -name of the site.
+  - `firstName` -first name of the site.
+  - `lastName` -last name of the site.
+  - `company` - company the site belongs to
+  - `website` - website of the site
+  - `phoneNumber` - phone number of the site
+  - `mobileNumber` - mobile number of the site
+  - `title` - title of the site
+  - `faxNumber` - fax number of the site
+  - `mailAddress` - mail address of the site
+  - `city` - city which the site is in
+  - `stateOrProvince` - state or provice which the site is in
+  - `postalOrZipCode` - postal or zip code of the site
+  - `country` - country which the site's company belongs to 
+  - `companySize` - staff number of the site's company
+  - `timeZone` - time zone which the site's company belongs to 
+  - `datetimeFormat` - datatime format which the site will display
+
+### Example
+Sample request:
+
+  `curl –u allon@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X PUT -d title=testTitle&lastName=kim \`   
+  `"https://hosted.comm100.com/api/v1/account/sites/1000124/profile"`
+
+Sample Response:
+```javascript
+  { 
+    "id":"1000124",
+    "name":"comm100"
+    "firstName":"comm100",
+    "lastName":"kim",
+    "company":"comm100",
+    "website":"www.comm100.com", 
+    "phoneNumber":"09714073257",
+    "mobilePhone":"1-909-6185426",
+    "title":"testTitle",
+    "faxNumber":"09714073257",
+    "mailAddress":"15009 NE Airport Way Ste 100",
+    "city":"Portland", 
+    "stateOrProvince":"Oregon",
+    "postalOrZipCode":"97230-8309",
+    "country":"Unite States",
+    "companySize":"1-20",
+    "timeZone":"GMT-07:00",
+    "datetimeFormat":"yyyy-MM-dd HH:mm:ss",
+  }	          
+```
 
 ## Get list of agents
 ### End Point
@@ -85,6 +220,7 @@ Sample response:
     ...
 ]
 ```
+
 ## Get a single agent
 ### End Point
   `GET /api/v1/account/agents/{agent_email}`
@@ -139,6 +275,7 @@ Sample Response:
     "title":"support",
   }	       
 ```
+
 ## Create a new agent
 ### End Point
   `POST /api/v1/account/agents`
