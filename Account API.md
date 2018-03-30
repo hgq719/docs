@@ -3,8 +3,8 @@
 ## Account API
   You need `Manage Agent & Agent Groups` permission to manage agent、group and permission.
   - `Site` -Site Manage
-    + `GET /api/v1/account/sites/{site_id}/profile` -Get profile of a single site
-    + `PUT /api/v1/account/sites/{site_id}/profile` -[Update profile of a site](#update-profile-of-a-site)
+    + `GET /api/v1/account/sites/{site_id}/profile` -[Get profile of a single site](#get-profile-of-a-single-site)
+    + `PUT /api/v1/account/sites/{site_id}/profile` -Update profile of a site
   - `Agent` -Agent Manage
     + `GET /api/v1/account/agents` -Get list of agent   
     + `GET /api/v1/account/agents/{agent_email}` -Get a single agent
@@ -69,7 +69,7 @@ Sample request:
 Sample Response:
 ```javascript
   { 
-    "id":"1000124",
+    "id":1000124,
     "name":"comm100"
     "firstName":"comm100",
     "lastName":"test",
@@ -138,13 +138,13 @@ Sample Response:
 ### Example
 Sample request:
 
-  `curl –u allon@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X PUT -d title=testTitle&lastName=kim \`   
+  `curl –u allon@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X PUT -d {"title":"testTitle","lastName":"kim"} \`   
   `"https://hosted.comm100.com/api/v1/account/sites/1000124/profile"`
 
 Sample Response:
 ```javascript
   { 
-    "id":"1000124",
+    "id":1000124,
     "name":"comm100"
     "firstName":"comm100",
     "lastName":"kim",
@@ -317,7 +317,7 @@ Sample Response:
 Sample request:
 
   `curl –u allon@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X POST -d \`
-  `display_name=Kelly_Comm100&first_name=Kelly&last_name=Blair&email=kelly@comm100.com&password=Comm100&departments=1,2&max_chats_count=5 \`   
+  `{"display_name":"Kelly_Comm100","first_name":"Kelly","last_name":"Blair","email":"kelly@comm100.com","departments":[1,2],"max_chats_count":"5"} \`   
   `"https://hosted.comm100.com/api/v1/account/agents"`
 
 Sample Response:
@@ -383,7 +383,7 @@ Sample Response:
 ### Example
 Sample request:
 
-  `curl –u allon@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X PUT -d display_name=Allon_Comm100&max_chats_count=3&title=sales&status=1 \`   
+  `curl –u allon@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X PUT -d {"display_name":"Allon_Comm100","max_chats_count":3,"title":"sales","status":1} \`   
   `"https://hosted.comm100.com/api/v1/account/agents/allon@comm100.com"`
 
 Sample Response:
@@ -512,12 +512,12 @@ Sample response:
 ```javascript
  [ 
     {
-        "id":"123", 
+        "id":123, 
         "name":"Group A",
         "description" : "this is first group!"
     },
     {
-        "id":"235", 
+        "id":235, 
         "name":"Group B",
         "description" : "this is second group!"
     },
@@ -548,7 +548,7 @@ Sample request:
 Sample Response:
 ```javascript
   {
-    "id":"123", 
+    "id":123, 
     "name":"Group A",
     "description" : "this is first group!",
     "agents":[{
@@ -580,13 +580,13 @@ Sample Response:
 ### Example
 Sample request:
 
-  `curl –u allon@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X POST -d name=groupC&description=groupC&agents=1234,2345,5678 \`   
+  `curl –u allon@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X POST -d {"name":"groupC","description":"groupC","agents":[1234,2345,5678]} \`   
   `"https://hosted.comm100.com/api/v1/account/groups"`
 
 Sample Response:
 ```javascript
   {
-    "id":"567", 
+    "id":567, 
     "name":"groupC",
     "description" : "groupC",
     "agents":[{
@@ -622,13 +622,13 @@ Sample Response:
 ### Example
 Sample request:
 
-  `curl –u allon@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X PUT -d name=groupC&description=groupC&agents=123,234,456,789 \`   
+  `curl –u allon@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X PUT -d {"name":"groupC","description":"groupC","agents":[123,234,456,789]} \`   
   `"https://hosted.comm100.com/api/v1/account/groups/567"`
 
 Sample Response:
 ```javascript
   {
-    "id":"5678", 
+    "id":5678, 
     "name":"groupC",
     "description" : "groupC",
     "agents":[ {
@@ -694,13 +694,13 @@ Sample response:
 ```javascript
  [ 
     {
-        "id":"123", 
+        "id":123, 
         "module":"Live Chat",
         "name":"Accept chats",
         "description" : "Accept my department's chat requests;Accept chat requests which do not belong to any departments"
     },
     {
-        "id":"234", 
+        "id":234, 
         "module":"User & Contact",
         "name":"View Users",
         "description" : "View user list and user details"
@@ -708,6 +708,7 @@ Sample response:
     ...
 ]
 ```
+
 ## Get a single permission
 ### End Point
   `GET /api/v1/account/permissions/{permission_id}`
@@ -730,7 +731,7 @@ Sample request:
 Sample Response:
 ```javascript
   {
-    "id":"123", 
+    "id":123, 
     "module":"Live Chat",
     "name":"Accept chats",
     "description" : "Accept my department's chat requests;Accept chat requests which do not belong to any departments"
@@ -755,13 +756,13 @@ Sample Response:
 ### Example
 Sample request:
 
-  `curl –u allon@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X POST -d module=Account&name=Manage%20Site%20Profile&description=View%20Site%20Profile \`   
+  `curl –u allon@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X POST -d {"module":"Account","name":"Manage Site Profile","description":"View Site Profile"} \`   
   `"https://hosted.comm100.com/api/v1/account/permissions"`
 
 Sample Response:
 ```javascript
   {
-    "id":"159", 
+    "id":159, 
     "module":"Account",
     "name":"Manage Site Profile",
     "description" : "View Site Profile"
@@ -786,13 +787,13 @@ Sample Response:
 ### Example
 Sample request:
 
-  `curl –u allon@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X PUT -d module=Account&name=Manage%20Site%20Profile&description=View/edit%20Site%20Profile \`
+  `curl –u allon@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X PUT -d {"module":"Account","name":"Manage Site Profile","description":"View/edit Site Profile"} \`
   `"https://hosted.comm100.com/api/v1/account/groups/157"`
 
 Sample Response:
 ```javascript
   {
-    "id":"159", 
+    "id":159, 
     "module":"Account",
     "name":"Manage Site Profile",
     "description" : "View/edit Site Profile"
@@ -845,13 +846,13 @@ Sample response:
 ```javascript
  [ 
     {
-        "agent_id":"123",
-        "permission_id":"1234", 
+        "agent_id":123,
+        "permission_id":1234, 
         "module":"Live Chat"
     },
     {
-        "agent_id":"123",
-        "permission_id":"2356", 
+        "agent_id":123,
+        "permission_id":2356, 
         "module":"Live Chat"
     },
     ...
@@ -874,14 +875,14 @@ Sample response:
 ### Example
 Sample request:
 
-  `curl –u allon@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X POST -d module=Account&permission_id=5689 \`   
+  `curl –u allon@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X POST -d {"module":"Account","permission_id":5689} \`   
   `"https://hosted.comm100.com/api/v1/account/agents/123/permissions"`
 
 Sample Response:
 ```javascript
   {
-    "agent_id":"123",
-    "permission_id":"5689", 
+    "agent_id":123,
+    "permission_id":5689, 
     "module":"Account"
   }    
 ```
@@ -933,13 +934,13 @@ Sample response:
 ```javascript
  [ 
     {
-        "group_id":"123",
-        "permission_id":"1234", 
+        "group_id":123,
+        "permission_id":1234, 
         "module":"Live Chat"
     },
     {
-        "group_id":"123",
-        "permission_id":"2356", 
+        "group_id":123,
+        "permission_id":2356, 
         "module":"Live Chat"
     },
     ...
@@ -962,14 +963,14 @@ Sample response:
 ### Example
 Sample request:
 
-  `curl –u allon@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X POST -d module=Account&permission_id=5689 \`   
+  `curl –u allon@comm100.com:ef43f9362aac4f60ad428cb4d072f2c8 -X POST -d {"module":"Account","permission_id":5689} \`   
   `"https://hosted.comm100.com/api/v1/account/groups/123/permissions"`
 
 Sample Response:
 ```javascript
   {
-    "group_id":"123",
-    "permission_id":"5689", 
+    "group_id":123,
+    "permission_id":5689, 
     "module":"Account"
   }    
 ```
