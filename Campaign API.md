@@ -18,14 +18,18 @@
     + `PUT /api/v1/livechat/campaigns/{id}/postChat` -Update settings of PostChat for a campaign
     + `GET /api/v1/livechat/campaigns/{id}/offlineMessage`  -[Get settings of OfflineMessage for a campaign](https://gist.github.com/chendesheng/50e9b63573f09a1c1a76c1f4ec074ac9#campaigns)
     + `PUT /api/v1/livechat/campaigns/{id}/offlineMessage`  -Update settings of OfflineMessage for a campaign
-    + `GET /api/v1/livechat/campaigns/{id}/autoInvitation`  -[Get settings of AutoInvitation for a campaign](https://gist.github.com/chendesheng/50e9b63573f09a1c1a76c1f4ec074ac9#campaigns)
-    + `PUT /api/v1/livechat/campaigns/{id}/autoInvitation`  -Update settings of AutoInvitation for a campaign
-    + `GET /api/v1/livechat/campaigns/{id}/manualInvitation`  -Get settings of ManualInvitation for a campaign
-    + `PUT /api/v1/livechat/campaigns/{id}/manualInvitation`  -Update settings of ManualInvitation for a campaign
+    + `GET /api/v1/livechat/campaigns/{id}/invitation`  -[Get settings of invitation for a campaign](https://gist.github.com/chendesheng/50e9b63573f09a1c1a76c1f4ec074ac9#campaigns)
+    + `PUT /api/v1/livechat/campaigns/{id}/invitation`  -Update settings of invitation for a campaign
+    + `GET /api/v1/livechat/campaigns/{id}/invitation/autoInvitations/{autoInvitation_id}`  -Get a autoInvitation for a campaign
+    + `POST /api/v1/livechat/campaigns/{id}/invitation/autoInvitations`  -Create a new auto invitation for a campaign
+    + `PUT /api/v1/livechat/campaigns/{id}/invitation/autoInvitations/{autoInvitation_id}`  -Update a auto invitation for a campaign
     + `GET /api/v1/livechat/campaigns/{id}/agentWrapup`  -[Get settings of Agent Wrap Up for a campaign](https://gist.github.com/chendesheng/50e9b63573f09a1c1a76c1f4ec074ac9#campaigns)
     + `PUT /api/v1/livechat/campaigns/{id}/agentWrapup`  -Update settings of Agent Wrap Up for a campaign
     + `GET /api/v1/livechat/campaigns/{id}/RoutingRules` -Get settings of Routing Rules for a campaign
     + `PUT /api/v1/livechat/campaigns/{id}/RoutingRules` -Update settings of Routing Rules for a campaign
+    + `GET /api/v1/livechat/campaigns/{id}/RoutingRules/customRules/{customeRule_id}` -Get a custom rule for a campaign
+    + `POST /api/v1/livechat/campaigns/{id}/RoutingRules/customRules` -Create a new custom rule for a campaign
+    + `PUT /api/v1/livechat/campaigns/{id}/RoutingRules/customRules/{customeRule_id}` -Update a custom rule for a campaign
     + `GET /api/v1/livechat/campaigns/{id}/language`  Get settings of Language for a campaign
     + `PUT /api/v1/livechat/campaigns/{id}/language`  Update settings of Language for a campaign
 
@@ -583,6 +587,189 @@
   - `textAreaHeight` - height of the text area
   - `invitationStyle` -the layout style of invitation window,including `bubble`、`popup` and `chatWindow`.
 
+## Get a autoInvitation for a campaign
+### End Point
+  `GET /api/v1/livechat/campaigns/{id}/invitation/autoInvitations/{autoInvitation_id}`
+
+### Parameters
+  No parameters
+
+### Response
+  - `id` -id of the auto invitation
+  - `isEnable` - whether the auto invitation is enable or not.
+  - `autoInvitationMessage` - content of auto invitation message.
+  - `name` -name of the auto invitation
+  - `imageType` - the type of image source,including `gallery` or `upload`
+  - `imageId` -id of invitation image.
+  - `imageUrl` -url of invitation image.
+  - `invitationPosition` - the position of invitation window,including `centered`、`centeredWithOverlay`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`.
+  - `invitationXOffset` -coordinate x of the button,the unit acoording to `buttonXIsPixels`
+  - `invitationYOffset` -coordinate y of the button,the unit acoording to `buttonYIsPixels`
+  - `invitationXOffsetIfPixels` -whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent.
+  - `invitationYOffsetIfPixels` - whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
+  - `textFont` - the font of text.
+  - `textIsBold` - whether the text is bold or not.
+  - `textSize` - the size of text.
+  - `textIsItalic` - whether the text is italic or not.
+  - `textColor` - the color of text.
+  - `closeAreaXOffset` - coordinate x of the close area
+  - `closeAreaYOffset` - coordinate y of the close area
+  - `closeAreaWidth` - width of the close area
+  - `closeAreaHeight` - height of the close area
+  - `textAreaXOffset` - coordinate x of the text area
+  - `textAreaYOffset` - coordinate y of the text area
+  - `textAreaWidth` - width of the text area
+  - `textAreaHeight` - height of the text area
+  - `isPopupOnlyOneTime` - pop up only one time during one visit
+  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
+  - `logicalExpression` - the logical expression of the conditions
+  - `conditions` -condition list
+    + `variableName` - name of the variable,including comm100 system variable and custom variable
+    + `expression` - expression of the condition
+    + `value` - the value response to the variable
+
+## Create a new auto invitation for a campaign
+### End Point
+  `POST /api/v1/livechat/campaigns/{id}/invitation/autoInvitations`
+
+### Parameters
+  - `isEnable` - whether the auto invitation is enable or not.
+  - `autoInvitationMessage` - content of auto invitation message.
+  - `name` -name of the auto invitation
+  - `imageType` - the type of image source,including `gallery` or `upload`
+  - `imageId` -id of invitation image.
+  - `imageUrl` -url of invitation image.
+  - `invitationPosition` - the position of invitation window,including `centered`、`centeredWithOverlay`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`.
+  - `invitationXOffset` -coordinate x of the button,the unit acoording to `buttonXIsPixels`
+  - `invitationYOffset` -coordinate y of the button,the unit acoording to `buttonYIsPixels`
+  - `invitationXOffsetIfPixels` -whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent.
+  - `invitationYOffsetIfPixels` - whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
+  - `textFont` - the font of text.
+  - `textIsBold` - whether the text is bold or not.
+  - `textSize` - the size of text.
+  - `textIsItalic` - whether the text is italic or not.
+  - `textColor` - the color of text.
+  - `closeAreaXOffset` - coordinate x of the close area
+  - `closeAreaYOffset` - coordinate y of the close area
+  - `closeAreaWidth` - width of the close area
+  - `closeAreaHeight` - height of the close area
+  - `textAreaXOffset` - coordinate x of the text area
+  - `textAreaYOffset` - coordinate y of the text area
+  - `textAreaWidth` - width of the text area
+  - `textAreaHeight` - height of the text area
+  - `isPopupOnlyOneTime` - pop up only one time during one visit
+  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
+  - `logicalExpression` - the logical expression of the conditions
+  - `conditions` -condition list
+    + `variableName` - name of the variable,including comm100 system variable and custom variable
+    + `expression` - expression of the condition
+    + `value` - the value response to the variable
+
+### Response
+  - `id` -id of the auto invitation
+  - `isEnable` - whether the auto invitation is enable or not.
+  - `autoInvitationMessage` - content of auto invitation message.
+  - `name` -name of the auto invitation
+  - `imageType` - the type of image source,including `gallery` or `upload`
+  - `imageId` -id of invitation image.
+  - `imageUrl` -url of invitation image.
+  - `invitationPosition` - the position of invitation window,including `centered`、`centeredWithOverlay`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`.
+  - `invitationXOffset` -coordinate x of the button,the unit acoording to `buttonXIsPixels`
+  - `invitationYOffset` -coordinate y of the button,the unit acoording to `buttonYIsPixels`
+  - `invitationXOffsetIfPixels` -whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent.
+  - `invitationYOffsetIfPixels` - whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
+  - `textFont` - the font of text.
+  - `textIsBold` - whether the text is bold or not.
+  - `textSize` - the size of text.
+  - `textIsItalic` - whether the text is italic or not.
+  - `textColor` - the color of text.
+  - `closeAreaXOffset` - coordinate x of the close area
+  - `closeAreaYOffset` - coordinate y of the close area
+  - `closeAreaWidth` - width of the close area
+  - `closeAreaHeight` - height of the close area
+  - `textAreaXOffset` - coordinate x of the text area
+  - `textAreaYOffset` - coordinate y of the text area
+  - `textAreaWidth` - width of the text area
+  - `textAreaHeight` - height of the text area
+  - `isPopupOnlyOneTime` - pop up only one time during one visit
+  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
+  - `logicalExpression` - the logical expression of the conditions
+  - `conditions` -condition list
+    + `variableName` - name of the variable,including comm100 system variable and custom variable
+    + `expression` - expression of the condition
+    + `value` - the value response to the variable
+
+## Update a auto invitation for a campaign
+### End Point
+  `PUT /api/v1/livechat/campaigns/{id}/invitation/autoInvitations/{autoInvitation_id}`
+
+### Parameters
+  - `isEnable` - whether the auto invitation is enable or not.
+  - `autoInvitationMessage` - content of auto invitation message.
+  - `name` -name of the auto invitation
+  - `imageType` - the type of image source,including `gallery` or `upload`
+  - `imageId` -id of invitation image.
+  - `imageUrl` -url of invitation image.
+  - `invitationPosition` - the position of invitation window,including `centered`、`centeredWithOverlay`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`.
+  - `invitationXOffset` -coordinate x of the button,the unit acoording to `buttonXIsPixels`
+  - `invitationYOffset` -coordinate y of the button,the unit acoording to `buttonYIsPixels`
+  - `invitationXOffsetIfPixels` -whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent.
+  - `invitationYOffsetIfPixels` - whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
+  - `textFont` - the font of text.
+  - `textIsBold` - whether the text is bold or not.
+  - `textSize` - the size of text.
+  - `textIsItalic` - whether the text is italic or not.
+  - `textColor` - the color of text.
+  - `closeAreaXOffset` - coordinate x of the close area
+  - `closeAreaYOffset` - coordinate y of the close area
+  - `closeAreaWidth` - width of the close area
+  - `closeAreaHeight` - height of the close area
+  - `textAreaXOffset` - coordinate x of the text area
+  - `textAreaYOffset` - coordinate y of the text area
+  - `textAreaWidth` - width of the text area
+  - `textAreaHeight` - height of the text area
+  - `isPopupOnlyOneTime` - pop up only one time during one visit
+  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
+  - `logicalExpression` - the logical expression of the conditions
+  - `conditions` -condition list
+    + `variableName` - name of the variable,including comm100 system variable and custom variable
+    + `expression` - expression of the condition
+    + `value` - the value response to the variable
+
+### Response
+  - `id` -id of the auto invitation
+  - `isEnable` - whether the auto invitation is enable or not.
+  - `autoInvitationMessage` - content of auto invitation message.
+  - `name` -name of the auto invitation
+  - `imageType` - the type of image source,including `gallery` or `upload`
+  - `imageId` -id of invitation image.
+  - `imageUrl` -url of invitation image.
+  - `invitationPosition` - the position of invitation window,including `centered`、`centeredWithOverlay`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`.
+  - `invitationXOffset` -coordinate x of the button,the unit acoording to `buttonXIsPixels`
+  - `invitationYOffset` -coordinate y of the button,the unit acoording to `buttonYIsPixels`
+  - `invitationXOffsetIfPixels` -whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent.
+  - `invitationYOffsetIfPixels` - whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
+  - `textFont` - the font of text.
+  - `textIsBold` - whether the text is bold or not.
+  - `textSize` - the size of text.
+  - `textIsItalic` - whether the text is italic or not.
+  - `textColor` - the color of text.
+  - `closeAreaXOffset` - coordinate x of the close area
+  - `closeAreaYOffset` - coordinate y of the close area
+  - `closeAreaWidth` - width of the close area
+  - `closeAreaHeight` - height of the close area
+  - `textAreaXOffset` - coordinate x of the text area
+  - `textAreaYOffset` - coordinate y of the text area
+  - `textAreaWidth` - width of the text area
+  - `textAreaHeight` - height of the text area
+  - `isPopupOnlyOneTime` - pop up only one time during one visit
+  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
+  - `logicalExpression` - the logical expression of the conditions
+  - `conditions` -condition list
+    + `variableName` - name of the variable,including comm100 system variable and custom variable
+    + `expression` - expression of the condition
+    + `value` - the value response to the variable
+
 ## Update settings of agent wrap-up for a campaign
 ### End Point
   `PUT /api/v1/livechat/campaigns/{id}/agentWrapup`
@@ -706,6 +893,94 @@
   - `failRouteAgentId` - id of the agent for fail routing
   - `failRouteAgentPriority` - the priority of the agent for fail routing,including `lowest`、`low`、`normal`、`high` and `highest`.
   - `failToEmail` - redirect them to Offline Message Window and forward their messages to the email
+
+## Get a custom rule for a campaign
+### End Point
+  `GET /api/v1/livechat/campaigns/{id}/RoutingRules/customRules/{customeRule_id}`
+
+### Parameters
+  No parameters
+
+### Response
+  - `id` -id of the custom rule.
+  - `isEnable` -whether the custom rule is enable or not.
+  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
+  - `logicalExpression` - the logical expression of the conditions
+  - `conditions` -condition list
+    + `variableName` - name of the variable,including comm100 system variable and custom variable
+    + `expression` - expression of the condition
+    + `value` - the value response to the variable
+  - `routeRule` - the rule of route ,including `department` and `agent`
+  - `departmentId` - id of the department
+  - `departmentPriority` - the priority of the department,including `lowest`、`low`、`normal`、`high` and `highest`.
+  - `agentId` - id of the agent
+  - `agentPriority` - the priority of the agent,including `lowest`、`low`、`normal`、`high` and `highest`.
+
+## Create a new custom rule for a campaign
+### End Point
+  `POST /api/v1/livechat/campaigns/{id}/RoutingRules/customRules`
+
+### Parameters
+  - `isEnable` -whether the custom rule is enable or not.
+  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
+  - `logicalExpression` - the logical expression of the conditions
+  - `conditions` -condition list
+    + `variableName` - name of the variable,including comm100 system variable and custom variable
+    + `expression` - expression of the condition
+    + `value` - the value response to the variable
+  - `routeRule` - the rule of route ,including `department` and `agent`
+  - `departmentId` - id of the department
+  - `departmentPriority` - the priority of the department,including `lowest`、`low`、`normal`、`high` and `highest`.
+  - `agentId` - id of the agent
+  - `agentPriority` - the priority of the agent,including `lowest`、`low`、`normal`、`high` and `highest`.  
+
+### Response
+  - `id` -id of the custom rule.
+  - `isEnable` -whether the custom rule is enable or not.
+  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
+  - `logicalExpression` - the logical expression of the conditions
+  - `conditions` -condition list
+    + `variableName` - name of the variable,including comm100 system variable and custom variable
+    + `expression` - expression of the condition
+    + `value` - the value response to the variable
+  - `routeRule` - the rule of route ,including `department` and `agent`
+  - `departmentId` - id of the department
+  - `departmentPriority` - the priority of the department,including `lowest`、`low`、`normal`、`high` and `highest`.
+  - `agentId` - id of the agent
+  - `agentPriority` - the priority of the agent,including `lowest`、`low`、`normal`、`high` and `highest`.  
+
+## Update a custom rule for a campaign
+### End Point
+  `PUT /api/v1/livechat/campaigns/{id}/RoutingRules/customRules/{customeRule_id}` 
+
+### Parameters
+  - `isEnable` -whether the custom rule is enable or not.
+  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
+  - `logicalExpression` - the logical expression of the conditions
+  - `conditions` -condition list
+    + `variableName` - name of the variable,including comm100 system variable and custom variable
+    + `expression` - expression of the condition
+    + `value` - the value response to the variable
+  - `routeRule` - the rule of route ,including `department` and `agent`
+  - `departmentId` - id of the department
+  - `departmentPriority` - the priority of the department,including `lowest`、`low`、`normal`、`high` and `highest`.
+  - `agentId` - id of the agent
+  - `agentPriority` - the priority of the agent,including `lowest`、`low`、`normal`、`high` and `highest`.  
+
+### Response
+  - `id` -id of the custom rule.
+  - `isEnable` -whether the custom rule is enable or not.
+  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
+  - `logicalExpression` - the logical expression of the conditions
+  - `conditions` -condition list
+    + `variableName` - name of the variable,including comm100 system variable and custom variable
+    + `expression` - expression of the condition
+    + `value` - the value response to the variable
+  - `routeRule` - the rule of route ,including `department` and `agent`
+  - `departmentId` - id of the department
+  - `departmentPriority` - the priority of the department,including `lowest`、`low`、`normal`、`high` and `highest`.
+  - `agentId` - id of the agent
+  - `agentPriority` - the priority of the agent,including `lowest`、`low`、`normal`、`high` and `highest`.  
 
 ## Get settings of Language for a campaign
 ### End Point
