@@ -11,7 +11,7 @@
 | Conversion   |/livechat/conversions                    | 0            
 | [Visitor Segmentation](#visitor-segmentation)   |/livechat/visitorSegments                    | 1
 | Visitor SSO Settings |/livechat/visitorSSO                    | 0
-| [Site Config](#site-config) |/livechat/config                    | 1
+| [Site Config](#site-config) |/livechat/configs                    | 1
       
 ## Campaign
   You need `Manage Campaigns` permission to manage campaigns and customize the settings for a campaigns.
