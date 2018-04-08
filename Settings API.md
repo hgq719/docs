@@ -1,4 +1,9 @@
 # General
+1. [Canned Messages](#canned-messages)
+2. [Departments](#departments)
+3. [Custom Away Status](#custom-away-status)
+4. [Ban List](#ban-list)
+5. [Visitor Segmentation](#visitor-segmentation)
 
 ## Canned Messages
   You need `Manage Pulbic Canned Messages` permission to manage canned message.
