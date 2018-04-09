@@ -5,12 +5,12 @@
 | [Canned Message](#canned-message)       |/livechat/cannedMessages                    | 1       
 | [Canned Message Category](#canned-message-category)       |/livechat/cannedMessageCategories                    | 1       
 | [Department](#department)        |/livechat/departments                    | 1       
-| Auto Allocation      |/livechat/autoAllocation               | 0       
+| [Auto Allocation](#auto-allocation)      |/livechat/autoAllocation               | 1       
 | [Custom Away Status](#custom-away-status)  |/livechat/customAwayStatus                    | 1       
 | [Ban](#ban)  |/livechat/bans                    | 1            
-| Conversion   |/livechat/conversions                    | 0            
+| [Conversion](#conversion)   |/livechat/conversions                    | 1            
 | [Visitor Segmentation](#visitor-segmentation)   |/livechat/visitorSegments                    | 1
-| Visitor SSO Settings |/livechat/visitorSSO                    | 0
+| [Visitor SSO Settings](#visitor-sso-settings) |/livechat/visitorSSO                    | 1
 | [Site Config](#site-config) |/livechat/configs                    | 1
       
 ## Campaign
@@ -1225,6 +1225,9 @@ optional:
   - `name` -name of the department.
   - `description` -description of the department.
   - `members` - the string of the members list in the department.
+  - `allocationStratege` - stratege of chat allocation,including `load banlancing` 、`round robin` and `capability weighted`.
+  - `isLastChattedPreferred` -whether last-chatted agent is prefer or not.
+  - `backupDepartmentId` - id of back up department
 
 ### Get a single department 
 #### End Point 
@@ -1241,6 +1244,9 @@ optional:
   - `groupIds` - the id of the groups list in the department.
   - `offlineMessageTo` - object which mail offline messages of the department to,including `allAgents` and `emailAddresses`
   - `emaileAddresses` - the email addresses which mail offline messages of the department to
+  - `allocationStratege` - stratege of chat allocation,including `load banlancing` 、`round robin` and `capability weighted`.
+  - `isLastChattedPreferred` -whether last-chatted agent is prefer or not.
+  - `backupDepartmentId` - id of back up department
 
 ### Create a new department 
 #### End Point 
@@ -1267,6 +1273,9 @@ optional:
     + `groupId` -id of group
   - `offlineMessageTo` - object which mail offline messages of the department to,including `allAgents` and `emailAddresses`
   - `emaileAddresses` - the email addresses which mail offline messages of the department to
+  - `allocationStratege` - stratege of chat allocation,including `load banlancing` 、`round robin` and `capability weighted`.
+  - `isLastChattedPreferred` -whether last-chatted agent is prefer or not.
+  - `backupDepartmentId` - id of back up department
 
 ### Update a department 
 #### End Point 
@@ -1282,7 +1291,9 @@ optional:
     + `groupId` -id of group
   - `offlineMessageTo` - object which mail offline messages of the department to,including `allAgents` and `emailAddresses`
   - `emaileAddresses` - the email addresses which mail offline messages of the department to
-
+  - `allocationStratege` - stratege of chat allocation,including `load banlancing` 、`round robin` and `capability weighted`.
+  - `isLastChattedPreferred` -whether last-chatted agent is prefer or not.
+  - `backupDepartmentId` - id of back up department
 
 #### Response
   - `id ` -id of the department.
@@ -1294,6 +1305,9 @@ optional:
     + `groupId` -id of group
   - `offlineMessageTo` - object which mail offline messages of the department to,including `allAgents` and `emailAddresses`
   - `emaileAddresses` - the email addresses which mail offline messages of the department to
+  - `allocationStratege` - stratege of chat allocation,including `load banlancing` 、`round robin` and `capability weighted`.
+  - `isLastChattedPreferred` -whether last-chatted agent is prefer or not.
+  - `backupDepartmentId` - id of back up department
 
 ### Remove a department
 #### End Point 
@@ -1304,6 +1318,44 @@ optional:
 
 #### Response
   - `result ` -the result of operating
+
+## Auto Allocation
+You need `Manage Settings` permission to config auto allocation.
+  + `GET /api/v1/livechat/autoAllocation` -Get settings of auto allocation.
+  + `PUT /api/v1/livechat/autoAllocation`  -Update settings of auto allocation.
+
+### Get settings of auto allocation.
+#### End Point 
+  `GET /api/v1/livechat/autoAllocation`
+
+#### Parameters
+  No parameters
+
+#### Response
+  - `id ` -id of the auto allocation.
+  - `isEnable` -whether the auto allocation is enable or not.
+  - `isEnableDepartment` - whether department is enable or not.
+  - `allocationStratege` - stratege of chat allocation,including `load banlancing` 、`round robin` and `capability weighted`, available when the `isEnableDepartment` is `false`.
+  - `isLastChattedPreferred` -whether last-chatted agent is prefer or not, available when the `isEnableDepartment` is `false`.
+  - `isEnableAllocateWhenAudioVideo` -whether auto allocate chats to agents who are having audio or video chats is enable or not.
+
+### Update settings of auto allocation.
+#### End Point 
+  `PUT /api/v1/livechat/autoAllocation`
+
+#### Parameters
+optional:  
+  - `allocationStratege` - stratege of chat allocation,including `load banlancing` 、`round robin` and `capability weighted`, available when the `isEnableDepartment` is `false`.
+  - `isLastChattedPreferred` -whether last-chatted agent is prefer or not, available when the `isEnableDepartment` is `false`.
+  - `isEnableAllocateWhenAudioVideo` -whether auto allocate chats to agents who are having audio or video chats is enable or not.
+
+#### Response
+  - `id ` -id of the auto allocation.
+  - `isEnable` -whether the auto allocation is enable or not.
+  - `isEnableDepartment` - whether department is enable or not.
+  - `allocationStratege` - stratege of chat allocation,including `load banlancing` 、`round robin` and `capability weighted`, available when the `isEnableDepartment` is `false`.
+  - `isLastChattedPreferred` -whether last-chatted agent is prefer or not, available when the `isEnableDepartment` is `false`.
+  - `isEnableAllocateWhenAudioVideo` -whether auto allocate chats to agents who are having audio or video chats is enable or not.
 
 ## Custom Away Status
   You need `Manage Settings` permission to manage custom away status.
@@ -1459,6 +1511,14 @@ optional:
 #### Response
   - `result ` -the result of operating
 
+## Conversion
+  You need `Manage Settings` permission to manage conversion action.
+  + `GET /api/v1/livechat/conversions/actions` -get list of visitor segments
+  + `GET /api/v1/livechat/conversions/{id}`  -get a visitor segment
+  + `POST /api/v1/livechat/conversions` -create a new visitor segment
+  + `PUT /api/v1/livechat/conversions/{id}`  -update a visitor segment
+
+
 ## Visitor Segmentation
   You need `Manage Settings` permission to manage visitor segmentation.
   + `GET /api/v1/livechat/visitorSegments` -get list of visitor segments
@@ -1604,12 +1664,75 @@ optional:
 #### Response
   - `result ` -the result of operating
 
+## Visitor SSO Settings
+  You need `Manage Settings` permission to setting sso for a site.
+  + `GET /api/v1/livechat/visitorSSO` -Get sso settings of visitor
+  + `PUT /api/v1/livechat/visitorSSO`  -Update configuration of visitor
+
+### Get sso settings of visitor
+#### End Point 
+  `GET /api/v1/livechat/visitorSSO`
+
+#### Parameters
+  No parameters
+
+#### Response
+  - `id` -id of the sso settings.
+  - `siteId` -id of the site which the visitor sso belongs to.
+  - `isEnable` - whether visitor sso is enable or not.
+  - `signInUrl` -url which visitor sign in
+  - `vertificationCertificate` -infomation of the Identity Provider Verification Certificate.
+  - `certificateFileName` - file name of the certificate.
+  - `dataMappings` - data mapping list of the sso.
+    + `id` - id of the data mapping
+    + `userAttribute` - user attribute of the mapping
+    + `macro` - common 100 field correspond with the user attribute.
+  - `signInOptions` - sign in options list.
+    + `id` -id of the options
+    + `campaignId` -id of the campaign
+    + `signInType` -type of the sign in,including `no`、`optional` and `required`.
+    + `isSkipPrechat` - whether the pre-chat form is skipped when visitors sign in, available when the `signInType` is not `no`.
+
+### Update sso settings of visitor
+#### End Point 
+  `PUT /api/v1/livechat/visitorSSO`
+
+#### Parameters
+  - `isEnable` - whether visitor sso is enable or not.
+  - `signInUrl` -url which visitor sign in
+  - `vertificationCertificate` -infomation of the Identity Provider Verification Certificate.
+  - `certificateFileName` - file name of the certificate.
+  - `dataMappings` - data mapping list of the sso.
+    + `userAttribute` - user attribute of the mapping
+    + `macro` - common 100 field correspond with the user attribute.
+  - `signInOptions` - sign in options list.
+    + `campaignId` -id of the campaign
+    + `signInType` -type of the sign in,including `no`、`optional` and `required`.
+    + `isSkipPrechat` - whether the pre-chat form is skipped when visitors sign in, available when the `signInType` is not `no`.
+
+#### Response
+  - `id` -id of the sso settings.
+  - `siteId` -id of the site which the visitor sso belongs to.
+  - `isEnable` - whether visitor sso is enable or not.
+  - `signInUrl` -url which visitor sign in
+  - `vertificationCertificate` -infomation of the Identity Provider Verification Certificate.
+  - `certificateFileName` - file name of the certificate.
+  - `dataMappings` - data mapping list of the sso.
+    + `id` - id of the data mapping
+    + `userAttribute` - user attribute of the mapping
+    + `macro` - common 100 field correspond with the user attribute.
+  - `signInOptions` - sign in options list.
+    + `id` -id of the options
+    + `campaignId` -id of the campaign
+    + `signInType` -type of the sign in,including `no`、`optional` and `required`.
+    + `isSkipPrechat` - whether the pre-chat form is skipped when visitors sign in, available when the `signInType` is not `no`.
+
 ## Site Config
   You need `Manage Settings` permission to config for a site.
   + `GET /api/v1/livechat/configs` -get config for a site
   + `PUT /api/v1/livechat/configs`  -update configuration of a site
 
-### Get a single visitor segment
+### Get config for a site
 #### End Point 
   `GET /api/v1/livechat/configs`
 
@@ -1634,11 +1757,12 @@ optional:
   - `isEnableGotoMeeting` - whether GotoMeeting integration is enable or not in the site.
   - `isEnableJoinme` - whether Joinme integration is enable or not in the site.
 
-### Update a visitor segment
+### Update configuration of a site
 #### End Point 
   `PUT /api/v1/livechat/configs`
 
 #### Parameters
+  optional:
   - `isEnableMultipleCampaigns` - whether multiple campaigns are enable or not in the site.
   - `isEnableAutoAllocation` -whether auto allocation is enable or not in the site.
   - `isEnableCustomAwayStatus` -whether custom away status is enable or not in the site.
