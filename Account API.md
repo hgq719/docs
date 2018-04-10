@@ -7,7 +7,8 @@
 | Permission        |/account/permissions                    | 1       
 | Agent Permission  |/account/agents/{agent_id}/permissions                    | 1       
 | Group Permission  |/account/groups/{group_id}/permissions                    | 1              
-| Ip Restrictions   |/account/ipRestrictions                    | 1                      
+| Ip Restrictions   |/account/ipRestrictions                    | 1      
+| Audit Logs |/livechat/auditLogs                    | 1                
 
 ## Account API
   You need `Manage Agent & Agent Groups` permission to manage agent、group and permission.

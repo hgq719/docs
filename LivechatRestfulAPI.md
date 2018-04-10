@@ -8,10 +8,16 @@
 | [Auto Allocation](#auto-allocation)      |/livechat/autoAllocation               | 1       
 | [Custom Away Status](#custom-away-status)  |/livechat/customAwayStatus                    | 1       
 | [Ban](#ban)  |/livechat/bans                    | 1            
-| [Conversion](#conversion)   |/livechat/conversions                    | 1            
+| [Conversion Action](#conversion-action)   |/livechat/conversionActions                    | 1            
 | [Visitor Segmentation](#visitor-segmentation)   |/livechat/visitorSegments                    | 1
 | [Visitor SSO Settings](#visitor-sso-settings) |/livechat/visitorSSO                    | 1
 | [Site Config](#site-config) |/livechat/configs                    | 1
+| [Secure Forms](#secure-forms) |/livechat/secureForms                    | 1
+| [Chats History](#chats-history) |/livechat/chatsHistories                    | 1
+| [Messages History](#messages-history) |/livechat/messagesHistories                    | 1
+| [Missed& Refused History](#missed-refused-history) |/livechat/MissedAndRefusedHistories                    | 1
+| [Agent Chats History](#agent-chats-history) |/livechat/agentChatsHistories                    | 1
+| [MaximumOn Logs](#maximumon-logs) |/livechat/maximumonLogs                    | 1
       
 ## Campaign
   You need `Manage Campaigns` permission to manage campaigns and customize the settings for a campaigns.
@@ -21,6 +27,7 @@
     + `PUT /api/v1/livechat/campaigns/{id}` -Update a campaign
     + `DELETE /api/v1/livechat/campaigns/{id}` -Remove a campaign
   - `Campaign Settings` --setting of campaign
+    + `GET /api/v1/livechat/campaigns/{id}/installationCode` -Get installation code for a campaign
     + `GET /api/v1/livechat/campaigns/{id}/chatButton` -Get settings of ChatButton for a campaign
     + `PUT /api/v1/livechat/campaigns/{id}/chatButton` -Update settings of ChatButton for a campaign
     + `GET /api/v1/livechat/campaigns/{id}/chatWindow`  -Get settings of ChatWindow for a campaign
@@ -95,6 +102,16 @@
 ### Response
   - `result ` -the result of operating
 
+## Get installation code for a campaign
+### End Point
+  `GET /api/v1/livechat/campaigns/{id}/installationCode`
+
+### Parameters
+  No parameters
+
+### Response
+  - `code` -installation code for the campaign.
+
 ## Get settings of ChatButton for a campaign
 ### End Point
   `GET /api/v1/livechat/campaigns/{id}/chatButton`
@@ -103,17 +120,14 @@
   No parameters
 
 ### Response
-  - `buttonType ` -type of the permission,including `adaptive`、`image` and `textLink`.
+  - `buttonType ` -type of the button,including `adaptive`、`image` and `textLink`.
   - `isHideOffline` -whether the chatButton is visible when no agent is online.`true` means that button is invisible.
   - `isEnableDomainRestriction` -whether the domain restriction is enable
   - `allowedDomains` -display the chat button on specified domains/URLs only.
   Optional:  
   - `adaptiveSettings` - settings when `buttonType` is `adaptive`
     + `themeColor` - the theme color of chatbutton
-    + `onlineImageId` - id of the image when any agents are on line
-    + `offlineImageId` - id of the image when no agent is on line
-    + `onlineImageUrl` - url of the image when any agents is on line
-    + `offlineImageUrl` - url of the image when no agent is on line
+    + `icon` - icon of the chat button
   - `imageSettings` -settings when `buttonType` is `image`
     + `imageType` - the type of the image ,including `gallery` and `upload`
     + `onlineImageId` - id of the image when any agents are on line
@@ -126,15 +140,15 @@
     + `buttonYIsPixels`- whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
     + `buttonY` -coordinate y of the button,the unit acoording to `buttonYIsPixels`
     + `buttonPosition` - position of the chat button,including `centered`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`.
-    + `mobileOnlineText` -the content of text on mobile device when any agents are on line
-    + `mobileOfflineText` -the content of text on mobile device when no agent is on line
-    + `mobileThemeColor` - the theme color of chatbutton on mobile device
-    + `mobileOnlineImageUrl` -the url of image on mobile device when any agents are on line
-    + `mobileOfflineImageUrl` -the url of image on mobile device when no agent is on line
-    + `mobileImagePosition` - position of the chat button on mobile device， including `bottomLeft`、`bottomMiddle`、`bottomRight`、`leftMiddle`、`RightMiddle`、`leftBottom` and `rightBottom`.
+    + `mobileButtonType` -the type of button on mobile device,including `text` and `image`.
+    + `mobileOnlineText` -the content of text on mobile device when any agents are on line,available when `mobileButtonType` is `text`.
+    + `mobileOfflineText` -the content of text on mobile device when no agent is on line,available when `mobileButtonType` is `text`.
+    + `mobileThemeColor` - the theme color of chatbutton on mobile device,available when `mobileButtonType` is `text`.
+    + `mobileOnlineImageUrl` -the url of image on mobile device when any agents are on line,available when `mobileButtonType` is `image`.
+    + `mobileOfflineImageUrl` -the url of image on mobile device when no agent is on line,available when `mobileButtonType` is `image`.
+    + `mobileImagePosition` - position of the chat button on mobile device， including `bottomLeft`、`bottomMiddle`、`bottomRight`、`leftMiddle`、`RightMiddle`、`leftBottom` and `rightBottom`,available when `mobileButtonType` is `image`.
   - `textLinkSettings` -settings when `buttonType` is `textLink`
     + `buttonText` -the content of the text link
-
 
 ## Update settings of ChatButton for a campaign
 ### End Point
@@ -142,16 +156,13 @@
 
 ### Parameters
   Required parameters: 
-  - `buttonType ` -type of the permission,including `adaptive`、`image` and `textLink`.
+  - `buttonType ` -type of the button,including `adaptive`、`image` and `textLink`.
   Optional parameters:    
   + `isHideOffline` -whether the chatButton is visible when no agent is online.`true` means that button is invisible.
   + `isEnableDomainRestriction` -whether the domain restriction is enable
   + `allowedDomains` -display the chat button on specified domains/URLs only.  
   + `themeColor` - the theme color of chatbutton
-  + `onlineImageId` - id of the image when any agents are on line
-  + `offlineImageId` - id of the image when no agent is on line
-  + `onlineImageUrl` - url of the image when any agents is on line
-  + `offlineImageUrl` - url of the image when no agent is on line
+  + `icon` - icon of the chat button
   + `imageType` - the type of the image ,including `gallery` and `upload`
   + `onlineImageId` - id of the image when any agents are on line
   + `offlineImageId` - id of the image when no agent is on line
@@ -163,26 +174,24 @@
   + `buttonYIsPixels`- whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
   + `buttonY` -coordinate y the button,the unit acoording to `buttonYIsPixels`
   + `buttonPosition` - position of the chat button,including `centered`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle`  and `rightMiddle`.
-  + `mobileOnlineText` -the content of text on mobile device when any agents are on line
-  + `mobileOfflineText` -the content of text on mobile device when no agent is on line
-  + `mobileThemeColor` - the theme color of chatbutton on mobile device
-  + `mobileOnlineImageUrl` -the url of image on mobile device when any agents are on line
-  + `mobileOfflineImageUrl` -the url of image on mobile device when no agent is on line
-  + `mobileImagePosition` - position of the chat button on mobile device， including `bottomLeft`、`bottomMiddle`、`bottomRight`、`leftMiddle`、`RightMiddle`  `leftBottom` and `rightBottom`.
+  + `mobileButtonType` -the type of button on mobile device,including `text` and `image`.
+    + `mobileOnlineText` -the content of text on mobile device when any agents are on line,available when `mobileButtonType` is `text`.
+    + `mobileOfflineText` -the content of text on mobile device when no agent is on line,available when `mobileButtonType` is `text`.
+    + `mobileThemeColor` - the theme color of chatbutton on mobile device,available when `mobileButtonType` is `text`.
+    + `mobileOnlineImageUrl` -the url of image on mobile device when any agents are on line,available when `mobileButtonType` is `image`.
+    + `mobileOfflineImageUrl` -the url of image on mobile device when no agent is on line,available when `mobileButtonType` is `image`.
+    + `mobileImagePosition` - position of the chat button on mobile device， including `bottomLeft`、`bottomMiddle`、`bottomRight`、`leftMiddle`、`RightMiddle`、`leftBottom` and `rightBottom`,available when `mobileButtonType` is `image`.
   + `buttonText` -the content of the text link
 
 ### Response
-  - `buttonType ` -type of the permission,including `adaptive`、`image` and `textLink`.
+  - `buttonType ` -type of the button,including `adaptive`、`image` and `textLink`.
   - `isHideOffline` -whether the chatButton is visible when no agent is online.`true` means that button is invisible.
   - `isEnableDomainRestriction` -whether the domain restriction is enable
   - `allowedDomains` -display the chat button on specified domains/URLs only.
   Optional:  
   - `adaptiveSettings` - settings when `buttonType` is `adaptive`
     + `themeColor` - the theme color of chatbutton
-    + `onlineImageId` - id of the image when any agents are on line
-    + `offlineImageId` - id of the image when no agent is on line
-    + `onlineImageUrl` - url of the image when any agents is on line
-    + `offlineImageUrl` - url of the image when no agent is on line
+    + `icon` - icon of the chat button
   - `imageSettings` -settings when `buttonType` is `image`
     + `imageType` - the type of the image ,including `gallery` and `upload`
     + `onlineImageId` - id of the image when any agents are on line
@@ -195,12 +204,13 @@
     + `buttonYIsPixels`- whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
     + `buttonY` -coordinate y the button,the unit acoording to `buttonYIsPixels`
     + `buttonPosition` - position of the chat button,including `centered`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`.
-    + `mobileOnlineText` -the content of text on mobile device when any agents are on line
-    + `mobileOfflineText` -the content of text on mobile device when no agent is on line
-    + `mobileThemeColor` - the theme color of chatbutton on mobile device
-    + `mobileOnlineImageUrl` -the url of image on mobile device when any agents are on line
-    + `mobileOfflineImageUrl` -the url of image on mobile device when no agent is on line
-    + `mobileImagePosition` - position of the chat button on mobile device， including `bottomLeft`、`bottomMiddle`、`bottomRight`、`leftMiddle`、`RightMiddle`、`leftBottom` and `rightBottom`.
+    + `mobileButtonType` -the type of button on mobile device,including `text` and `image`.
+    + `mobileOnlineText` -the content of text on mobile device when any agents are on line,available when `mobileButtonType` is `text`.
+    + `mobileOfflineText` -the content of text on mobile device when no agent is on line,available when `mobileButtonType` is `text`.
+    + `mobileThemeColor` - the theme color of chatbutton on mobile device,available when `mobileButtonType` is `text`.
+    + `mobileOnlineImageUrl` -the url of image on mobile device when any agents are on line,available when `mobileButtonType` is `image`.
+    + `mobileOfflineImageUrl` -the url of image on mobile device when no agent is on line,available when `mobileButtonType` is `image`.
+    + `mobileImagePosition` - position of the chat button on mobile device， including `bottomLeft`、`bottomMiddle`、`bottomRight`、`leftMiddle`、`RightMiddle`、`leftBottom` and `rightBottom`,available when `mobileButtonType` is `image`.
   - `textLinkSettings` -settings when `buttonType` is `textLink`
     + `buttonText` -the content of the text link
 
@@ -1511,13 +1521,103 @@ optional:
 #### Response
   - `result ` -the result of operating
 
-## Conversion
+## Conversion Action
   You need `Manage Settings` permission to manage conversion action.
-  + `GET /api/v1/livechat/conversions/actions` -get list of visitor segments
-  + `GET /api/v1/livechat/conversions/{id}`  -get a visitor segment
-  + `POST /api/v1/livechat/conversions` -create a new visitor segment
-  + `PUT /api/v1/livechat/conversions/{id}`  -update a visitor segment
+  + `GET /api/v1/livechat/conversionsActions` -get list of visitor segments
+  + `GET /api/v1/livechat/conversionsActions/{id}`  -get a visitor segment
+  + `POST /api/v1/livechat/conversionsActions` -create a new visitor segment
 
+### Get list of conversion actions
+#### End Point 
+  `GET /api/v1/livechat/conversionsActions`
+
+#### Parameters
+  No parameters
+
+#### Response
+  conversion actions list, including
+  - `id ` -id of the conversion action.
+  - `name` - name of the conversion action.
+  - `isEnable` -whether the conversion action is enable or not.
+  - `typeContent` -content of type of the conversion action.
+
+### Get a single conversion action
+#### End Point 
+  `GET /api/v1/livechat/conversionsActions/{id}`
+
+#### Parameters
+  No parameters
+
+#### Response
+  - `id ` -id of the conversion action.
+  - `name` - name of the conversion action.
+  - `isEnable` -whether the conversion action is enable or not.
+  - `type` -type of the conversion action,including `url`、`customVariable` and `setByApi`.
+  - `matchType` - match type of the conversion action.
+  - `matchValue` - match value of the conversion action.
+  - `isCaseSensitive` - whether the conversion action is case sensitive or not,available when `type` is `url`
+  - `isAssignValue` - whether a value is assigned for the conversion action or not
+  - `value` - the value assigned for the conversion action,available when `isAssignValue` is `true`
+  - `customVariable` - the value come from the custom variable,available when `isAssignValue` is `true`
+  - `customVariableField` - the name of the custom variable,available when `type` is `customVariable`.
+
+### Create a new conversion action
+#### End Point 
+  `POST /api/v1/livechat/conversionsActions`
+
+#### Parameters
+  - `name` - name of the conversion action.
+  - `isEnable` -whether the conversion action is enable or not.
+  - `type` -type of the conversion action,including `url`、`customVariable` and `setByApi`.
+  - `matchType` - match type of the conversion action.
+  - `matchValue` - match value of the conversion action.
+  - `isCaseSensitive` - whether the conversion action is case sensitive or not,available when `type` is `url`
+  - `isAssignValue` - whether a value is assigned for the conversion action or not
+  - `value` - the value assigned for the conversion action,available when `isAssignValue` is `true`
+  - `customVariable` - the value come from the custom variable,available when `isAssignValue` is `true`
+  - `customVariableField` - the name of the custom variable,available when `type` is `customVariable`.
+
+#### Response
+  - `id ` -id of the conversion action.
+  - `name` - name of the conversion action.
+  - `isEnable` -whether the conversion action is enable or not.
+  - `type` -type of the conversion action,including `url`、`customVariable` and `setByApi`.
+  - `matchType` - match type of the conversion action.
+  - `matchValue` - match value of the conversion action.
+  - `isCaseSensitive` - whether the conversion action is case sensitive or not,available when `type` is `url`
+  - `isAssignValue` - whether a value is assigned for the conversion action or not
+  - `value` - the value assigned for the conversion action,available when `isAssignValue` is `true`
+  - `customVariable` - the value come from the custom variable,available when `isAssignValue` is `true`
+  - `customVariableField` - the name of the custom variable,available when `type` is `customVariable`.
+
+### Update a conversion action
+#### End Point 
+  `PUT /api/v1/livechat/conversionsActions/{id}`
+
+#### Parameters
+  - `name` - name of the conversion action.
+  - `isEnable` -whether the conversion action is enable or not.
+  - `type` -type of the conversion action,including `url`、`customVariable` and `setByApi`.
+  - `matchType` - match type of the conversion action.
+  - `matchValue` - match value of the conversion action.
+  - `isCaseSensitive` - whether the conversion action is case sensitive or not,available when `type` is `url`
+  - `isAssignValue` - whether a value is assigned for the conversion action or not
+  - `value` - the value assigned for the conversion action,available when `isAssignValue` is `true`
+  - `customVariable` - the value come from the custom variable,available when `isAssignValue` is `true`
+  - `customVariableField` - the name of the custom variable,available when `type` is `customVariable`.
+
+#### Response
+  - `id ` -id of the conversion action.
+  - `name` - name of the conversion action.
+  - `isEnable` -whether the conversion action is enable or not.
+  - `type` -type of the conversion action,including `url`、`customVariable` and `setByApi`.
+  - `matchType` - match type of the conversion action.
+  - `matchValue` - match value of the conversion action.
+  - `isCaseSensitive` - whether the conversion action is case sensitive or not,available when `type` is `url`
+  - `isAssignValue` - whether a value is assigned for the conversion action or not
+  - `value` - the value assigned for the conversion action,available when `isAssignValue` is `true`
+  - `customVariable` - the value come from the custom variable,available when `isAssignValue` is `true`
+  - `customVariableField` - the name of the custom variable,available when `type` is `customVariable`.
 
 ## Visitor Segmentation
   You need `Manage Settings` permission to manage visitor segmentation.
@@ -1535,7 +1635,7 @@ optional:
   No parameters
 
 #### Response
-  ban list, including
+  visitor segments list, including
   - `id ` -id of the visitor segment.
   - `name` - name of the visitor segment.
   - `color` -color of the visitor segment
