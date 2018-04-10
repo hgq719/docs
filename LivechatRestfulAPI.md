@@ -13,11 +13,8 @@
 | [Visitor SSO Settings](#visitor-sso-settings) |/livechat/visitorSSO                    | 1
 | [Site Config](#site-config) |/livechat/configs                    | 1
 | [Secure Forms](#secure-forms) |/livechat/secureForms                    | 1
-| [Chats History](#chats-history) |/livechat/chatsHistories                    | 1
-| [Messages History](#messages-history) |/livechat/messagesHistories                    | 1
-| [Missed& Refused History](#missed-refused-history) |/livechat/MissedAndRefusedHistories                    | 1
-| [Agent Chats History](#agent-chats-history) |/livechat/agentChatsHistories                    | 1
-| [MaximumOn Logs](#maximumon-logs) |/livechat/maximumonLogs                    | 1
+| [Chat](#chat) |/livechat/chats                    | 1
+| [Message](#message) |/livechat/messages                    | 1
       
 ## Campaign
   You need `Manage Campaigns` permission to manage campaigns and customize the settings for a campaigns.
@@ -382,7 +379,7 @@
       * `checkboxList` - Check Box List field (custom field)
     + `isSystem` - whether the field is system field or not.
     + `isVisible` - whether the field is visible or not in the pre-chat form.
-    + `isRequired` - whether the field is required or not when submiting the form,including `vertical` and `horizontal`.
+    + `isRequired` - whether the field is required or not when submiting the form
     + `options` - the options of the field, available when the `type` is not `department`.
 
 ### Response
@@ -1896,3 +1893,325 @@ optional:
   - `isEnableGoogleAnalytics` - whether Google Analytics integration is enable or not in the site.
   - `isEnableGotoMeeting` - whether GotoMeeting integration is enable or not in the site.
   - `isEnableJoinme` - whether Joinme integration is enable or not in the site.
+
+## Secure Form
+  + `GET /api/v1/livechat/secureForms` -get list of secure forms
+  + `GET /api/v1/livechat/secureForms/{id}`  -get a secure form
+  + `POST /api/v1/livechat/secureForms` -create a new secure form
+  + `PUT /api/v1/livechat/secureForms/{id}`  -update a secure form
+  + `DELETE /api/v1/livechat/secureForms/{id}`  -remove a secure form
+
+### Get list of secure forms
+#### End Point 
+  `GET /api/v1/livechat/secureForms`
+
+#### Parameters
+  No parameters
+
+#### Response
+  secure forms list, including
+  - `id` -id of the secure form.
+  - `name` - name of the secure form.
+  - `description` -description of the secure form.
+
+### Get a single secure form
+#### End Point 
+  `GET /api/v1/livechat/secureForms/{id}`
+
+#### Parameters
+  No parameters
+
+#### Response
+  - `id` -id of the secure form.
+  - `name` - name of the secure form.
+  - `description` -description of the secure form.
+  - `fields` - fields list
+    + `id` - id of the field
+    + `name` - name of the field
+    + `type` - type of the field
+      * `cardNumber` - card number field (system field)
+      * `expirationDate` - expiration date field (system field)
+      * `CSCOrCVV` - CSC/CVV field (system field)
+      * `NameOnCard` - name on card field (system field)
+      * `text` - Text field (custom field)
+      * `textarea` - Textarea field (custom field)
+      * `radio` - Radio Box field (custom field)
+      * `checkbox` - Check Box field (custom field)
+      * `select` - Drop Down List field (custom field)
+      * `checkboxList` - Check Box List field (custom field)
+    + `isSystem` - whether the field is system field or not.
+    + `isVisible` - whether the field is visible or not in the pre-chat form.
+    + `isRequired` - whether the field is required or not
+    + `options` - the options of the field
+
+### Create a new secure form
+#### End Point 
+  `POST /api/v1/livechat/secureForms`
+
+#### Parameters
+  - `name` - name of the secure form.
+  - `description` -description of the secure form.
+  - `fields` - fields list
+    + `id` - id of the field
+    + `name` - name of the field
+    + `type` - type of the field
+      * `cardNumber` - card number field (system field)
+      * `expirationDate` - expiration date field (system field)
+      * `CSCOrCVV` - CSC/CVV field (system field)
+      * `NameOnCard` - name on card field (system field)
+      * `text` - Text field (custom field)
+      * `textarea` - Textarea field (custom field)
+      * `radio` - Radio Box field (custom field)
+      * `checkbox` - Check Box field (custom field)
+      * `select` - Drop Down List field (custom field)
+      * `checkboxList` - Check Box List field (custom field)
+    + `isSystem` - whether the field is system field or not.
+    + `isVisible` - whether the field is visible or not in the pre-chat form.
+    + `isRequired` - whether the field is required or not
+    + `options` - the options of the field
+
+#### Response
+  - `id` -id of the secure form.
+  - `name` - name of the secure form.
+  - `description` -description of the secure form.
+  - `fields` - fields list
+    + `id` - id of the field
+    + `name` - name of the field
+    + `type` - type of the field
+      * `cardNumber` - card number field (system field)
+      * `expirationDate` - expiration date field (system field)
+      * `CSCOrCVV` - CSC/CVV field (system field)
+      * `NameOnCard` - name on card field (system field)
+      * `text` - Text field (custom field)
+      * `textarea` - Textarea field (custom field)
+      * `radio` - Radio Box field (custom field)
+      * `checkbox` - Check Box field (custom field)
+      * `select` - Drop Down List field (custom field)
+      * `checkboxList` - Check Box List field (custom field)
+    + `isSystem` - whether the field is system field or not.
+    + `isVisible` - whether the field is visible or not in the pre-chat form.
+    + `isRequired` - whether the field is required or not
+    + `options` - the options of the field
+
+### Update a secure form
+#### End Point 
+  `PUT /api/v1/livechat/secureForms/{id}`
+
+#### Parameters
+  - `name` - name of the secure form.
+  - `description` -description of the secure form.
+  - `fields` - fields list
+    + `id` - id of the field
+    + `name` - name of the field
+    + `type` - type of the field
+      * `cardNumber` - card number field (system field)
+      * `expirationDate` - expiration date field (system field)
+      * `CSCOrCVV` - CSC/CVV field (system field)
+      * `NameOnCard` - name on card field (system field)
+      * `text` - Text field (custom field)
+      * `textarea` - Textarea field (custom field)
+      * `radio` - Radio Box field (custom field)
+      * `checkbox` - Check Box field (custom field)
+      * `select` - Drop Down List field (custom field)
+      * `checkboxList` - Check Box List field (custom field)
+    + `isSystem` - whether the field is system field or not.
+    + `isVisible` - whether the field is visible or not in the pre-chat form.
+    + `isRequired` - whether the field is required or not
+    + `options` - the options of the field
+#### Response
+  - `id` -id of the secure form.
+  - `name` - name of the secure form.
+  - `description` -description of the secure form.
+  - `fields` - fields list
+    + `id` - id of the field
+    + `name` - name of the field
+    + `type` - type of the field
+      * `cardNumber` - card number field (system field)
+      * `expirationDate` - expiration date field (system field)
+      * `CSCOrCVV` - CSC/CVV field (system field)
+      * `NameOnCard` - name on card field (system field)
+      * `text` - Text field (custom field)
+      * `textarea` - Textarea field (custom field)
+      * `radio` - Radio Box field (custom field)
+      * `checkbox` - Check Box field (custom field)
+      * `select` - Drop Down List field (custom field)
+      * `checkboxList` - Check Box List field (custom field)
+    + `isSystem` - whether the field is system field or not.
+    + `isVisible` - whether the field is visible or not in the pre-chat form.
+    + `isRequired` - whether the field is required or not
+    + `options` - the options of the field
+
+### Remove a secure form
+#### End Point 
+  `DELETE /api/v1/livechat/secureForms/{id}`
+
+#### Parameters
+  No parameters
+
+#### Response
+  - `result ` -the result of operating
+
+## Chat
+  + `Get /api/v1/livechat/chats` -Get chats list.
+  + `Get /api/v1/livechat/chats/{chat_id}` -Get a single chat.
+  + `Get /api/v1/livechat/chats/missedAndRefused` -Get missed and refused chats list.
+  + `Get /api/v1/livechat/chats/agentChats` -Get agents' chats list.
+
+## Get chats list
+### End Point
+  `Get /api/v1/livechat/chats`
+
+### Parameters
+  - `dateInterval` - the date interval of the chat.
+  optional：
+  - `agentId` - id of the agent who participate in the chat.
+  - `departmentId` - id of the department which the chat belongs to.
+  - `category` - the category which the chat belongs to, including `inquiry`、`suggestion` 、`complaint` and `junk`.
+  - `keywords` - the key words of inquiring the chat
+  - `conditions` - the condition list of inquiring the chat
+    + `fieldName` - field name of the condition.
+    + `match` - match expression of the condition.
+    + `value` - the value correspond with the field
+  - `page` -page number
+
+### Response
+  - `total` -total count of the list.
+  - `previousPage` -url of the previous page.
+  - `nextPage` -url of the next page.
+  - `chats` -chats list
+    + `id` - id of the chat.
+    + `ssoUserId` -user id of sso.
+    + `summary` -summary of the chat.
+    + `category` - the category which the chat belongs to, including `inquiry`、`suggestion` 、`complaint` and `junk`.
+    + `name` - name of the visitor
+    + `email` - email of the visitor
+    + `phone` - phone of the visitor
+    + `product_service` - product/service the visitor selected in the pre-chat window. Operators can also update the value while chatting with visitors.
+    + `department` - department the visitor selected in the pre-chat window. Operators can also update the value while chatting with visitors.
+    + `agents` - operators that participate in the chat, separated by comma
+    + `custom_fields` - values of custom fields entered by visitors in the pre-chat window. Operators can also update the value(s) during chat in Visitor Monitor. Custom fields contain the following properties:
+      * `id` - id of the custom field
+      * `name` - name of the custom field
+      * `value` - value of the custom field
+    + `custom_variable` - information of custom variables captured from the web page visitors viewed. Custom variables contain the following properties:
+      * `name` - name of the custom variable
+      * `value` - value of the custom variable
+    + `start_time` - time when the chat started
+    + `waiting_time` - amount of time a visitor has been waiting before his/her chat request was accepted
+    + `end_time` - time when the chat ended
+    + `chat_transcript` - content of the chat
+    + `attachments` - files the operator send to the visitor or vice versa as well as the screenshots sent to the operator by the visitor through Comm100 Screen Capture. Attachments contain the following properties:
+      * `name` - name of the attachment
+      * `uri` - uri of the attachment
+    + `rating` - rating on the operators submitted by the visitor
+    + `rating_comment` - comment on operators’ customer service submitted by the visitor
+    + `operator_comment` - notes added for this chat by the operator
+
+## Get a single chat
+### End Point
+  `Get /api/v1/livechat/chats/{id}`
+
+### Parameters
+  No parameter.
+
+### Response
+  + `id` - id of the chat.
+  + `ssoUserId` -user id of sso.
+  + `summary` -summary of the chat.
+  + `category` - the category which the chat belongs to, including `inquiry`、`suggestion` 、`complaint` and `junk`.
+  + `name` - name of the visitor
+  + `email` - email of the visitor
+  + `phone` - phone of the visitor
+  + `product_service` - product/service the visitor selected in the pre-chat window. Operators can also update the value while chatting with visitors.
+  + `department` - department the visitor selected in the pre-chat window. Operators can also update the value while chatting with visitors.
+  + `agents` - operators that participate in the chat, separated by comma
+  + `custom_fields` - values of custom fields entered by visitors in the pre-chat window. Operators can also update the value(s) during chat in Visitor Monitor. Custom fields contain the following properties:
+    * `id` - id of the custom field
+    * `name` - name of the custom field
+    * `value` - value of the custom field
+  + `custom_variable` - information of custom variables captured from the web page visitors viewed. Custom variables contain the following properties:
+    * `name` - name of the custom variable
+    * `value` - value of the custom variable
+  + `start_time` - time when the chat started
+  + `waiting_time` - amount of time a visitor has been waiting before his/her chat request was accepted
+  + `end_time` - time when the chat ended
+  + `chat_transcript` - content of the chat
+  + `attachments` - files the operator send to the visitor or vice versa as well as the screenshots sent to the operator by the visitor through Comm100 Screen Capture. Attachments contain the following properties:
+    * `name` - name of the attachment
+    * `uri` - uri of the attachment
+  + `rating` - rating on the operators submitted by the visitor
+  + `rating_comment` - comment on operators’ customer service submitted by the visitor
+  + `operator_comment` - notes added for this chat by the operator
+
+## Get missed and refused chats list
+### End Point
+  `Get /api/v1/livechat/chats/missedAndRefused`
+
+### Parameters
+  - `dateInterval` - the date interval of the message.
+  optional：
+  - `type` - type of the chat,including `missed` and `refused`.
+  - `campaignId` - id of the campaign which the message of the chat happened in.
+  - `visitorSegmentId` - id of the visitor segment which visitor belongs to.
+
+### Response
+  - `total` -total count of the list.
+  - `previousPage` -url of the previous page.
+  - `nextPage` -url of the next page.
+  - `messages` -messages list
+    + `id` - id of the chat.
+    + `type` - type of the chat,including `missed` and `refused`.
+    + `time` -time when the chat happened.
+    + `ssoUserId` -user id of sso.
+    + `visitorName` -name of the visitor.
+    + `visitorEmail` -email of the visitor.
+    + `agents` -name of agents who participate in the chat.
+    + `waitingTime` -wait time of the chat.
+    + `comment` -comment of the chat.
+
+## Agent chats list
+### End Point
+  `Get /api/v1/livechat/chats/agentChats`
+
+### Parameters
+  - `dateInterval` - the date interval of the message.
+  optional：
+  - `agentId` - id of the agent who paticipate in the chat.
+  - `keywords` - the key words of inquiring the chat
+
+### Response
+  - `total` -total count of the list.
+  - `previousPage` -url of the previous page.
+  - `nextPage` -url of the next page.
+  - `messages` -messages list
+    + `agentFrom` - name of the agent from who send the meesage.
+    + `agentTo` - name of the agent from who received the meesage.
+    + `summary` -summary of the chat.
+
+## Message
+  + `Get /api/v1/livechat/messages` -Get messages list.
+
+## Get messages list
+### End Point
+  `Get /api/v1/livechat/messages` 
+
+### Parameters
+  - `dateInterval` - the date interval of the message.
+  optional：
+  - `campaignId` - id of the campaign which the message of the chat happened in
+  - `agentId` - id of the agent who participate in the chat.
+  - `visitorSegmentId` - id of the visitor segment which visitor belongs to.
+  - `keywords` - the key words of inquiring the message.
+
+### Response
+  - `total` -total count of the list.
+  - `previousPage` -url of the previous page.
+  - `nextPage` -url of the next page.
+  - `messages` -messages list
+    + `id` - id of the chat which the message belongs to.
+    + `time` -time when the chat happened.
+    + `ssoUserId` -user id of sso.
+    + `visitorName` -name of the visitor.
+    + `visitorEmail` -email of the visitor.
+    + `agents` -name of agents who participate in the chat.
+    + `content` -content of the message.

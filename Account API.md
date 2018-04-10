@@ -11,10 +11,13 @@
 | Audit Logs |/livechat/auditLogs                    | 1                
 
 ## Account API
-  You need `Manage Agent & Agent Groups` permission to manage agent、group and permission.
+  You need `Manage Site Profile` permission to manage site.
   - `Site` -Site Manage
     + `GET /api/v1/account/sites/{site_id}/profile` -Get profile of a single site
     + `PUT /api/v1/account/sites/{site_id}/profile` -Update profile of a site
+    + `PUT /api/v1/account/sites/{site_id}/cancel` -Cancel the site
+     
+  You need `Manage Agent & Agent Groups` permission to manage agent、group and permission.
   - `Agent` -Agent Manage
     + `GET /api/v1/account/agents` -Get list of agent   
     + `GET /api/v1/account/agents/{agent_email}` -Get a single agent
@@ -42,7 +45,7 @@
     + `GET /api/v1/account/groups/{group_id}/permissions` -Get list of group's permission
     + `POST /api/v1/account/groups/{group_id}/permissions` -Create a new permission for a group
     + `DELETE /api/v1/account/groups/{group_id}/permissions/{permission_id}` -Remove a permission for a group
-    
+      
   You need `Manage Security` permission to manage ip restrictions.
   - `IP Restrictions` -IP Restrictions Manage
     + `Get /api/v1/account/ipRestrictions/ipRanges` -Get ip range list of ip restrictions 
@@ -50,6 +53,10 @@
     + `DELETE /api/v1/account/ipRestrictions/ipRanges/{rang_id}` -Remove a ip range of ip restrictions 
     + `Get /api/v1/account/ipRestrictions/config` -Get configuration of ip restrictions 
     + `PUT /api/v1/account/ipRestrictions/config` -Update configuration of ip restrictions 
+    
+  You need `View Audit Log` permission to view audit logs.
+  + `Get /api/v1/account/auditLogs` -Get audit Logs list 
+  + `Get /api/v1/account/auditLogs/{log_id}` -Get a single audit log 
 
 ## Get profile of a single site
 ### End Point
@@ -122,6 +129,16 @@
   - `companySize` - staff number of the site's company
   - `timeZone` - time zone which the site's company belongs to 
   - `datetimeFormat` - datatime format which the site will display
+
+## Cancel the site
+### End Point
+  `PUT /api/v1/account/sites/{site_id}/cancel`
+
+### Parameters
+  - `reason` -the reason of canceling the site.
+
+### Response
+  - `result ` -the result of operating
 
 ## Get list of agents
 ### End Point
@@ -544,3 +561,47 @@ optional:
   - `siteId` -id of the site.
   - `isEnable` -whether IP Restrictions is enable or not.
   - `isEnableForMobile` -whether IP Restrictions is enable or not for mobile access.
+
+  You need `View Audit Log` permission to view audit logs.
+  + `Get /api/v1/account/auditLogs` -
+  + 
+
+## Get audit Logs list 
+### End Point
+  `Get /api/v1/account/auditLogs`
+
+### Parameters
+  - `dateFrom` - the date from which agent do the action.
+  - `dateTo` - the date end which agent do the action.
+  optional：
+  - `product` - the product which the action belongs to, including `liveChat`、`userContact` and `account`.
+  - `type` - the type of the action.
+  - `agentId` - id of the agent who do the action.
+  - `keywords` - the key words of inquiring the action
+
+### Response
+  - `total` -total count of the list.
+  - `previousPage` -url of the previous page.
+  - `nextPage` -url of the next page.
+  - `logs` -audit log list
+    + `id` -id of the config.
+    + `actionTime` -the time of the action.
+    + `agentName` - the agent which do the action.
+    + `application` - the module which the action belongs to.
+    + `actionType` - the type of the action.
+    + `actionSummary` - the summary of the action.
+
+## Get a single audit log 
+### End Point
+  `Get /api/v1/account/auditLogs/{log_id}`
+
+### Parameters
+  No parameters.
+
+### Response
+  - `id` -id of the config.
+  - `actionTime` -the time of the action.
+  - `agentName` - the agent which do the action.
+  - `application` - the module which the action belongs to.
+  - `actionType` - the type of the action.
+  - `actionSummary` - the summary of the action.
