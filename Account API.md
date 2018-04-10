@@ -605,3 +605,7 @@ optional:
   - `application` - the module which the action belongs to.
   - `actionType` - the type of the action.
   - `actionSummary` - the summary of the action.
+  - `fields` - the field which is changed in the action.
+    + `fidldName` - name of the field.
+    + `valueBefore` - value of the field before doing the action.
+    + `valueAfter` -value of the field after doing the action.
