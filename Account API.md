@@ -176,7 +176,7 @@ Agent Json Object
 |id | integer  | yes  | no|id of the group.
 |name | string  | no  | yes|name of the group.
 |description | string  | no  | no|the description of the group.
-|agents | array  | no  | no|list of agents in current group
+|agents | array  | no  | no|an array of agents in current group
     
 ### Get list of Groups
 - End Point     
