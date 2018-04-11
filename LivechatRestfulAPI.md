@@ -50,1002 +50,537 @@
     + `GET /api/v1/livechat/campaigns/{id}/language`  Get settings of Language for a campaign
     + `PUT /api/v1/livechat/campaigns/{id}/language`  Update settings of Language for a campaign
 
-## Get list of campaigns
-### End Point
+### Campaign Json Format
+ Campaign is represented as simple flat JSON objects with the following keys:  
+
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+| id | integer  | yes  | no| id of the campaign
+| name| string  | no  | yes|name of the campaign
+| description| string  | no  | no|description of the campaign
+
+### Get list of campaigns
+- End Point      
   `GET /api/v1/livechat/campaigns`
-
-### Parameters
+    
+- Parameters     
   No parameters
-
-### Response
-  Campaign list, including
-  - `id ` -id of the campaign.
-  - `name` -name of the campaign.
-  - `description` -description of the campaign.
-
-## Create a new campaign
-### End Point
+    
+- Response      
+  Campaign Json Object list
+       
+### Create a new campaign
+- End Point      
   `POST /api/v1/livechat/campaigns`
-
-### Parameters
-  - `name` -name of the campaign.
-  - `description` -description of the campaign.
-
-### Response
-  - `id ` -id of the campaign.
-  - `name` -name of the campaign.
-  - `description` -description of the campaign.
-
-## Update a campaign
-### End Point
+       
+- Parameters     
+  Campaign Json Object
+       
+- Response      
+  Campaign Json Object
+       
+### Update a campaign
+- End Point      
   `PUT /api/v1/livechat/campaigns/{id}`
-
-### Parameters
-  - `name` -name of the campaign.
-  - `description` -description of the campaign.
-
-### Response
-  - `id ` -id of the campaign.
-  - `name` -name of the campaign.
-  - `description` -description of the campaign.
-
-## Remove a campaign 
-### End Point
+       
+- Parameters     
+  Campaign Json Object
+       
+- Response      
+  Campaign Json Object
+       
+### Remove a campaign 
+- End Point      
   `DELETE /api/v1/livechat/campaigns/{id}`
-
-### Parameters
+       
+- Parameters     
   No parameters.
-
-### Response
-  - `result ` -the result of operating
-
-## Get installation code for a campaign
-### End Point
+    
+- Response      
+  Status: 200 OK   
+      
+### Get installation code for a campaign
+- End Point      
   `GET /api/v1/livechat/campaigns/{id}/installationCode`
-
-### Parameters
+      
+- Parameters     
   No parameters
-
-### Response
+      
+- Response      
   - `code` -installation code for the campaign.
-
-## Get settings of ChatButton for a campaign
-### End Point
+      
+### Chat Button Json Format
+ Chat Button is represented as simple flat JSON objects with the following keys:  
+      
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|buttonType | string | no | yes |    type of the button,including `adaptive`、`image` and `textLink`.
+|isHideOffline| boolean | no | no |    whether the chatButton is visible when no agent is online.`true` means that button is invisible..
+|isEnableDomainRestriction| boolean | no | no |    whether the domain restriction is enable or not.
+|allowedDomains| string | no | no |    display the chat button on specified domains/URLs only.
+|themeColor| string | no | no |     the theme color of chatbutton,available when `buttonType` is `adaptive`.
+|icon| string | no | no |     icon of the chat button,available when `buttonType` is `adaptive`.
+|imageType| string | no | no |     the type of the image ,including `gallery` and `upload`,available when `buttonType` is `image`.
+|onlineImageId| string | no | no |     id of the image when any agents are on line,available when `buttonType` is `image`.
+|offlineImageId| string | no | no |     id of the image when no agent is on line,available when `buttonType` is `image`.
+|onlineImageUrl| string | no | no |     url of the image when any agents are on line,available when `buttonType` is `image`.
+|offlineImageUrl| string | no | no |     url of the image when no agent is on line,available when `buttonType` is `image`.
+|isFloat| boolean | no | no |    whether the chat button is float or not,available when `buttonType` is `image`,available when `buttonType` is `image`.
+|buttonXIsPixels| string | no | no |     whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent,available when `buttonType` is `image`.
+|buttonX| string | no | no |    coordinate x of the button,the unit acoording to `buttonXIsPixels`,available when `buttonType` is `image`.
+|buttonYIsPixels| string | no | no |  whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent,available when `buttonType` is `image`.
+|buttonY| string | no | no |    coordinate y of the button,the unit acoording to `buttonYIsPixels`,available when `buttonType` is `image`.
+|buttonPosition| string | no | no |     position of the chat button,including `centered`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`,available when `buttonType` is `image`.
+|mobileButtonType| string | no | no |    the type of button on mobile device,including `text` and `image`,available when `buttonType` is `image`.
+|mobileOnlineText| string | no | no |    the content of text on mobile device when any agents are on line,available when `mobileButtonType` is `text`and `buttonType` is `image`.
+|mobileOfflineText| string | no | no |    the content of text on mobile device when no agent is on line,available when `mobileButtonType` is `text`and `buttonType` is `image`.
+|mobileThemeColor| string | no | no |     the theme color of chatbutton on mobile device,available when `mobileButtonType` is `text`and `buttonType` is `image`.
+|mobileOnlineImageUrl| string | no | no |    the url of image on mobile device when any agents are on line,available when `mobileButtonType` is `image`and `buttonType` is `image`.
+|mobileOfflineImageUrl| string | no | no |    the url of image on mobile device when no agent is on line,available when `mobileButtonType` is `image` and `buttonType` is `image`.
+|mobileImagePosition| string | no | no |     position of the chat button on mobile device， including `bottomLeft`、`bottomMiddle`、`bottomRight`、`leftMiddle`、`RightMiddle`、`leftBottom` and `rightBottom`,available when `mobileButtonType` is `image` and `buttonType` is `image`.
+|buttonText| string | no | no |    the content of the text link,available when `buttonType` is `textLink`
+      
+### Get settings of ChatButton for a campaign
+- End Point      
   `GET /api/v1/livechat/campaigns/{id}/chatButton`
-
-### Parameters
+      
+- Parameters     
   No parameters
-
-### Response
-  - `buttonType ` -type of the button,including `adaptive`、`image` and `textLink`.
-  - `isHideOffline` -whether the chatButton is visible when no agent is online.`true` means that button is invisible.
-  - `isEnableDomainRestriction` -whether the domain restriction is enable
-  - `allowedDomains` -display the chat button on specified domains/URLs only.
-  Optional:  
-  - `adaptiveSettings` - settings when `buttonType` is `adaptive`
-    + `themeColor` - the theme color of chatbutton
-    + `icon` - icon of the chat button
-  - `imageSettings` -settings when `buttonType` is `image`
-    + `imageType` - the type of the image ,including `gallery` and `upload`
-    + `onlineImageId` - id of the image when any agents are on line
-    + `offlineImageId` - id of the image when no agent is on line
-    + `onlineImageUrl` - url of the image when any agents are on line
-    + `offlineImageUrl` - url of the image when no agent is on line
-    + `isFloat` -whether the chat button is float
-    + `buttonXIsPixels` - whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent.
-    + `buttonX` -coordinate x of the button,the unit acoording to `buttonXIsPixels`
-    + `buttonYIsPixels`- whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
-    + `buttonY` -coordinate y of the button,the unit acoording to `buttonYIsPixels`
-    + `buttonPosition` - position of the chat button,including `centered`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`.
-    + `mobileButtonType` -the type of button on mobile device,including `text` and `image`.
-    + `mobileOnlineText` -the content of text on mobile device when any agents are on line,available when `mobileButtonType` is `text`.
-    + `mobileOfflineText` -the content of text on mobile device when no agent is on line,available when `mobileButtonType` is `text`.
-    + `mobileThemeColor` - the theme color of chatbutton on mobile device,available when `mobileButtonType` is `text`.
-    + `mobileOnlineImageUrl` -the url of image on mobile device when any agents are on line,available when `mobileButtonType` is `image`.
-    + `mobileOfflineImageUrl` -the url of image on mobile device when no agent is on line,available when `mobileButtonType` is `image`.
-    + `mobileImagePosition` - position of the chat button on mobile device， including `bottomLeft`、`bottomMiddle`、`bottomRight`、`leftMiddle`、`RightMiddle`、`leftBottom` and `rightBottom`,available when `mobileButtonType` is `image`.
-  - `textLinkSettings` -settings when `buttonType` is `textLink`
-    + `buttonText` -the content of the text link
-
-## Update settings of ChatButton for a campaign
-### End Point
+      
+- Response      
+  Chat Button Json Object
+      
+### Update settings of ChatButton for a campaign
+- End Point      
   `PUT /api/v1/livechat/campaigns/{id}/chatButton`
-
-### Parameters
-  Required parameters: 
-  - `buttonType ` -type of the button,including `adaptive`、`image` and `textLink`.
-  Optional parameters:    
-  + `isHideOffline` -whether the chatButton is visible when no agent is online.`true` means that button is invisible.
-  + `isEnableDomainRestriction` -whether the domain restriction is enable
-  + `allowedDomains` -display the chat button on specified domains/URLs only.  
-  + `themeColor` - the theme color of chatbutton
-  + `icon` - icon of the chat button
-  + `imageType` - the type of the image ,including `gallery` and `upload`
-  + `onlineImageId` - id of the image when any agents are on line
-  + `offlineImageId` - id of the image when no agent is on line
-  + `onlineImageUrl` - url of the image when any agents are on line
-  + `offlineImageUrl` - url of the image when no agent is on line
-  + `isFloat` -whether the chat button is float
-  + `buttonXIsPixels` - whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent.
-  + `buttonX` -coordinate x the button,the unit acoording to `buttonXIsPixels`
-  + `buttonYIsPixels`- whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
-  + `buttonY` -coordinate y the button,the unit acoording to `buttonYIsPixels`
-  + `buttonPosition` - position of the chat button,including `centered`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle`  and `rightMiddle`.
-  + `mobileButtonType` -the type of button on mobile device,including `text` and `image`.
-    + `mobileOnlineText` -the content of text on mobile device when any agents are on line,available when `mobileButtonType` is `text`.
-    + `mobileOfflineText` -the content of text on mobile device when no agent is on line,available when `mobileButtonType` is `text`.
-    + `mobileThemeColor` - the theme color of chatbutton on mobile device,available when `mobileButtonType` is `text`.
-    + `mobileOnlineImageUrl` -the url of image on mobile device when any agents are on line,available when `mobileButtonType` is `image`.
-    + `mobileOfflineImageUrl` -the url of image on mobile device when no agent is on line,available when `mobileButtonType` is `image`.
-    + `mobileImagePosition` - position of the chat button on mobile device， including `bottomLeft`、`bottomMiddle`、`bottomRight`、`leftMiddle`、`RightMiddle`、`leftBottom` and `rightBottom`,available when `mobileButtonType` is `image`.
-  + `buttonText` -the content of the text link
-
-### Response
-  - `buttonType ` -type of the button,including `adaptive`、`image` and `textLink`.
-  - `isHideOffline` -whether the chatButton is visible when no agent is online.`true` means that button is invisible.
-  - `isEnableDomainRestriction` -whether the domain restriction is enable
-  - `allowedDomains` -display the chat button on specified domains/URLs only.
-  Optional:  
-  - `adaptiveSettings` - settings when `buttonType` is `adaptive`
-    + `themeColor` - the theme color of chatbutton
-    + `icon` - icon of the chat button
-  - `imageSettings` -settings when `buttonType` is `image`
-    + `imageType` - the type of the image ,including `gallery` and `upload`
-    + `onlineImageId` - id of the image when any agents are on line
-    + `offlineImageId` - id of the image when no agent is on line
-    + `onlineImageUrl` - url of the image when any agents are on line
-    + `offlineImageUrl` - url of the image when no agent is on line
-    + `isFloat` -whether the chat button is float
-    + `buttonXIsPixels` - whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent.
-    + `buttonX` -coordinate x the button,the unit acoording to `buttonXIsPixels`
-    + `buttonYIsPixels`- whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
-    + `buttonY` -coordinate y the button,the unit acoording to `buttonYIsPixels`
-    + `buttonPosition` - position of the chat button,including `centered`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`.
-    + `mobileButtonType` -the type of button on mobile device,including `text` and `image`.
-    + `mobileOnlineText` -the content of text on mobile device when any agents are on line,available when `mobileButtonType` is `text`.
-    + `mobileOfflineText` -the content of text on mobile device when no agent is on line,available when `mobileButtonType` is `text`.
-    + `mobileThemeColor` - the theme color of chatbutton on mobile device,available when `mobileButtonType` is `text`.
-    + `mobileOnlineImageUrl` -the url of image on mobile device when any agents are on line,available when `mobileButtonType` is `image`.
-    + `mobileOfflineImageUrl` -the url of image on mobile device when no agent is on line,available when `mobileButtonType` is `image`.
-    + `mobileImagePosition` - position of the chat button on mobile device， including `bottomLeft`、`bottomMiddle`、`bottomRight`、`leftMiddle`、`RightMiddle`、`leftBottom` and `rightBottom`,available when `mobileButtonType` is `image`.
-  - `textLinkSettings` -settings when `buttonType` is `textLink`
-    + `buttonText` -the content of the text link
-
-
-## Get settings of ChatWindow for a campaign
-### End Point
+      
+- Parameters     
+  Chat Button Json Object
+     
+- Response      
+  Chat Button Json Object
+     
+### Chat Window Json Format
+ Chat Window is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|themeType| string | no | yes |    type of the window's theme,including `classic`、`simple` and `bubble`.
+|themecolor| string | no | yes |    color of the window's theme.
+|windowType| string | no | yes |     type of the chat window,including `embedded` and `popup`.
+|windowtitle| string | no | no |     title of the chat window,available when `windowType` is `popup`.
+|isCanPrintChatDetail| boolean | no | no |    whether the print button is visible or not.
+|isShowEmail| boolean | no | no |    whether the email button is visible or not.
+|isUseOperatorEmailOrFromEmail| boolean | no | no |    set email from address
+|fromEmail_email| string | no | no |     set email from email address.
+|fromEmail_name| string | no | no |     set emial from email name
+|isCanSwitchToOffline| boolean | no | no |    allow visitors to switch to Offline Message Window while waiting for chat.
+|isCanSendFile| boolean | no | no |     whether the agent can send file or not.
+|isCanHaveAudioChat| boolean | no | no |    whether the agent can use audio chat.
+|isCanHaveVideoChat| boolean | no | no |    whether the agent can use video chat.
+|isEndChatWhenVisitorInactivity| boolean | no | no |    automatically end chats if visitors don't respond.
+|timeEndChatDelayWhenVisitorInactivity| string | no | no |    the time after the chat was end when visitor inactivity.
+|isEnableSendTranscriptEmail| boolean | no | no |    whether the agent can send transcript email after chat ending.
+|sendTranscriptEmailAddress| string | no | no |    the email address for sending transcript email.
+|sendTranscriptEmailSubject| string | no | no |    the subject address for sending transcript email.
+|greetingMessage| string | no | no |    the content of greeting message.
+|isEnableCustomJS| boolean | no | no |    whether the agent can add custom js to chat window or not.
+|customJS| string | no | no |    the content of custom javascript.
+|customCSS| string | no | no |     the content of custom css.
+|headerType| string | no | no |     type of the header,including `agentInfo`、`bannerImage` when `themeType` is `classic`,including `agentInfo`、`bannerImage` and `avatarAndCompanyLogo` when `themeType` is `simple`.
+|isShowDisplayName| boolean | no | no |     whether the display name of the agent is visible or not,available when `themeType` is `classic`or `simple` and `headerType` is `agentInfo`.
+|isShowAvatar| boolean | no | no |     whether the avatar of the agent is visible or not,available when `themeType` is `classic`or `simple` and `headerType` is `agentInfo` or `avatarAndCompanyLogo`.
+|isShowTitle| boolean | no | no |      whether the title of the agent is visible or not,available when `themeType` is `classic`or `simple` and `headerType` is `agentInfo`.
+|isShowBio| boolean | no | no |      whether the bio of the agent is visible or not,available when `themeType` is `classic`or `simple` and `headerType` is `agentInfo`.
+|imageType| string | no | no |     the type of the image ,including `gallery` and `upload`,available when `themeType` is `classic`or `simple`.
+|imageId| string | no | no |     id of the image in the header of chat window,available when `themeType` is `classic`or `simple` and `headerType` is `bannerImage`.
+|imageUrl| string | no | no |     url of the image in the header of chat window,available when `themeType` is `classic`or `simple` and `headerType` is `bannerImage`.
+|isShowLogo| boolean | no | no |     whether the logo of the company is visible or not,available when `themeType` is `classic` and `headerType` is `avatarAndCompanyLogo`.
+|companyImageId| string | no | no |     id of the company image in the header of chat window,available when `themeType` is `classic` and `headerType` is `avatarAndCompanyLogo` .
+|companyImageUrl| string | no | no |     url of the company image in the header of chat window,available when `themeType` is `classic` and `headerType` is `avatarAndCompanyLogo`.
+|isShowAvatarWithMessage| boolean | no | no |     whether the avatar of the agent is visible or not in the messsage body,available when `themeType` is `classic`or `simple`.
+|isShowTextureWithMessage| boolean | no | no |     whether the texture and picture of the background is visible or not in the messsage body,available when `themeType` is `classic`or `simple`.
+|backgroudImageId| string | no | no |     id of the background image in the message body,available when `themeType` is `classic`or `simple`.
+|backgroudImageUrl| string | no | no |     url of the company image in the message body,available when `themeType` is `classic`or `simple`.
+     
+### Get settings of ChatWindow for a campaign
+- End Point      
   `GET /api/v1/livechat/campaigns/{id}/chatWindow`
-
-### Parameters
+     
+- Parameters     
   No parameters
-
-### Response
-  - `themeType` -type of the window's theme,including `classic`、`simple` and `bubble`.
-  - `themecolor` -color of the window's theme.
-  - `windowType` - type of the chat window,including `embedded` and `popup`.
-  - `windowtitle` - title of the chat window.
-  - `isCanPrintChatDetail` -whether the print button is visible or not.
-  - `isShowEmail` -whether the email button is visible or not.
-  - `isUseOperatorEmailOrFromEmail` -set email from address
-  - `fromEmail_email` - set email from email address.
-  - `fromEmail_name` - set emial from email name
-  - `isCanSwitchToOffline` -allow visitors to switch to Offline Message Window while waiting for chat.
-  - `isCanSendFile` - whether the agent can send file or not.
-  - `isCanHaveAudioChat` -whether the agent can use audio chat.
-  - `isCanHaveVideoChat` -whether the agent can use video chat.
-  - `isEndChatWhenVisitorInactivity` -automatically end chats if visitors don't respond.
-  - `timeEndChatDelayWhenVisitorInactivity` -the time after the chat was end when visitor inactivity.
-  - `isEnableSendTranscriptEmail` -whether the agent can send transcript email after chat ending.
-  - `sendTranscriptEmailAddress` -the email address for sending transcript email.
-  - `sendTranscriptEmailSubject` -the subject address for sending transcript email.
-  - `greetingMessage` -the content of greeting message.
-  - `isEnableCustomJS` -whether the agent can add custom js to chat window or not.
-  - `customJS` -the content of custom javascript.
-  - `headerType` - type of the header,including `agentInfo`、`bannerImage` and `avatarAndCompanyLogo`.
-  - `isShowDisplayName` - whether the display name of the agent is visible or not. 
-  - `isShowAvatar` - whether the avatar of the agent is visible or not.
-  - `isShowTitle` -  whether the title of the agent is visible or not.
-  - `isShowBio` -  whether the bio of the agent is visible or not.
-  - `imageType` - the type of the image ,including `gallery` and `upload`
-  - `imageId` - id of the image in the header of chat window.
-  - `imageUrl` - url of the image in the header of chat window.
-  - `isShowAvatar` - whether the avatar of the agent is visible or not.
-  - `isShowLogo` - whether the logo of the company is visible or not.
-  - `companyImageId` - id of the company image in the header of chat window.
-  - `companyImageUrl` - url of the company image in the header of chat window.
-  - `isShowAvatarWithMessage` - whether the avatar of the agent is visible or not in the messsage body.
-  - `isShowTextureWithMessage` - whether the texture and picture of the background is visible or not in the messsage body.
-  - `backgroudImageId` - id of the background image in the message body.
-  - `backgroudImageUrl` - url of the company image in the message body.
-  - `customCSS` - the content of custom css.
-
-## Update settings of ChatWindow for a campaign
-### End Point
+     
+- Response      
+  Chat Window Json Object
+     
+### Update settings of ChatWindow for a campaign
+- End Point      
   `PUT /api/v1/livechat/campaigns/{id}/chatWindow`
+     
+- Parameters     
+  Chat Window Json Object
+     
+- Response      
+  Chat Window Json Object
 
-### Parameters
-    - `themeType` -type of the window's theme,including `classic`、`simple` and `bubble`.
-  - `themecolor` -color of the window's theme.
-  - `windowType` - type of the chat window,including `embedded` and `popup`.
-  - `windowtitle` - title of the chat window.
-  - `isCanPrintChatDetail` -whether the print button is visible or not.
-  - `isShowEmail` -whether the email button is visible or not.
-  - `isUseOperatorEmailOrFromEmail` -set email from address
-  - `fromEmail_email` - set email from email address.
-  - `fromEmail_name` - set emial from email name
-  - `isCanSwitchToOffline` -allow visitors to switch to Offline Message Window while waiting for chat.
-  - `isCanSendFile` - whether the agent can send file or not.
-  - `isCanHaveAudioChat` -whether the agent can use audio chat.
-  - `isCanHaveVideoChat` -whether the agent can use video chat.
-  - `isEndChatWhenVisitorInactivity` -automatically end chats if visitors don't respond.
-  - `timeEndChatDelayWhenVisitorInactivity` -the time after the chat was end when visitor inactivity.
-  - `isEnableSendTranscriptEmail` -whether the agent can send transcript email after chat ending.
-  - `sendTranscriptEmailAddress` -the email address for sending transcript email.
-  - `sendTranscriptEmailSubject` -the subject address for sending transcript email.
-  - `greetingMessage` -the content of greeting message.
-  - `isEnableCustomJS` -whether the agent can add custom js to chat window or not.
-  - `customJS` -the content of custom javascript.
-  Optional:  
-  - `headerType` - type of the header,including `agentInfo`、`bannerImage` and `avatarAndCompanyLogo`.
-  - `isShowDisplayName` - whether the display name of the agent is visible or not. 
-  - `isShowAvatar` - whether the avatar of the agent is visible or not.
-  - `isShowTitle` -  whether the title of the agent is visible or not.
-  - `isShowBio` -  whether the bio of the agent is visible or not.
-  - `imageType` - the type of the image ,including `gallery` and `upload`
-  - `imageId` - id of the image in the header of chat window.
-  - `imageUrl` - url of the image in the header of chat window.
-  - `isShowAvatar` - whether the avatar of the agent is visible or not.
-  - `isShowLogo` - whether the logo of the company is visible or not.
-  - `companyImageId` - id of the company image in the header of chat window.
-  - `companyImageUrl` - url of the company image in the header of chat window.
-  - `isShowAvatarWithMessage` - whether the avatar of the agent is visible or not in the messsage body.
-  - `isShowTextureWithMessage` - whether the texture and picture of the background is visible or not in the messsage body.
-  - `backgroudImageId` - id of the background image in the message body.
-  - `backgroudImageUrl` - url of the company image in the message body.
-  - `customCSS` - the content of custom css.
+### Pre-Chat Json Format
+ Pre-Chat is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|isEnable| boolean | no | yes |    whether the pre-chat is enable or not.
+|greetingMessage| string | no | no |     content of greeting message.
+|isEnableGoogle| boolean | no | no |    whether google is enable or not in social login.
+|isEnableFacebook| boolean | no | no |    whether facebook is enable or not in social login.
+|isRememberForm| boolean | no | no |    whether visitor info is remembered or not from pre-chat form.
+|fieldLayoutStyle| string | no | no |    the layout style of field,including `labelLeftSideInput` and `labelAboveInput`.
+|fields| Array | no | no |     an array of [field](#field) object 
 
-### Response
-    - `themeType` -type of the window's theme,including `classic`、`simple` and `bubble`.
-  - `themecolor` -color of the window's theme.
-  - `windowType` - type of the chat window,including `embedded` and `popup`.
-  - `windowtitle` - title of the chat window.
-  - `isCanPrintChatDetail` -whether the print button is visible or not.
-  - `isShowEmail` -whether the email button is visible or not.
-  - `isUseOperatorEmailOrFromEmail` -set email from address
-  - `fromEmail_email` - set email from email address.
-  - `fromEmail_name` - set emial from email name
-  - `isCanSwitchToOffline` -allow visitors to switch to Offline Message Window while waiting for chat.
-  - `isCanSendFile` - whether the agent can send file or not.
-  - `isCanHaveAudioChat` -whether the agent can use audio chat.
-  - `isCanHaveVideoChat` -whether the agent can use video chat.
-  - `isEndChatWhenVisitorInactivity` -automatically end chats if visitors don't respond.
-  - `timeEndChatDelayWhenVisitorInactivity` -the time after the chat was end when visitor inactivity.
-  - `isEnableSendTranscriptEmail` -whether the agent can send transcript email after chat ending.
-  - `sendTranscriptEmailAddress` -the email address for sending transcript email.
-  - `sendTranscriptEmailSubject` -the subject address for sending transcript email.
-  - `greetingMessage` -the content of greeting message.
-  - `isEnableCustomJS` -whether the agent can add custom js to chat window or not.
-  - `customJS` -the content of custom javascript.
-  - `headerType` - type of the header,including `agentInfo`、`bannerImage` and `avatarAndCompanyLogo`.
-  - `isShowDisplayName` - whether the display name of the agent is visible or not. 
-  - `isShowAvatar` - whether the avatar of the agent is visible or not.
-  - `isShowTitle` -  whether the title of the agent is visible or not.
-  - `isShowBio` -  whether the bio of the agent is visible or not.
-  - `imageType` - the type of the image ,including `gallery` and `upload`
-  - `imageId` - id of the image in the header of chat window.
-  - `imageUrl` - url of the image in the header of chat window.
-  - `isShowAvatar` - whether the avatar of the agent is visible or not.
-  - `isShowLogo` - whether the logo of the company is visible or not.
-  - `companyImageId` - id of the company image in the header of chat window.
-  - `companyImageUrl` - url of the company image in the header of chat window.
-  - `isShowAvatarWithMessage` - whether the avatar of the agent is visible or not in the messsage body.
-  - `isShowTextureWithMessage` - whether the texture and picture of the background is visible or not in the messsage body.
-  - `backgroudImageId` - id of the background image in the message body.
-  - `backgroudImageUrl` - url of the company image in the message body.
-  - `customCSS` - the content of custom css.
+### Field
+Field is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|id| integer | yes | no |     id of the field
+|name| string | no | yes |     name of the field
+|[type](#field-type)| string | no | yes |     the type of the field
+|isSystem| string | no | no |     whether the field is system field or not.
+|isVisible| string | no | no |     whether the field is visible or not in the pre-chat form.
+|isRequired| string | no | no |     whether the field is required or not when submiting the form
+|options| string | no | no |     the options of the field, available when the `type` is not `department`.
 
-## Update settings of PreChat for a campaign
-### End Point
+### Field Type
+  Field Type is one key of the following keys:    
+
+|name          | isSystemField | isCustomField | description         
+| ------------- |---------------- | ----- | ----- 
+|name| yes | no |     Name field,available not in secure form.
+|email| yes  | no |     Email field,available not in secure form.
+|phone| yes  | no |     Phone field,available not in secure form.
+|company| yes  | no |     Company field,available not in secure form.
+|product| yes  | no |     Product and Service field,available not in secure form.
+|department| yes  | no |     Department field,available not in secure form.
+|ticket| yes  | no |     Ticket field,available not in secure form.
+|rating| yes  | no |     Rating field,available not in secure form.
+|comment| yes  | no |     Comment field,available not in secure form.
+|subject| yes  | no |     Subject field,available not in secure form.
+|content| yes  | no |     Content field,available not in secure form.
+|attachment| yes  | no |     Attachment field,available not in secure form.
+|card number|  no | yes |     card number field ,available in secure form.
+|expiration date|  no | yes |     expiration date field,available in secure form.
+|csc/cvv|  no | yes |     csc/cvv field ,available in secure form.
+|name on card|  no | yes |     name on card field ,available in secure form.
+|text|  no | yes |     Text field 
+|textarea|  no | yes |     Textarea field 
+|radio|  no | yes |     Radio Box field 
+|checkbox|  no | yes |     Check Box field 
+|select|  no | yes |     Drop Down List field 
+|checkboxList | no | yes |     Check Box List field 
+     
+### Update settings of PreChat for a campaign
+- End Point      
   `PUT /api/v1/livechat/campaigns/{id}/prechat`
-
-### Parameters
-  - `isEnable` -whether the pre-chat is enable or not.
-  - `greetingMessage` - content of greeting message.
-  - `isEnableGoogle` -whether google is enable or not in social login.
-  - `isEnableFacebook` -whether facebook is enable or not in social login.
-  - `isRememberForm` -whether visitor info is remembered or not from pre-chat form.
-  - `fieldLayoutStyle` -the layout style of field.
-  - `fields` - fields list
-    + `id` - id of the field
-    + `name` - name of the field
-    + `type` - type of the field
-      * `name` - Name field (system field)
-      * `email` - Email field (system field)
-      * `phone` - Phone field (system field)
-      * `company` - Company field (system field)
-      * `product` - Product and Service field (system field)
-      * `department` - Department field (system field)
-      * `ticket` - Ticket field (system field)
-      * `rating` - Rating field (system field)
-      * `comment` - Comment field (system field)
-      * `subject` - Subject field (system field)
-      * `content` - Content field (system field)
-      * `attachment` - Attachment field (system field)
-      * `text` - Text field (custom field)
-      * `textarea` - Textarea field (custom field)
-      * `radio` - Radio Box field (custom field)
-      * `checkbox` - Check Box field (custom field)
-      * `select` - Drop Down List field (custom field)
-      * `checkboxList` - Check Box List field (custom field)
-    + `isSystem` - whether the field is system field or not.
-    + `isVisible` - whether the field is visible or not in the pre-chat form.
-    + `isRequired` - whether the field is required or not when submiting the form
-    + `options` - the options of the field, available when the `type` is not `department`.
-
-### Response
-  - `isEnable` -whether the pre-chat is enable or not.
-  - `greetingMessage` - content of greeting message.
-  - `isEnableGoogle` -whether google is enable or not in social login.
-  - `isEnableFacebook` -whether facebook is enable or not in social login.
-  - `isRememberForm` -whether visitor info is remembered or not from pre-chat form.
-  - `fieldLayoutStyle` -the layout style of field.
-  - `fields` - fields list
-    + `id` - id of the field
-    + `name` - name of the field
-    + `type` - type of the field
-    + `isSystem` - whether the field is system field or not.
-    + `isVisible` - whether the field is visible or not in the pre-chat form.
-    + `isRequired` - whether the field is required or not when submiting the form.
-    + `options` - the options of the field
-
-## Update settings of PostChat for a campaign
-### End Point
+     
+- Parameters     
+  Pre-Chat Json Object
+     
+- Response      
+Pre-Chat Json Object
+     
+### Post-Chat Json Format
+ Post-Chat is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|isEnable| boolean | no | yes |    whether the post-chat is enable or not.
+|greetingMessage| string | no | no |     content of greeting message.
+|isEnableGoogle| boolean | no | no |    whether google is enable or not in social login.
+|isEnableFacebook| boolean | no | no |    whether facebook is enable or not in social login.
+|isRememberForm| boolean | no | no |    whether visitor info is remembered or not from post-chat form.
+|fieldLayoutStyle| string | no | no |    the layout style of field,including `labelLeftSideInput` and `labelAboveInput`.
+|fields| Array | no | no |     an array of [field](#field) object
+     
+### Update settings of PostChat for a campaign
+- End Point      
   `PUT /api/v1/livechat/campaigns/{id}/postchat`
-
-### Parameters
-  - `isEnable` -whether the post-chat is enable or not.
-  - `greetingMessage` - content of greeting message.
-  - `isEnableGoogle` -whether google is enable or not in social login.
-  - `isEnableFacebook` -whether facebook is enable or not in social login.
-  - `isRememberForm` -whether visitor info is remembered or not from post-chat form.
-  - `fieldLayoutStyle` -the layout style of field,including `labelLeftSideInput` and `labelAboveInput`
-  - `fields` - fields list
-    + `id` - id of the field
-    + `name` - name of the field
-    + `type` - type of the field
-      * `name` - Name field (system field)
-      * `email` - Email field (system field)
-      * `phone` - Phone field (system field)
-      * `company` - Company field (system field)
-      * `product` - Product and Service field (system field)
-      * `department` - Department field (system field)
-      * `ticket` - Ticket field (system field)
-      * `rating` - Rating field (system field)
-      * `comment` - Comment field (system field)
-      * `subject` - Subject field (system field)
-      * `content` - Content field (system field)
-      * `attachment` - Attachment field (system field)
-      * `text` - Text field (custom field)
-      * `textarea` - Textarea field (custom field)
-      * `radio` - Radio Box field (custom field)
-      * `checkbox` - Check Box field (custom field)
-      * `select` - Drop Down List field (custom field)
-      * `checkboxList` - Check Box List field (custom field)
-    + `isSystem` - whether the field is system field or not.
-    + `isVisible` - whether the field is visible or not.
-    + `isRequired` - whether the field is required or not when submiting the form.
-    + `options` - the options of the field
-
-### Response
-  - `isEnable` -whether the pre-chat is enable or not.
-  - `greetingMessage` - content of greeting message.
-  - `isEnableGoogle` -whether google is enable or not in social login.
-  - `isEnableFacebook` -whether facebook is enable or not in social login.
-  - `isRememberForm` -whether visitor info is remembered or not from post-chat form.
-  - `fieldLayoutStyle` -the layout style of field.
-  - `fields` - fields list
-    + `id` - id of the field
-    + `name` - name of the field
-    + `type` - type of the field
-    + `isSystem` - whether the field is system field or not.
-    + `isVisible` - whether the field is visible or not.
-    + `isRequired` - whether the field is required or not when submiting the form.
-    + `options` - the options of the field
-
-## Update settings of offline message for a campaign
-### End Point
+     
+- Parameters     
+  Post-Chat Json Object
+     
+- Response      
+  Post-Chat Json Object
+     
+### Offline Message Json Format 
+ Offline Message is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|isUseCustomOfflinePage| boolean | no | yes |    whether the custom offline message page is used or not.
+|greetingMessage| string | no | no |     content of greeting message.
+|url| string | no | no |    url of custom offline message page.
+|isOpenInNewWindow| boolean | no | no |    whether open page in a new window or not.
+|isShowTeamName| boolean | no | no |    whether the name of the agent is visible or not in the header.
+|isShowAvatar| boolean | no | no |    whether the avatar of the agent is visible or not in the header.
+|fieldLayoutStyle| string | no | no |    the layout style of field,including `labelLeftSideInput` and `labelAboveInput`.
+|fields| Array | no | no |     an array of [field](#field) object
+     
+### Update settings of offline message for a campaign
+- End Point      
   `PUT /api/v1/livechat/campaigns/{id}/offlineMessage`
+     
+- Parameters     
+Offline Message Json Object
+     
+- Response      
+Offline Message Json Object
 
-### Parameters
-  - `isUseCustomOfflinePage` -whether the custom offline message page is used or not.
-  - `greetingMessage` - content of greeting message.
-  - `url` -url of custom offline message page.
-  - `isOpenInNewWindow` -whether open page in a new window or not.
-  - `isShowTeamName` - whether the name of the agent is visible or not in the header.
-  - `isShowAvatar` - whether the avatar of the agent is visible or not in the header.
-  - `fieldLayoutStyle` -the layout style of field,including `labelLeftSideInput` and `labelAboveInput`
-  - `fields` - fields list
-    + `id` - id of the field
-    + `name` - name of the field
-    + `type` - type of the field
-      * `name` - Name field (system field)
-      * `email` - Email field (system field)
-      * `phone` - Phone field (system field)
-      * `company` - Company field (system field)
-      * `product` - Product and Service field (system field)
-      * `department` - Department field (system field)
-      * `ticket` - Ticket field (system field)
-      * `rating` - Rating field (system field)
-      * `comment` - Comment field (system field)
-      * `subject` - Subject field (system field)
-      * `content` - Content field (system field)
-      * `attachment` - Attachment field (system field)
-      * `text` - Text field (custom field)
-      * `textarea` - Textarea field (custom field)
-      * `radio` - Radio Box field (custom field)
-      * `checkbox` - Check Box field (custom field)
-      * `select` - Drop Down List field (custom field)
-      * `checkboxList` - Check Box List field (custom field)
-    + `isSystem` - whether the field is system field or not.
-    + `isVisible` - whether the field is visible or not .
-    + `isRequired` - whether the field is required or not when submiting the form.
-    + `options` - the options of the field
+### Invitation Window Json Format    
+ Invitation Window is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|invitationMessage|string  | no  | no| content of invitation message.
+|imageType|string  | no  | yes| the type of image source,including `gallery` or `upload`
+|imageId|string  | no  | no|id of invitation image.
+|imageUrl|string  | no  | no|url of invitation image.
+|invitationPosition|string  | no  | no| the position of invitation window,including `centered`、`centeredWithOverlay`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`.
+|invitationXOffset|string  | no  | no|coordinate x of the button,the unit acoording to `buttonXIsPixels`
+|invitationYOffset|string  | no  | no|coordinate y of the button,the unit acoording to `buttonYIsPixels`
+|invitationXOffsetIfPixels|string  | no  | no|whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent.
+|invitationYOffsetIfPixels|string  | no  | no| whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
+|textFont|string  | no  | no| the font of text.
+|textIsBold|string  | no  | no| whether the text is bold or not.
+|textSize|string  | no  | no| the size of text.
+|textIsItalic|string  | no  | no| whether the text is italic or not.
+|textColor|string  | no  | no| the color of text.
+|closeAreaXOffset|string  | no  | no| coordinate x of the close area
+|closeAreaYOffset|string  | no  | no| coordinate y of the close area
+|closeAreaWidth|string  | no  | no| width of the close area
+|closeAreaHeight|string  | no  | no| height of the close area
+|textAreaXOffset|string  | no  | no| coordinate x of the text area
+|textAreaYOffset|string  | no  | no| coordinate y of the text area
+|textAreaWidth|string  | no  | no| width of the text area
+|textAreaHeight|string  | no  | no| height of the text area
+|invitationStyle|string  | no  | yes|the layout style of invitation window,including `bubble`、`popup` and `chatWindow`.
 
-### Response
-  - `isUseCustomOfflinePage` -whether the custom offline message page is used or not.
-  - `greetingMessage` - content of greeting message.
-  - `customOfflinePage` -settings of custom offline message page.
-    + `url` -url of custom offline message page.
-    + `isOpenInNewWindow` -whether open page in a new window or not.
-  - `isShowTeamName` - whether the name of the agent is visible or not in the header.
-  - `isShowAvatar` - whether the avatar of the agent is visible or not in the header.
-  - `fieldLayoutStyle` -the layout style of field.
-  - `fields` - fields list
-    + `id` - id of the field
-    + `name` - name of the field
-    + `type` - type of the field
-    + `isSystem` - whether the field is system field or not.
-    + `isVisible` - whether the field is visible or not .
-    + `isRequired` - whether the field is required or not when submiting the form.
-    + `options` - the options of the field
+### Auto Invitation Json Format
+Auto Invitation is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|id|integer  | yes  | no| id of the auto invitation.
+|name|string  | no  | yes| name of auto invitation.
+|isEnable|boolean  | no  | yes| whether the auto invitation is enable or not.
+|isPopupOnlyOneTime|boolean  | no  | no| whether pop up only one time during one visit
+|[invitationWindow](#invitation-window)|json object  | no  | no| an invitation window json object.
+|[triggerCondition](#trigger-condition)|json object  | no  | no| an trigger condition json object.
 
-## Get settings of invitation for a campaign
-### End Point
+### Trigger Condition Json Format
+Trigger Condition is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|triggeredWhen|string  | no  | no| when the rule is triggered, including `all`、`any` and `logicalExpression` 
+|logicalExpression|string  | no  | no| the logical expression of the conditions
+|conditions|array  | no  | no|an array of [condition](#condition-json-format)
+
+### condition Json Format
+Condition is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|variableName|string  | no  | yes| name of the variable,including comm100 system variable and custom variable
+|expression|string  | no  | yes| expression of the condition
+|value|string  | no  | yes| the value response to the variable
+
+### Get settings of invitation for a campaign
+- End Point      
   `GET /api/v1/livechat/campaigns/{id}/invitation`
-
-### Parameters
+     
+- Parameters     
   No parameters
-
-### Response
-  - `autoInvitations` - auto invitation list.
-    + `id` - id of auto invitation
-    + `name` -name of auto invitation
-    + `isEnable` - whether the auto invitation is enable or not.
-  - `manualInvitationMessage` - content of manual invitation message.
-  - `imageType` - the type of image source,including `gallery` or `upload`
-  - `imageId` -id of invitation image.
-  - `imageUrl` -url of invitation image.
-  - `invitationPosition` - the position of invitation window,including `centered`、`centeredWithOverlay`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`.
-  - `invitationXOffset` -coordinate x of the button,the unit acoording to `buttonXIsPixels`
-  - `invitationYOffset` -coordinate y of the button,the unit acoording to `buttonYIsPixels`
-  - `invitationXOffsetIfPixels` -whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent.
-  - `invitationYOffsetIfPixels` - whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
-  - `textFont` - the font of text.
-  - `textIsBold` - whether the text is bold or not.
-  - `textSize` - the size of text.
-  - `textIsItalic` - whether the text is italic or not.
-  - `textColor` - the color of text.
-  - `closeAreaXOffset` - coordinate x of the close area
-  - `closeAreaYOffset` - coordinate y of the close area
-  - `closeAreaWidth` - width of the close area
-  - `closeAreaHeight` - height of the close area
-  - `textAreaXOffset` - coordinate x of the text area
-  - `textAreaYOffset` - coordinate y of the text area
-  - `textAreaWidth` - width of the text area
-  - `textAreaHeight` - height of the text area
-  - `invitationStyle` -the layout style of invitation window,including `bubble`、`popup` and `chatWindow`.
-
+     
+- Response      
+  - `autoInvitations` - an array of [auto invitation](#auto-invitation-json-format) json object.
+  - `manualInvitation` - [invitation window](#invitation-window-json-format) json object
+     
 ## Update settings of invitation for a campaign
-### End Point
+- End Point      
   `PUT /api/v1/livechat/campaigns/{id}/invitation`
-
-### Parameters
-  optional:
-  - `autoInvitations` - auto invitation list.
-    + `id` - id of auto invitation
-    + `isEnable` - whether the auto invitation is enable or not.
-  - `manualInvitationMessage` - content of manual invitation message.
-  - `imageType` - the type of image source,including `gallery` or `upload`
-  - `imageId` -id of invitation image.
-  - `imageUrl` -url of invitation image.
-  - `invitationPosition` - the position of invitation window,including `centered`、`centeredWithOverlay`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`.
-  - `invitationXOffset` -coordinate x of the button,the unit acoording to `buttonXIsPixels`
-  - `invitationYOffset` -coordinate y of the button,the unit acoording to `buttonYIsPixels`
-  - `invitationXOffsetIfPixels` -whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent.
-  - `invitationYOffsetIfPixels` - whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
-  - `textFont` - the font of text.
-  - `textIsBold` - whether the text is bold or not.
-  - `textSize` - the size of text.
-  - `textIsItalic` - whether the text is italic or not.
-  - `textColor` - the color of text.
-  - `closeAreaXOffset` - coordinate x of the close area
-  - `closeAreaYOffset` - coordinate y of the close area
-  - `closeAreaWidth` - width of the close area
-  - `closeAreaHeight` - height of the close area
-  - `textAreaXOffset` - coordinate x of the text area
-  - `textAreaYOffset` - coordinate y of the text area
-  - `textAreaWidth` - width of the text area
-  - `textAreaHeight` - height of the text area
-  - `invitationStyle` -the layout style of invitation window,including `bubble`、`popup` and `chatWindow`.
-
-### Response
-  - `autoInvitations` - auto invitation list.
-    + `id` - id of auto invitation
-    + `name` -name of auto invitation
-    + `isEnable` - whether the auto invitation is enable or not.
-  - `manualInvitationMessage` - content of manual invitation message.
-  - `imageType` - the type of image source,including `gallery` or `upload`
-  - `imageId` -id of invitation image.
-  - `imageUrl` -url of invitation image.
-  - `invitationPosition` - the position of invitation window,including `centered`、`centeredWithOverlay`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`.
-  - `invitationXOffset` -coordinate x of the button,the unit acoording to `buttonXIsPixels`
-  - `invitationYOffset` -coordinate y of the button,the unit acoording to `buttonYIsPixels`
-  - `invitationXOffsetIfPixels` -whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent.
-  - `invitationYOffsetIfPixels` - whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
-  - `textFont` - the font of text.
-  - `textIsBold` - whether the text is bold or not.
-  - `textSize` - the size of text.
-  - `textIsItalic` - whether the text is italic or not.
-  - `textColor` - the color of text.
-  - `closeAreaXOffset` - coordinate x of the close area
-  - `closeAreaYOffset` - coordinate y of the close area
-  - `closeAreaWidth` - width of the close area
-  - `closeAreaHeight` - height of the close area
-  - `textAreaXOffset` - coordinate x of the text area
-  - `textAreaYOffset` - coordinate y of the text area
-  - `textAreaWidth` - width of the text area
-  - `textAreaHeight` - height of the text area
-  - `invitationStyle` -the layout style of invitation window,including `bubble`、`popup` and `chatWindow`.
-
-## Get a autoInvitation for a campaign
-### End Point
+      
+- Parameters     
+  - `autoInvitations` - an array of [auto invitation](#auto-invitation-json-format) json object.
+  - `manualInvitation` - [invitation window](#invitation-window-json-format) json object
+      
+- Response      
+  - `autoInvitations` - an array of [auto invitation](#auto-invitation-json-format) json object.
+  - `manualInvitation` - [invitation window](#invitation-window-json-format) json object
+      
+### Get a autoInvitation for a campaign
+- End Point      
   `GET /api/v1/livechat/campaigns/{id}/invitation/autoInvitations/{autoInvitation_id}`
-
-### Parameters
+      
+- Parameters     
   No parameters
-
-### Response
-  - `id` -id of the auto invitation
-  - `isEnable` - whether the auto invitation is enable or not.
-  - `autoInvitationMessage` - content of auto invitation message.
-  - `name` -name of the auto invitation
-  - `imageType` - the type of image source,including `gallery` or `upload`
-  - `imageId` -id of invitation image.
-  - `imageUrl` -url of invitation image.
-  - `invitationPosition` - the position of invitation window,including `centered`、`centeredWithOverlay`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`.
-  - `invitationXOffset` -coordinate x of the button,the unit acoording to `buttonXIsPixels`
-  - `invitationYOffset` -coordinate y of the button,the unit acoording to `buttonYIsPixels`
-  - `invitationXOffsetIfPixels` -whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent.
-  - `invitationYOffsetIfPixels` - whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
-  - `textFont` - the font of text.
-  - `textIsBold` - whether the text is bold or not.
-  - `textSize` - the size of text.
-  - `textIsItalic` - whether the text is italic or not.
-  - `textColor` - the color of text.
-  - `closeAreaXOffset` - coordinate x of the close area
-  - `closeAreaYOffset` - coordinate y of the close area
-  - `closeAreaWidth` - width of the close area
-  - `closeAreaHeight` - height of the close area
-  - `textAreaXOffset` - coordinate x of the text area
-  - `textAreaYOffset` - coordinate y of the text area
-  - `textAreaWidth` - width of the text area
-  - `textAreaHeight` - height of the text area
-  - `isPopupOnlyOneTime` - pop up only one time during one visit
-  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
-  - `logicalExpression` - the logical expression of the conditions
-  - `conditions` -condition list
-    + `variableName` - name of the variable,including comm100 system variable and custom variable
-    + `expression` - expression of the condition
-    + `value` - the value response to the variable
-
+      
+- Response      
+  Auto Invitation Json Object
+      
 ## Create a new auto invitation for a campaign
-### End Point
+- End Point      
   `POST /api/v1/livechat/campaigns/{id}/invitation/autoInvitations`
-
-### Parameters
-  - `isEnable` - whether the auto invitation is enable or not.
-  - `autoInvitationMessage` - content of auto invitation message.
-  - `name` -name of the auto invitation
-  - `imageType` - the type of image source,including `gallery` or `upload`
-  - `imageId` -id of invitation image.
-  - `imageUrl` -url of invitation image.
-  - `invitationPosition` - the position of invitation window,including `centered`、`centeredWithOverlay`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`.
-  - `invitationXOffset` -coordinate x of the button,the unit acoording to `buttonXIsPixels`
-  - `invitationYOffset` -coordinate y of the button,the unit acoording to `buttonYIsPixels`
-  - `invitationXOffsetIfPixels` -whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent.
-  - `invitationYOffsetIfPixels` - whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
-  - `textFont` - the font of text.
-  - `textIsBold` - whether the text is bold or not.
-  - `textSize` - the size of text.
-  - `textIsItalic` - whether the text is italic or not.
-  - `textColor` - the color of text.
-  - `closeAreaXOffset` - coordinate x of the close area
-  - `closeAreaYOffset` - coordinate y of the close area
-  - `closeAreaWidth` - width of the close area
-  - `closeAreaHeight` - height of the close area
-  - `textAreaXOffset` - coordinate x of the text area
-  - `textAreaYOffset` - coordinate y of the text area
-  - `textAreaWidth` - width of the text area
-  - `textAreaHeight` - height of the text area
-  - `isPopupOnlyOneTime` - pop up only one time during one visit
-  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
-  - `logicalExpression` - the logical expression of the conditions
-  - `conditions` -condition list
-    + `variableName` - name of the variable,including comm100 system variable and custom variable
-    + `expression` - expression of the condition
-    + `value` - the value response to the variable
-
-### Response
-  - `id` -id of the auto invitation
-  - `isEnable` - whether the auto invitation is enable or not.
-  - `autoInvitationMessage` - content of auto invitation message.
-  - `name` -name of the auto invitation
-  - `imageType` - the type of image source,including `gallery` or `upload`
-  - `imageId` -id of invitation image.
-  - `imageUrl` -url of invitation image.
-  - `invitationPosition` - the position of invitation window,including `centered`、`centeredWithOverlay`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`.
-  - `invitationXOffset` -coordinate x of the button,the unit acoording to `buttonXIsPixels`
-  - `invitationYOffset` -coordinate y of the button,the unit acoording to `buttonYIsPixels`
-  - `invitationXOffsetIfPixels` -whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent.
-  - `invitationYOffsetIfPixels` - whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
-  - `textFont` - the font of text.
-  - `textIsBold` - whether the text is bold or not.
-  - `textSize` - the size of text.
-  - `textIsItalic` - whether the text is italic or not.
-  - `textColor` - the color of text.
-  - `closeAreaXOffset` - coordinate x of the close area
-  - `closeAreaYOffset` - coordinate y of the close area
-  - `closeAreaWidth` - width of the close area
-  - `closeAreaHeight` - height of the close area
-  - `textAreaXOffset` - coordinate x of the text area
-  - `textAreaYOffset` - coordinate y of the text area
-  - `textAreaWidth` - width of the text area
-  - `textAreaHeight` - height of the text area
-  - `isPopupOnlyOneTime` - pop up only one time during one visit
-  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
-  - `logicalExpression` - the logical expression of the conditions
-  - `conditions` -condition list
-    + `variableName` - name of the variable,including comm100 system variable and custom variable
-    + `expression` - expression of the condition
-    + `value` - the value response to the variable
-
+       
+- Parameters     
+  Auto Invitation Json Object
+       
+- Response      
+  Auto Invitation Json Object
+       
 ## Update a auto invitation for a campaign
-### End Point
+- End Point      
   `PUT /api/v1/livechat/campaigns/{id}/invitation/autoInvitations/{autoInvitation_id}`
-
-### Parameters
-  - `isEnable` - whether the auto invitation is enable or not.
-  - `autoInvitationMessage` - content of auto invitation message.
-  - `name` -name of the auto invitation
-  - `imageType` - the type of image source,including `gallery` or `upload`
-  - `imageId` -id of invitation image.
-  - `imageUrl` -url of invitation image.
-  - `invitationPosition` - the position of invitation window,including `centered`、`centeredWithOverlay`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`.
-  - `invitationXOffset` -coordinate x of the button,the unit acoording to `buttonXIsPixels`
-  - `invitationYOffset` -coordinate y of the button,the unit acoording to `buttonYIsPixels`
-  - `invitationXOffsetIfPixels` -whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent.
-  - `invitationYOffsetIfPixels` - whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
-  - `textFont` - the font of text.
-  - `textIsBold` - whether the text is bold or not.
-  - `textSize` - the size of text.
-  - `textIsItalic` - whether the text is italic or not.
-  - `textColor` - the color of text.
-  - `closeAreaXOffset` - coordinate x of the close area
-  - `closeAreaYOffset` - coordinate y of the close area
-  - `closeAreaWidth` - width of the close area
-  - `closeAreaHeight` - height of the close area
-  - `textAreaXOffset` - coordinate x of the text area
-  - `textAreaYOffset` - coordinate y of the text area
-  - `textAreaWidth` - width of the text area
-  - `textAreaHeight` - height of the text area
-  - `isPopupOnlyOneTime` - pop up only one time during one visit
-  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
-  - `logicalExpression` - the logical expression of the conditions
-  - `conditions` -condition list
-    + `variableName` - name of the variable,including comm100 system variable and custom variable
-    + `expression` - expression of the condition
-    + `value` - the value response to the variable
-
-### Response
-  - `id` -id of the auto invitation
-  - `isEnable` - whether the auto invitation is enable or not.
-  - `autoInvitationMessage` - content of auto invitation message.
-  - `name` -name of the auto invitation
-  - `imageType` - the type of image source,including `gallery` or `upload`
-  - `imageId` -id of invitation image.
-  - `imageUrl` -url of invitation image.
-  - `invitationPosition` - the position of invitation window,including `centered`、`centeredWithOverlay`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`.
-  - `invitationXOffset` -coordinate x of the button,the unit acoording to `buttonXIsPixels`
-  - `invitationYOffset` -coordinate y of the button,the unit acoording to `buttonYIsPixels`
-  - `invitationXOffsetIfPixels` -whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent.
-  - `invitationYOffsetIfPixels` - whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
-  - `textFont` - the font of text.
-  - `textIsBold` - whether the text is bold or not.
-  - `textSize` - the size of text.
-  - `textIsItalic` - whether the text is italic or not.
-  - `textColor` - the color of text.
-  - `closeAreaXOffset` - coordinate x of the close area
-  - `closeAreaYOffset` - coordinate y of the close area
-  - `closeAreaWidth` - width of the close area
-  - `closeAreaHeight` - height of the close area
-  - `textAreaXOffset` - coordinate x of the text area
-  - `textAreaYOffset` - coordinate y of the text area
-  - `textAreaWidth` - width of the text area
-  - `textAreaHeight` - height of the text area
-  - `isPopupOnlyOneTime` - pop up only one time during one visit
-  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
-  - `logicalExpression` - the logical expression of the conditions
-  - `conditions` -condition list
-    + `variableName` - name of the variable,including comm100 system variable and custom variable
-    + `expression` - expression of the condition
-    + `value` - the value response to the variable
-
-## Update settings of agent wrap-up for a campaign
-### End Point
+       
+- Parameters     
+  Auto Invitation Json Object
+       
+- Response      
+  Auto Invitation Json Object
+       
+### Update settings of agent wrap-up for a campaign
+- End Point      
   `PUT /api/v1/livechat/campaigns/{id}/agentWrapup`
+     
+- Parameters     
+  an array of field json object 
+     
+- Response      
+  an array of field json object 
+     
+### Custom Rule Json Format
+Custom Rule is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|id|integer  | yes  | no| id of the custom rule
+|name|string  | no  | yes |name of the custom rule
+|[triggerCondition](#trigger-condition)|json object  | no  | no| an trigger condition json object.
+|routeType|boolean  | no  | yes | type of the route,including `agent` and `department`, value `department` is available when config of department is open.
+|routeOjbectId|integer  | yes  | yes | id of the route object
+|priority|string  | no  | no | the priority of the department,including `lowest`、`low`、`normal`、`high` and `highest`.
+|isEnable|boolean  | no  | no |whether the custom rule is enable or not.
 
-### Parameters
-  - `fields` - fields list
-    + `id` - id of the field
-    + `name` - name of the field
-    + `type` - type of the field
-      * `name` - Name field (system field)
-      * `email` - Email field (system field)
-      * `phone` - Phone field (system field)
-      * `company` - Company field (system field)
-      * `product` - Product and Service field (system field)
-      * `department` - Department field (system field)
-      * `ticket` - Ticket field (system field)
-      * `rating` - Rating field (system field)
-      * `comment` - Comment field (system field)
-      * `subject` - Subject field (system field)
-      * `content` - Content field (system field)
-      * `attachment` - Attachment field (system field)
-      * `text` - Text field (custom field)
-      * `textarea` - Textarea field (custom field)
-      * `radio` - Radio Box field (custom field)
-      * `checkbox` - Check Box field (custom field)
-      * `select` - Drop Down List field (custom field)
-      * `checkboxList` - Check Box List field (custom field)
-    + `isSystem` - whether the field is system field or not.
-    + `isVisible` - whether the field is visible or not .
-    + `isRequired` - whether the field is required or not when submiting the form.
-    + `options` - the options of the field
+### Route Rule Json Format
+Route Rule is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|isEnable|boolean  | no  | yes |whether the routing rules is enable or not.
+|routingType|string  | no  | no |the type of routing,including `routeDepartmentOrAgent` and `routeCustomRules`.
+|routeRule|string  | no  | no | the rule of route ,including `department` and `agent`
+|departmentId|string  | no  | no | id of the department
+|departmentPriority|string  | no  | no | the priority of the department,including `lowest`、`low`、`normal`、`high` and `highest`.
+|agentId|string  | no  | no | id of the agent
+|agentPriority|string  | no  | no | the priority of the agent,including `lowest`、`low`、`normal`、`high` and `highest`.
+|customRules|array  | no  | no | an array of [Custom Rule](#custom-rule-json-format) json object.
+|failRoutingType|string  | no  | no |the type of fail routing,including `routeDepartmentOrAgent` and `routeCustomRules`.
+|failRouteRule|string  | no  | no | the rule of fail route ,including `department` and `agent`
+|failRouteDepartmentId|string  | no  | no | id of the department for fail routing
+|failRouteDepartmentPriority|string  | no  | no | the priority of the department for fail routing,including `lowest`、`low`、`normal`、`high` and `highest`.
+|failRouteAgentId|string  | no  | no | id of the agent for fail routing
+|failRouteAgentPriority|string  | no  | no | the priority of the agent for fail routing,including `lowest`、`low`、`normal`、`high` and `highest`.
+|failToEmail|string  | no  | no | redirect them to Offline Message Window and forward their messages to the email
 
-### Response
-  - `fields` - fields list
-    + `id` - id of the field
-    + `name` - name of the field
-    + `type` - type of the field
-    + `isSystem` - whether the field is system field or not.
-    + `isVisible` - whether the field is visible or not .
-    + `isRequired` - whether the field is required or not when submiting the form.
-    + `options` - the options of the field
-
-
-## Get settings of Routing Rules for a campaign
-### End Point
+### Get settings of Routing Rules for a campaign
+- End Point      
   `GET /api/v1/livechat/campaigns/{id}/RoutingRules`
-
-### Parameters
+     
+- Parameters     
   No parameters
-
-### Response
-  - `isEnable` -whether the routing rules is enable or not.
-  - `routingType` -the type of routing,including `routeDepartmentOrAgent` and `routeCustomRules`.
-  - `routeRule` - the rule of route ,including `department` and `agent`
-  - `departmentId` - id of the department
-  - `departmentPriority` - the priority of the department,including `lowest`、`low`、`normal`、`high` and `highest`.
-  - `agentId` - id of the agent
-  - `agentPriority` - the priority of the agent,including `lowest`、`low`、`normal`、`high` and `highest`.
-  - `customRules` - custom rules list
-    + `id` -id of the custom rule
-    + `name` -name of the custom rule
-    + `conditions` -conditions of the custom rule
-    + `routeOjbect` - name of the route object
-    + `priority` - the priority for the route
-    + `isEnable` -whether the custom rule is enable or not.
-  - `failRoutingType` -the type of fail routing,including `routeDepartmentOrAgent` and `routeCustomRules`.
-  - `failRouteRule` - the rule of fail route ,including `department` and `agent`
-  - `failRouteDepartmentId` - id of the department for fail routing
-  - `failRouteDepartmentPriority` - the priority of the department for fail routing,including `lowest`、`low`、`normal`、`high` and `highest`.
-  - `failRouteAgentId` - id of the agent for fail routing
-  - `failRouteAgentPriority` - the priority of the agent for fail routing,including `lowest`、`low`、`normal`、`high` and `highest`.
-  - `failToEmail` - redirect them to Offline Message Window and forward their messages to the email
-
-## Update settings of Routing Rules for a campaign
-### End Point
-  Optional:
-  - `isEnable` -whether the routing rules is enable or not.
-  - `routingType` -the type of routing,including `routeDepartmentOrAgent` and `routeCustomRules`.
-  - `routeRule` - the rule of route ,including `department` and `agent`
-  - `departmentId` - id of the department
-  - `departmentPriority` - the priority of the department,including `lowest`、`low`、`normal`、`high` and `highest`.
-  - `agentId` - id of the agent
-  - `agentPriority` - the priority of the agent,including `lowest`、`low`、`normal`、`high` and `highest`.
-  - `customRules` - custom rules list
-    + `id` -id of the custom rule
-    + `name` -name of the custom rule
-    + `conditions` -conditions of the custom rule
-    + `routeOjbect` - name of the route object
-    + `priority` - the priority for the route
-    + `isEnable` -whether the custom rule is enable or not.
-  - `failRoutingType` -the type of fail routing,including `routeDepartmentOrAgent` and `routeCustomRules`.
-  - `failRouteRule` - the rule of fail route ,including `department` and `agent`
-  - `failRouteDepartmentId` - id of the department for fail routing
-  - `failRouteDepartmentPriority` - the priority of the department for fail routing,including `lowest`、`low`、`normal`、`high` and `highest`.
-  - `failRouteAgentId` - id of the agent for fail routing
-  - `failRouteAgentPriority` - the priority of the agent for fail routing,including `lowest`、`low`、`normal`、`high` and `highest`.
-  - `failToEmail` - redirect them to Offline Message Window and forward their messages to the email
-
-### Parameters
-  No parameters
-
-### Response
-  - `isEnable` -whether the routing rules is enable or not.
-  - `routingType` -the type of routing,including `routeDepartmentOrAgent` and `routeCustomRules`.
-  - `routeRule` - the rule of route ,including `department` and `agent`
-  - `departmentId` - id of the department
-  - `departmentPriority` - the priority of the department,including `lowest`、`low`、`normal`、`high` and `highest`.
-  - `agentId` - id of the agent
-  - `agentPriority` - the priority of the agent,including `lowest`、`low`、`normal`、`high` and `highest`.
-  - `customRules` - custom rules list
-    + `id` -id of the custom rule
-    + `name` -name of the custom rule
-    + `conditions` -conditions of the custom rule
-    + `routeOjbect` - name of the route object
-    + `priority` - the priority for the route
-    + `isEnable` -whether the custom rule is enable or not.
-  - `failRoutingType` -the type of fail routing,including `routeDepartmentOrAgent` and `routeCustomRules`.
-  - `failRouteRule` - the rule of fail route ,including `department` and `agent`
-  - `failRouteDepartmentId` - id of the department for fail routing
-  - `failRouteDepartmentPriority` - the priority of the department for fail routing,including `lowest`、`low`、`normal`、`high` and `highest`.
-  - `failRouteAgentId` - id of the agent for fail routing
-  - `failRouteAgentPriority` - the priority of the agent for fail routing,including `lowest`、`low`、`normal`、`high` and `highest`.
-  - `failToEmail` - redirect them to Offline Message Window and forward their messages to the email
-
-## Get a custom rule for a campaign
-### End Point
+     
+- Response      
+Route Rule Json Object
+     
+### Update settings of Routing Rules for a campaign
+- End Point      
+  `PUT /api/v1/livechat/campaigns/{id}/RoutingRules`
+    
+- Parameters     
+Route Rule Json Object
+     
+- Response      
+Route Rule Json Object
+     
+### Get a custom rule for a campaign
+- End Point      
   `GET /api/v1/livechat/campaigns/{id}/RoutingRules/customRules/{customeRule_id}`
-
-### Parameters
+     
+- Parameters     
   No parameters
-
-### Response
-  - `id` -id of the custom rule.
-  - `isEnable` -whether the custom rule is enable or not.
-  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
-  - `logicalExpression` - the logical expression of the conditions
-  - `conditions` -condition list
-    + `variableName` - name of the variable,including comm100 system variable and custom variable
-    + `expression` - expression of the condition
-    + `value` - the value response to the variable
-  - `routeRule` - the rule of route ,including `department` and `agent`
-  - `departmentId` - id of the department
-  - `departmentPriority` - the priority of the department,including `lowest`、`low`、`normal`、`high` and `highest`.
-  - `agentId` - id of the agent
-  - `agentPriority` - the priority of the agent,including `lowest`、`low`、`normal`、`high` and `highest`.
-
-## Create a new custom rule for a campaign
-### End Point
+     
+- Response      
+Custom Rule Json Object
+     
+### Create a new custom rule for a campaign
+- End Point      
   `POST /api/v1/livechat/campaigns/{id}/RoutingRules/customRules`
-
-### Parameters
-  - `isEnable` -whether the custom rule is enable or not.
-  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
-  - `logicalExpression` - the logical expression of the conditions
-  - `conditions` -condition list
-    + `variableName` - name of the variable,including comm100 system variable and custom variable
-    + `expression` - expression of the condition
-    + `value` - the value response to the variable
-  - `routeRule` - the rule of route ,including `department` and `agent`
-  - `departmentId` - id of the department
-  - `departmentPriority` - the priority of the department,including `lowest`、`low`、`normal`、`high` and `highest`.
-  - `agentId` - id of the agent
-  - `agentPriority` - the priority of the agent,including `lowest`、`low`、`normal`、`high` and `highest`.  
-
-### Response
-  - `id` -id of the custom rule.
-  - `isEnable` -whether the custom rule is enable or not.
-  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
-  - `logicalExpression` - the logical expression of the conditions
-  - `conditions` -condition list
-    + `variableName` - name of the variable,including comm100 system variable and custom variable
-    + `expression` - expression of the condition
-    + `value` - the value response to the variable
-  - `routeRule` - the rule of route ,including `department` and `agent`
-  - `departmentId` - id of the department
-  - `departmentPriority` - the priority of the department,including `lowest`、`low`、`normal`、`high` and `highest`.
-  - `agentId` - id of the agent
-  - `agentPriority` - the priority of the agent,including `lowest`、`low`、`normal`、`high` and `highest`.  
-
-## Update a custom rule for a campaign
-### End Point
+     
+- Parameters     
+Custom Rule Json Object 
+     
+- Response      
+Custom Rule Json Object
+     
+### Update a custom rule for a campaign
+- End Point      
   `PUT /api/v1/livechat/campaigns/{id}/RoutingRules/customRules/{customeRule_id}` 
+     
+- Parameters     
+Custom Rule Json Object
+     
+- Response      
+Custom Rule Json Object
 
-### Parameters
-  - `isEnable` -whether the custom rule is enable or not.
-  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
-  - `logicalExpression` - the logical expression of the conditions
-  - `conditions` -condition list
-    + `variableName` - name of the variable,including comm100 system variable and custom variable
-    + `expression` - expression of the condition
-    + `value` - the value response to the variable
-  - `routeRule` - the rule of route ,including `department` and `agent`
-  - `departmentId` - id of the department
-  - `departmentPriority` - the priority of the department,including `lowest`、`low`、`normal`、`high` and `highest`.
-  - `agentId` - id of the agent
-  - `agentPriority` - the priority of the agent,including `lowest`、`low`、`normal`、`high` and `highest`.  
+### Custom Language Json Format   
+Custom Language is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|module|string  | no  | yes | the module of language settings,including `Buttons`、`Fields`、`Prompts`、`SystemMessages`、`AudioChat`、`VideoChat`、`ScreenSharing`、`TranscriptEmail`、`TextOnMobile`、`EmbeddedWindow` and `Chatbot`. 
+|name|string  | no  | yes |the name of field of the language settings
+|defaultText|string  | no  | no | the default text of field of the language settings
+|currentText|string  | no  | no | current text of field of the language settings
+|macros|string  | no  | no | macors which used in the field of the language settings
 
-### Response
-  - `id` -id of the custom rule.
-  - `isEnable` -whether the custom rule is enable or not.
-  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
-  - `logicalExpression` - the logical expression of the conditions
-  - `conditions` -condition list
-    + `variableName` - name of the variable,including comm100 system variable and custom variable
-    + `expression` - expression of the condition
-    + `value` - the value response to the variable
-  - `routeRule` - the rule of route ,including `department` and `agent`
-  - `departmentId` - id of the department
-  - `departmentPriority` - the priority of the department,including `lowest`、`low`、`normal`、`high` and `highest`.
-  - `agentId` - id of the agent
-  - `agentPriority` - the priority of the agent,including `lowest`、`low`、`normal`、`high` and `highest`.  
+### Language Json Format
+Language is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------
+|language |string  | no  | yes |the main language.
+|isCustomLanguage|boolean  | no  | yes | whether the custom language is used or not.
+|isRTL|boolean | no  | no |whether the language is from right to left.
+|customLanguages|array  | no  | no |an array of [Custom Language](#custom-language-json-format)
 
-## Get settings of Language for a campaign
-### End Point
+### Get settings of Language for a campaign
+- End Point      
   `GET /api/v1/livechat/campaigns/{id}/language`
-
-### Parameters
+     
+- Parameters     
   No parameters
-
-### Response
-  - `language ` -the main language.
-  - `isCustomLanguage` - whether the custom language is used or not.
-  - `isRTL` -whether the language is from right to left.
-  - `languageSettings` - the language settings list
-    + `module` - the module of language settings,including `Buttons`、`Fields`、`Prompts`、`SystemMessages`、`AudioChat`、`VideoChat`、`ScreenSharing`、`TranscriptEmail`、`TextOnMobile`、`EmbeddedWindow` and `Chatbot`. 
-    + `name` -the name of field of the language settings
-    + `defaultText` - the default text of field of the language settings
-    + `currentText` - current text of field of the language settings
-    + `macros` - macors which used in the field of the language settings
-
-## Update settings of Language for a campaign
-### End Point
+     
+- Response      
+Language Json Object
+    
+### Update settings of Language for a campaign
+- End Point      
   `PUT /api/v1/livechat/campaigns/{id}/language`
-
-### Parameters
-  - `language ` -the main language.
-  - `isCustomLanguage` - whether the custom language is used or not.
-  - `isRTL` -whether the language is from right to left.
-  - `languageSettings` - the language settings list
-    + `module` - the module of language settings,including `Buttons`、`Fields`、`Prompts`、`SystemMessages`、`AudioChat`、`VideoChat`、`ScreenSharing`、`TranscriptEmail`、`TextOnMobile`、`EmbeddedWindow` and `Chatbot`. 
-    + `name` -the name of field of the language settings
-    + `defaultText` - the default text of field of the language settings
-    + `currentText` - current text of field of the language settings
-    + `macros` - macors which used in the field of the language settings
-
-### Response
-  - `language ` -the main language.
-  - `isCustomLanguage` - whether the custom language is used or not.
-  - `isRTL` -whether the language is from right to left.
-  - `languageSettings` - the language settings list
-    + `module` - the module of language settings,including `Buttons`、`Fields`、`Prompts`、`SystemMessages`、`AudioChat`、`VideoChat`、`ScreenSharing`、`TranscriptEmail`、`TextOnMobile`、`EmbeddedWindow` and `Chatbot`. 
-    + `name` -the name of field of the language settings
-    + `defaultText` - the default text of field of the language settings
-    + `currentText` - current text of field of the language settings
-    + `macros` - macors which used in the field of the language settings
-
+    
+- Parameters     
+Language Json
+    
+- Response      
+Language Json
+    
 ## Canned Message
   You need `Manage Pulbic Canned Messages` permission to manage canned message.
   + `GET /api/v1/livechat/cannedMessages` -get list of canned Message
@@ -1053,87 +588,69 @@
   + `POST /api/v1/livechat/cannedMessages` -create a new canned Message
   + `PUT /api/v1/livechat/cannedMessages/{id}`  -update a canned Message
   + `DELETE /api/v1/livechat/cannedMessages/{id}`  -remove a canned Message
-
+    
+### Canned Message Json Format
+Canned Message is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------
+|id |integer  | yes  | no |id of the canned message.
+|name|string  | no  | yes |name of the canned message.
+|message|string  | no  | yes |content of the canned message.
+|shortcuts|string  | no  | no | shortcuts of the canned message.
+|categoryId|string  | no  | yes |id of the category of the canned message.
+|isPrivate|boolean  | no  | yes | whether the canned message is private or not.
+    
 ### Get list of canned messages 
-#### End Point 
+- End Point       
   `GET /api/v1/livechat/cannedMessages`
-
-#### Parameters
+     
+- Parameters     
   No parameters
-
-#### Response
-  canned messages list, including
-  - `id ` -id of the canned message.
-  - `name` -name of the canned message.
-  - `message` -content of the canned message.
-  - `shortcuts` - shortcuts of the canned message.
-  - `categoryId` -id of the category of the canned message.
-  - `isPrivate` - whether the canned message is private or not.
-
+    
+- Response      
+ An array of Canned Message Json Object.
+    
 ### Get a single canned message 
-#### End Point 
+- End Point       
   `GET /api/v1/livechat/cannedMessages/{id}`
-
-#### Parameters
+    
+- Parameters     
   No parameters
-
-#### Response
-  - `id ` -id of the canned message.
-  - `name` -name of the canned message.
-  - `message` -content of the canned message.
-  - `shortcuts` - shortcuts of the canned message.
-  - `categoryId` -id of the category of the canned message.
-  - `isPrivate` - whether the canned message is private or not.
-
+    
+- Response      
+Canned Message Json Object
+    
 ### Create a new canned message 
-#### End Point 
+- End Point       
   `POST /api/v1/livechat/cannedMessages`
-
-#### Parameters
-  - `name` -name of the canned message.
-  - `message` -content of the canned message.
-  - `categoryId` -id of the category of the canned message.
-  - `isPrivate` - whether the canned message is private or not.
-optional:
-  - `shortcuts` - shortcuts of the canned message.
-
-#### Response
-  - `id ` -id of the canned message.
-  - `name` -name of the canned message.
-  - `message` -content of the canned message.
-  - `shortcuts` - shortcuts of the canned message.
-  - `categoryId` -id of the category of the canned message.
-  - `isPrivate` - whether the canned message is private or not.
-
+    
+- Parameters     
+Canned Message Json Object
+    
+- Response      
+Canned Message Json Object
+    
 ### Update a canned message 
-#### End Point 
+- End Point       
   `PUT /api/v1/livechat/cannedMessages/{id}`
-
-#### Parameters
-  - `name` -name of the canned message.
-  - `message` -content of the canned message.
-  - `categoryId` -id of the category of the canned message.
-optional:
-  - `shortcuts` - shortcuts of the canned message.
-
-#### Response
-  - `id ` -id of the canned message.
-  - `name` -name of the canned message.
-  - `message` -content of the canned message.
-  - `shortcuts` - shortcuts of the canned message.
-  - `categoryId` -id of the category of the canned message.
-  - `isPrivate` - whether the canned message is private or not.
-
+    
+- Parameters     
+Canned Message Json Object
+    
+- Response      
+Canned Message Json Object
+    
 ### Remove a canned message 
-#### End Point 
+- End Point       
   `DELETE /api/v1/livechat/cannedMessages/{id}`
-
-#### Parameters
+    
+- Parameters     
   No parameters
-
-#### Response
-  - `result ` -the result of operating
-
+    
+- Response      
+  Status: 200 OK   
+    
 ## Canned Message Category
   You need `Manage Pulbic Canned Messages` permission to manage canned message category.
   + `GET /api/v1/livechat/cannedMessageCategories` -get list of canned Messages Categories
@@ -1141,76 +658,68 @@ optional:
   + `POST /api/v1/livechat/cannedMessageCategories` -create a new canned Messages Category
   + `PUT /api/v1/livechat/cannedMessageCategories/{id}`  -update a canned Messages Category
   + `DELETE /api/v1/livechat/cannedMessageCategories/{id}`  -remove a canned Messages Category
-
+    
+### Canned Message Category Json Format
+Canned Message Category is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------
+|id |integer  | yes  | no |id of the canned message category.
+|name|string  | no  | yes |name of the canned message category.
+|parentCategoryId|string  | no  | yes | id of the parent of the canned message category
+|parentCategoryName|string  | no  | no |name of the parent of the canned message category
+|isPrivate|string  | no  | yes | whether the canned message category is private or not.
+    
 ### Get list of canned message categories
-#### End Point 
+- End Point       
   `GET /api/v1/livechat/cannedMessageCategories`
-
-#### Parameters
+    
+- Parameters     
   No parameters
-
-#### Response
-  canned message categories list, including
-  - `id ` -id of the canned message category.
-  - `name` -name of the canned message category.
-  - `parentCategoryId` - id of the parent of the canned message category
-  - `parentCategoryName` -name of the parent of the canned message category
-  - `isPrivate` - whether the canned message category is private or not.
-
+    
+- Response      
+ An array of Canned Message Category Json Object.
+    
 ### Get a single canned message category
-#### End Point 
+- End Point    
   `GET /api/v1/livechat/cannedMessageCategories/{id}`
-
-#### Parameters
+    
+- Parameters     
   No parameters
-
-#### Response
-  - `id ` -id of the canned message category.
-  - `name` -name of the canned message category.
-  - `parentCategoryId` - id of the parent of the canned message category
-  - `parentCategoryName` -name of the parent of the canned message category
-  - `isPrivate` - whether the canned message category is private or not.
-
+    
+- Response      
+Message Category Json Object.
+    
 ### Create a new canned message category
-#### End Point 
+- End Point    
   `POST /api/v1/livechat/cannedMessageCategories`
-
-#### Parameters
-  - `name` -name of the canned message category.
-  - `parentCategoryId` - id of the parent of the canned message category
-
-#### Response
-  - `id ` -id of the canned message category.
-  - `name` -name of the canned message category.
-  - `parentCategoryId` - id of the parent of the canned message category
-  - `parentCategoryName` -name of the parent of the canned message category
-  - `isPrivate` - whether the canned message category is private or not.
-
+    
+- Parameters     
+Message Category Json Object.
+    
+- Response      
+Message Category Json Object.
+    
 ### Update a canned message category
-#### End Point 
+- End Point    
   `PUT /api/v1/livechat/cannedMessageCategories/{id}`
-
-#### Parameters
-  - `name` -name of the canned message category.
-  - `parentCategoryId` - id of the parent of the canned message category
-
-#### Response
-  - `id ` -id of the canned message category.
-  - `name` -name of the canned message category.
-  - `parentCategoryId` - id of the parent of the canned message category
-  - `parentCategoryName` -name of the parent of the canned message category
-  - `isPrivate` - whether the canned message category is private or not.
-
+    
+- Parameters     
+Message Category Json Object.
+    
+- Response      
+Message Category Json Object.
+    
 ### Remove a canned message category
-#### End Point 
+- End Point    
   `DELETE /api/v1/livechat/cannedMessageCategories/{id}`
-
-#### Parameters
+    
+- Parameters     
   No parameters
-
-#### Response
-  - `result ` -the result of operating
-
+    
+- Response      
+  Status: 200 OK   
+    
 ## Department
   You need `Manage Settings` permission to manage department.
   + `GET /api/v1/livechat/departments` -get list of departments
@@ -1218,152 +727,110 @@ optional:
   + `POST /api/v1/livechat/departments` -create a new department
   + `PUT /api/v1/livechat/departments/{id}`  -update a department
   + `DELETE /api/v1/livechat/departments/{id}`  -remove a department
-
+    
+### Department Json Format
+Department is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------
+|id |integer  | yes  | no |id of the department.
+|name|string  | no  | yes |name of the department.
+|description|string  | no  | no |description of the department.
+|agents|array  | no  | no | an array of agent in the department.
+|groups|array  | no  | no | an array of group in the department.
+|allocationStratege|string  | no  | no | stratege of chat allocation,including `load banlancing` 、`round robin` and `capability weighted`.
+|isLastChattedPreferred|boolean  | no  | no |whether last-chatted agent is prefer or not.
+|backupDepartmentId|string  | no  | no | id of back up department
+|offlineMessageTo|string  | no  | no | object which mail offline messages of the department to,including `allAgents` and `emailAddresses`
+|emaileAddresses|string  | no  | no | the email addresses which mail offline messages of the department to
+    
 ### Get list of departments 
-#### End Point 
+- End Point    
   `GET /api/v1/livechat/departments`
-
-#### Parameters
+    
+- Parameters     
   No parameters
-
-#### Response
-  departments list, including
-  - `id ` -id of the department.
-  - `name` -name of the department.
-  - `description` -description of the department.
-  - `members` - the string of the members list in the department.
-  - `allocationStratege` - stratege of chat allocation,including `load banlancing` 、`round robin` and `capability weighted`.
-  - `isLastChattedPreferred` -whether last-chatted agent is prefer or not.
-  - `backupDepartmentId` - id of back up department
-
+    
+- Response      
+An array of Department Json Object.
+    
 ### Get a single department 
-#### End Point 
+- End Point    
   `GET /api/v1/livechat/departments/{id}`
-
-#### Parameters
+    
+- Parameters     
   No parameters
-
-#### Response
-  - `id ` -id of the department.
-  - `name` -name of the department.
-  - `description` -description of the department.
-  - `agentIds` - the id of the agent list in the department.
-  - `groupIds` - the id of the groups list in the department.
-  - `offlineMessageTo` - object which mail offline messages of the department to,including `allAgents` and `emailAddresses`
-  - `emaileAddresses` - the email addresses which mail offline messages of the department to
-  - `allocationStratege` - stratege of chat allocation,including `load banlancing` 、`round robin` and `capability weighted`.
-  - `isLastChattedPreferred` -whether last-chatted agent is prefer or not.
-  - `backupDepartmentId` - id of back up department
-
+    
+- Response      
+Department Json Object.
+    
 ### Create a new department 
-#### End Point 
+- End Point    
   `POST /api/v1/livechat/departments`
-
-#### Parameters
-  - `name` -name of the department.
-  optional:
-  - `description` -description of the department.
-  - `agentIds` - the id of the agent list in the department.
-    + `agentId` - id of agent
-  - `groupIds` - the id of the groups list in the department.
-    + `groupId` -id of group
-  - `offlineMessageTo` - object which mail offline messages of the department to,including `allAgents` and `emailAddresses`
-  - `emaileAddresses` - the email addresses which mail offline messages of the department to
-
-#### Response
-  - `id ` -id of the department.
-  - `name` -name of the department.
-  - `description` -description of the department.
-  - `agentIds` - the id of the agent list in the department.
-    + `agentId` - id of agent
-  - `groupIds` - the id of the groups list in the department.
-    + `groupId` -id of group
-  - `offlineMessageTo` - object which mail offline messages of the department to,including `allAgents` and `emailAddresses`
-  - `emaileAddresses` - the email addresses which mail offline messages of the department to
-  - `allocationStratege` - stratege of chat allocation,including `load banlancing` 、`round robin` and `capability weighted`.
-  - `isLastChattedPreferred` -whether last-chatted agent is prefer or not.
-  - `backupDepartmentId` - id of back up department
-
+    
+- Parameters     
+Department Json Object.
+     
+- Response      
+Department Json Object.
+    
 ### Update a department 
-#### End Point 
+- End Point    
   `PUT /api/v1/livechat/departments/{id}`
-
-#### Parameters
-  - `name` -name of the department.
-  optional:
-  - `description` -description of the department.
-  - `agentIds` - the id of the agent list in the department.
-    + `agentId` - id of agent
-  - `groupIds` - the id of the groups list in the department.
-    + `groupId` -id of group
-  - `offlineMessageTo` - object which mail offline messages of the department to,including `allAgents` and `emailAddresses`
-  - `emaileAddresses` - the email addresses which mail offline messages of the department to
-  - `allocationStratege` - stratege of chat allocation,including `load banlancing` 、`round robin` and `capability weighted`.
-  - `isLastChattedPreferred` -whether last-chatted agent is prefer or not.
-  - `backupDepartmentId` - id of back up department
-
-#### Response
-  - `id ` -id of the department.
-  - `name` -name of the department.
-  - `description` -description of the department.
-  - `agentIds` - the id of the agent list in the department.
-    + `agentId` - id of agent
-  - `groupIds` - the id of the groups list in the department.
-    + `groupId` -id of group
-  - `offlineMessageTo` - object which mail offline messages of the department to,including `allAgents` and `emailAddresses`
-  - `emaileAddresses` - the email addresses which mail offline messages of the department to
-  - `allocationStratege` - stratege of chat allocation,including `load banlancing` 、`round robin` and `capability weighted`.
-  - `isLastChattedPreferred` -whether last-chatted agent is prefer or not.
-  - `backupDepartmentId` - id of back up department
-
+    
+- Parameters     
+Department Json Object.
+    
+- Response      
+Department Json Object.
+    
 ### Remove a department
-#### End Point 
+- End Point    
   `DELETE /api/v1/livechat/departments/{id}`
-
-#### Parameters
+    
+- Parameters     
   No parameters
-
-#### Response
-  - `result ` -the result of operating
-
+    
+- Response      
+  Status: 200 OK   
+    
 ## Auto Allocation
 You need `Manage Settings` permission to config auto allocation.
   + `GET /api/v1/livechat/autoAllocation` -Get settings of auto allocation.
   + `PUT /api/v1/livechat/autoAllocation`  -Update settings of auto allocation.
-
+     
+### Auto Allocation Json Format
+Auto Allocation is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------
+|id |integer  | yes  | no |id of the auto allocation.
+|isEnable|boolean  | no  | yes |whether the auto allocation is enable or not.
+|isEnableDepartment|boolean  | no  | no | whether department is enable or not.
+|allocationStratege|string  | no  | no | stratege of chat allocation,including `load banlancing` 、`round robin` and `capability weighted`, available when the `isEnableDepartment` is `false`.
+|isLastChattedPreferred|boolean  | no  | no |whether last-chatted agent is prefer or not, available when the `isEnableDepartment` is `false`.
+|isEnableAllocateWhenAudioVideo|boolean  | no  | no |whether auto allocate chats to agents who are having audio or video chats is enable or not.
+     
 ### Get settings of auto allocation.
-#### End Point 
+- End Point    
   `GET /api/v1/livechat/autoAllocation`
-
-#### Parameters
+     
+- Parameters     
   No parameters
-
-#### Response
-  - `id ` -id of the auto allocation.
-  - `isEnable` -whether the auto allocation is enable or not.
-  - `isEnableDepartment` - whether department is enable or not.
-  - `allocationStratege` - stratege of chat allocation,including `load banlancing` 、`round robin` and `capability weighted`, available when the `isEnableDepartment` is `false`.
-  - `isLastChattedPreferred` -whether last-chatted agent is prefer or not, available when the `isEnableDepartment` is `false`.
-  - `isEnableAllocateWhenAudioVideo` -whether auto allocate chats to agents who are having audio or video chats is enable or not.
-
+     
+- Response      
+Auto Allocation Json Object.
+     
 ### Update settings of auto allocation.
-#### End Point 
+- End Point    
   `PUT /api/v1/livechat/autoAllocation`
-
-#### Parameters
-optional:  
-  - `allocationStratege` - stratege of chat allocation,including `load banlancing` 、`round robin` and `capability weighted`, available when the `isEnableDepartment` is `false`.
-  - `isLastChattedPreferred` -whether last-chatted agent is prefer or not, available when the `isEnableDepartment` is `false`.
-  - `isEnableAllocateWhenAudioVideo` -whether auto allocate chats to agents who are having audio or video chats is enable or not.
-
-#### Response
-  - `id ` -id of the auto allocation.
-  - `isEnable` -whether the auto allocation is enable or not.
-  - `isEnableDepartment` - whether department is enable or not.
-  - `allocationStratege` - stratege of chat allocation,including `load banlancing` 、`round robin` and `capability weighted`, available when the `isEnableDepartment` is `false`.
-  - `isLastChattedPreferred` -whether last-chatted agent is prefer or not, available when the `isEnableDepartment` is `false`.
-  - `isEnableAllocateWhenAudioVideo` -whether auto allocate chats to agents who are having audio or video chats is enable or not.
-
+     
+- Parameters     
+Auto Allocation Json Object.
+     
+- Response      
+Auto Allocation Json Object.
+     
 ## Custom Away Status
   You need `Manage Settings` permission to manage custom away status.
   + `GET /api/v1/livechat/customAwayStatus` -get list of custom away status
@@ -1372,71 +839,66 @@ optional:
   + `PUT /api/v1/livechat/customAwayStatus/{id}`  -update a custom away status
   + `DELETE /api/v1/livechat/customAwayStatus/{id}`  -remove a custom away status
 
+### Custom Away Status Json Format
+Custom Away Status is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------
+|id |integer  | yes  | no |id of the custom away status.
+|name|string  | no  | yes |name of the custom away status.
+|isVisible|boolean  | no  | no |whether the custom away status is visible or not.
+|isSystem|boolean  | no  | no | whether the custom away status is system status or not.
+     
 ### Get list of custom away status 
-#### End Point 
+- End Point    
   `GET /api/v1/livechat/customAwayStatus`
-
-#### Parameters
+     
+- Parameters     
   No parameters
-
-#### Response
-  custom away status list, including
-  - `id ` -id of the custom away status.
-  - `name` -name of the custom away status.
-  - `isVisible` -whether the custom away status is visible or not.
-  - `isSystem` - whether the custom away status is system status or not.
-
+     
+- Response      
+An array of Custom Away Status Json Object.
+     
 ### Get a single custom away status 
-#### End Point 
+- End Point    
   `GET /api/v1/livechat/customAwayStatus/{id}`
-
-#### Parameters
+     
+- Parameters     
   No parameters
-
-#### Response
-  - `id ` -id of the custom away status.
-  - `name` -name of the custom away status.
-  - `isVisible` -whether the custom away status is visible or not.
-  - `isSystem` - whether the custom away status is system status or not.
-
+     
+- Response      
+  Custom Away Status Json Object.
+     
 ### Create a new custom away status 
-#### End Point 
+- End Point    
   `POST /api/v1/livechat/customAwayStatus`
-
-#### Parameters
-  - `name` -name of the custom away status.
-  - `isVisible` -whether the custom away status is visible or not.
-
-#### Response
-  - `id ` -id of the custom away status.
-  - `name` -name of the custom away status.
-  - `isVisible` -whether the custom away status is visible or not.
-  - `isSystem` - whether the custom away status is system status or not.
-
+     
+- Parameters     
+  Custom Away Status Json Object.
+     
+- Response      
+Custom Away Status Json Object.
+     
 ### Update a custom away status 
-#### End Point 
+- End Point    
   `PUT /api/v1/livechat/customAwayStatus/{id}`
-
-#### Parameters
-  - `name` -name of the custom away status.
-  - `isVisible` -whether the custom away status is visible or not.
-
-#### Response
-  - `id ` -id of the custom away status.
-  - `name` -name of the custom away status.
-  - `isVisible` -whether the custom away status is visible or not.
-  - `isSystem` - whether the custom away status is system status or not.
-
+      
+- Parameters     
+Custom Away Status Json Object.
+      
+- Response      
+Custom Away Status Json Object.
+    
 ### Remove a custom away status 
-#### End Point 
+- End Point    
   `DELETE /api/v1/livechat/customAwayStatus/{id}`
-
-#### Parameters
+    
+- Parameters     
   No parameters
-
-#### Response
-  - `result ` -the result of operating
-
+    
+- Response      
+  Status: 200 OK   
+    
 ## Ban
   You need `Manage Ban List` permission to manage ban list.
   + `GET /api/v1/livechat/bans` -get list of bans
@@ -1445,78 +907,66 @@ optional:
   + `PUT /api/v1/livechat/bans/{id}`  -update a ban
   + `DELETE /api/v1/livechat/bans/{id}`  -remove a ban
 
+### Ban Json Format
+Ban is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------
+|id |integer  | yes  | no |id of the ban.
+|banType|string  | no  | yes |type of ban,including `visitorId`、`ip` and `ipArrange`.
+|banValue1|string  | no  | yes | value of ban,it means `ip from` while `banType` is `ipArrange` 
+|banValue2|string  | no  | no |ban to the ip ,available when the `banType` is `ipArrange`.
+|comment|string  | no  | no | comment of the ban.
+  
 ### Get list of bans
-#### End Point 
+- End Point    
   `GET /api/v1/livechat/bans`
 
-#### Parameters
+- Parameters     
   No parameters
 
-#### Response
-  ban list, including
-  - `id ` -id of the ban.
-  - `banType` -type of ban,including `visitorId`、`ip` and `ipArrange`.
-  - `banValue1` - value of ban,it means `ip from` while `banType` is `ipArrange` 
-  - `banValue2` -ban to the ip ,available when the `banType` is `ipArrange`.
-  - `comment` - comment of the ban.
+- Response      
+An array of Ban Json Object.
 
 ### Get a single ban
-#### End Point 
+- End Point    
   `GET /api/v1/livechat/bans/{id}`
 
-#### Parameters
+- Parameters     
   No parameters
 
-#### Response
-  - `id ` -id of the ban.
-  - `banType` -type of ban,including `visitorId`、`ip` and `ipArrange`.
-  - `banValue1` - value of ban,it means `ip from` while `banType` is `ipArrange` 
-  - `banValue2` -ban to the ip ,available when the `banType` is `ipArrange`.
-  - `comment` - comment of the ban.
+- Response      
+Ban Json Object.
 
 ### Create a new ban 
-#### End Point 
+- End Point    
   `POST /api/v1/livechat/bans`
 
-#### Parameters
-  - `banType` -type of ban,including `visitorId`、`ip` and `ipArrange`.
-  - `banValue1` - value of ban,it means `ip from` while `banType` is `ipArrange` 
-  - `banValue2` -ban to the ip ,available when the `banType` is `ipArrange`.
-  - `comment` - comment of the ban.
+- Parameters     
+Ban Json Object.
 
-#### Response
-  - `id ` -id of the ban.
-  - `banType` -type of ban,including `visitorId`、`ip` and `ipArrange`.
-  - `banValue1` - value of ban,it means `ip from` while `banType` is `ipArrange` 
-  - `banValue2` -ban to the ip ,available when the `banType` is `ipArrange`.
-  - `comment` - comment of the ban.
+- Response      
+Ban Json Object.
 
 ### Update a ban
-#### End Point 
+- End Point    
   `PUT /api/v1/livechat/bans/{id}`
 
-#### Parameters
-  - `banType` -type of ban,including `visitorId`、`ip` and `ipArrange`.
-  - `banValue1` - value of ban,it means `ip from` while `banType` is `ipArrange` 
-  - `banValue2` -ban to the ip ,available when the `banType` is `ipArrange`.
-  - `comment` - comment of the ban.
+- Parameters     
+Ban Json Object.
 
-#### Response
-  - `id ` -id of the ban.
-  - `banType` -type of ban,including `visitorId`、`ip` and `ipArrange`.
-  - `banValue1` - value of ban,it means `ip from` while `banType` is `ipArrange` 
-  - `banValue2` -ban to the ip ,available when the `banType` is `ipArrange`.
-  - `comment` - comment of the ban.
+- Response      
+Ban Json Object.
 
 ### Remove a ban
-#### End Point 
+- End Point    
   `DELETE /api/v1/livechat/bans/{id}`
 
-#### Parameters
+- Parameters     
   No parameters
 
-#### Response
-  - `result ` -the result of operating
+- Response      
+  Status: 200 OK   
 
 ## Conversion Action
   You need `Manage Settings` permission to manage conversion action.
@@ -1524,97 +974,62 @@ optional:
   + `GET /api/v1/livechat/conversionsActions/{id}`  -get a visitor segment
   + `POST /api/v1/livechat/conversionsActions` -create a new visitor segment
 
+### Conversion Action Json Format
+Conversion Action is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------
+|id |integer  | yes  | no |id of the conversion action.
+|name|string  | no  | yes |  name of the conversion action.
+|isEnable|boolean  | no  | no | whether the conversion action is enable or not.
+|type|string  | no  | no | type of the conversion action,including `url`、`customVariable` and `setByApi`.
+|matchType|string  | no  | no |  match type of the conversion action.
+|matchValue|string  | no  | no |  match value of the conversion action.
+|isCaseSensitive|boolean  | no  | no |  whether the conversion action is case sensitive or not,available when `type` is `url`
+|isAssignValue|boolean  | no  | no |  whether a value is assigned for the conversion action or not
+|value|string  | no  | no |  the value assigned for the conversion action,available when `isAssignValue` is `true`
+|customVariable|string  | no  | no |  the value come from the custom variable,available when `isAssignValue` is `true`
+|customVariableField|string  | no  | no |  the name of the custom variable,available when `type` is `customVariable`.
+
 ### Get list of conversion actions
-#### End Point 
+- End Point    
   `GET /api/v1/livechat/conversionsActions`
 
-#### Parameters
+- Parameters     
   No parameters
 
-#### Response
-  conversion actions list, including
-  - `id ` -id of the conversion action.
-  - `name` - name of the conversion action.
-  - `isEnable` -whether the conversion action is enable or not.
-  - `typeContent` -content of type of the conversion action.
+- Response      
+An array of Conversion Action Json Object.
 
 ### Get a single conversion action
-#### End Point 
+- End Point    
   `GET /api/v1/livechat/conversionsActions/{id}`
 
-#### Parameters
+- Parameters     
   No parameters
 
-#### Response
-  - `id ` -id of the conversion action.
-  - `name` - name of the conversion action.
-  - `isEnable` -whether the conversion action is enable or not.
-  - `type` -type of the conversion action,including `url`、`customVariable` and `setByApi`.
-  - `matchType` - match type of the conversion action.
-  - `matchValue` - match value of the conversion action.
-  - `isCaseSensitive` - whether the conversion action is case sensitive or not,available when `type` is `url`
-  - `isAssignValue` - whether a value is assigned for the conversion action or not
-  - `value` - the value assigned for the conversion action,available when `isAssignValue` is `true`
-  - `customVariable` - the value come from the custom variable,available when `isAssignValue` is `true`
-  - `customVariableField` - the name of the custom variable,available when `type` is `customVariable`.
+- Response      
+Conversion Action Json Object.
 
 ### Create a new conversion action
-#### End Point 
+- End Point    
   `POST /api/v1/livechat/conversionsActions`
 
-#### Parameters
-  - `name` - name of the conversion action.
-  - `isEnable` -whether the conversion action is enable or not.
-  - `type` -type of the conversion action,including `url`、`customVariable` and `setByApi`.
-  - `matchType` - match type of the conversion action.
-  - `matchValue` - match value of the conversion action.
-  - `isCaseSensitive` - whether the conversion action is case sensitive or not,available when `type` is `url`
-  - `isAssignValue` - whether a value is assigned for the conversion action or not
-  - `value` - the value assigned for the conversion action,available when `isAssignValue` is `true`
-  - `customVariable` - the value come from the custom variable,available when `isAssignValue` is `true`
-  - `customVariableField` - the name of the custom variable,available when `type` is `customVariable`.
+- Parameters     
+Conversion Action Json Object.
 
-#### Response
-  - `id ` -id of the conversion action.
-  - `name` - name of the conversion action.
-  - `isEnable` -whether the conversion action is enable or not.
-  - `type` -type of the conversion action,including `url`、`customVariable` and `setByApi`.
-  - `matchType` - match type of the conversion action.
-  - `matchValue` - match value of the conversion action.
-  - `isCaseSensitive` - whether the conversion action is case sensitive or not,available when `type` is `url`
-  - `isAssignValue` - whether a value is assigned for the conversion action or not
-  - `value` - the value assigned for the conversion action,available when `isAssignValue` is `true`
-  - `customVariable` - the value come from the custom variable,available when `isAssignValue` is `true`
-  - `customVariableField` - the name of the custom variable,available when `type` is `customVariable`.
+- Response      
+Conversion Action Json Object.
 
 ### Update a conversion action
-#### End Point 
+- End Point    
   `PUT /api/v1/livechat/conversionsActions/{id}`
 
-#### Parameters
-  - `name` - name of the conversion action.
-  - `isEnable` -whether the conversion action is enable or not.
-  - `type` -type of the conversion action,including `url`、`customVariable` and `setByApi`.
-  - `matchType` - match type of the conversion action.
-  - `matchValue` - match value of the conversion action.
-  - `isCaseSensitive` - whether the conversion action is case sensitive or not,available when `type` is `url`
-  - `isAssignValue` - whether a value is assigned for the conversion action or not
-  - `value` - the value assigned for the conversion action,available when `isAssignValue` is `true`
-  - `customVariable` - the value come from the custom variable,available when `isAssignValue` is `true`
-  - `customVariableField` - the name of the custom variable,available when `type` is `customVariable`.
+- Parameters     
+Conversion Action Json Object.
 
-#### Response
-  - `id ` -id of the conversion action.
-  - `name` - name of the conversion action.
-  - `isEnable` -whether the conversion action is enable or not.
-  - `type` -type of the conversion action,including `url`、`customVariable` and `setByApi`.
-  - `matchType` - match type of the conversion action.
-  - `matchValue` - match value of the conversion action.
-  - `isCaseSensitive` - whether the conversion action is case sensitive or not,available when `type` is `url`
-  - `isAssignValue` - whether a value is assigned for the conversion action or not
-  - `value` - the value assigned for the conversion action,available when `isAssignValue` is `true`
-  - `customVariable` - the value come from the custom variable,available when `isAssignValue` is `true`
-  - `customVariableField` - the name of the custom variable,available when `type` is `customVariable`.
+- Response      
+Conversion Action Json Object.
 
 ## Visitor Segmentation
   You need `Manage Settings` permission to manage visitor segmentation.
@@ -1624,275 +1039,176 @@ optional:
   + `PUT /api/v1/livechat/visitorSegments/{id}`  -update a visitor segment
   + `DELETE /api/v1/livechat/visitorSegments/{id}`  -remove a visitor segment
 
+### Visitor Segmentation Json Format
+Visitor Segmentation is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------
+|id |integer  | yes  | no |id of the visitor segment.
+|name|string  | no  | yes | name of the visitor segment.
+|color|string  | no  | no | color of the visitor segment
+|isEnable|boolean  | no  | no | whether the visitor segment is enable or not.
+|priority|string  | no  | no | priority of the visitor segment.
+|description|string  | no  | no |  description of the visitor segment.
+|[triggerCondition](#trigger-condition)|json object  | no  | no| an trigger condition json object.
+|displayNotifications|string  | no  | no |  objects of notification which display in the list.
+|notificationType|string  | no  | no |  type of notification, including `departments`、`agents` and `none`. 
+|notifyObject|array  | no  | no |  an array of notify object,the object contains id and name.
+
 ### Get list of visitor segments
-#### End Point 
+- End Point    
   `GET /api/v1/livechat/visitorSegments`
 
-#### Parameters
+- Parameters     
   No parameters
 
-#### Response
-  visitor segments list, including
-  - `id ` -id of the visitor segment.
-  - `name` - name of the visitor segment.
-  - `color` -color of the visitor segment
-  - `isEnable` -whether the visitor segment is enable or not.
-  - `priority` -priority of the visitor segment.
-  - `description` - description of the visitor segment.
-  - `displayConditions` - conditions which display in the list.
-  - `displayNotifications` - objects of notification which display in the list.
+- Response      
+An array of Visitor Segmentation Json Object.
 
 ### Get a single visitor segment
-#### End Point 
+- End Point    
   `GET /api/v1/livechat/visitorSegments/{id}`
 
-#### Parameters
+- Parameters     
   No parameters
 
-#### Response
-  - `id ` -id of the visitor segment.
-  - `name` - name of the visitor segment.
-  - `color` -color of the visitor segment
-  - `isEnable` -whether the visitor segment is enable or not.
-  - `priority` -priority of the visitor segment.
-  - `description` - description of the visitor segment.
-  - `displayConditions` - conditions which display in the list.
-  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
-  - `logicalExpression` - the logical expression of the conditions
-  - `conditions` -condition list
-    + `variableName` - name of the variable,including comm100 system variable and custom variable
-    + `expression` - expression of the condition
-    + `value` - the value response to the variable
-  - `displayNotifications` - objects of notification which display in the list.
-  - `notificationType` - type of notification, including `departments`、`agents` and `none`. 
-  - `notifyObject` - object of notification
-    + `id` -id of object of notification
-    + `name` - name of object of notification
+- Response      
+Visitor Segmentation Json Object.
 
 ### Create a new visitor segment 
-#### End Point 
+- End Point    
   `POST /api/v1/livechat/visitorSegments`
 
-#### Parameters
-  - `name` - name of the visitor segment.
-  - `color` -color of the visitor segment
-  - `isEnable` -whether the visitor segment is enable or not.
-  - `priority` -priority of the visitor segment.
-  - `description` - description of the visitor segment.
-  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
-  - `logicalExpression` - the logical expression of the conditions
-  - `conditions` -condition list
-    + `variableName` - name of the variable,including comm100 system variable and custom variable
-    + `expression` - expression of the condition
-    + `value` - the value response to the variable
-  - `notificationType` - type of notification, including `departments`、`agents` and `none`. 
-  - `notifyObject` - object of notification
-    + `id` -id of object of notification
-    + `name` - name of object of notification
+- Parameters     
+Visitor Segmentation Json Object.
 
-#### Response
-  - `id ` -id of the visitor segment.
-  - `name` - name of the visitor segment.
-  - `color` -color of the visitor segment
-  - `isEnable` -whether the visitor segment is enable or not.
-  - `priority` -priority of the visitor segment.
-  - `description` - description of the visitor segment.
-  - `displayConditions` - conditions which display in the list.
-  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
-  - `logicalExpression` - the logical expression of the conditions
-  - `conditions` -condition list
-    + `variableName` - name of the variable,including comm100 system variable and custom variable
-    + `expression` - expression of the condition
-    + `value` - the value response to the variable
-  - `displayNotifications` - objects of notification which display in the list.
-  - `notificationType` - type of notification, including `departments`、`agents` and `none`. 
-  - `notifyObject` - object of notification
-    + `id` -id of object of notification
-    + `name` - name of object of notification
+- Response      
+Visitor Segmentation Json Object.
 
 ### Update a visitor segment
-#### End Point 
+- End Point    
   `PUT /api/v1/livechat/visitorSegmentsbans/{id}`
 
-#### Parameters
-  - `name` - name of the visitor segment.
-  - `color` -color of the visitor segment
-  - `isEnable` -whether the visitor segment is enable or not.
-  - `priority` -priority of the visitor segment.
-  - `description` - description of the visitor segment.
-  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
-  - `logicalExpression` - the logical expression of the conditions
-  - `conditions` -condition list
-    + `variableName` - name of the variable,including comm100 system variable and custom variable
-    + `expression` - expression of the condition
-    + `value` - the value response to the variable
-  - `notificationType` - type of notification, including `departments`、`agents` and `none`. 
-  - `notifyObject` - object of notification
-    + `id` -id of object of notification
-    + `name` - name of object of notification
+- Parameters     
+Visitor Segmentation Json Object.
 
-#### Response
-  - `id ` -id of the visitor segment.
-  - `name` - name of the visitor segment.
-  - `color` -color of the visitor segment
-  - `isEnable` -whether the visitor segment is enable or not.
-  - `priority` -priority of the visitor segment.
-  - `description` - description of the visitor segment.
-  - `displayConditions` - conditions which display in the list.
-  - `triggeredWhen` - when the rule is triggered, including `all`、`any` and `logicalExpression` 
-  - `logicalExpression` - the logical expression of the conditions
-  - `conditions` -condition list
-    + `variableName` - name of the variable,including comm100 system variable and custom variable
-    + `expression` - expression of the condition
-    + `value` - the value response to the variable
-  - `displayNotifications` - objects of notification which display in the list.
-  - `notificationType` - type of notification, including `departments`、`agents` and `none`. 
-  - `notifyObject` - object of notification
-    + `id` -id of object of notification
-    + `name` - name of object of notification
+- Response      
+Visitor Segmentation Json Object.
 
 ### Remove a visitor segment
-#### End Point 
+- End Point    
   `DELETE /api/v1/livechat/visitorSegments/{id}`
 
-#### Parameters
+- Parameters     
   No parameters
 
-#### Response
-  - `result ` -the result of operating
+- Response      
+  Status: 200 OK   
 
 ## Visitor SSO Settings
   You need `Manage Settings` permission to setting sso for a site.
   + `GET /api/v1/livechat/visitorSSO` -Get sso settings of visitor
   + `PUT /api/v1/livechat/visitorSSO`  -Update configuration of visitor
 
+### Data Mapping Json Format
+Data Mapping is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------
+|id |integer  | yes  | no |id of the data mapping.
+|userAttribute|string  | no  | yes | user attribute of the mapping.
+|macro|string  | no  | yes | common 100 field correspond with the user attribute.
+
+### SignIn Options Json Format
+SignIn Options is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------
+|id |integer  | yes  | no |id of the options.
+|campaignId |integer  | yes  | no |id of the campaign.
+|signInType|string  | no  | no | type of the sign in,including `no`、`optional` and `required`.
+|isSkipPrechat|boolean  | no  | no | whether the pre-chat form is skipped when visitors sign in, available when the `signInType` is not `no`.
+
+### Visitor SSO Settings Json Format
+Visitor SSO Settings is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------
+|id |integer  | yes  | no |id of the sso settings.
+|siteId |integer  | yes  | no |id of the site which the visitor sso belongs to.
+|isEnable|boolean  | no  | yes |  whether visitor sso is enable or not.
+|signInUrl|string  | no  | no | url which visitor sign in
+|vertificationCertificate|string  | no  | no | infomation of the Identity Provider Verification Certificate.
+|certificateFileName|string  | no  | no |  file name of the certificate.
+|dataMappings|array  | no  | no |  an array of [data mapping](#data-mapping-json-format) json object.
+|signInOptions|array  | no  | no |  an array of [SignIn Options](#singin-options-json-format) json object.
+
 ### Get sso settings of visitor
-#### End Point 
+- End Point    
   `GET /api/v1/livechat/visitorSSO`
 
-#### Parameters
+- Parameters     
   No parameters
 
-#### Response
-  - `id` -id of the sso settings.
-  - `siteId` -id of the site which the visitor sso belongs to.
-  - `isEnable` - whether visitor sso is enable or not.
-  - `signInUrl` -url which visitor sign in
-  - `vertificationCertificate` -infomation of the Identity Provider Verification Certificate.
-  - `certificateFileName` - file name of the certificate.
-  - `dataMappings` - data mapping list of the sso.
-    + `id` - id of the data mapping
-    + `userAttribute` - user attribute of the mapping
-    + `macro` - common 100 field correspond with the user attribute.
-  - `signInOptions` - sign in options list.
-    + `id` -id of the options
-    + `campaignId` -id of the campaign
-    + `signInType` -type of the sign in,including `no`、`optional` and `required`.
-    + `isSkipPrechat` - whether the pre-chat form is skipped when visitors sign in, available when the `signInType` is not `no`.
+- Response      
+Visitor SSO Settings Json Object.
 
 ### Update sso settings of visitor
-#### End Point 
+- End Point    
   `PUT /api/v1/livechat/visitorSSO`
 
-#### Parameters
-  - `isEnable` - whether visitor sso is enable or not.
-  - `signInUrl` -url which visitor sign in
-  - `vertificationCertificate` -infomation of the Identity Provider Verification Certificate.
-  - `certificateFileName` - file name of the certificate.
-  - `dataMappings` - data mapping list of the sso.
-    + `userAttribute` - user attribute of the mapping
-    + `macro` - common 100 field correspond with the user attribute.
-  - `signInOptions` - sign in options list.
-    + `campaignId` -id of the campaign
-    + `signInType` -type of the sign in,including `no`、`optional` and `required`.
-    + `isSkipPrechat` - whether the pre-chat form is skipped when visitors sign in, available when the `signInType` is not `no`.
+- Parameters     
+  Visitor SSO Settings Json Object.
 
-#### Response
-  - `id` -id of the sso settings.
-  - `siteId` -id of the site which the visitor sso belongs to.
-  - `isEnable` - whether visitor sso is enable or not.
-  - `signInUrl` -url which visitor sign in
-  - `vertificationCertificate` -infomation of the Identity Provider Verification Certificate.
-  - `certificateFileName` - file name of the certificate.
-  - `dataMappings` - data mapping list of the sso.
-    + `id` - id of the data mapping
-    + `userAttribute` - user attribute of the mapping
-    + `macro` - common 100 field correspond with the user attribute.
-  - `signInOptions` - sign in options list.
-    + `id` -id of the options
-    + `campaignId` -id of the campaign
-    + `signInType` -type of the sign in,including `no`、`optional` and `required`.
-    + `isSkipPrechat` - whether the pre-chat form is skipped when visitors sign in, available when the `signInType` is not `no`.
+- Response      
+Visitor SSO Settings Json Object.
 
 ## Site Config
   You need `Manage Settings` permission to config for a site.
   + `GET /api/v1/livechat/configs` -get config for a site
   + `PUT /api/v1/livechat/configs`  -update configuration of a site
 
+### Site Config Json Format
+Site Config is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------
+|siteId |integer  | yes  | no |id of the site which the configuration belongs to.
+|isEnableMultipleCampaigns| boolean  | no  | no |  whether multiple campaigns are enable or not in the site.
+|isEnableAutoAllocation| boolean  | no  | no | whether auto allocation is enable or not in the site.
+|isEnableCustomAwayStatus| boolean  | no  | no | whether custom away status is enable or not in the site.
+|isEnableDepartment| boolean  | no  | no | whether department is enable or not in the site.
+|isEnableAutoTranslation| boolean  | no  | no |  whether auto translation is enable or not in the site.
+|isEnableAudioAndVideoChat| boolean  | no  | no |  whether audio&video chat is enable or not in the site.
+|isEnableVisitorSegmentation| boolean  | no  | no |  whether visitor segmentation is enable or not in the site.
+|isEnableVisitorSSO| boolean  | no  | no |  whether visitor SSO is enable or not in the site.
+|isEnableCreditCardMasking| boolean  | no  | no |  whether Credit card masking is enable or not in the site.
+|isEnableCustomVariables| boolean  | no  | no |  whether custom variables are enable or not in the site.
+|isEnableSalesforce| boolean  | no  | no |  whether Salesforce integration is enable or not in the site.
+|isEnableZendesk| boolean  | no  | no |  whether Zendesk integration is enable or not in the site.
+|isEnableGoogleAnalytics| boolean  | no  | no |  whether Google Analytics integration is enable or not in the site.
+|isEnableGotoMeeting| boolean  | no  | no |  whether GotoMeeting integration is enable or not in the site.
+|isEnableJoinme| boolean  | no  | no |  whether Joinme integration is enable or not in the site.
+
 ### Get config for a site
-#### End Point 
+- End Point    
   `GET /api/v1/livechat/configs`
 
-#### Parameters
+- Parameters     
   No parameters
 
-#### Response
-  - `siteId` -id of the site which the configuration belongs to.
-  - `isEnableMultipleCampaigns` - whether multiple campaigns are enable or not in the site.
-  - `isEnableAutoAllocation` -whether auto allocation is enable or not in the site.
-  - `isEnableCustomAwayStatus` -whether custom away status is enable or not in the site.
-  - `isEnableDepartment` -whether department is enable or not in the site.
-  - `isEnableAutoTranslation` - whether auto translation is enable or not in the site.
-  - `isEnableAudioAndVideoChat` - whether audio&video chat is enable or not in the site.
-  - `isEnableVisitorSegmentation` - whether visitor segmentation is enable or not in the site.
-  - `isEnableVisitorSSO` - whether visitor SSO is enable or not in the site.
-  - `isEnableCreditCardMasking` - whether Credit card masking is enable or not in the site.
-  - `isEnableCustomVariables` - whether custom variables are enable or not in the site.
-  - `isEnableSalesforce` - whether Salesforce integration is enable or not in the site.
-  - `isEnableZendesk` - whether Zendesk integration is enable or not in the site.
-  - `isEnableGoogleAnalytics` - whether Google Analytics integration is enable or not in the site.
-  - `isEnableGotoMeeting` - whether GotoMeeting integration is enable or not in the site.
-  - `isEnableJoinme` - whether Joinme integration is enable or not in the site.
+- Response      
+Site Config Json Object.
 
 ### Update configuration of a site
-#### End Point 
+- End Point    
   `PUT /api/v1/livechat/configs`
 
-#### Parameters
-  optional:
-  - `isEnableMultipleCampaigns` - whether multiple campaigns are enable or not in the site.
-  - `isEnableAutoAllocation` -whether auto allocation is enable or not in the site.
-  - `isEnableCustomAwayStatus` -whether custom away status is enable or not in the site.
-  - `isEnableDepartment` -whether department is enable or not in the site.
-  - `isEnableAutoTranslation` - whether auto translation is enable or not in the site.
-  - `isEnableAudioAndVideoChat` - whether audio&video chat is enable or not in the site.
-  - `isEnableVisitorSegmentation` - whether visitor segmentation is enable or not in the site.
-  - `isEnableVisitorSSO` - whether visitor SSO is enable or not in the site.
-  - `isEnableCreditCardMasking` - whether Credit card masking is enable or not in the site.
-  - `isEnableCustomVariables` - whether custom variables are enable or not in the site.
-  - `isEnableSalesforce` - whether Salesforce integration is enable or not in the site.
-  - `isEnableZendesk` - whether Zendesk integration is enable or not in the site.
-  - `isEnableGoogleAnalytics` - whether Google Analytics integration is enable or not in the site.
-  - `isEnableGotoMeeting` - whether GotoMeeting integration is enable or not in the site.
-  - `isEnableJoinme` - whether Joinme integration is enable or not in the site.
+- Parameters     
+Site Config Json Object.
 
-#### Response
-  - `siteId` -id of the site which the configuration belongs to.
-  - `isEnableMultipleCampaigns` - whether multiple campaigns are enable or not in the site.
-  - `isEnableAutoAllocation` -whether auto allocation is enable or not in the site.
-  - `isEnableCustomAwayStatus` -whether custom away status is enable or not in the site.
-  - `isEnableDepartment` -whether department is enable or not in the site.
-  - `isEnableAutoTranslation` - whether auto translation is enable or not in the site.
-  - `isEnableAudioAndVideoChat` - whether audio&video chat is enable or not in the site.
-  - `isEnableVisitorSegmentation` - whether visitor segmentation is enable or not in the site.
-  - `isEnableVisitorSSO` - whether visitor SSO is enable or not in the site.
-  - `isEnableCreditCardMasking` - whether Credit card masking is enable or not in the site.
-  - `isEnableCustomVariables` - whether custom variables are enable or not in the site.
-  - `isEnableSalesforce` - whether Salesforce integration is enable or not in the site.
-  - `isEnableZendesk` - whether Zendesk integration is enable or not in the site.
-  - `isEnableGoogleAnalytics` - whether Google Analytics integration is enable or not in the site.
-  - `isEnableGotoMeeting` - whether GotoMeeting integration is enable or not in the site.
-  - `isEnableJoinme` - whether Joinme integration is enable or not in the site.
+- Response      
+Site Config Json Object.
 
 ## Secure Form
   + `GET /api/v1/livechat/secureForms` -get list of secure forms
@@ -1901,155 +1217,65 @@ optional:
   + `PUT /api/v1/livechat/secureForms/{id}`  -update a secure form
   + `DELETE /api/v1/livechat/secureForms/{id}`  -remove a secure form
 
+### Secure Form Json Format
+Secure Form is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------
+|id |integer  | yes  | no |id of the secure form.
+|name| string  | no  | yes |  name of the secure form.
+|description| string  | no  | no |  description of the secure form.
+|fields| Array | no | no |     an array of [field](#field) object
+
 ### Get list of secure forms
-#### End Point 
+- End Point    
   `GET /api/v1/livechat/secureForms`
 
-#### Parameters
+- Parameters     
   No parameters
 
-#### Response
-  secure forms list, including
-  - `id` -id of the secure form.
-  - `name` - name of the secure form.
-  - `description` -description of the secure form.
+- Response      
+An array of Secure Form Json Object.
 
 ### Get a single secure form
-#### End Point 
+- End Point    
   `GET /api/v1/livechat/secureForms/{id}`
 
-#### Parameters
+- Parameters     
   No parameters
 
-#### Response
-  - `id` -id of the secure form.
-  - `name` - name of the secure form.
-  - `description` -description of the secure form.
-  - `fields` - fields list
-    + `id` - id of the field
-    + `name` - name of the field
-    + `type` - type of the field
-      * `cardNumber` - card number field (system field)
-      * `expirationDate` - expiration date field (system field)
-      * `CSCOrCVV` - CSC/CVV field (system field)
-      * `NameOnCard` - name on card field (system field)
-      * `text` - Text field (custom field)
-      * `textarea` - Textarea field (custom field)
-      * `radio` - Radio Box field (custom field)
-      * `checkbox` - Check Box field (custom field)
-      * `select` - Drop Down List field (custom field)
-      * `checkboxList` - Check Box List field (custom field)
-    + `isSystem` - whether the field is system field or not.
-    + `isVisible` - whether the field is visible or not in the pre-chat form.
-    + `isRequired` - whether the field is required or not
-    + `options` - the options of the field
+- Response      
+Secure Form Json Object.
 
 ### Create a new secure form
-#### End Point 
+- End Point    
   `POST /api/v1/livechat/secureForms`
 
-#### Parameters
-  - `name` - name of the secure form.
-  - `description` -description of the secure form.
-  - `fields` - fields list
-    + `id` - id of the field
-    + `name` - name of the field
-    + `type` - type of the field
-      * `cardNumber` - card number field (system field)
-      * `expirationDate` - expiration date field (system field)
-      * `CSCOrCVV` - CSC/CVV field (system field)
-      * `NameOnCard` - name on card field (system field)
-      * `text` - Text field (custom field)
-      * `textarea` - Textarea field (custom field)
-      * `radio` - Radio Box field (custom field)
-      * `checkbox` - Check Box field (custom field)
-      * `select` - Drop Down List field (custom field)
-      * `checkboxList` - Check Box List field (custom field)
-    + `isSystem` - whether the field is system field or not.
-    + `isVisible` - whether the field is visible or not in the pre-chat form.
-    + `isRequired` - whether the field is required or not
-    + `options` - the options of the field
+- Parameters     
+Secure Form Json Object.
 
-#### Response
-  - `id` -id of the secure form.
-  - `name` - name of the secure form.
-  - `description` -description of the secure form.
-  - `fields` - fields list
-    + `id` - id of the field
-    + `name` - name of the field
-    + `type` - type of the field
-      * `cardNumber` - card number field (system field)
-      * `expirationDate` - expiration date field (system field)
-      * `CSCOrCVV` - CSC/CVV field (system field)
-      * `NameOnCard` - name on card field (system field)
-      * `text` - Text field (custom field)
-      * `textarea` - Textarea field (custom field)
-      * `radio` - Radio Box field (custom field)
-      * `checkbox` - Check Box field (custom field)
-      * `select` - Drop Down List field (custom field)
-      * `checkboxList` - Check Box List field (custom field)
-    + `isSystem` - whether the field is system field or not.
-    + `isVisible` - whether the field is visible or not in the pre-chat form.
-    + `isRequired` - whether the field is required or not
-    + `options` - the options of the field
+- Response      
+Secure Form Json Object.
 
 ### Update a secure form
-#### End Point 
+- End Point    
   `PUT /api/v1/livechat/secureForms/{id}`
 
-#### Parameters
-  - `name` - name of the secure form.
-  - `description` -description of the secure form.
-  - `fields` - fields list
-    + `id` - id of the field
-    + `name` - name of the field
-    + `type` - type of the field
-      * `cardNumber` - card number field (system field)
-      * `expirationDate` - expiration date field (system field)
-      * `CSCOrCVV` - CSC/CVV field (system field)
-      * `NameOnCard` - name on card field (system field)
-      * `text` - Text field (custom field)
-      * `textarea` - Textarea field (custom field)
-      * `radio` - Radio Box field (custom field)
-      * `checkbox` - Check Box field (custom field)
-      * `select` - Drop Down List field (custom field)
-      * `checkboxList` - Check Box List field (custom field)
-    + `isSystem` - whether the field is system field or not.
-    + `isVisible` - whether the field is visible or not in the pre-chat form.
-    + `isRequired` - whether the field is required or not
-    + `options` - the options of the field
-#### Response
-  - `id` -id of the secure form.
-  - `name` - name of the secure form.
-  - `description` -description of the secure form.
-  - `fields` - fields list
-    + `id` - id of the field
-    + `name` - name of the field
-    + `type` - type of the field
-      * `cardNumber` - card number field (system field)
-      * `expirationDate` - expiration date field (system field)
-      * `CSCOrCVV` - CSC/CVV field (system field)
-      * `NameOnCard` - name on card field (system field)
-      * `text` - Text field (custom field)
-      * `textarea` - Textarea field (custom field)
-      * `radio` - Radio Box field (custom field)
-      * `checkbox` - Check Box field (custom field)
-      * `select` - Drop Down List field (custom field)
-      * `checkboxList` - Check Box List field (custom field)
-    + `isSystem` - whether the field is system field or not.
-    + `isVisible` - whether the field is visible or not in the pre-chat form.
-    + `isRequired` - whether the field is required or not
-    + `options` - the options of the field
+- Parameters     
+Secure Form Json Object.
+    
+- Response      
+Secure Form Json Object.
 
 ### Remove a secure form
-#### End Point 
+- End Point    
   `DELETE /api/v1/livechat/secureForms/{id}`
 
-#### Parameters
+- Parameters     
   No parameters
 
-#### Response
-  - `result ` -the result of operating
+- Response      
+  Status: 200 OK   
 
 ## Chat
   + `Get /api/v1/livechat/chats` -Get chats list.
@@ -2058,10 +1284,10 @@ optional:
   + `Get /api/v1/livechat/chats/agentChats` -Get agents' chats list.
 
 ## Get chats list
-### End Point
+- End Point      
   `Get /api/v1/livechat/chats`
 
-### Parameters
+- Parameters     
   - `dateInterval` - the date interval of the chat.
   optional：
   - `agentId` - id of the agent who participate in the chat.
@@ -2074,7 +1300,7 @@ optional:
     + `value` - the value correspond with the field
   - `page` -page number
 
-### Response
+- Response      
   - `total` -total count of the list.
   - `previousPage` -url of the previous page.
   - `nextPage` -url of the next page.
@@ -2108,13 +1334,13 @@ optional:
     + `operator_comment` - notes added for this chat by the operator
 
 ## Get a single chat
-### End Point
+- End Point      
   `Get /api/v1/livechat/chats/{id}`
 
-### Parameters
+- Parameters     
   No parameter.
 
-### Response
+- Response      
   + `id` - id of the chat.
   + `ssoUserId` -user id of sso.
   + `summary` -summary of the chat.
@@ -2144,17 +1370,17 @@ optional:
   + `operator_comment` - notes added for this chat by the operator
 
 ## Get missed and refused chats list
-### End Point
+- End Point      
   `Get /api/v1/livechat/chats/missedAndRefused`
 
-### Parameters
+- Parameters     
   - `dateInterval` - the date interval of the message.
   optional：
   - `type` - type of the chat,including `missed` and `refused`.
   - `campaignId` - id of the campaign which the message of the chat happened in.
   - `visitorSegmentId` - id of the visitor segment which visitor belongs to.
 
-### Response
+- Response      
   - `total` -total count of the list.
   - `previousPage` -url of the previous page.
   - `nextPage` -url of the next page.
@@ -2170,16 +1396,16 @@ optional:
     + `comment` -comment of the chat.
 
 ## Agent chats list
-### End Point
+- End Point      
   `Get /api/v1/livechat/chats/agentChats`
 
-### Parameters
+- Parameters     
   - `dateInterval` - the date interval of the message.
   optional：
   - `agentId` - id of the agent who paticipate in the chat.
   - `keywords` - the key words of inquiring the chat
 
-### Response
+- Response      
   - `total` -total count of the list.
   - `previousPage` -url of the previous page.
   - `nextPage` -url of the next page.
@@ -2192,10 +1418,10 @@ optional:
   + `Get /api/v1/livechat/messages` -Get messages list.
 
 ## Get messages list
-### End Point
+- End Point      
   `Get /api/v1/livechat/messages` 
 
-### Parameters
+- Parameters     
   - `dateInterval` - the date interval of the message.
   optional：
   - `campaignId` - id of the campaign which the message of the chat happened in
@@ -2203,7 +1429,7 @@ optional:
   - `visitorSegmentId` - id of the visitor segment which visitor belongs to.
   - `keywords` - the key words of inquiring the message.
 
-### Response
+- Response      
   - `total` -total count of the list.
   - `previousPage` -url of the previous page.
   - `nextPage` -url of the next page.
