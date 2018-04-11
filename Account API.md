@@ -1,62 +1,44 @@
 # General
 |Object     | Path               | Support                                                                                                   
 | ------------- |------------------------------- | -------------------------------------- 
-| Site        |/account/sites/{site_id}/profile                    | 1       
-| Agent       |/account/agents                    | 1       
-| Group        |/account/groups                    | 1       
-| Permission        |/account/permissions                    | 1       
-| Agent Permission  |/account/agents/{agent_id}/permissions                    | 1       
-| Group Permission  |/account/groups/{group_id}/permissions                    | 1              
-| Ip Restrictions   |/account/ipRestrictions                    | 1      
-| Audit Logs |/livechat/auditLogs                    | 1                
+| [Site Profile](#site-profile)   |/account/sites/{site_id}/profile                    | 1       
+| [Agent](#agent)       |/account/agents                    | 1       
+| [Group](#group)        |/account/groups                    | 1       
+| [Permission](#permission)        |/account/permissions                    | 1       
+| [Agent Permission](#agent-permission)  |/account/agents/{agent_id}/permissions                    | 1       
+| [Group Permission](#group-permission)  |/account/groups/{group_id}/permissions                    | 1              
+| [Ip Restriction](#ip-restriction)   |/account/ipRestrictions                    | 1      
+| [Audit Log](#audit-log) |/livechat/auditLogs                    | 1                
 
-## Account API
+## Site Profile
   You need `Manage Site Profile` permission to manage site.
-  - `Site` -Site Manage
-    + `GET /api/v1/account/sites/{site_id}/profile` -Get profile of a single site
-    + `PUT /api/v1/account/sites/{site_id}/profile` -Update profile of a site
-    + `PUT /api/v1/account/sites/{site_id}/cancel` -Cancel the site
-     
-  You need `Manage Agent & Agent Groups` permission to manage agent、group and permission.
-  - `Agent` -Agent Manage
-    + `GET /api/v1/account/agents` -Get list of agent   
-    + `GET /api/v1/account/agents/{agent_email}` -Get a single agent
-    + `POST /api/v1/account/agents` -Create a new agent
-    + `PUT /api/v1/account/agents/{agent_id}` -Update an agent  
-    + `PUT /api/v1/account/agents/{agent_id}/reset_api_key` -Reset an API key   
-    + `DELETE /api/v1/account/agents/{agent_id}` -Remove an agent
-  - `Group` -Group Manage
-    + `GET /api/v1/account/groups` -Get list of groups
-    + `GET /api/v1/account/groups/{group_id}` -Get a single group
-    + `POST /api/v1/account/groups` -Create a new group
-    + `PUT /api/v1/account/groups/{group_id}` -Update a group  
-    + `DELETE /api/v1/account/groups/{group_id}` -Remove a group
-  - `Permission` - Permission Manage
-    + `GET /api/v1/account/permissions` -Get list of permission  
-    + `GET /api/v1/account/permissions/{permission_id}` -Get a single permission
-    + `POST /api/v1/account/permissions` -Create a new permission
-    + `PUT /api/v1/account/permissions/{permission_id}` -Update a permission
-    + `DELETE /api/v1/account/permissions/{permission_id}` -Remove a permission
-  - `Agent Permission` -Agent's Permission Manage
-    + `GET /api/v1/account/agents/{agent_id}/permissions` -Get list of agent's permission 
-    + `POST /api/v1/account/agents/{agent_id}/permissions` -Create a new permission for a agent
-    + `DELETE /api/v1/account/agents/{agent_id}/permissions/{permission_id}` -Remove a permission for a agent
-  - `Group Permission` -Group's Permission Manage
-    + `GET /api/v1/account/groups/{group_id}/permissions` -Get list of group's permission
-    + `POST /api/v1/account/groups/{group_id}/permissions` -Create a new permission for a group
-    + `DELETE /api/v1/account/groups/{group_id}/permissions/{permission_id}` -Remove a permission for a group
-      
-  You need `Manage Security` permission to manage ip restrictions.
-  - `IP Restrictions` -IP Restrictions Manage
-    + `Get /api/v1/account/ipRestrictions/ipRanges` -Get ip range list of ip restrictions 
-    + `POST /api/v1/account/ipRestrictions/ipRanges/{rang_id}` -Update a ip range of ip restrictions 
-    + `DELETE /api/v1/account/ipRestrictions/ipRanges/{rang_id}` -Remove a ip range of ip restrictions 
-    + `Get /api/v1/account/ipRestrictions/config` -Get configuration of ip restrictions 
-    + `PUT /api/v1/account/ipRestrictions/config` -Update configuration of ip restrictions 
-    
-  You need `View Audit Log` permission to view audit logs.
-  + `Get /api/v1/account/auditLogs` -Get audit Logs list 
-  + `Get /api/v1/account/auditLogs/{log_id}` -Get a single audit log 
+  - `GET /api/v1/account/sites/{id}/profile` -Get profile of a single site
+  - `PUT /api/v1/account/sites/{id}/profile` -Update profile of a site
+  - `PUT /api/v1/account/sites/{id}/cancel` -Cancel the site
+
+### Site Profile Json Format
+ Site profile is represented as simple flat JSON objects with the following keys:  
+
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+| id | integer  | yes  | no| id of the site
+| siteName| string  | no  | yes|name of the site
+| firstName| string  | no  | yes|first name of the site
+| lastName| string  | no  | yes|last name of the site
+| company| string  | no  | yes| company the site belongs to
+| website| string  | no  | yes| website of the site
+| phoneNumber| string  | no  | no| phone number of the site
+| mobileNumber| string  | no  | no| mobile number of the site
+| title| string  | no | no | title of the site
+| faxNumber| string  | no | no | fax number of the site
+| mailAddress| string  | no | no | mail address of the site
+| city| string  | no | no | city which the site is in
+| stateOrProvince| string  | no | no | state or provice which the site is in
+| postalOrZipCode| string  | no | no | postal or zip code of the site
+| country| string  | no | no | country which the site's company belongs to 
+| companySize| string  | no | no | staff number of the site's company
+| timeZone| string  | no | no | time zone which the site's company belongs to 
+| datetimeFormat| string  | no | no | datatime format which the site will display
 
 ## Get profile of a single site
 ### End Point
@@ -66,69 +48,17 @@
   No parameters
 
 ### Response
-  - `id ` -id of the site.
-  - `siteName` -name of the site.
-  - `firstName` -first name of the site.
-  - `lastName` -last name of the site.
-  - `company` - company the site belongs to
-  - `website` - website of the site
-  - `phoneNumber` - phone number of the site
-  - `mobileNumber` - mobile number of the site
-  - `title` - title of the site
-  - `faxNumber` - fax number of the site
-  - `mailAddress` - mail address of the site
-  - `city` - city which the site is in
-  - `stateOrProvince` - state or provice which the site is in
-  - `postalOrZipCode` - postal or zip code of the site
-  - `country` - country which the site's company belongs to 
-  - `companySize` - staff number of the site's company
-  - `timeZone` - time zone which the site's company belongs to 
-  - `datetimeFormat` - datatime format which the site will display
+ Site Profile Json Object
 
 ## Update profile of a site  
 ### End Point
   `PUT /api/v1/account/site/{site_id}/profile`
 
 ### Parameters
-  Required parameters:
-  - `siteName` -name of the site.
-  - `firstName` -first name of the site.
-  - `lastName` -last name of the site.
-  - `company` - company the site belongs to
-  - `website` - website of the site
-  Optional parameters:
-  - `phoneNumber` - phone number of the site
-  - `mobileNumber` - mobile number of the site
-  - `title` - title of the site
-  - `faxNumber` - fax number of the site
-  - `mailAddress` - mail address of the site
-  - `city` - city which the site is in
-  - `stateOrProvince` - state or provice which the site is in
-  - `postalOrZipCode` - postal or zip code of the site
-  - `country` - country which the site's company belongs to 
-  - `companySize` - staff number of the site's company
-  - `timeZone` - time zone which the site's company belongs to 
-  - `datetimeFormat` - datatime format which the site will display
+ Site Profile Json Object
 
 ### Response
-  - `id ` -id of the site.
-  - `siteName` -name of the site.
-  - `firstName` -first name of the site.
-  - `lastName` -last name of the site.
-  - `company` - company the site belongs to
-  - `website` - website of the site
-  - `phoneNumber` - phone number of the site
-  - `mobileNumber` - mobile number of the site
-  - `title` - title of the site
-  - `faxNumber` - fax number of the site
-  - `mailAddress` - mail address of the site
-  - `city` - city which the site is in
-  - `stateOrProvince` - state or provice which the site is in
-  - `postalOrZipCode` - postal or zip code of the site
-  - `country` - country which the site's company belongs to 
-  - `companySize` - staff number of the site's company
-  - `timeZone` - time zone which the site's company belongs to 
-  - `datetimeFormat` - datatime format which the site will display
+ Site Profile Json Object
 
 ## Cancel the site
 ### End Point
@@ -140,6 +70,36 @@
 ### Response
   - `result ` -the result of operating
 
+## Agent 
+  You need `Manage Agent & Agent Groups` permission to manage agent.
+  - `GET /api/v1/account/agents` -Get list of agent   
+  - `GET /api/v1/account/agents/{agent_email}` -Get a single agent
+  - `POST /api/v1/account/agents` -Create a new agent
+  - `PUT /api/v1/account/agents/{agent_id}` -Update an agent  
+  - `PUT /api/v1/account/agents/{agent_id}/reset_api_key` -Reset an API key   
+  - `DELETE /api/v1/account/agents/{agent_id}` -Remove an agent
+
+### Agent Json Format
+ Agent is represented as simple flat JSON objects with the following keys:  
+
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|id | integer  | yes  | no|id of the agent.
+|displayName| integer  | no  | yes|display name of the agent.
+|email| integer  | no  | yes|email of the agent.
+|status| integer  | yes  | no| status of the agent, including online、away、offline
+|ongoing_chats| integer  | yes  | no| total number of ongoing chats the agent has
+|departments| integer  | yes  | no| departments the agent belongs to
+|max_chats_count| integer  | no  | no| the maximum number of concurrent chats that will be automatically routed to the agent when Auto Accept Chat Requests is enabled
+|api_key| integer  | yes  | no| the key by which you can exchange the token when calling restful api
+|first_name| integer  | no  | yes| first name of the agent
+|last_name| integer  | no  | yes| last name of the agent
+|phone| integer  | no  | no| phone of the agent
+|title| integer  | no  | no| title of the agent
+|description| integer  | no  | no| description of the agent
+|is_admin| integer  | yes  | no| whether the agent is an administrator
+|is_active| integer  | yes  | no| whether the agent is active
+|
 ## Get list of agents
 ### End Point
   `GET /api/v1/account/agents`
@@ -148,14 +108,7 @@
   No parameters
 
 ### Response
-  Agent list, including
-  - `id ` -id of the agent.
-  - `displayName` -display name of the agent.
-  - `email` -email of the agent.
-  - `status` - status of the agent, including online、away、offline
-  - `ongoing_chats` - total number of ongoing chats the agent has
-  - `departments` - departments the agent belongs to
-  - `max_chats_count` - the maximum number of concurrent chats that will be automatically routed to the agent when Auto Accept Chat Requests is enabled
+  Agent Json Object List.
 
 ## Get a single agent
 ### End Point
@@ -165,93 +118,27 @@
   No parameters
 
 ### Response
-  - `id ` -id of the agent.
-  - `displayName` -display name of the agent.
-  - `email` -email of the agent.
-  - `status` - status of the agent, including online、away、offline
-  - `ongoing_chats` - total number of ongoing chats the agent has
-  - `departments` - departments the agent belongs to
-  - `max_chats_count` - the maximum number of concurrent chats that will be automatically routed to the agent when Auto Accept Chat Requests is enabled
-  - `api_key` - the key by which you can exchange the token when calling restful api
-  - `first_name` - first name of the agent
-  - `last_name` - last name of the agent
-  - `phone` - phone of the agent
-  - `title` - title of the agent
-  - `description` - description of the agent
-  - `is_admin` - whether the agent is an administrator
-  - `is_active` - whether the agent is active
+Agent Json Object
 
 ## Create a new agent
 ### End Point
   `POST /api/v1/account/agents`
 
 ### Parameters
-  Required parameters:
-  - `email` - email of the agent, (Email must be unique)
-  - `password` - password of the agent
-  - `display_name` - display name of the agent
-  - `first_name` - first name of the agent
-  - `last_name` - last name of the agent
-  Optional parameters:  
-  - `phone` - defaults to null
-  - `title` - defaults to null
-  - `description` - defaults to null
-  - `is_admin` - defaults to false.
-  - `is_active` - defaults to true.
-  - `depsrtments` - defaults to null
-  - `max_chats_count` - defaults to 3. Note: This setting only works when you separately set max chat count for each agent. If you set the max chat count together for all agents, you need to set in your Comm100 account.
+  Agent Json Object
 
 ### Response
-  - `id ` -id of the agent.
-  - `displayName` -display name of the agent.
-  - `email` -email of the agent.
-  - `status` - status of the agent, including online、away、offline
-  - `ongoing_chats` - total number of ongoing chats the agent has
-  - `departments` - departments the agent belongs to
-  - `max_chats_count` - the maximum number of concurrent chats that will be automatically routed to the agent when Auto Accept Chat Requests is enabled
-  - `api_key` - the key by which you can exchange the token when calling restful api
-  - `first_name` - first name of the agent
-  - `last_name` - last name of the agent
-  - `phone` - phone of the agent
-  - `title` - title of the agent
-  - `description` - description of the agent
-  - `is_admin` - whether the agent is an administrator
-  - `is_active` - whether the agent is active
+  Agent Json Object
 
 ## Update an agent
 ### End Point
   `PUT /api/v1/account/agents/{agent_email}`
 
 ### Parameters
-  Optional parameters:
-  - `display_name` - display name of the agent, which is shown in the chat window
-  - `first_name` - first name of the agent
-  - `last_name` - last name of the agent
-  - `phone` - defaults to null
-  - `title` - defaults to null
-  - `description` - defaults to null
-  - `is_admin` - defaults to false.
-  - `is_active` - defaults to true.
-  - `departments` - defaults to null
-  - `max_chats_count` - defaults to 3. Note: This setting only works when you separately set max chat count for each agent. If you set the max chat count together for all agents, you need to set in your Comm100 account.
-  - `status` - status of the agent (online, away or offline)
+  Agent Json Object
 
 ### Response
-  - `id ` -id of the agent.
-  - `displayName` -display name of the agent.
-  - `email` -email of the agent.
-  - `status` - status of the agent, including online、away、offline
-  - `ongoing_chats` - total number of ongoing chats the agent has
-  - `departments` - departments the agent belongs to
-  - `max_chats_count` - the maximum number of concurrent chats that will be automatically routed to the agent when Auto Accept Chat Requests is enabled
-  - `api_key` - the key by which you can exchange the token when calling restful api
-  - `first_name` - first name of the agent
-  - `last_name` - last name of the agent
-  - `phone` - phone of the agent
-  - `title` - title of the agent
-  - `description` - description of the agent
-  - `is_admin` - whether the agent is an administrator
-  - `is_active` - whether the agent is active
+  Agent Json Object
 
 ## Reset API Key 
 ### End Point
@@ -261,21 +148,7 @@
   No parameters.
 
 ### Response
-  - `id ` -id of the agent.
-  - `displayName` -display name of the agent.
-  - `email` -email of the agent.
-  - `status` - status of the agent, including online、away、offline
-  - `ongoing_chats` - total number of ongoing chats the agent has
-  - `departments` - departments the agent belongs to
-  - `max_chats_count` - the maximum number of concurrent chats that will be automatically routed to the agent when Auto Accept Chat Requests is enabled
-  - `api_key` - the key by which you can exchange the token when calling restful api
-  - `first_name` - first name of the agent
-  - `last_name` - last name of the agent
-  - `phone` - phone of the agent
-  - `title` - title of the agent
-  - `description` - description of the agent
-  - `is_admin` - whether the agent is an administrator
-  - `is_active` - whether the agent is active
+  Agent Json Object
 
 ## Remove an agent 
 ### End Point
@@ -287,6 +160,25 @@
 ### Response
   - `result ` -the result of operating
 
+## Group 
+  You need `Manage Agent & Agent Groups` permission to manage group.
+  - `GET /api/v1/account/groups` -Get list of groups
+  - `GET /api/v1/account/groups/{group_id}` -Get a single group
+  - `POST /api/v1/account/groups` -Create a new group
+  - `PUT /api/v1/account/groups/{group_id}` -Update a group  
+  - `DELETE /api/v1/account/groups/{group_id}` -Remove a group
+
+### Group Json Format
+ Group is represented as simple flat JSON objects with the following keys:  
+
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|id | integer  | yes  | no|id of the group.
+|name | string  | no  | yes|name of the group.
+|description | string  | no  | no|the description of the group.
+|agents | array  | no  | no|list of agents in current group
+
+
 ## Get list of Groups
 ### End Point
   `GET /api/v1/account/groups`
@@ -295,10 +187,7 @@
   No parameters
 
 ### Response
-  Group list, including
-  - `id ` -id of the group.
-  - `name` -name of the group.
-  - `description` -the description of the group.
+ Group Json Object
 
 ## Get a single group
 ### End Point
@@ -308,46 +197,27 @@
   No parameters
 
 ### Response
-  - `id ` -id of the group.
-  - `name` -name of the group.
-  - `description` -description of the group.
-  - `agents` - list of agents in current group
-    + `agent_id` -id of the agent
-    + `email` -email of the agent
+ Group Json Object
 
 ## Create a new group
 ### End Point
   `POST /api/v1/account/groups`
 
 ### Parameters
-  - `name` -name of the group.
-  - `description` -description of the group.
-  - `agents` - id list of agents in current group
-    + `agent_id` -id of the agent
-    + `email` -email of the agent
+ Group Json Object
 
 ### Response
-  - `id ` -id of the group.
-  - `name` -name of the group.
-  - `description` -description of the group.
-  - `agents` - id list of agents in current group
+ Group Json Object
 
 ## Update a group
 ### End Point
   `PUT /api/v1/account/groups/{group_id}`
 
 ### Parameters
-  - `name` -name of the group.
-  - `description` -description of the group.
-  - `agents` - id list of agents in current group
-    + `agent_id` -id of the agent
-    + `email` -email of the agent
+ Group Json Object
     
 ### Response
-  - `id ` -id of the group.
-  - `name` -name of the group.
-  - `description` -description of the group.
-  - `agents` - id list of agents in current group
+ Group Json Object
 
 ## Remove a group 
 ### End Point
@@ -359,6 +229,24 @@
 ### Response
   - `result ` -the result of operating
 
+## Permission 
+  You need `Manage Agent & Agent Groups` permission to manage permission.
+  - `GET /api/v1/account/permissions` -Get list of permission  
+  - `GET /api/v1/account/permissions/{permission_id}` -Get a single permission
+  - `POST /api/v1/account/permissions` -Create a new permission
+  - `PUT /api/v1/account/permissions/{permission_id}` -Update a permission
+  - `DELETE /api/v1/account/permissions/{permission_id}` -Remove a permission
+
+### Permission Json Format
+ Permission is represented as simple flat JSON objects with the following keys:  
+
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|id | integer  | yes  | no|id of the permission.
+|name | string  | no  | yes|name of the permission.
+|description | string  | no  | no|the description of the permission.
+|module | string  | no  | yes|module of the permission belong to.
+
 ## Get list of permissions
 ### End Point
   `GET /api/v1/account/permissions`
@@ -367,11 +255,7 @@
   No parameters
 
 ### Response
-  Permissions list, including
-  - `id ` -id of the permission.
-  - `module` -module of the permission belong to.
-  - `name` -name of the permission.
-  - `description` -the description of the permission.
+  Permission Json Object list
 
 ## Get a single permission
 ### End Point
@@ -381,40 +265,26 @@
   No parameters
 
 ### Response
-  - `id ` -id of the permission.
-  - `module` -module of the permission belong to.
-  - `name` -name of the permission.
-  - `description` -the description of the permission.
+  Permission Json Object
 
 ## Create a new permission
 ### End Point
   `POST /api/v1/account/permissions`
 
 ### Parameters
-  - `module` -module of the permission belong to.
-  - `name` -name of the permission.
-  - `description` -the description of the permission.
+  Permission Json Object
 
 ### Response
-  - `id ` -id of the permission.
-  - `module` -module of the permission belong to.
-  - `name` -name of the permission.
-  - `description` -the description of the permission.
+  Permission Json Object
 
 ## Update a permission
 ### End Point
   `PUT /api/v1/account/permissions/{permission_id}`
 
 ### Parameters
-  - `module` -module of the permission belong to.
-  - `name` -name of the permission.
-  - `description` -the description of the permission.
-
+  Permission Json Object
 ### Response
-  - `id ` -id of the permission.
-  - `module` -module of the permission belong to.
-  - `name` -name of the permission.
-  - `description` -the description of the permission.
+  Permission Json Object
 
 ## Remove a permission 
 ### End Point
@@ -426,6 +296,21 @@
 ### Response
   - `result ` -the result of operating
 
+## Agent Permission 
+  You need `Manage Agent & Agent Groups` permission to manage permission of agent.
+  - `GET /api/v1/account/agents/{agent_id}/permissions` -Get list of agent's permission 
+  - `POST /api/v1/account/agents/{agent_id}/permissions` -Create a new permission for a agent
+  - `DELETE /api/v1/account/agents/{agent_id}/permissions/{permission_id}` -Remove a permission for a agent
+
+### Agent Permission Json Format
+ Agent Permission is represented as simple flat JSON objects with the following keys:  
+
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|permission_id | integer  | yes  | yes|id of the permission.
+|agent_id | integer  | yes  | no|id of the agent.
+|module | string  | no  | yes|module of the permission belong to.
+
 ## Get list of a agent's permissions
 ### End Point
   `GET /api/v1/account/agents/{agent_id}/permissions`
@@ -434,23 +319,17 @@
   No parameters
 
 ### Response
-  Permissions list, including
-  - `agent_id` -id of the agent.
-  - `permission_id ` -id of the permission.
-  - `module` -module of the permission belong to.
+  Agent Permission Json Object list
 
 ## Create a new permission for a agent
 ### End Point
   `POST /api/v1/account/agents/{agent_id/}/permissions`
 
 ### Parameters
-  - `permission_id ` -id of the permission.
-  - `module` -module of the permission belong to.
+Agent Permission Json Object
 
 ### Response
-  - `agent_id` -id of the agent.
-  - `permission_id ` -id of the permission.
-  - `module` -module of the permission belong to.
+Agent Permission Json Object
 
 ## Remove a permission for a agent
 ### End Point
@@ -462,6 +341,21 @@
 ### Response
   - `result ` -the result of operating
 
+## Group Permission 
+  You need `Manage Agent & Agent Groups` permission to manage permission of group.
+  - `GET /api/v1/account/groups/{group_id}/permissions` -Get list of group's permission
+  - `POST /api/v1/account/groups/{group_id}/permissions` -Create a new permission for a group
+  - `DELETE /api/v1/account/groups/{group_id}/permissions/{permission_id}` -Remove a permission for a group
+
+### Group Permission Json Format
+ Group Permission is represented as simple flat JSON objects with the following keys:  
+
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|permission_id | integer  | yes  | yes|id of the permission.
+|group_id | integer  | yes  | no|id of the group.
+|module | string  | no  | yes|module of the permission belong to.
+
 ## Get list of a group's permissions
 ### End Point
   `GET /api/v1/account/groups/{group_id}/permissions`
@@ -470,23 +364,17 @@
   No parameters
 
 ### Response
-  Permissions list, including
-  - `group_id` -id of the group.
-  - `permission_id ` -id of the permission.
-  - `module` -module of the permission belong to.
+  Group Permission Json Object list
 
 ## Create a new permission for a group
 ### End Point
   `POST /api/v1/account/groups/{groups_id/}/permissions`
 
 ### Parameters
-  - `permission_id ` -id of the permission.
-  - `module` -module of the permission belong to.
+  Group Permission Json Object
 
 ### Response
-  - `group_id` -id of the group.
-  - `permission_id ` -id of the permission.
-  - `module` -module of the permission belong to.
+  Group Permission Json Object
 
 ## Remove a permission for a group
 ### End Point
@@ -498,6 +386,23 @@
 ### Response
   - `result ` -the result of operating
 
+## Ip Restriction
+  You need `Manage Security` permission to manage ip restrictions.
+  - `Get /api/v1/account/ipRestrictions/ipRanges` -Get ip range list of ip restrictions 
+  - `POST /api/v1/account/ipRestrictions/ipRanges/{rang_id}` -Update a ip range of ip restrictions 
+  - `DELETE /api/v1/account/ipRestrictions/ipRanges/{rang_id}` -Remove a ip range of ip restrictions 
+  - `Get /api/v1/account/ipRestrictions/config` -Get configuration of ip restrictions 
+  - `PUT /api/v1/account/ipRestrictions/config` -Update configuration of ip restrictions 
+
+### Ip Range Json Format
+ Ip Range is represented as simple flat JSON objects with the following keys:  
+
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|id | integer  | yes  | no|id of ip range.
+|ipFrom | string  | no  | yes|ip which ip range start from.
+|ipTo | string  | no  | yes|ip which ip range end to.
+
 ## Get ip range list of ip restrictions
 ### End Point
   `Get /api/v1/account/ipRestrictions/ipRanges`
@@ -506,23 +411,17 @@
   No parameters
 
 ### Response
-  ip range list, including
-  - `id` -id of ip range.
-  - `ipFrom` -ip which ip range start from.
-  - `ipTo` - ip which ip range end to.
+  Ip Range Json Object list
 
 ## Update a ip range of ip restrictions 
 ### End Point
   `POST /api/v1/account/ipRestrictions/ipRanges/{rang_id}`
 
 ### Parameters
-  - `ipFrom` -ip which ip range start from.
-  - `ipTo` - ip which ip range end to.
+    Ip Range Json Object.
 
 ### Response
-  - `id` -id of ip range.
-  - `ipFrom` -ip which ip range start from.
-  - `ipTo` - ip which ip range end to.
+    Ip Range Json Object.
 
 ## Remove a ip range of ip restrictions
 ### End Point
@@ -534,6 +433,16 @@
 ### Response
   - `result ` -the result of operating
 
+### Ip Restrictions Json Format
+ Ip Restrictions is represented as simple flat JSON objects with the following keys:  
+
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|id | integer  | yes  | no|id of the config.
+|siteId | integer  | yes  | yes|id of the site.
+|isEnable | string  | no  | yes|whether IP Restrictions is enable or not.
+|isEnableForMobile | string  | no  | yes|whether IP Restrictions is enable or not for mobile access.
+
 ## Get configuration of ip restrictions 
 ### End Point
   `Get /api/v1/account/ipRestrictions/config`
@@ -542,29 +451,22 @@
   No parameters.
 
 ### Response
-  - `id` -id of the config.
-  - `siteId` -id of the site.
-  - `isEnable` -whether IP Restrictions is enable or not.
-  - `isEnableForMobile` -whether IP Restrictions is enable or not for mobile access.
+  Ip Restrictions Json Object.
 
 ## Update configuration of ip restrictions 
 ### End Point
   `PUT /api/v1/account/ipRestrictions/config`
 
 ### Parameters
-optional:  
-  - `isEnable` -whether IP Restrictions is enable or not.
-  - `isEnableForMobile` -whether IP Restrictions is enable or not for mobile access.
+  Ip Restrictions Json Object.
 
 ### Response
-  - `id` -id of the config.
-  - `siteId` -id of the site.
-  - `isEnable` -whether IP Restrictions is enable or not.
-  - `isEnableForMobile` -whether IP Restrictions is enable or not for mobile access.
+  Ip Restrictions Json Object.
 
+## Audit Log
   You need `View Audit Log` permission to view audit logs.
-  + `Get /api/v1/account/auditLogs` -
-  + 
+  + `Get /api/v1/account/auditLogs` -Get audit Logs list 
+  + `Get /api/v1/account/auditLogs/{log_id}` -Get a single audit log 
 
 ## Get audit Logs list 
 ### End Point
