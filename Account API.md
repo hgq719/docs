@@ -40,7 +40,7 @@
 | timeZone| string  | no | no | time zone which the site's company belongs to 
 | datetimeFormat| string  | no | no | datatime format which the site will display
 
-## Get profile of a single site
+### Get profile of a single site
 - End Point   
   `GET /api/v1/account/sites/{site_id}/profile`
     
@@ -50,7 +50,7 @@
 - Response   
  Site Profile Json Object
     
-## Update profile of a site  
+##* Update profile of a site  
 - End Point    
   `PUT /api/v1/account/site/{site_id}/profile`
     
@@ -60,7 +60,7 @@
 - Response    
  Site Profile Json Object
     
-## Cancel the site
+### Cancel the site
 - End Point    
   `PUT /api/v1/account/sites/{site_id}/cancel`
     
@@ -100,7 +100,7 @@
 |is_admin| boolean  | yes  | no| whether the agent is an administrator
 |is_active| boolean  | yes  | no| whether the agent is active
 |
-## Get list of agents
+### Get list of agents
 - End Point    
   `GET /api/v1/account/agents`
     
@@ -110,7 +110,7 @@
 - Response    
   Agent Json Object List.
     
-## Get a single agent
+### Get a single agent
 - End Point     
   `GET /api/v1/account/agents/{agent_email}`
     
@@ -120,7 +120,7 @@
 - Response     
 Agent Json Object
     
-## Create a new agent
+### Create a new agent
 - End Point     
   `POST /api/v1/account/agents`
     
@@ -130,7 +130,7 @@ Agent Json Object
 - Response     
   Agent Json Object
     
-## Update an agent
+### Update an agent
 - End Point     
   `PUT /api/v1/account/agents/{agent_email}`
     
@@ -140,7 +140,7 @@ Agent Json Object
 - Response     
   Agent Json Object
     
-## Reset API Key 
+### Reset API Key 
 - End Point     
   `PUT /api/v1/account/agents/{agent_email}/reset_api_key`
     
@@ -150,7 +150,7 @@ Agent Json Object
 - Response     
   Agent Json Object
     
-## Remove an agent 
+### Remove an agent 
 - End Point     
   `DELETE /api/v1/account/agents/{agent_email}`
     
@@ -178,7 +178,7 @@ Agent Json Object
 |description | string  | no  | no|the description of the group.
 |agents | array  | no  | no|list of agents in current group
     
-## Get list of Groups
+### Get list of Groups
 - End Point     
   `GET /api/v1/account/groups`
     
@@ -188,7 +188,7 @@ Agent Json Object
 - Response     
  Group Json Object
     
-## Get a single group
+### Get a single group
 - End Point     
   `GET /api/v1/account/groups/{id}`
     
@@ -198,7 +198,7 @@ Agent Json Object
 - Response     
  Group Json Object
     
-## Create a new group
+### Create a new group
 - End Point     
   `POST /api/v1/account/groups`
     
@@ -208,7 +208,7 @@ Agent Json Object
 - Response     
  Group Json Object
     
-## Update a group
+### Update a group
 - End Point     
   `PUT /api/v1/account/groups/{id}`
     
@@ -218,7 +218,7 @@ Agent Json Object
 - Response     
  Group Json Object
     
-## Remove a group 
+### Remove a group 
 - End Point     
   `DELETE /api/v1/account/groups/{id}`
     
@@ -231,10 +231,6 @@ Agent Json Object
 ## Permission 
   You need `Manage Agent & Agent Groups` permission to manage permission.
   - `GET /api/v1/account/permissions` -Get list of permission  
-  - `GET /api/v1/account/permissions/{id}` -Get a single permission
-  - `POST /api/v1/account/permissions` -Create a new permission
-  - `PUT /api/v1/account/permissions/{id}` -Update a permission
-  - `DELETE /api/v1/account/permissions/{id}` -Remove a permission
     
 ### Permission Json Format
  Permission is represented as simple flat JSON objects with the following keys:  
@@ -246,7 +242,7 @@ Agent Json Object
 |description | string  | no  | no|the description of the permission.
 |module | string  | no  | yes|module of the permission belong to.
     
-## Get list of permissions
+### Get list of permissions
 - End Point     
   `GET /api/v1/account/permissions`
     
@@ -255,46 +251,6 @@ Agent Json Object
     
 - Response     
   Permission Json Object list
-    
-## Get a single permission
-- End Point     
-  `GET /api/v1/account/permissions/{id}`
-    
-- Parameters     
-  No parameters
-    
-- Response     
-  Permission Json Object
-    
-## Create a new permission
-- End Point     
-  `POST /api/v1/account/permissions`
-    
-- Parameters     
-  Permission Json Object
-    
-- Response     
-  Permission Json Object
-    
-## Update a permission
-- End Point     
-  `PUT /api/v1/account/permissions/{id}`
-    
-- Parameters     
-  Permission Json Object
-    
-- Response     
-  Permission Json Object
-    
-## Remove a permission 
-- End Point     
-  `DELETE /api/v1/account/permissions/{id}`
-    
-- Parameters     
-  No parameters.
-    
-- Response     
-  Status: 200 OK    
     
 ## Agent Permission 
   You need `Manage Agent & Agent Groups` permission to manage permission of agent.
@@ -311,7 +267,7 @@ Agent Json Object
 |agent_id | integer  | yes  | no|id of the agent.
 |module | string  | no  | yes|module of the permission belong to.
     
-## Get list of a agent's permissions
+### Get list of a agent's permissions
 - End Point     
   `GET /api/v1/account/agents/{id}/permissions`
     
@@ -321,7 +277,7 @@ Agent Json Object
 - Response     
   Agent Permission Json Object list
     
-## Create a new permission for a agent
+### Create a new permission for a agent
 - End Point     
   `POST /api/v1/account/agents/{agent_id/}/permissions`
     
@@ -331,7 +287,7 @@ Agent Permission Json Object
 - Response     
 Agent Permission Json Object
     
-## Remove a permission for a agent
+### Remove a permission for a agent
 - End Point     
   `DELETE /api/v1/account/agents/{id}/permissions/{permission_id}`
     
@@ -356,7 +312,7 @@ Agent Permission Json Object
 |group_id | integer  | yes  | no|id of the group.
 |module | string  | no  | yes|module of the permission belong to.
     
-## Get list of a group's permissions
+### Get list of a group's permissions
 - End Point     
   `GET /api/v1/account/groups/{id}/permissions`
     
@@ -366,7 +322,7 @@ Agent Permission Json Object
 - Response     
   Group Permission Json Object list
     
-## Create a new permission for a group
+### Create a new permission for a group
 - End Point     
   `POST /api/v1/account/groups/{groups_id/}/permissions`
     
@@ -376,7 +332,7 @@ Agent Permission Json Object
 - Response     
   Group Permission Json Object
     
-## Remove a permission for a group
+### Remove a permission for a group
 - End Point     
   `DELETE /api/v1/account/groups/{groups_id}/permissions/{id}`
     
@@ -403,7 +359,7 @@ Agent Permission Json Object
 |ipFrom | string  | no  | yes|ip which ip range start from.
 |ipTo | string  | no  | yes|ip which ip range end to.
     
-## Get ip range list of ip restrictions
+### Get ip range list of ip restrictions
 - End Point     
   `Get /api/v1/account/ipRestrictions/ipRanges`
     
@@ -413,7 +369,7 @@ Agent Permission Json Object
 - Response     
   Ip Range Json Object list
     
-## Update a ip range of ip restrictions 
+### Update a ip range of ip restrictions 
 - End Point     
   `POST /api/v1/account/ipRestrictions/ipRanges/{id} `
     
@@ -423,7 +379,7 @@ Agent Permission Json Object
 - Response     
     Ip Range Json Object.
     
-## Remove a ip range of ip restrictions
+### Remove a ip range of ip restrictions
 - End Point     
   `DELETE /api/v1/account/ipRestrictions/ipRanges/{id} `
     
@@ -443,7 +399,7 @@ Agent Permission Json Object
 |isEnable | boolean  | no  | yes|whether IP Restrictions is enable or not.
 |isEnableForMobile | boolean  | no  | yes|whether IP Restrictions is enable or not for mobile access.
     
-## Get configuration of ip restrictions 
+### Get configuration of ip restrictions 
 - End Point     
   `Get /api/v1/account/ipRestrictions/config`
     
@@ -453,7 +409,7 @@ Agent Permission Json Object
 - Response     
   Ip Restrictions Json Object.
     
-## Update configuration of ip restrictions 
+### Update configuration of ip restrictions 
 - End Point     
   `PUT /api/v1/account/ipRestrictions/config`
     
@@ -468,7 +424,7 @@ Agent Permission Json Object
   + `Get /api/v1/account/auditLogs` -Get audit Logs list 
   + `Get /api/v1/account/auditLogs/{log_id}` -Get a single audit log 
     
-## Get audit Logs list 
+### Get audit Logs list 
 - End Point     
   `Get /api/v1/account/auditLogs`
     
@@ -493,7 +449,7 @@ Agent Permission Json Object
     + `actionType` - the type of the action.
     + `actionSummary` - the summary of the action.
     
-## Get a single audit log 
+### Get a single audit log 
 - End Point     
   `Get /api/v1/account/auditLogs/{log_id}`
     
