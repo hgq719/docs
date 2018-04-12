@@ -13,6 +13,9 @@
 | [Visitor SSO Settings](#visitor-sso-settings) |/livechat/visitorSSO                    | 1
 | [Site Config](#site-config) |/livechat/configs                    | 1
 | [Secure Forms](#secure-forms) |/livechat/secureForms                    | 1
+| [Webhooks](#webhooks) |/livechat/webhooks                    | 1
+| [Custom Variables](#custom-variables) |/livechat/customVariables                    | 1
+| [Agent Config](#agent-config) |/livechat/agents/{id}/configs                    | 1
 | [Chat](#chat) |/livechat/chats                    | 1
 | [Message](#message) |/livechat/messages                    | 1
       
@@ -1159,8 +1162,8 @@ Visitor SSO Settings Json Object.
 
 ## Site Config
   You need `Manage Settings` permission to config for a site.
-  + `GET /api/v1/livechat/configs` -get config for a site
-  + `PUT /api/v1/livechat/configs`  -update configuration of a site
+  + `GET /api/v1/livechat/configs` -Get configuration for a site
+  + `PUT /api/v1/livechat/configs`  -Update configuration of a site
 
 ### Site Config Json Format
 Site Config is represented as simple flat JSON objects with the following keys:  
@@ -1184,7 +1187,7 @@ Site Config is represented as simple flat JSON objects with the following keys:
 |isEnableGotoMeeting| boolean  | no  | no |  whether GotoMeeting integration is enable or not in the site.
 |isEnableJoinme| boolean  | no  | no |  whether Joinme integration is enable or not in the site.
 
-### Get config for a site
+### Get configurationuration for a site
 - End Point    
   `GET /api/v1/livechat/configs`
 
@@ -1270,6 +1273,142 @@ Secure Form Json Object.
 
 - Response      
   Status: 200 OK   
+
+## Webhook
+  + `GET /api/v1/livechat/webhooks` -Get list of webhooks
+  + `POST /api/v1/livechat/webhooks` -Create a new webhook
+  + `DELETE /api/v1/livechat/webhooks/{id}`  -Remove a webhook
+
+### Webhook Json Format
+Webhook is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------
+|id |integer  | yes  | no |id of the webhook.
+|event| string  | no  | yes | event of webhook,including `offlineMessageSubmitted`、`chatStarted`、`chatEnded` and `chatWrapedUp`.
+|targetUrl| string  | no  | yes |  target url of the webhook.
+
+### Get list of webhooks
+- End Point    
+  `GET /api/v1/livechat/webhooks`
+
+- Parameters     
+  No parameters
+
+- Response      
+An array of Webhook Json Object.
+
+### Create a new webhook
+- End Point    
+  `POST /api/v1/livechat/webhooks`
+
+- Parameters     
+Webhook Json Object.
+
+- Response      
+Webhook Json Object.
+
+### Remove a webhook
+- End Point    
+  `DELETE /api/v1/livechat/webhooks/{id}`
+
+- Parameters     
+  No parameters
+
+- Response      
+  Status: 200 OK   
+
+## Custom Variable
+  + `GET /api/v1/livechat/customVariables` -Get list of custom variables
+  + `POST /api/v1/livechat/customVariables` -Create a new custom variable
+  + `PUT /api/v1/livechat/customVariables/{id}`  -Update a custom variable
+  + `DELETE /api/v1/livechat/customVariables/{id}`  -Remove a custom variable
+
+### Custom Variable Json Format
+Custom Variable is represented as simple flat JSON objects with the following keys:  
+     
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------
+|id |integer  | yes  | no |id of the custom variable.
+|name| string  | no  | yes | name of the custom variable.
+|type| string  | no  | yes | type of the custom variable.,including `text`、`integer` and `decimal`.
+|value| string  | no  | nos | value of the custom variable.
+|hyperlink| string  | no  | no |  hyperlink of the custom variable.
+
+### Get list of Custom Variables
+- End Point    
+  `GET /api/v1/livechat/customVariables`
+
+- Parameters     
+  No parameters
+
+- Response      
+An array of Custom Variable Json Object.
+
+### Create a new Custom Variable
+- End Point    
+  `POST /api/v1/livechat/customVariables`
+
+- Parameters     
+Custom Variable Json Object.
+
+- Response      
+Custom Variable Json Object.
+
+### Update a Custom Variable
+- End Point    
+  `PUT /api/v1/livechat/customVariables/{id}`
+
+- Parameters     
+  Custom Variable Json Object.
+
+- Response      
+  Custom Variable Json Object.
+
+### Remove a Custom Variable
+- End Point    
+  `DELETE /api/v1/livechat/customVariables/{id}`
+
+- Parameters     
+  No parameters
+
+- Response      
+  Status: 200 OK   
+
+## Agent Config
+  - `GET /api/v1/livechat/agents/{id}/configs` -Get configuration of agent   
+  - `PUT /api/v1/livechat/agents/{id}/configs` -Update configuration of agent
+
+### Agent Json Format
+ Agent Config is represented as simple flat JSON objects with the following keys:  
+
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|id | integer  | yes  | yes|id of the agent.
+|status| string  | no  | no| status of the agent, including online、away、offline
+|ongoingChats| string  | yes  | no| total number of ongoing chats the agent has
+|departments| array  | yes  | no| an array of department json object
+|maxChatsCount| integer  | no  | no| the maximum number of concurrent chats that will be automatically routed to the agent when Auto Accept Chat Requests is enabled
+
+### Get configuration of agent   
+- End Point    
+  `GET /api/v1/livechat/agents/{id}/configs`
+
+- Parameters     
+  No parameters
+
+- Response      
+  Agent Config Json Object.
+
+### Update configuration of agent   
+- End Point    
+  `PUT /api/v1/livechat/agents/{id}/configs`
+
+- Parameters     
+  Agent Config Json Object.
+
+- Response      
+  Agent Config Json Object.
 
 ## Chat
   + `Get /api/v1/livechat/chats` -Get chats list.

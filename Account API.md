@@ -73,10 +73,11 @@
 ## Agent 
   You need `Manage Agent & Agent Groups` permission to manage agent.
   - `GET /api/v1/account/agents` -Get list of agent   
-  - `GET /api/v1/account/agents/{agent_email}` -Get a single agent
+  - `GET /api/v1/account/agents/{id}` -Get a single agent
   - `POST /api/v1/account/agents` -Create a new agent
   - `PUT /api/v1/account/agents/{id}` -Update an agent  
   - `PUT /api/v1/account/agents/{id}/reset_api_key` -Reset an API key   
+  - `PUT /api/v1/account/agents/{id}/changePassword` -Change password   
   - `DELETE /api/v1/account/agents/{id}` -Remove an agent
 
 ### Agent Json Format
@@ -87,19 +88,17 @@
 |id | integer  | yes  | no|id of the agent.
 |displayName| string  | no  | yes|display name of the agent.
 |email| string  | no  | yes|email of the agent.
-|status| string  | yes  | no| status of the agent, including online、away、offline
-|ongoing_chats| string  | yes  | no| total number of ongoing chats the agent has
-|departments| string  | yes  | no| departments the agent belongs to
-|max_chats_count| integer  | no  | no| the maximum number of concurrent chats that will be automatically routed to the agent when Auto Accept Chat Requests is enabled
-|api_key| string  | yes  | no| the key by which you can exchange the token when calling restful api
-|first_name| string  | no  | yes| first name of the agent
-|last_name| string  | no  | yes| last name of the agent
-|phone| string  | no  | no| phone of the agent
+|firstName| string  | no  | yes| first name of the agent
+|lastName| string  | no  | yes| last name of the agent
 |title| string  | no  | no| title of the agent
-|description| string  | no  | no| description of the agent
-|is_admin| boolean  | yes  | no| whether the agent is an administrator or not.
-|is_active| boolean  | yes  | no| whether the agent is active or not.
-|
+|bio| string  | no  | no| bio of the agent
+|mobilePhone| string  | no  | no| mobile phone number of the agent
+|timeZone| string  | no  | no| time zone of the agent 
+|dateTimeFormat| string  | no  | no| datetime format which the agent want to display in the page.
+|isAdmin| boolean  | yes  | no| whether the agent is an administrator or not.
+|isActive| boolean  | yes  | no| whether the agent is active or not.
+|apikey| string  | yes  | no| the key by which you can exchange the token when calling restful api
+
 ### Get list of agents
 - End Point    
   `GET /api/v1/account/agents`
@@ -112,7 +111,7 @@
     
 ### Get a single agent
 - End Point     
-  `GET /api/v1/account/agents/{agent_email}`
+  `GET /api/v1/account/agents/{id}`
     
 - Parameters     
   No parameters
@@ -132,7 +131,7 @@ Agent Json Object
     
 ### Update an agent
 - End Point     
-  `PUT /api/v1/account/agents/{agent_email}`
+  `PUT /api/v1/account/agents/{id}`
     
 - Parameters     
   Agent Json Object
@@ -142,17 +141,27 @@ Agent Json Object
     
 ### Reset API Key 
 - End Point     
-  `PUT /api/v1/account/agents/{agent_email}/reset_api_key`
+  `PUT /api/v1/account/agents/{id}/reset_api_key`
     
 - Parameters     
   No parameters.
     
 - Response     
   Agent Json Object
+
+### Change Password 
+- End Point     
+  `PUT /api/v1/account/agents/{id}/changePassword`
     
+- Parameters     
+  No parameters.
+    
+- Response     
+  Status: 200 OK    
+
 ### Remove an agent 
 - End Point     
-  `DELETE /api/v1/account/agents/{agent_email}`
+  `DELETE /api/v1/account/agents/{id}`
     
 - Parameters     
   No parameters.
@@ -347,8 +356,8 @@ Agent Permission Json Object
   - `Get /api/v1/account/ipRestrictions/ipRanges` -Get ip range list of ip restrictions 
   - `POST /api/v1/account/ipRestrictions/ipRanges/{id} ` -Update a ip range of ip restrictions 
   - `DELETE /api/v1/account/ipRestrictions/ipRanges/{id} ` -Remove a ip range of ip restrictions 
-  - `Get /api/v1/account/ipRestrictions/config` -Get configuration of ip restrictions 
-  - `PUT /api/v1/account/ipRestrictions/config` -Update configuration of ip restrictions 
+  - `Get /api/v1/account/ipRestrictions/configs` -Get configuration of ip restrictions 
+  - `PUT /api/v1/account/ipRestrictions/configs` -Update configuration of ip restrictions 
     
 ### Ip Range Json Format
  Ip Range is represented as simple flat JSON objects with the following keys:  
@@ -401,7 +410,7 @@ Agent Permission Json Object
     
 ### Get configuration of ip restrictions 
 - End Point     
-  `Get /api/v1/account/ipRestrictions/config`
+  `Get /api/v1/account/ipRestrictions/configs`
     
 - Parameters     
   No parameters.
@@ -411,7 +420,7 @@ Agent Permission Json Object
     
 ### Update configuration of ip restrictions 
 - End Point     
-  `PUT /api/v1/account/ipRestrictions/config`
+  `PUT /api/v1/account/ipRestrictions/configs`
     
 - Parameters     
   Ip Restrictions Json Object.
