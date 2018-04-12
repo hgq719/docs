@@ -1379,7 +1379,7 @@ Custom Variable Json Object.
   - `GET /api/v1/livechat/agents/{id}/configs` -Get configuration of agent   
   - `PUT /api/v1/livechat/agents/{id}/configs` -Update configuration of agent
 
-### Agent Json Format
+### Agent Config Json Format
  Agent Config is represented as simple flat JSON objects with the following keys:  
 
 |name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
