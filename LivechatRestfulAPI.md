@@ -15,7 +15,7 @@
 | [Secure Forms](#secure-forms) |/livechat/secureForms                    | 1
 | [Webhooks](#webhooks) |/livechat/webhooks                    | 1
 | [Custom Variables](#custom-variables) |/livechat/customVariables                    | 1
-| [Agent Config](#agent-config) |/livechat/agents/{id}/configs                    | 1
+| [Agent](#agent) |/livechat/agents                    | 1
 | [Chat](#chat) |/livechat/chats                    | 1
 | [Message](#message) |/livechat/messages                    | 1
       
@@ -1375,12 +1375,12 @@ Custom Variable Json Object.
 - Response      
   Status: 200 OK   
 
-## Agent Config
-  - `GET /api/v1/livechat/agents/{id}/configs` -Get configuration of agent   
-  - `PUT /api/v1/livechat/agents/{id}/configs` -Update configuration of agent
+## Agent 
+  - `GET /api/v1/livechat/agents/{id}` -Get agent info in livechat  
+  - `PUT /api/v1/livechat/agents/{id}` -Update agent info in livechat
 
-### Agent Config Json Format
- Agent Config is represented as simple flat JSON objects with the following keys:  
+### Agent Json Format
+ Agent is represented as simple flat JSON objects with the following keys:  
 
 |name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
@@ -1390,25 +1390,25 @@ Custom Variable Json Object.
 |departments| array  | yes  | no| an array of department json object
 |maxChatsCount| integer  | no  | no| the maximum number of concurrent chats that will be automatically routed to the agent when Auto Accept Chat Requests is enabled
 
-### Get configuration of agent   
+### Get agent info in livechat  
 - End Point    
-  `GET /api/v1/livechat/agents/{id}/configs`
+  `GET /api/v1/livechat/agents/{id}`
 
 - Parameters     
   No parameters
 
 - Response      
-  Agent Config Json Object.
+  Agent Json Object.
 
-### Update configuration of agent   
+### Update agent info in livechat
 - End Point    
-  `PUT /api/v1/livechat/agents/{id}/configs`
+  `PUT /api/v1/livechat/agents/{id}`
 
 - Parameters     
-  Agent Config Json Object.
+  Agent Json Object.
 
 - Response      
-  Agent Config Json Object.
+  Agent Json Object.
 
 ## Chat
   + `Get /api/v1/livechat/chats` -Get chats list.
