@@ -67,7 +67,7 @@
   No parameters
     
 - Response      
-  Campaign Json Object list
+  An array of Campaign Json Object.
        
 ### Create a new campaign
 - End Point      
@@ -117,19 +117,19 @@
 |buttonType | string | no | yes |    type of the button,including `adaptive`、`image` and `textLink`.
 |isHideOffline| boolean | no | no |    whether the chatButton is visible when no agent is online.`true` means that button is invisible..
 |isEnableDomainRestriction| boolean | no | no |    whether the domain restriction is enable or not.
-|allowedDomains| string | no | no |    display the chat button on specified domains/URLs only.
+|allowedDomains| array | no | no |    an array of domains/urls,on which the chat button is visible.
 |themeColor| string | no | no |     the theme color of chatbutton,available when `buttonType` is `adaptive`.
 |icon| string | no | no |     icon of the chat button,available when `buttonType` is `adaptive`.
 |imageType| string | no | no |     the type of the image ,including `gallery` and `upload`,available when `buttonType` is `image`.
-|onlineImageId| string | no | no |     id of the image when any agents are on line,available when `buttonType` is `image`.
-|offlineImageId| string | no | no |     id of the image when no agent is on line,available when `buttonType` is `image`.
+|onlineImageId| integer | no | no |     id of the image when any agents are on line,available when `buttonType` is `image`.
+|offlineImageId| integer | no | no |     id of the image when no agent is on line,available when `buttonType` is `image`.
 |onlineImageUrl| string | no | no |     url of the image when any agents are on line,available when `buttonType` is `image`.
 |offlineImageUrl| string | no | no |     url of the image when no agent is on line,available when `buttonType` is `image`.
 |isFloat| boolean | no | no |    whether the chat button is float or not,available when `buttonType` is `image`,available when `buttonType` is `image`.
-|buttonXIsPixels| string | no | no |     whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent,available when `buttonType` is `image`.
-|buttonX| string | no | no |    coordinate x of the button,the unit acoording to `buttonXIsPixels`,available when `buttonType` is `image`.
-|buttonYIsPixels| string | no | no |  whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent,available when `buttonType` is `image`.
-|buttonY| string | no | no |    coordinate y of the button,the unit acoording to `buttonYIsPixels`,available when `buttonType` is `image`.
+|buttonXIsPixels| boolean | no | no |     whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent,available when `buttonType` is `image`.
+|buttonX| float | no | no |    coordinate x of the button,the unit acoording to `buttonXIsPixels`,available when `buttonType` is `image`.
+|buttonYIsPixels| boolean | no | no |  whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent,available when `buttonType` is `image`.
+|buttonY| float | no | no |    coordinate y of the button,the unit acoording to `buttonYIsPixels`,available when `buttonType` is `image`.
 |buttonPosition| string | no | no |     position of the chat button,including `centered`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`,available when `buttonType` is `image`.
 |mobileButtonType| string | no | no |    the type of button on mobile device,including `text` and `image`,available when `buttonType` is `image`.
 |mobileOnlineText| string | no | no |    the content of text on mobile device when any agents are on line,available when `mobileButtonType` is `text`and `buttonType` is `image`.
@@ -148,7 +148,7 @@
   No parameters
       
 - Response      
-  Chat Button Json Object
+  Chat Button Json Object.
       
 ### Update settings of ChatButton for a campaign
 - End Point      
@@ -158,7 +158,7 @@
   Chat Button Json Object
      
 - Response      
-  Chat Button Json Object
+  Chat Button Json Object.
      
 ### Chat Window Json Format
  Chat Window is represented as simple flat JSON objects with the following keys:  
@@ -171,18 +171,18 @@
 |windowtitle| string | no | no |     title of the chat window,available when `windowType` is `popup`.
 |isCanPrintChatDetail| boolean | no | no |    whether the print button is visible or not.
 |isShowEmail| boolean | no | no |    whether the email button is visible or not.
-|isUseOperatorEmailOrFromEmail| boolean | no | no |    set email from address
-|fromEmail_email| string | no | no |     set email from email address.
-|fromEmail_name| string | no | no |     set emial from email name
-|isCanSwitchToOffline| boolean | no | no |    allow visitors to switch to Offline Message Window while waiting for chat.
+|isUseOperatorEmailOrFromEmail| boolean | no | no |  whether email is setted from agent email or from a specified address.
+|specifiedEmail| string | no | no |     a specified email.
+|specifiedName| string | no | no |     a specified name.
+|isCanSwitchToOffline| boolean | no | no |  whether visitors are allowed to switch to Offline Message Window while waiting for chat.
 |isCanSendFile| boolean | no | no |     whether the agent can send file or not.
 |isCanHaveAudioChat| boolean | no | no |    whether the agent can use audio chat.
 |isCanHaveVideoChat| boolean | no | no |    whether the agent can use video chat.
-|isEndChatWhenVisitorInactivity| boolean | no | no |    automatically end chats if visitors don't respond.
-|timeEndChatDelayWhenVisitorInactivity| string | no | no |    the time after the chat was end when visitor inactivity.
+|isEndChatWhenVisitorInactivity| boolean | no | no |  whether chat ends automatically if visitors don't respond.
+|timeEndChatDelayWhenVisitorInactivity| integer | no | no |    the time after the chat was end when visitor inactivity,the unit is second.
 |isEnableSendTranscriptEmail| boolean | no | no |    whether the agent can send transcript email after chat ending.
-|sendTranscriptEmailAddress| string | no | no |    the email address for sending transcript email.
-|sendTranscriptEmailSubject| string | no | no |    the subject address for sending transcript email.
+|transcriptEmailAddress| string | no | no |    the email address for sending transcript email.
+|transcriptEmailSubject| string | no | no |    the subject address for sending transcript email.
 |greetingMessage| string | no | no |    the content of greeting message.
 |isEnableCustomJS| boolean | no | no |    whether the agent can add custom js to chat window or not.
 |customJS| string | no | no |    the content of custom javascript.
@@ -193,14 +193,14 @@
 |isShowTitle| boolean | no | no |      whether the title of the agent is visible or not,available when `themeType` is `classic`or `simple` and `headerType` is `agentInfo`.
 |isShowBio| boolean | no | no |      whether the bio of the agent is visible or not,available when `themeType` is `classic`or `simple` and `headerType` is `agentInfo`.
 |imageType| string | no | no |     the type of the image ,including `gallery` and `upload`,available when `themeType` is `classic`or `simple`.
-|imageId| string | no | no |     id of the image in the header of chat window,available when `themeType` is `classic`or `simple` and `headerType` is `bannerImage`.
+|imageId| integer | no | no |     id of the image in the header of chat window,available when `themeType` is `classic`or `simple` and `headerType` is `bannerImage`.
 |imageUrl| string | no | no |     url of the image in the header of chat window,available when `themeType` is `classic`or `simple` and `headerType` is `bannerImage`.
 |isShowLogo| boolean | no | no |     whether the logo of the company is visible or not,available when `themeType` is `classic` and `headerType` is `avatarAndCompanyLogo`.
 |companyImageId| string | no | no |     id of the company image in the header of chat window,available when `themeType` is `classic` and `headerType` is `avatarAndCompanyLogo` .
 |companyImageUrl| string | no | no |     url of the company image in the header of chat window,available when `themeType` is `classic` and `headerType` is `avatarAndCompanyLogo`.
 |isShowAvatarWithMessage| boolean | no | no |     whether the avatar of the agent is visible or not in the messsage body,available when `themeType` is `classic`or `simple`.
 |isShowTextureWithMessage| boolean | no | no |     whether the texture and picture of the background is visible or not in the messsage body,available when `themeType` is `classic`or `simple`.
-|backgroudImageId| string | no | no |     id of the background image in the message body,available when `themeType` is `classic`or `simple`.
+|backgroudImageId| integer | no | no |     id of the background image in the message body,available when `themeType` is `classic`or `simple`.
 |backgroudImageUrl| string | no | no |     url of the company image in the message body,available when `themeType` is `classic`or `simple`.
      
 ### Get settings of ChatWindow for a campaign
@@ -233,7 +233,7 @@
 |isEnableGoogle| boolean | no | no |    whether google is enable or not in social login.
 |isEnableFacebook| boolean | no | no |    whether facebook is enable or not in social login.
 |isRememberForm| boolean | no | no |    whether visitor info is remembered or not from pre-chat form.
-|fieldLayoutStyle| string | no | no |    the layout style of field,including `labelLeftSideInput` and `labelAboveInput`.
+|fieldLayoutStyle| string | no | yes |    the layout style of field,including `labelLeftSideInput` and `labelAboveInput`.
 |fields| Array | no | no |     an array of [field](#field) object 
 
 ### Field
@@ -244,10 +244,10 @@ Field is represented as simple flat JSON objects with the following keys:
 |id| integer | yes | no |     id of the field
 |name| string | no | yes |     name of the field
 |[type](#field-type)| string | no | yes |     the type of the field
-|isSystem| string | no | no |     whether the field is system field or not.
-|isVisible| string | no | no |     whether the field is visible or not in the pre-chat form.
-|isRequired| string | no | no |     whether the field is required or not when submiting the form
-|options| string | no | no |     the options of the field, available when the `type` is not `department`.
+|isSystem| boolean | no | no |     whether the field is system field or not.
+|isVisible| boolean | no | no |     whether the field is visible or not .
+|isRequired| boolean | no | no |     whether the field is required or not when submiting the form
+|options| string | no | no |     the options of the field.
 
 ### Field Type
   Field Type is one key of the following keys:    
@@ -266,10 +266,10 @@ Field is represented as simple flat JSON objects with the following keys:
 |subject| yes  | no |     Subject field,available not in secure form.
 |content| yes  | no |     Content field,available not in secure form.
 |attachment| yes  | no |     Attachment field,available not in secure form.
-|card number|  no | yes |     card number field ,available in secure form.
-|expiration date|  no | yes |     expiration date field,available in secure form.
-|csc/cvv|  no | yes |     csc/cvv field ,available in secure form.
-|name on card|  no | yes |     name on card field ,available in secure form.
+|card number|  yes | no |     card number field ,available in secure form.
+|expiration date|  yes | no |     expiration date field,available in secure form.
+|csc/cvv|  yes | no |     csc/cvv field ,available in secure form.
+|name on card|  yes | no |     name on card field ,available in secure form.
 |text|  no | yes |     Text field 
 |textarea|  no | yes |     Textarea field 
 |radio|  no | yes |     Radio Box field 
@@ -341,26 +341,26 @@ Offline Message Json Object
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
 |invitationMessage|string  | no  | no| content of invitation message.
 |imageType|string  | no  | yes| the type of image source,including `gallery` or `upload`
-|imageId|string  | no  | no|id of invitation image.
+|imageId|integer  | no  | no|id of invitation image.
 |imageUrl|string  | no  | no|url of invitation image.
 |invitationPosition|string  | no  | no| the position of invitation window,including `centered`、`centeredWithOverlay`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`.
-|invitationXOffset|string  | no  | no|coordinate x of the button,the unit acoording to `buttonXIsPixels`
-|invitationYOffset|string  | no  | no|coordinate y of the button,the unit acoording to `buttonYIsPixels`
-|invitationXOffsetIfPixels|string  | no  | no|whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent.
-|invitationYOffsetIfPixels|string  | no  | no| whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
+|invitationXOffset|float  | no  | no|coordinate x of the button,the unit acoording to `buttonXIsPixels`
+|invitationYOffset|float  | no  | no|coordinate y of the button,the unit acoording to `buttonYIsPixels`
+|invitationXOffsetIfPixels|boolean  | no  | no|whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent.
+|invitationYOffsetIfPixels|boolean  | no  | no| whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
 |textFont|string  | no  | no| the font of text.
-|textIsBold|string  | no  | no| whether the text is bold or not.
+|textIsBold|boolean  | no  | no| whether the text is bold or not.
 |textSize|string  | no  | no| the size of text.
-|textIsItalic|string  | no  | no| whether the text is italic or not.
+|textIsItalic|boolean  | no  | no| whether the text is italic or not.
 |textColor|string  | no  | no| the color of text.
-|closeAreaXOffset|string  | no  | no| coordinate x of the close area
-|closeAreaYOffset|string  | no  | no| coordinate y of the close area
-|closeAreaWidth|string  | no  | no| width of the close area
-|closeAreaHeight|string  | no  | no| height of the close area
-|textAreaXOffset|string  | no  | no| coordinate x of the text area
-|textAreaYOffset|string  | no  | no| coordinate y of the text area
-|textAreaWidth|string  | no  | no| width of the text area
-|textAreaHeight|string  | no  | no| height of the text area
+|closeAreaXOffset|float  | no  | no| coordinate x of the close area
+|closeAreaYOffset|float  | no  | no| coordinate y of the close area
+|closeAreaWidth|float  | no  | no| width of the close area
+|closeAreaHeight|float  | no  | no| height of the close area
+|textAreaXOffset|float  | no  | no| coordinate x of the text area
+|textAreaYOffset|float  | no  | no| coordinate y of the text area
+|textAreaWidth|float  | no  | no| width of the text area
+|textAreaHeight|float  | no  | no| height of the text area
 |invitationStyle|string  | no  | yes|the layout style of invitation window,including `bubble`、`popup` and `chatWindow`.
 
 ### Auto Invitation Json Format
@@ -464,10 +464,10 @@ Custom Rule is represented as simple flat JSON objects with the following keys:
 |id|integer  | yes  | no| id of the custom rule
 |name|string  | no  | yes |name of the custom rule
 |[triggerCondition](#trigger-condition)|json object  | no  | no| an trigger condition json object.
-|routeType|boolean  | no  | yes | type of the route,including `agent` and `department`, value `department` is available when config of department is open.
+|routeType|string  | no  | yes | type of the route,including `agent` and `department`, value `department` is available when config of department is open.
 |routeOjbectId|integer  | yes  | yes | id of the route object
-|priority|string  | no  | no | the priority of the department,including `lowest`、`low`、`normal`、`high` and `highest`.
-|isEnable|boolean  | no  | no |whether the custom rule is enable or not.
+|priority|string  | no  | no | the priority of the route object,including `lowest`、`low`、`normal`、`high` and `highest`.
+|isEnable|boolean  | no  | yes |whether the custom rule is enable or not.
 
 ### Route Rule Json Format
 Route Rule is represented as simple flat JSON objects with the following keys:  
@@ -477,17 +477,13 @@ Route Rule is represented as simple flat JSON objects with the following keys:
 |isEnable|boolean  | no  | yes |whether the routing rules is enable or not.
 |routingType|string  | no  | no |the type of routing,including `routeDepartmentOrAgent` and `routeCustomRules`.
 |routeRule|string  | no  | no | the rule of route ,including `department` and `agent`
-|departmentId|string  | no  | no | id of the department
-|departmentPriority|string  | no  | no | the priority of the department,including `lowest`、`low`、`normal`、`high` and `highest`.
-|agentId|string  | no  | no | id of the agent
-|agentPriority|string  | no  | no | the priority of the agent,including `lowest`、`low`、`normal`、`high` and `highest`.
+|routeOjbectId|integer  | yes  | no | id of the route object
+|routePriority|string  | no  | no | the priority of the route object,including `lowest`、`low`、`normal`、`high` and `highest`.
 |customRules|array  | no  | no | an array of [Custom Rule](#custom-rule-json-format) json object.
 |failRoutingType|string  | no  | no |the type of fail routing,including `routeDepartmentOrAgent` and `routeCustomRules`.
 |failRouteRule|string  | no  | no | the rule of fail route ,including `department` and `agent`
-|failRouteDepartmentId|string  | no  | no | id of the department for fail routing
-|failRouteDepartmentPriority|string  | no  | no | the priority of the department for fail routing,including `lowest`、`low`、`normal`、`high` and `highest`.
-|failRouteAgentId|string  | no  | no | id of the agent for fail routing
-|failRouteAgentPriority|string  | no  | no | the priority of the agent for fail routing,including `lowest`、`low`、`normal`、`high` and `highest`.
+|failRouteOjbectId|integer  | yes  | no | id of the route object
+|failRoutePriority|string  | no  | no | the priority of fail route object,including `lowest`、`low`、`normal`、`high` and `highest`.
 |failToEmail|string  | no  | no | redirect them to Offline Message Window and forward their messages to the email
 
 ### Get settings of Routing Rules for a campaign
@@ -598,7 +594,7 @@ Canned Message is represented as simple flat JSON objects with the following key
 |name|string  | no  | yes |name of the canned message.
 |message|string  | no  | yes |content of the canned message.
 |shortcuts|string  | no  | no | shortcuts of the canned message.
-|categoryId|string  | no  | yes |id of the category of the canned message.
+|categoryId|integer  | no  | yes |id of the category of the canned message.
 |isPrivate|boolean  | no  | yes | whether the canned message is private or not.
     
 ### Get list of canned messages 
@@ -666,8 +662,8 @@ Canned Message Category is represented as simple flat JSON objects with the foll
 | ------------- |--------------------- | ---------- | -------------------- | ------------------
 |id |integer  | yes  | no |id of the canned message category.
 |name|string  | no  | yes |name of the canned message category.
-|parentCategoryId|string  | no  | yes | id of the parent of the canned message category
-|parentCategoryName|string  | no  | no |name of the parent of the canned message category
+|parentCategoryId|integer  | no  | yes | id of the parent category of the canned message category
+|parentCategoryName|string  | no  | no |name of the parent category of the canned message category
 |isPrivate|string  | no  | yes | whether the canned message category is private or not.
     
 ### Get list of canned message categories
@@ -688,27 +684,27 @@ Canned Message Category is represented as simple flat JSON objects with the foll
   No parameters
     
 - Response      
-Message Category Json Object.
+Canned Message Category Json Object.
     
 ### Create a new canned message category
 - End Point    
   `POST /api/v1/livechat/cannedMessageCategories`
     
 - Parameters     
-Message Category Json Object.
+Canned Message Category Json Object.
     
 - Response      
-Message Category Json Object.
+Canned Message Category Json Object.
     
 ### Update a canned message category
 - End Point    
   `PUT /api/v1/livechat/cannedMessageCategories/{id}`
     
 - Parameters     
-Message Category Json Object.
+Canned Message Category Json Object.
     
 - Response      
-Message Category Json Object.
+Canned Message Category Json Object.
     
 ### Remove a canned message category
 - End Point    
@@ -740,7 +736,7 @@ Department is represented as simple flat JSON objects with the following keys:
 |groups|array  | no  | no | an array of group in the department.
 |allocationStratege|string  | no  | no | stratege of chat allocation,including `load banlancing` 、`round robin` and `capability weighted`.
 |isLastChattedPreferred|boolean  | no  | no |whether last-chatted agent is prefer or not.
-|backupDepartmentId|string  | no  | no | id of back up department
+|backupDepartmentId|integer  | no  | no | id of back up department
 |offlineMessageTo|string  | no  | no | object which mail offline messages of the department to,including `allAgents` and `emailAddresses`
 |emaileAddresses|string  | no  | no | the email addresses which mail offline messages of the department to
     
@@ -806,7 +802,6 @@ Auto Allocation is represented as simple flat JSON objects with the following ke
 | ------------- |--------------------- | ---------- | -------------------- | ------------------
 |id |integer  | yes  | no |id of the auto allocation.
 |isEnable|boolean  | no  | yes |whether the auto allocation is enable or not.
-|isEnableDepartment|boolean  | no  | no | whether department is enable or not.
 |allocationStratege|string  | no  | no | stratege of chat allocation,including `load banlancing` 、`round robin` and `capability weighted`, available when the `isEnableDepartment` is `false`.
 |isLastChattedPreferred|boolean  | no  | no |whether last-chatted agent is prefer or not, available when the `isEnableDepartment` is `false`.
 |isEnableAllocateWhenAudioVideo|boolean  | no  | no |whether auto allocate chats to agents who are having audio or video chats is enable or not.
@@ -914,8 +909,8 @@ Ban is represented as simple flat JSON objects with the following keys:
 | ------------- |--------------------- | ---------- | -------------------- | ------------------
 |id |integer  | yes  | no |id of the ban.
 |banType|string  | no  | yes |type of ban,including `visitorId`、`ip` and `ipArrange`.
-|banValue1|string  | no  | yes | value of ban,it means `ip from` while `banType` is `ipArrange` 
-|banValue2|string  | no  | no |ban to the ip ,available when the `banType` is `ipArrange`.
+|banValue1|string  | no  | yes | value of ban,it means `ip from` when `banType` is `ipArrange` 
+|banValue2|string  | no  | no |ban end the ip ,available when the `banType` is `ipArrange`.
 |comment|string  | no  | no | comment of the ban.
   
 ### Get list of bans
@@ -1051,7 +1046,6 @@ Visitor Segmentation is represented as simple flat JSON objects with the followi
 |priority|string  | no  | no | priority of the visitor segment.
 |description|string  | no  | no |  description of the visitor segment.
 |[triggerCondition](#trigger-condition)|json object  | no  | no| an trigger condition json object.
-|displayNotifications|string  | no  | no |  objects of notification which display in the list.
 |notificationType|string  | no  | no |  type of notification, including `departments`、`agents` and `none`. 
 |notifyObject|array  | no  | no |  an array of notify object,the object contains id and name.
 
@@ -1283,7 +1277,7 @@ Secure Form Json Object.
   + `Get /api/v1/livechat/chats/missedAndRefused` -Get missed and refused chats list.
   + `Get /api/v1/livechat/chats/agentChats` -Get agents' chats list.
 
-## Get chats list
+### Get chats list
 - End Point      
   `Get /api/v1/livechat/chats`
 
@@ -1314,7 +1308,7 @@ Secure Form Json Object.
     + `phone` - phone of the visitor
     + `product_service` - product/service the visitor selected in the pre-chat window. Operators can also update the value while chatting with visitors.
     + `department` - department the visitor selected in the pre-chat window. Operators can also update the value while chatting with visitors.
-    + `agents` - operators that participate in the chat, separated by comma
+    + `agents` - agent who participate in the chat, separated by comma
     + `custom_fields` - values of custom fields entered by visitors in the pre-chat window. Operators can also update the value(s) during chat in Visitor Monitor. Custom fields contain the following properties:
       * `id` - id of the custom field
       * `name` - name of the custom field
@@ -1333,7 +1327,7 @@ Secure Form Json Object.
     + `rating_comment` - comment on operators’ customer service submitted by the visitor
     + `operator_comment` - notes added for this chat by the operator
 
-## Get a single chat
+### Get a single chat
 - End Point      
   `Get /api/v1/livechat/chats/{id}`
 
@@ -1369,7 +1363,7 @@ Secure Form Json Object.
   + `rating_comment` - comment on operators’ customer service submitted by the visitor
   + `operator_comment` - notes added for this chat by the operator
 
-## Get missed and refused chats list
+### Get missed and refused chats list
 - End Point      
   `Get /api/v1/livechat/chats/missedAndRefused`
 
@@ -1395,7 +1389,7 @@ Secure Form Json Object.
     + `waitingTime` -wait time of the chat.
     + `comment` -comment of the chat.
 
-## Agent chats list
+### Agent chats list
 - End Point      
   `Get /api/v1/livechat/chats/agentChats`
 
@@ -1417,7 +1411,7 @@ Secure Form Json Object.
 ## Message
   + `Get /api/v1/livechat/messages` -Get messages list.
 
-## Get messages list
+### Get messages list
 - End Point      
   `Get /api/v1/livechat/messages` 
 

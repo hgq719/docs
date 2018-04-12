@@ -50,7 +50,7 @@
 - Response   
  Site Profile Json Object
     
-##* Update profile of a site  
+### Update profile of a site  
 - End Point    
   `PUT /api/v1/account/site/{site_id}/profile`
     
@@ -97,8 +97,8 @@
 |phone| string  | no  | no| phone of the agent
 |title| string  | no  | no| title of the agent
 |description| string  | no  | no| description of the agent
-|is_admin| boolean  | yes  | no| whether the agent is an administrator
-|is_active| boolean  | yes  | no| whether the agent is active
+|is_admin| boolean  | yes  | no| whether the agent is an administrator or not.
+|is_active| boolean  | yes  | no| whether the agent is active or not.
 |
 ### Get list of agents
 - End Point    
@@ -108,7 +108,7 @@
   No parameters
     
 - Response    
-  Agent Json Object List.
+  An array of Agent Json Object.
     
 ### Get a single agent
 - End Point     
@@ -186,7 +186,7 @@ Agent Json Object
   No parameters
     
 - Response     
- Group Json Object
+ An array of Group Json Object.
     
 ### Get a single group
 - End Point     
@@ -230,7 +230,7 @@ Agent Json Object
     
 ## Permission 
   You need `Manage Agent & Agent Groups` permission to manage permission.
-  - `GET /api/v1/account/permissions` -Get list of permission  
+  - `GET /api/v1/account/permissions` -Get list of permissions  
     
 ### Permission Json Format
  Permission is represented as simple flat JSON objects with the following keys:  
@@ -250,11 +250,11 @@ Agent Json Object
   No parameters
     
 - Response     
-  Permission Json Object list
+  An array of Permission Json Object.
     
 ## Agent Permission 
   You need `Manage Agent & Agent Groups` permission to manage permission of agent.
-  - `GET /api/v1/account/agents/{id}/permissions` -Get list of agent's permission 
+  - `GET /api/v1/account/agents/{id}/permissions` -Get list of agent's permissions 
   - `POST /api/v1/account/agents/{id}/permissions` -Create a new permission for a agent
   - `DELETE /api/v1/account/agents/{id}/permissions/{permission_id}` -Remove a permission for a agent
     
@@ -275,7 +275,7 @@ Agent Json Object
   No parameters
     
 - Response     
-  Agent Permission Json Object list
+  An array of Agent Permission Json Object.
     
 ### Create a new permission for a agent
 - End Point     
@@ -299,7 +299,7 @@ Agent Permission Json Object
     
 ## Group Permission 
   You need `Manage Agent & Agent Groups` permission to manage permission of group.
-  - `GET /api/v1/account/groups/{id}/permissions` -Get list of group's permission
+  - `GET /api/v1/account/groups/{id}/permissions` -Get list of group's permissions
   - `POST /api/v1/account/groups/{id}/permissions` -Create a new permission for a group
   - `DELETE /api/v1/account/groups/{id}/permissions/{id}` -Remove a permission for a group
     
@@ -320,7 +320,7 @@ Agent Permission Json Object
   No parameters
     
 - Response     
-  Group Permission Json Object list
+  An array of Group Permission Json Object.
     
 ### Create a new permission for a group
 - End Point     
@@ -367,7 +367,7 @@ Agent Permission Json Object
   No parameters
     
 - Response     
-  Ip Range Json Object list
+  An array of Ip Range Json Object.
     
 ### Update a ip range of ip restrictions 
 - End Point     
@@ -430,7 +430,7 @@ Agent Permission Json Object
     
 - Parameters     
   - `dateFrom` - the date from which agent do the action.
-  - `dateTo` - the date end which agent do the action.
+  - `dateTo` - the date end which agent do the action.   
   optional：
   - `product` - the product which the action belongs to, including `liveChat`、`userContact` and `account`.
   - `type` - the type of the action.
