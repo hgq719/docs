@@ -12,7 +12,7 @@
 | [Visitor Segmentation](#visitor-segmentation)   |/livechat/visitorSegments                    | 1
 | [Visitor SSO Settings](#visitor-sso-settings) |/livechat/visitorSSO                    | 1
 | [Site Config](#site-config) |/livechat/configs                    | 1
-| [Secure Forms](#secure-forms) |/livechat/secureForms                    | 1
+| [Secure Forms](#secure-form) |/livechat/secureForms                    | 1
 | [Webhooks](#webhooks) |/livechat/webhooks                    | 1
 | [Custom Variables](#custom-variables) |/livechat/customVariables                    | 1
 | [Agent](#agent) |/livechat/agents                    | 1
@@ -237,9 +237,9 @@
 |isEnableFacebook| boolean | no | no |    whether facebook is enable or not in social login.
 |isRememberForm| boolean | no | no |    whether visitor info is remembered or not from pre-chat form.
 |fieldLayoutStyle| string | no | yes |    the layout style of field,including `labelLeftSideInput` and `labelAboveInput`.
-|fields| Array | no | no |     an array of [field](#field) object 
+|fields| Array | no | no |     an array of [field](#field-json-format) object 
 
-### Field
+### Field Json Format
 Field is represented as simple flat JSON objects with the following keys:  
      
 |name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
@@ -301,7 +301,7 @@ Pre-Chat Json Object
 |isEnableFacebook| boolean | no | no |    whether facebook is enable or not in social login.
 |isRememberForm| boolean | no | no |    whether visitor info is remembered or not from post-chat form.
 |fieldLayoutStyle| string | no | no |    the layout style of field,including `labelLeftSideInput` and `labelAboveInput`.
-|fields| Array | no | no |     an array of [field](#field) object
+|fields| Array | no | no |     an array of [field](#field-json-format) object
      
 ### Update settings of PostChat for a campaign
 - End Point      
@@ -325,7 +325,7 @@ Pre-Chat Json Object
 |isShowTeamName| boolean | no | no |    whether the name of the agent is visible or not in the header.
 |isShowAvatar| boolean | no | no |    whether the avatar of the agent is visible or not in the header.
 |fieldLayoutStyle| string | no | no |    the layout style of field,including `labelLeftSideInput` and `labelAboveInput`.
-|fields| Array | no | no |     an array of [field](#field) object
+|fields| Array | no | no |     an array of [field](#field-json-format) object
      
 ### Update settings of offline message for a campaign
 - End Point      
@@ -375,8 +375,8 @@ Auto Invitation is represented as simple flat JSON objects with the following ke
 |name|string  | no  | yes| name of auto invitation.
 |isEnable|boolean  | no  | yes| whether the auto invitation is enable or not.
 |isPopupOnlyOneTime|boolean  | no  | no| whether pop up only one time during one visit
-|[invitationWindow](#invitation-window)|json object  | no  | no| an invitation window json object.
-|[triggerCondition](#trigger-condition)|json object  | no  | no| an trigger condition json object.
+|invitationWindow|[invitationWindow](#invitation-window-json-format)  | no  | no| an invitation window json object.
+|triggerCondition|[triggerCondition](#trigger-condition-json-format)  | no  | no| an trigger condition json object.
 
 ### Trigger Condition Json Format
 Trigger Condition is represented as simple flat JSON objects with the following keys:  
@@ -466,7 +466,7 @@ Custom Rule is represented as simple flat JSON objects with the following keys:
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
 |id|integer  | yes  | no| id of the custom rule
 |name|string  | no  | yes |name of the custom rule
-|[triggerCondition](#trigger-condition)|json object  | no  | no| an trigger condition json object.
+|triggerCondition|[triggerCondition](#trigger-condition-json-format)  | no  | no| an trigger condition json object.
 |routeType|string  | no  | yes | type of the route,including `agent` and `department`, value `department` is available when config of department is open.
 |routeOjbectId|integer  | yes  | yes | id of the route object
 |priority|string  | no  | no | the priority of the route object,including `lowest`、`low`、`normal`、`high` and `highest`.
@@ -544,11 +544,12 @@ Custom Language is represented as simple flat JSON objects with the following ke
      
 |name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
-|module|string  | no  | yes | the module of language settings,including `Buttons`、`Fields`、`Prompts`、`SystemMessages`、`AudioChat`、`VideoChat`、`ScreenSharing`、`TranscriptEmail`、`TextOnMobile`、`EmbeddedWindow` and `Chatbot`. 
-|name|string  | no  | yes |the name of field of the language settings
-|defaultText|string  | no  | no | the default text of field of the language settings
-|currentText|string  | no  | no | current text of field of the language settings
-|macros|string  | no  | no | macors which used in the field of the language settings
+|id |integer  | yes  | no |id of the custom language.
+|module|string  | no  | yes | the module of custom language,including `Buttons`、`Fields`、`Prompts`、`SystemMessages`、`AudioChat`、`VideoChat`、`ScreenSharing`、`TranscriptEmail`、`TextOnMobile`、`EmbeddedWindow` and `Chatbot`. 
+|name|string  | no  | yes |the name of field of the custom language.
+|defaultText|string  | no  | no | the default text of field of the custom language.
+|currentText|string  | no  | no | current text of field of the custom language.
+|macros|string  | no  | no | macors which used in the field of the custom language.
 
 ### Language Json Format
 Language is represented as simple flat JSON objects with the following keys:  
@@ -981,13 +982,14 @@ Conversion Action is represented as simple flat JSON objects with the following 
 |name|string  | no  | yes |  name of the conversion action.
 |isEnable|boolean  | no  | no | whether the conversion action is enable or not.
 |type|string  | no  | no | type of the conversion action,including `url`、`customVariable` and `setByApi`.
-|matchType|string  | no  | no |  match type of the conversion action.
-|matchValue|string  | no  | no |  match value of the conversion action.
-|isCaseSensitive|boolean  | no  | no |  whether the conversion action is case sensitive or not,available when `type` is `url`
-|isAssignValue|boolean  | no  | no |  whether a value is assigned for the conversion action or not
-|value|string  | no  | no |  the value assigned for the conversion action,available when `isAssignValue` is `true`
-|customVariable|string  | no  | no |  the value come from the custom variable,available when `isAssignValue` is `true`
-|customVariableField|string  | no  | no |  the name of the custom variable,available when `type` is `customVariable`.
+|customVariable|string  | no  | no |  the name of the custom variable,available when `type` is `customVariable`.
+|matchType|string  | no  | no |  match type of the conversion action,available when `type` is `customVariable` or `url`.
+|matchValue|string  | no  | no |  match value of the conversion action,available when `type` is `customVariable` or `url`.
+|isCaseSensitive|boolean  | no  | no |  whether the conversion action is case sensitive or not,available when `type` is `url`.
+|isAssignValue|boolean  | no  | no |  whether a value is assigned for the conversion action or not.
+|isValueOrCustomVariable|boolean  | no  | no |  whether the value for assigning to the conversion action is come from a assigned value or a custom variable,`true` means a assigned value.
+|valueForAssigning|string  | no  | no |  the value assigned for the conversion action,available when `isAssignValue` is `true` and `isValueOrCustomVariable` is `true`.
+|customVariableForAssigning|string  | no  | no |  the value come from the custom variable,available when `isAssignValue` is `true` and and `isValueOrCustomVariable` is `false`.
 
 ### Get list of conversion actions
 - End Point    
@@ -1048,9 +1050,9 @@ Visitor Segmentation is represented as simple flat JSON objects with the followi
 |isEnable|boolean  | no  | no | whether the visitor segment is enable or not.
 |priority|string  | no  | no | priority of the visitor segment.
 |description|string  | no  | no |  description of the visitor segment.
-|[triggerCondition](#trigger-condition)|json object  | no  | no| an trigger condition json object.
+|triggerCondition|[triggerCondition](#trigger-condition)  | no  | no| an trigger condition json object.
 |notificationType|string  | no  | no |  type of notification, including `departments`、`agents` and `none`. 
-|notifyObject|array  | no  | no |  an array of notify object,the object contains id and name.
+|notifyObjects|array  | no  | no |  an array of notify object,the object contains id and name.
 
 ### Get list of visitor segments
 - End Point    
@@ -1318,7 +1320,7 @@ Webhook Json Object.
 - Response      
   Status: 200 OK   
 
-## Custom Variable
+## Custom Variables
   + `GET /api/v1/livechat/customVariables` -Get list of custom variables
   + `POST /api/v1/livechat/customVariables` -Create a new custom variable
   + `PUT /api/v1/livechat/customVariables/{id}`  -Update a custom variable
@@ -1416,6 +1418,59 @@ Custom Variable Json Object.
   + `Get /api/v1/livechat/chats/missedAndRefused` -Get missed and refused chats list.
   + `Get /api/v1/livechat/chats/agentChats` -Get agents' chats list.
 
+### Custom Field Json Format
+ Custom field is represented as simple flat JSON objects with the following keys:  
+
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|id | integer  | yes  | no|id of the custom field.
+|name| string | no  | yes| |name of the custom field.
+|value| string | no  | no| |value of the custom field.
+
+### Custom Variable Json Format
+ Custom field is represented as simple flat JSON objects with the following keys:  
+
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|id | integer  | yes  | no|id of the custom variable.
+|name| string | no  | yes| |name of the custom variable.
+|value| string | no  | no| |value of the custom variable.
+
+## Attachment Json Foramt
+ Attachment is represented as simple flat JSON objects with the following keys:  
+
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|id | integer  | yes  | no|id of the attachment.
+|name| string | no  | yes| |name of the attachment.
+|uri| string | no  | no| |uri of the attachment.
+
+### Chat Json Format 
+ Chat is represented as simple flat JSON objects with the following keys:  
+
+|name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
+| ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|id | integer  | yes  | yes|id of the chat.
+|ssoUserId| integer | yes  | no| |user id of sso.
+|summary| string | no  | no| |summary of the chat.
+|category| string | no  | no| | the category which the chat belongs to, including `inquiry`、`suggestion` 、`complaint` and `junk`.
+|name| string | no  | no| | name of the visitor
+|email| string | no  | no| | email of the visitor
+|phone| string | no  | no| | phone of the visitor
+|productService| string | no  | no| | product/service the visitor selected in the pre-chat window. Agent can also update the value while chatting with visitors.
+|department| string | no  | no| | department the visitor selected in the pre-chat window. Agent can also update the value while chatting with visitors.
+|agents| string | no  | no| | agent who participate in the chat, separated by comma
+|customFields| Array | no  | no| | values of custom fields entered by visitors in the pre-chat window. An array of [Custom Field](#custom-field-json-format).
+|customVariable| Array | no  | no| | information of custom variables captured from the web page visitors viewed. An array of [Custom Variable](#custom-variable-json-format).
+|startTime| string | no  | no| | time when the chat started
+|waitingTime| string | no  | no| | amount of time a visitor has been waiting before his/her chat request was accepted
+|endTime| string | no  | no| | time when the chat ended
+|chatTranscript| string | no  | no| | content of the chat
+|attachments| Array | no  | no| | files the operator send to the visitor or vice versa as well as the screenshots sent to the operator by the visitor through Comm100 Screen Capture. An array of [Attachment Json](#attachment-json-foramt)
+|rating| string | no  | no| | rating on the Agent submitted by the visitor
+|ratingComment| string | no  | no| | comment on Agent's customer service submitted by the visitor
+|operatorComment| string | no  | no| | notes added for this chat by the operator
+
 ### Get chats list
 - End Point      
   `Get /api/v1/livechat/chats`
@@ -1437,34 +1492,7 @@ Custom Variable Json Object.
   - `total` -total count of the list.
   - `previousPage` -url of the previous page.
   - `nextPage` -url of the next page.
-  - `chats` -chats list
-    + `id` - id of the chat.
-    + `ssoUserId` -user id of sso.
-    + `summary` -summary of the chat.
-    + `category` - the category which the chat belongs to, including `inquiry`、`suggestion` 、`complaint` and `junk`.
-    + `name` - name of the visitor
-    + `email` - email of the visitor
-    + `phone` - phone of the visitor
-    + `product_service` - product/service the visitor selected in the pre-chat window. Operators can also update the value while chatting with visitors.
-    + `department` - department the visitor selected in the pre-chat window. Operators can also update the value while chatting with visitors.
-    + `agents` - agent who participate in the chat, separated by comma
-    + `custom_fields` - values of custom fields entered by visitors in the pre-chat window. Operators can also update the value(s) during chat in Visitor Monitor. Custom fields contain the following properties:
-      * `id` - id of the custom field
-      * `name` - name of the custom field
-      * `value` - value of the custom field
-    + `custom_variable` - information of custom variables captured from the web page visitors viewed. Custom variables contain the following properties:
-      * `name` - name of the custom variable
-      * `value` - value of the custom variable
-    + `start_time` - time when the chat started
-    + `waiting_time` - amount of time a visitor has been waiting before his/her chat request was accepted
-    + `end_time` - time when the chat ended
-    + `chat_transcript` - content of the chat
-    + `attachments` - files the operator send to the visitor or vice versa as well as the screenshots sent to the operator by the visitor through Comm100 Screen Capture. Attachments contain the following properties:
-      * `name` - name of the attachment
-      * `uri` - uri of the attachment
-    + `rating` - rating on the operators submitted by the visitor
-    + `rating_comment` - comment on operators’ customer service submitted by the visitor
-    + `operator_comment` - notes added for this chat by the operator
+  - `chats` - an array of [Chat](#chat-json-format)
 
 ### Get a single chat
 - End Point      
@@ -1474,33 +1502,7 @@ Custom Variable Json Object.
   No parameter.
 
 - Response      
-  + `id` - id of the chat.
-  + `ssoUserId` -user id of sso.
-  + `summary` -summary of the chat.
-  + `category` - the category which the chat belongs to, including `inquiry`、`suggestion` 、`complaint` and `junk`.
-  + `name` - name of the visitor
-  + `email` - email of the visitor
-  + `phone` - phone of the visitor
-  + `product_service` - product/service the visitor selected in the pre-chat window. Operators can also update the value while chatting with visitors.
-  + `department` - department the visitor selected in the pre-chat window. Operators can also update the value while chatting with visitors.
-  + `agents` - operators that participate in the chat, separated by comma
-  + `custom_fields` - values of custom fields entered by visitors in the pre-chat window. Operators can also update the value(s) during chat in Visitor Monitor. Custom fields contain the following properties:
-    * `id` - id of the custom field
-    * `name` - name of the custom field
-    * `value` - value of the custom field
-  + `custom_variable` - information of custom variables captured from the web page visitors viewed. Custom variables contain the following properties:
-    * `name` - name of the custom variable
-    * `value` - value of the custom variable
-  + `start_time` - time when the chat started
-  + `waiting_time` - amount of time a visitor has been waiting before his/her chat request was accepted
-  + `end_time` - time when the chat ended
-  + `chat_transcript` - content of the chat
-  + `attachments` - files the operator send to the visitor or vice versa as well as the screenshots sent to the operator by the visitor through Comm100 Screen Capture. Attachments contain the following properties:
-    * `name` - name of the attachment
-    * `uri` - uri of the attachment
-  + `rating` - rating on the operators submitted by the visitor
-  + `rating_comment` - comment on operators’ customer service submitted by the visitor
-  + `operator_comment` - notes added for this chat by the operator
+  Chat Json Object
 
 ### Get missed and refused chats list
 - End Point      

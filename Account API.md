@@ -272,8 +272,8 @@ Agent Json Object
 
 |name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
-|permission_id | integer  | yes  | yes|id of the permission.
-|agent_id | integer  | yes  | no|id of the agent.
+|id | integer  | yes  | yes|id of the permission.
+|agentId | integer  | yes  | no|id of the agent.
 |module | string  | no  | yes|module of the permission belong to.
     
 ### Get list of a agent's permissions
@@ -317,8 +317,8 @@ Agent Permission Json Object
 
 |name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
-|permission_id | integer  | yes  | yes|id of the permission.
-|group_id | integer  | yes  | no|id of the group.
+|id | integer  | yes  | yes|id of the permission.
+|groupId | integer  | yes  | no|id of the group.
 |module | string  | no  | yes|module of the permission belong to.
     
 ### Get list of a group's permissions
@@ -405,8 +405,8 @@ Agent Permission Json Object
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
 |id | integer  | yes  | no|id of the config.
 |siteId | integer  | yes  | yes|id of the site.
-|isEnable | boolean  | no  | yes|whether IP Restrictions is enable or not.
-|isEnableForMobile | boolean  | no  | yes|whether IP Restrictions is enable or not for mobile access.
+|isEnable | boolean  | no  | no|whether IP Restrictions is enable or not.
+|isEnableForMobile | boolean  | no  | no|whether IP Restrictions is enable or not for mobile access.
     
 ### Get configuration of ip restrictions 
 - End Point     
