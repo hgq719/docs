@@ -23,12 +23,13 @@
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
 | id | integer  | yes  | no| id of the site
 | siteName| string  | no  | yes|name of the site
-| firstName| string  | no  | yes|first name of the site
-| lastName| string  | no  | yes|last name of the site
+| contact.firstName| string  | no  | yes|first name of the contact
+| contact.lastName| string  | no  | yes|last name of the contact
+| contact.email| string  | no  | yes|email of the contact
+| contact.mobileNumber| string  | no  | yes|mobile number of the contact
 | company| string  | no  | yes| company the site belongs to
 | website| string  | no  | yes| website of the site
 | phoneNumber| string  | no  | no| phone number of the site
-| mobileNumber| string  | no  | no| mobile number of the site
 | title| string  | no | no | title of the site
 | faxNumber| string  | no | no | fax number of the site
 | mailAddress| string  | no | no | mail address of the site
@@ -78,6 +79,7 @@
   - `PUT /api/v1/account/agents/{id}` -Update an agent  
   - `PUT /api/v1/account/agents/{id}/reset_api_key` -Reset an API key   
   - `PUT /api/v1/account/agents/{id}/changePassword` -Change password   
+  - `PUT /api/v1/account/agents/{id}/unlock` -unlock the agent   
   - `DELETE /api/v1/account/agents/{id}` -Remove an agent
 
 ### Agent Json Format
@@ -94,9 +96,11 @@
 |bio| string  | no  | no| bio of the agent
 |mobilePhone| string  | no  | no| mobile phone number of the agent
 |timeZone| string  | no  | no| time zone of the agent 
-|dateTimeFormat| string  | no  | no| datetime format which the agent want to display in the page.
+|dateTimeFormat| string  | no  | no| datetime format which the agent want to display in the site.
+|groups| Array  | no  | no| an array of group which the agent belongs to.
 |isAdmin| boolean  | yes  | no| whether the agent is an administrator or not.
 |isActive| boolean  | yes  | no| whether the agent is active or not.
+|isLocked| boolean  | yes  | no| whether the agent is locked or not.
 |apikey| string  | yes  | no| the key by which you can exchange the token when calling restful api
 
 ### Get list of agents
@@ -104,10 +108,14 @@
   `GET /api/v1/account/agents`
     
 - Parameters    
-  No parameters
+  Optional:   
+  - `pageIndex` -the page index of query.
     
-- Response    
-  An array of Agent Json Object.
+- Response 
+  - `total` -total count of the list.
+  - `previousPage` -url of the previous page.
+  - `nextPage` -url of the next page.
+  - `agents` -An array of Agent Json Object.
     
 ### Get a single agent
 - End Point     
@@ -154,10 +162,21 @@ Agent Json Object
   `PUT /api/v1/account/agents/{id}/changePassword`
     
 - Parameters     
+  - `oldPassword` - the old password of the agent.
+  - `newPassword` - the new password of the agent.   
+    
+- Response     
+  Status: 200 OK  
+
+### Unlock The Agent 
+- End Point     
+  `PUT /api/v1/account/agents/{id}/unlock`
+    
+- Parameters     
   No parameters.
     
 - Response     
-  Status: 200 OK    
+  Status: 200 OK  
 
 ### Remove an agent 
 - End Point     
@@ -246,7 +265,6 @@ Agent Json Object
 
 |name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
-|id | integer  | yes  | no|id of the permission.
 |name | string  | no  | yes|name of the permission.
 |description | string  | no  | no|the description of the permission.
 |module | string  | no  | yes|module of the permission belong to,including `LiveChat`、`UserAndContact` and `Account`.
@@ -263,17 +281,16 @@ Agent Json Object
     
 ## Agent Permission 
   You need `Manage Agent & Agent Groups` permission to manage permission of agent.
-  - `GET /api/v1/account/agents/{id}/permissions` -Get list of agent's permissions 
-  - `POST /api/v1/account/agents/{id}/permissions` -Create a new permission for a agent
-  - `DELETE /api/v1/account/agents/{id}/permissions/{permission_id}` -Remove a permission for a agent
+  - `GET /api/v1/account/agents/{id}/permissions` -Get list of agent's permissions. 
+  - `GET /api/v1/account/agents/{id}/effectivePermissions` -Get list of agent's effective permissions,including the permissions of the agent and the permissions of the groups which the agent belongs to. 
+  - `PUT /api/v1/account/agents/{id}/permissions` -Update permissions for a agent.
     
 ### Agent Permission Json Format
  Agent Permission is represented as simple flat JSON objects with the following keys:  
 
 |name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
-|id | integer  | yes  | yes|id of the permission.
-|agentId | integer  | yes  | no|id of the agent.
+|name | string  | no  | yes|name of the permission.
 |module | string  | no  | yes|module of the permission belong to,including `LiveChat`、`UserAndContact` and `Account`.
     
 ### Get list of a agent's permissions
@@ -285,40 +302,38 @@ Agent Json Object
     
 - Response     
   An array of Agent Permission Json Object.
-    
-### Create a new permission for a agent
+
+### Get list of a agent's effective permissions
 - End Point     
-  `POST /api/v1/account/agents/{agent_id/}/permissions`
+  `GET /api/v1/account/agents/{id}/effectivePermissions`
+    
+- Parameters     
+  No parameters
+    
+- Response     
+  An array of Agent Permission Json Object.
+    
+### Update permissions for a agent
+- End Point     
+  `PUT /api/v1/account/agents/{id/}/permissions`
     
 - Parameters     
 Agent Permission Json Object
     
 - Response     
 Agent Permission Json Object
-    
-### Remove a permission for a agent
-- End Point     
-  `DELETE /api/v1/account/agents/{id}/permissions/{permission_id}`
-    
-- Parameters     
-  No parameters.
-    
-- Response     
-  Status: 200 OK    
     
 ## Group Permission 
   You need `Manage Agent & Agent Groups` permission to manage permission of group.
-  - `GET /api/v1/account/groups/{id}/permissions` -Get list of group's permissions
-  - `POST /api/v1/account/groups/{id}/permissions` -Create a new permission for a group
-  - `DELETE /api/v1/account/groups/{id}/permissions/{id}` -Remove a permission for a group
+  - `GET /api/v1/account/groups/{id}/permissions` -Get list of group's permissions.
+  - `PUT /api/v1/account/groups/{id}/permissions` -Update permissions for a group.
     
 ### Group Permission Json Format
  Group Permission is represented as simple flat JSON objects with the following keys:  
 
 |name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
-|id | integer  | yes  | yes|id of the permission.
-|groupId | integer  | yes  | no|id of the group.
+|name | string  | no  | yes|name of the permission.
 |module | string  | no  | yes|module of the permission belong to,including `LiveChat`、`UserAndContact` and `Account`.
     
 ### Get list of a group's permissions
@@ -331,33 +346,23 @@ Agent Permission Json Object
 - Response     
   An array of Group Permission Json Object.
     
-### Create a new permission for a group
+### Update permissions for a group
 - End Point     
-  `POST /api/v1/account/groups/{groups_id/}/permissions`
+  `PUT /api/v1/account/groups/{id/}/permissions`
     
 - Parameters     
-  Group Permission Json Object
+  Group Permission Json Object.
     
 - Response     
-  Group Permission Json Object
-    
-### Remove a permission for a group
-- End Point     
-  `DELETE /api/v1/account/groups/{groups_id}/permissions/{id}`
-    
-- Parameters     
-  No parameters.
-    
-- Response     
-  Status: 200 OK    
+  Group Permission Json Object . 
     
 ## Ip Restriction
   You need `Manage Security` permission to manage ip restrictions.
   - `Get /api/v1/account/ipRestrictions/ipRanges` -Get ip range list of ip restrictions 
-  - `POST /api/v1/account/ipRestrictions/ipRanges/{id} ` -Update a ip range of ip restrictions 
+  - `POST /api/v1/account/ipRestrictions/ipRanges/{id} ` -Create a new ip range of ip restrictions 
   - `DELETE /api/v1/account/ipRestrictions/ipRanges/{id} ` -Remove a ip range of ip restrictions 
-  - `Get /api/v1/account/ipRestrictions/configs` -Get configuration of ip restrictions 
-  - `PUT /api/v1/account/ipRestrictions/configs` -Update configuration of ip restrictions 
+  - `Get /api/v1/account/ipRestrictions/config` -Get configuration of ip restrictions 
+  - `PUT /api/v1/account/ipRestrictions/config` -Update configuration of ip restrictions 
     
 ### Ip Range Json Format
  Ip Range is represented as simple flat JSON objects with the following keys:  
@@ -378,7 +383,7 @@ Agent Permission Json Object
 - Response     
   An array of Ip Range Json Object.
     
-### Update a ip range of ip restrictions 
+### Create a new ip range of ip restrictions 
 - End Point     
   `POST /api/v1/account/ipRestrictions/ipRanges/{id} `
     
@@ -403,14 +408,12 @@ Agent Permission Json Object
 
 |name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
-|id | integer  | yes  | no|id of the config.
-|siteId | integer  | yes  | yes|id of the site.
 |isEnable | boolean  | no  | no|whether IP Restrictions is enable or not.
 |isEnableForMobile | boolean  | no  | no|whether IP Restrictions is enable or not for mobile access.
     
 ### Get configuration of ip restrictions 
 - End Point     
-  `Get /api/v1/account/ipRestrictions/configs`
+  `Get /api/v1/account/ipRestrictions/config`
     
 - Parameters     
   No parameters.
@@ -420,7 +423,7 @@ Agent Permission Json Object
     
 ### Update configuration of ip restrictions 
 - End Point     
-  `PUT /api/v1/account/ipRestrictions/configs`
+  `PUT /api/v1/account/ipRestrictions/config`
     
 - Parameters     
   Ip Restrictions Json Object.
@@ -430,8 +433,7 @@ Agent Permission Json Object
     
 ## Audit Log
   You need `View Audit Log` permission to view audit logs.
-  + `Get /api/v1/account/auditLogs` -Get audit Logs list 
-  + `Get /api/v1/account/auditLogs/{log_id}` -Get a single audit log 
+  + `Get /api/v1/account/auditLogs` -Get audit Logs list.
     
 ### Get audit Logs list 
 - End Point     
@@ -445,6 +447,7 @@ Agent Permission Json Object
   - `type` - the type of the action.
   - `agentId` - id of the agent who do the action.
   - `keywords` - the key words of inquiring the action
+  - `pageIndex` -the page index of query.
     
 - Response     
   - `total` -total count of the list.
@@ -457,22 +460,4 @@ Agent Permission Json Object
     + `application` - the module which the action belongs to.
     + `actionType` - the type of the action.
     + `actionSummary` - the summary of the action.
-    
-### Get a single audit log 
-- End Point     
-  `Get /api/v1/account/auditLogs/{log_id}`
-    
-- Parameters     
-  No parameters.
-    
-- Response     
-  - `id` -id of the config.
-  - `actionTime` -the time of the action.
-  - `agentName` - the agent which do the action.
-  - `application` - the module which the action belongs to.
-  - `actionType` - the type of the action.
-  - `actionSummary` - the summary of the action.
-  - `fields` - the field which is changed in the action.
-    + `fidldName` - name of the field.
-    + `valueBefore` - value of the field before doing the action.
-    + `valueAfter` -value of the field after doing the action.
+
