@@ -132,9 +132,9 @@
 |image.isFloat| boolean | no | no |    whether the chat button is float or not,available when `buttonType` is `image`.
 |image.position.type| string | no | no |     position of the chat button,including `centered`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`,available when `buttonType` is `image`.
 |image.x.isPixels| boolean | no | no |     whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent,available when `buttonType` is `image`.
-|image.position.x| float | no | no |    coordinate x of the button,the unit acoording to `buttonXIsPixels`,available when `buttonType` is `image`.
+|image.position.x| float | no | no |    coordinate x of the button,the unit acoording to `image.x.isPixels`,available when `buttonType` is `image`.
 |image.y.IsPixels| boolean | no | no |  whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent,available when `buttonType` is `image`.
-|image.position.y| float | no | no |    coordinate y of the button,the unit acoording to `buttonYIsPixels`,available when `buttonType` is `image`.
+|image.position.y| float | no | no |    coordinate y of the button,the unit acoording to `image.y.isPixels`,available when `buttonType` is `image`.
 |image.mobile.Type| string | no | no |    the type of button on mobile device,including `text` and `image`,available when `buttonType` is `image`.
 |image.mobile.onlineText| string | no | no |    the content of text on mobile device when any agents are on line,available when `mobileButtonType` is `text`and `buttonType` is `image`.
 |image.mobile.offlineText| string | no | no |    the content of text on mobile device when no agent is on line,available when `mobileButtonType` is `text`and `buttonType` is `image`.
@@ -142,7 +142,7 @@
 |image.mobile.onlineImageUrl| string | no | no |    the url of image on mobile device when any agents are on line,available when `mobileButtonType` is `image`and `buttonType` is `image`.
 |image.mobile.offlineImageUrl| string | no | no |    the url of image on mobile device when no agent is on line,available when `mobileButtonType` is `image` and `buttonType` is `image`.
 |image.mobile.position.type| string | no | no |     position of the chat button on mobile device， including `bottomLeft`、`bottomMiddle`、`bottomRight`、`leftMiddle`、`RightMiddle`、`leftBottom` and `rightBottom`,available when `mobileButtonType` is `image` and `buttonType` is `image`.
-|buttonText| string | no | no |    the content of the text link,available when `buttonType` is `textLink`.
+|textLink.content| string | no | no |    the content of the text link,available when `buttonType` is `textLink`.
       
 ### Get settings of ChatButton for a campaign
 - End Point      
@@ -176,8 +176,8 @@
 |visitor.isCanPrintChatDetail| boolean | no | no |    chat details can be printed 
 |visitor.isShowEmail| boolean | no | no |    chat transcripts can be emailed to visitors 
 |visitor.isUseOperatorEmailOrFromEmail| boolean | no | no |  whether email is setted from agent email or from a specified address.
-|specifiedEmail| string | no | no |     a specified email for setting visitor's address.
-|specifiedName| string | no | no |     a specified name for setting visitor's address.
+|visitor.specifiedEmail| string | no | no |     a specified email for setting visitor's address.
+|visitor.specifiedName| string | no | no |     a specified name for setting visitor's address.
 |visitor.isCanSwitchToOffline| boolean | no | no |  allow visitors to switch to Offline Message Window while waiting for chat. 
 |visitor.isCanSendFile| boolean | no | no |     whether the agent can send file or not.
 |visitor.isCanHaveAudioChat| boolean | no | no |    whether the agent can use audio chat.
@@ -236,10 +236,10 @@
 |header.isShowTeamName| boolean | no | no |    whether the name of the agent is visible or not in the header.
 |header.isShowAvatar| boolean | no | no |    whether the avatar of the agent is visible or not in the header.
 |greetingMessage| string | no | no |     content of greeting message.
-|isEnableGoogle| boolean | no | no |    whether google is enable or not in social login.
-|isEnableFacebook| boolean | no | no |    whether facebook is enable or not in social login.
+|socialLogin.isEnableGoogle| boolean | no | no |    whether google is enable or not in social login.
+|socialLogin.isEnableFacebook| boolean | no | no |    whether facebook is enable or not in social login.
 |isRememberForm| boolean | no | no |    whether visitor info is remembered or not from pre-chat form.
-|fieldLayoutStyle| string | no | yes |    the layout style of field,including `labelLeftSideInput` and `labelAboveInput`.
+|field.layoutStyle| string | no | yes |    the layout style of field,including `labelLeftSideInput` and `labelAboveInput`.
 |fields| Array | no | no |     an array of [field](#field-json-format) object 
 
 ### Field Json Format
@@ -300,10 +300,10 @@ Pre-Chat Json Object
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
 |isEnable| boolean | no | yes |    whether the post-chat is enable or not.
 |greetingMessage| string | no | no |     content of greeting message.
-|isEnableGoogle| boolean | no | no |    whether google is enable or not in social login.
-|isEnableFacebook| boolean | no | no |    whether facebook is enable or not in social login.
+|socialLogin.isEnableGoogle| boolean | no | no |    whether google is enable or not in social login.
+|socialLogin.isEnableFacebook| boolean | no | no |    whether facebook is enable or not in social login.
 |isRememberForm| boolean | no | no |    whether visitor info is remembered or not from post-chat form.
-|fieldLayoutStyle| string | no | no |    the layout style of field,including `labelLeftSideInput` and `labelAboveInput`.
+|field.layoutStyle| string | no | no |    the layout style of field,including `labelLeftSideInput` and `labelAboveInput`.
 |fields| Array | no | no |     an array of [field](#field-json-format) object
      
 ### Update settings of PostChat for a campaign
@@ -323,11 +323,11 @@ Pre-Chat Json Object
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
 |isUseCustomOfflinePage| boolean | no | yes |    whether the custom offline message page is used or not.
 |greetingMessage| string | no | no |     content of greeting message.
-|url| string | no | no |    url of custom offline message page.
+|page.url| string | no | no |    url of custom offline message page.
 |isOpenInNewWindow| boolean | no | no |    whether open page in a new window or not.
 |header.isShowTeamName| boolean | no | no |    whether the name of the agent is visible or not in the header.
 |header.isShowAvatar| boolean | no | no |    whether the avatar of the agent is visible or not in the header.
-|fieldLayoutStyle| string | no | no |    the layout style of field,including `labelLeftSideInput` and `labelAboveInput`.
+|field.layoutStyle| string | no | no |    the layout style of field,including `labelLeftSideInput` and `labelAboveInput`.
 |fields| Array | no | no |     an array of [field](#field-json-format) object
      
 ### Update settings of offline message for a campaign
@@ -345,29 +345,29 @@ Offline Message Json Object
      
 |name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
+|style|string  | no  | yes|the layout style of invitation window,including `bubble`、`popup` and `chatWindow`.
 |invitationMessage|string  | no  | no| content of invitation message.
-|imageType|string  | no  | yes| the type of image source,including `gallery` or `upload`
-|imageId|integer  | no  | no|id of invitation image.
-|imageUrl|string  | no  | no|url of invitation image.
-|invitationPosition|string  | no  | no| the position of invitation window,including `centered`、`centeredWithOverlay`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`.
-|invitationXOffset|float  | no  | no|coordinate x of the button,the unit acoording to `buttonXIsPixels`
-|invitationYOffset|float  | no  | no|coordinate y of the button,the unit acoording to `buttonYIsPixels`
-|invitationXOffsetIfPixels|boolean  | no  | no|whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent.
-|invitationYOffsetIfPixels|boolean  | no  | no| whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
-|textFont|string  | no  | no| the font of text.
-|textIsBold|boolean  | no  | no| whether the text is bold or not.
-|textSize|string  | no  | no| the size of text.
-|textIsItalic|boolean  | no  | no| whether the text is italic or not.
-|textColor|string  | no  | no| the color of text.
-|closeAreaXOffset|float  | no  | no| coordinate x of the close area
-|closeAreaYOffset|float  | no  | no| coordinate y of the close area
-|closeAreaWidth|float  | no  | no| width of the close area
-|closeAreaHeight|float  | no  | no| height of the close area
-|textAreaXOffset|float  | no  | no| coordinate x of the text area
-|textAreaYOffset|float  | no  | no| coordinate y of the text area
-|textAreaWidth|float  | no  | no| width of the text area
-|textAreaHeight|float  | no  | no| height of the text area
-|invitationStyle|string  | no  | yes|the layout style of invitation window,including `bubble`、`popup` and `chatWindow`.
+|image.type|string  | no  | yes| the type of image source,including `gallery` or `upload`
+|image.id|integer  | no  | no|id of invitation image.
+|image.url|string  | no  | no|url of invitation image.
+|position.type|string  | no  | no| the position of invitation window,including `centered`、`centeredWithOverlay`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`.
+|position.x|float  | no  | no|coordinate x of the button,the unit acoording to `position.x.isPixels`
+|position.y|float  | no  | no|coordinate y of the button,the unit acoording to `position.y.isPixels`
+|position.x.isPixels|boolean  | no  | no|whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent.
+|position.y.isPixels|boolean  | no  | no| whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent.
+|textArea.text.font|string  | no  | no| the font of text.
+|textArea.text.isBold|boolean  | no  | no| whether the text is bold or not.
+|textArea.text.size|string  | no  | no| the size of text.
+|textArea.text.isItalic|boolean  | no  | no| whether the text is italic or not.
+|textArea.text.Color|string  | no  | no| the color of text.
+|textArea.x|float  | no  | no| coordinate x of the text area
+|textArea.y|float  | no  | no| coordinate y of the text area
+|textArea.width|float  | no  | no| width of the text area
+|textArea.height|float  | no  | no| height of the text area
+|closeArea.x|float  | no  | no| coordinate x of the close area
+|closeArea.y|float  | no  | no| coordinate y of the close area
+|closeArea.width|float  | no  | no| width of the close area
+|closeArea.height|float  | no  | no| height of the close area
 
 ### Auto Invitation Json Format
 Auto Invitation is represented as simple flat JSON objects with the following keys:  
@@ -481,15 +481,15 @@ Route Rule is represented as simple flat JSON objects with the following keys:
 |name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
 |isEnable|boolean  | no  | yes |whether the routing rules is enable or not.
-|routingType|string  | no  | no |the type of routing,including `routeDepartmentOrAgent` and `routeCustomRules`.
-|routeRule|string  | no  | no | the rule of route ,including `department` and `agent`
-|routeOjbectId|integer  | yes  | no | id of the route object
-|routePriority|string  | no  | no | the priority of the route object,including `lowest`、`low`、`normal`、`high` and `highest`.
+|route.Type|string  | no  | no |the type of routing,including `routeDepartmentOrAgent` and `routeCustomRules`.
+|route.tule|string  | no  | no | the rule of route ,including `department` and `agent`
+|route.ojbectId|integer  | yes  | no | id of the route object
+|route.priority|string  | no  | no | the priority of the route object,including `lowest`、`low`、`normal`、`high` and `highest`.
 |customRules|array  | no  | no | an array of [Custom Rule](#custom-rule-json-format) json object.
-|failRoutingType|string  | no  | no |the type of fail routing,including `routeDepartmentOrAgent` and `routeCustomRules`.
-|failRouteRule|string  | no  | no | the rule of fail route ,including `department` and `agent`
-|failRouteOjbectId|integer  | yes  | no | id of the route object
-|failRoutePriority|string  | no  | no | the priority of fail route object,including `lowest`、`low`、`normal`、`high` and `highest`.
+|failRoute.type|string  | no  | no |the type of fail routing,including `routeDepartmentOrAgent` and `routeCustomRules`.
+|failRoute.rule|string  | no  | no | the rule of fail route ,including `department` and `agent`
+|failRoute.ojbectId|integer  | yes  | no | id of the route object
+|failRoute.priority|string  | no  | no | the priority of fail route object,including `lowest`、`low`、`normal`、`high` and `highest`.
 |failToEmail|string  | no  | no | redirect them to Offline Message Window and forward their messages to the email
 
 ### Get settings of Routing Rules for a campaign
@@ -669,8 +669,8 @@ Canned Message Category is represented as simple flat JSON objects with the foll
 | ------------- |--------------------- | ---------- | -------------------- | ------------------
 |id |integer  | yes  | no |id of the canned message category.
 |name|string  | no  | yes |name of the canned message category.
-|parentCategoryId|integer  | no  | yes | id of the parent category of the canned message category
-|parentCategoryName|string  | no  | no |name of the parent category of the canned message category
+|parentCategory.id|integer  | no  | yes | id of the parent category of the canned message category
+|parentCategory.name|string  | no  | no |name of the parent category of the canned message category
 |isPrivate|string  | no  | yes | whether the canned message category is private or not.
     
 ### Get list of canned message categories
