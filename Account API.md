@@ -249,7 +249,7 @@ Agent Json Object
 |id | integer  | yes  | no|id of the permission.
 |name | string  | no  | yes|name of the permission.
 |description | string  | no  | no|the description of the permission.
-|module | string  | no  | yes|module of the permission belong to.
+|module | string  | no  | yes|module of the permission belong to,including `LiveChat`、`UserAndContact` and `Account`.
     
 ### Get list of permissions
 - End Point     
@@ -274,7 +274,7 @@ Agent Json Object
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
 |id | integer  | yes  | yes|id of the permission.
 |agentId | integer  | yes  | no|id of the agent.
-|module | string  | no  | yes|module of the permission belong to.
+|module | string  | no  | yes|module of the permission belong to,including `LiveChat`、`UserAndContact` and `Account`.
     
 ### Get list of a agent's permissions
 - End Point     
@@ -319,7 +319,7 @@ Agent Permission Json Object
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
 |id | integer  | yes  | yes|id of the permission.
 |groupId | integer  | yes  | no|id of the group.
-|module | string  | no  | yes|module of the permission belong to.
+|module | string  | no  | yes|module of the permission belong to,including `LiveChat`、`UserAndContact` and `Account`.
     
 ### Get list of a group's permissions
 - End Point     

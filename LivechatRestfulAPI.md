@@ -169,9 +169,9 @@
 |name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
 |themeType| string | no | yes |    type of the window's theme,including `classic`、`simple` and `bubble`.
-|themecolor| string | no | yes |    color of the window's theme.
+|themeColor| string | no | yes |    color of the window's theme.
 |windowType| string | no | yes |     type of the chat window,including `embedded` and `popup`.
-|windowtitle| string | no | no |     title of the chat window,available when `windowType` is `popup`.
+|windowTitle| string | no | no |     title of the chat window,available when `windowType` is `popup`.
 |isCanPrintChatDetail| boolean | no | no |    whether the print button is visible or not.
 |isShowEmail| boolean | no | no |    whether the email button is visible or not.
 |isUseOperatorEmailOrFromEmail| boolean | no | no |  whether email is setted from agent email or from a specified address.
@@ -269,10 +269,10 @@ Field is represented as simple flat JSON objects with the following keys:
 |subject| yes  | no |     Subject field,available not in secure form.
 |content| yes  | no |     Content field,available not in secure form.
 |attachment| yes  | no |     Attachment field,available not in secure form.
-|card number|  yes | no |     card number field ,available in secure form.
-|expiration date|  yes | no |     expiration date field,available in secure form.
-|csc/cvv|  yes | no |     csc/cvv field ,available in secure form.
-|name on card|  yes | no |     name on card field ,available in secure form.
+|cardNumber|  yes | no |     card number field ,available in secure form.
+|expirationDate|  yes | no |     expiration date field,available in secure form.
+|cscOrCvv|  yes | no |     csc/cvv field ,available in secure form.
+|nameOnCard|  yes | no |     name on card field ,available in secure form.
 |text|  no | yes |     Text field 
 |textarea|  no | yes |     Textarea field 
 |radio|  no | yes |     Radio Box field 
