@@ -27,7 +27,7 @@
     + `PUT /api/v1/livechat/campaigns/{id}` -Update a campaign
     + `DELETE /api/v1/livechat/campaigns/{id}` -Remove a campaign
   - `Campaign Settings` --setting of campaign
-    + `GET /api/v1/livechat/campaigns/{id}/installationCode` -Get installation code for a campaign
+    + `GET /api/v1/livechat/campaigns/{id}/code` -Get installation code for a campaign
     + `GET /api/v1/livechat/campaigns/{id}/chatButton` -Get settings of ChatButton for a campaign
     + `PUT /api/v1/livechat/campaigns/{id}/chatButton` -Update settings of ChatButton for a campaign
     + `GET /api/v1/livechat/campaigns/{id}/chatWindow`  -Get settings of ChatWindow for a campaign
@@ -61,6 +61,7 @@
 | id | integer  | yes  | no| id of the campaign
 | name| string  | no  | yes|name of the campaign
 | description| string  | no  | no|description of the campaign
+| language| string  | no  | yes|language of the campaign
 
 ### Get list of campaigns
 - End Point      
@@ -104,7 +105,7 @@
       
 ### Get installation code for a campaign
 - End Point      
-  `GET /api/v1/livechat/campaigns/{id}/installationCode`
+  `GET /api/v1/livechat/campaigns/{id}/code`
       
 - Parameters     
   No parameters
@@ -121,26 +122,26 @@
 |isHideOffline| boolean | no | no |    whether the chatButton is visible when no agent is online.`true` means that button is invisible..
 |isEnableDomainRestriction| boolean | no | no |    whether the domain restriction is enable or not.
 |allowedDomains| array | no | no |    an array of domains/urls,on which the chat button is visible.
-|themeColor| string | no | no |     the theme color of chatbutton,available when `buttonType` is `adaptive`.
-|icon| string | no | no |     icon of the chat button,available when `buttonType` is `adaptive`.
-|imageType| string | no | no |     the type of the image ,including `gallery` and `upload`,available when `buttonType` is `image`.
-|onlineImageId| integer | no | no |     id of the image when any agents are on line,available when `buttonType` is `image`.
-|offlineImageId| integer | no | no |     id of the image when no agent is on line,available when `buttonType` is `image`.
-|onlineImageUrl| string | no | no |     url of the image when any agents are on line,available when `buttonType` is `image`.
-|offlineImageUrl| string | no | no |     url of the image when no agent is on line,available when `buttonType` is `image`.
-|isFloat| boolean | no | no |    whether the chat button is float or not,available when `buttonType` is `image`.
-|buttonXIsPixels| boolean | no | no |     whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent,available when `buttonType` is `image`.
-|buttonX| float | no | no |    coordinate x of the button,the unit acoording to `buttonXIsPixels`,available when `buttonType` is `image`.
-|buttonYIsPixels| boolean | no | no |  whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent,available when `buttonType` is `image`.
-|buttonY| float | no | no |    coordinate y of the button,the unit acoording to `buttonYIsPixels`,available when `buttonType` is `image`.
-|buttonPosition| string | no | no |     position of the chat button,including `centered`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`,available when `buttonType` is `image`.
-|mobileButtonType| string | no | no |    the type of button on mobile device,including `text` and `image`,available when `buttonType` is `image`.
-|mobileOnlineText| string | no | no |    the content of text on mobile device when any agents are on line,available when `mobileButtonType` is `text`and `buttonType` is `image`.
-|mobileOfflineText| string | no | no |    the content of text on mobile device when no agent is on line,available when `mobileButtonType` is `text`and `buttonType` is `image`.
-|mobileThemeColor| string | no | no |     the theme color of chatbutton on mobile device,available when `mobileButtonType` is `text`and `buttonType` is `image`.
-|mobileOnlineImageUrl| string | no | no |    the url of image on mobile device when any agents are on line,available when `mobileButtonType` is `image`and `buttonType` is `image`.
-|mobileOfflineImageUrl| string | no | no |    the url of image on mobile device when no agent is on line,available when `mobileButtonType` is `image` and `buttonType` is `image`.
-|mobileImagePosition| string | no | no |     position of the chat button on mobile device， including `bottomLeft`、`bottomMiddle`、`bottomRight`、`leftMiddle`、`RightMiddle`、`leftBottom` and `rightBottom`,available when `mobileButtonType` is `image` and `buttonType` is `image`.
+|adaptive.themeColor| string | no | no |     the theme color of chatbutton,available when `buttonType` is `adaptive`.
+|adaptive.icon| string | no | no |     icon of the chat button,available when `buttonType` is `adaptive`.
+|image.type| string | no | no |     the type of the image ,including `gallery` and `upload`,available when `buttonType` is `image`.
+|image.onlineImageId| integer | no | no |     id of the image when any agents are on line,available when `buttonType` is `image`.
+|image.offlineImageId| integer | no | no |     id of the image when no agent is on line,available when `buttonType` is `image`.
+|image.onlineImageUrl| string | no | no |     url of the image when any agents are on line,available when `buttonType` is `image`.
+|image.offlineImageUrl| string | no | no |     url of the image when no agent is on line,available when `buttonType` is `image`.
+|image.isFloat| boolean | no | no |    whether the chat button is float or not,available when `buttonType` is `image`.
+|image.position.type| string | no | no |     position of the chat button,including `centered`、`topLeft`、`topMiddle`、`topRight`、`buttomLeft`、`buttomMiddle`、`buttomRight`、`leftMiddle` and `rightMiddle`,available when `buttonType` is `image`.
+|image.x.isPixels| boolean | no | no |     whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent,available when `buttonType` is `image`.
+|image.position.x| float | no | no |    coordinate x of the button,the unit acoording to `buttonXIsPixels`,available when `buttonType` is `image`.
+|image.y.IsPixels| boolean | no | no |  whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent,available when `buttonType` is `image`.
+|image.position.y| float | no | no |    coordinate y of the button,the unit acoording to `buttonYIsPixels`,available when `buttonType` is `image`.
+|image.mobile.Type| string | no | no |    the type of button on mobile device,including `text` and `image`,available when `buttonType` is `image`.
+|image.mobile.onlineText| string | no | no |    the content of text on mobile device when any agents are on line,available when `mobileButtonType` is `text`and `buttonType` is `image`.
+|image.mobile.offlineText| string | no | no |    the content of text on mobile device when no agent is on line,available when `mobileButtonType` is `text`and `buttonType` is `image`.
+|image.mobile.themeColor| string | no | no |     the theme color of chatbutton on mobile device,available when `mobileButtonType` is `text`and `buttonType` is `image`.
+|image.mobile.onlineImageUrl| string | no | no |    the url of image on mobile device when any agents are on line,available when `mobileButtonType` is `image`and `buttonType` is `image`.
+|image.mobile.offlineImageUrl| string | no | no |    the url of image on mobile device when no agent is on line,available when `mobileButtonType` is `image` and `buttonType` is `image`.
+|image.mobile.position.type| string | no | no |     position of the chat button on mobile device， including `bottomLeft`、`bottomMiddle`、`bottomRight`、`leftMiddle`、`RightMiddle`、`leftBottom` and `rightBottom`,available when `mobileButtonType` is `image` and `buttonType` is `image`.
 |buttonText| string | no | no |    the content of the text link,available when `buttonType` is `textLink`.
       
 ### Get settings of ChatButton for a campaign
@@ -168,16 +169,16 @@
      
 |name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
-|themeType| string | no | yes |    type of the window's theme,including `classic`、`simple` and `bubble`.
-|themeColor| string | no | yes |    color of the window's theme.
-|windowType| string | no | yes |     type of the chat window,including `embedded` and `popup`.
-|windowTitle| string | no | no |     title of the chat window,available when `windowType` is `popup`.
-|visitor.isCanPrintChatDetail| boolean | no | no |    whether the print button is visible or not.
-|visitor.isShowEmail| boolean | no | no |    whether the email button is visible or not.
+|style| string | no | yes |    style of the window's theme,including `classic`、`simple` and `bubble`.
+|color| string | no | yes |    color of the window's theme.
+|type| string | no | yes |     type of the chat window,including `embedded` and `popup`.
+|title| string | no | no |     title of the chat window,available when `windowType` is `popup`.
+|visitor.isCanPrintChatDetail| boolean | no | no |    chat details can be printed 
+|visitor.isShowEmail| boolean | no | no |    chat transcripts can be emailed to visitors 
 |visitor.isUseOperatorEmailOrFromEmail| boolean | no | no |  whether email is setted from agent email or from a specified address.
 |specifiedEmail| string | no | no |     a specified email for setting visitor's address.
 |specifiedName| string | no | no |     a specified name for setting visitor's address.
-|visitor.isCanSwitchToOffline| boolean | no | no |  whether visitors are allowed to switch to Offline Message Window while waiting for chat.
+|visitor.isCanSwitchToOffline| boolean | no | no |  allow visitors to switch to Offline Message Window while waiting for chat. 
 |visitor.isCanSendFile| boolean | no | no |     whether the agent can send file or not.
 |visitor.isCanHaveAudioChat| boolean | no | no |    whether the agent can use audio chat.
 |visitor.isCanHaveVideoChat| boolean | no | no |    whether the agent can use video chat.
@@ -744,7 +745,7 @@ Department is represented as simple flat JSON objects with the following keys:
 |isLastChattedPreferred|boolean  | no  | no |whether last-chatted agent is prefer or not.
 |backupDepartmentId|integer  | no  | no | id of back up department
 |offlineMessageTo|string  | no  | no | object which mail offline messages of the department to,including `allAgents` and `emailAddresses`
-|emaileAddresses|string  | no  | no | the email addresses which mail offline messages of the department to
+|emailAddresses|string  | no  | no | the email addresses which mail offline messages of the department to
     
 ### Get list of departments 
 - End Point    
