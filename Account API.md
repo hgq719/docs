@@ -267,7 +267,7 @@ Agent Json Object
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
 |name | string  | no  | yes|name of the permission.
 |description | string  | no  | no|the description of the permission.
-|module | string  | no  | yes|module of the permission belong to,including `LiveChat`、`UserAndContact` and `Account`.
+|module | string  | no  | yes|module which the permission belongs to,including `LiveChat`、`UserAndContact` and `Account`.
     
 ### Get list of permissions
 - End Point     
@@ -291,7 +291,7 @@ Agent Json Object
 |name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
 |name | string  | no  | yes|name of the permission.
-|module | string  | no  | yes|module of the permission belong to,including `LiveChat`、`UserAndContact` and `Account`.
+|module | string  | no  | yes|module which the permission belongs to,including `LiveChat`、`UserAndContact` and `Account`.
     
 ### Get list of a agent's permissions
 - End Point     

@@ -128,7 +128,7 @@
 |offlineImageId| integer | no | no |     id of the image when no agent is on line,available when `buttonType` is `image`.
 |onlineImageUrl| string | no | no |     url of the image when any agents are on line,available when `buttonType` is `image`.
 |offlineImageUrl| string | no | no |     url of the image when no agent is on line,available when `buttonType` is `image`.
-|isFloat| boolean | no | no |    whether the chat button is float or not,available when `buttonType` is `image`,available when `buttonType` is `image`.
+|isFloat| boolean | no | no |    whether the chat button is float or not,available when `buttonType` is `image`.
 |buttonXIsPixels| boolean | no | no |     whether the unit of coordinate x the button is pixel or percent, `true` means pixel and `false` means percent,available when `buttonType` is `image`.
 |buttonX| float | no | no |    coordinate x of the button,the unit acoording to `buttonXIsPixels`,available when `buttonType` is `image`.
 |buttonYIsPixels| boolean | no | no |  whether the unit of coordinate Y the button is pixel or percent, `true` means pixel and `false` means percent,available when `buttonType` is `image`.
@@ -141,7 +141,7 @@
 |mobileOnlineImageUrl| string | no | no |    the url of image on mobile device when any agents are on line,available when `mobileButtonType` is `image`and `buttonType` is `image`.
 |mobileOfflineImageUrl| string | no | no |    the url of image on mobile device when no agent is on line,available when `mobileButtonType` is `image` and `buttonType` is `image`.
 |mobileImagePosition| string | no | no |     position of the chat button on mobile device， including `bottomLeft`、`bottomMiddle`、`bottomRight`、`leftMiddle`、`RightMiddle`、`leftBottom` and `rightBottom`,available when `mobileButtonType` is `image` and `buttonType` is `image`.
-|buttonText| string | no | no |    the content of the text link,available when `buttonType` is `textLink`
+|buttonText| string | no | no |    the content of the text link,available when `buttonType` is `textLink`.
       
 ### Get settings of ChatButton for a campaign
 - End Point      
@@ -172,15 +172,15 @@
 |themeColor| string | no | yes |    color of the window's theme.
 |windowType| string | no | yes |     type of the chat window,including `embedded` and `popup`.
 |windowTitle| string | no | no |     title of the chat window,available when `windowType` is `popup`.
-|isCanPrintChatDetail| boolean | no | no |    whether the print button is visible or not.
-|isShowEmail| boolean | no | no |    whether the email button is visible or not.
-|isUseOperatorEmailOrFromEmail| boolean | no | no |  whether email is setted from agent email or from a specified address.
-|specifiedEmail| string | no | no |     a specified email.
-|specifiedName| string | no | no |     a specified name.
-|isCanSwitchToOffline| boolean | no | no |  whether visitors are allowed to switch to Offline Message Window while waiting for chat.
-|isCanSendFile| boolean | no | no |     whether the agent can send file or not.
-|isCanHaveAudioChat| boolean | no | no |    whether the agent can use audio chat.
-|isCanHaveVideoChat| boolean | no | no |    whether the agent can use video chat.
+|visitor.isCanPrintChatDetail| boolean | no | no |    whether the print button is visible or not.
+|visitor.isShowEmail| boolean | no | no |    whether the email button is visible or not.
+|visitor.isUseOperatorEmailOrFromEmail| boolean | no | no |  whether email is setted from agent email or from a specified address.
+|specifiedEmail| string | no | no |     a specified email for setting visitor's address.
+|specifiedName| string | no | no |     a specified name for setting visitor's address.
+|visitor.isCanSwitchToOffline| boolean | no | no |  whether visitors are allowed to switch to Offline Message Window while waiting for chat.
+|visitor.isCanSendFile| boolean | no | no |     whether the agent can send file or not.
+|visitor.isCanHaveAudioChat| boolean | no | no |    whether the agent can use audio chat.
+|visitor.isCanHaveVideoChat| boolean | no | no |    whether the agent can use video chat.
 |isEndChatWhenVisitorInactivity| boolean | no | no |  whether chat ends automatically if visitors don't respond.
 |timeEndChatDelayWhenVisitorInactivity| integer | no | no |    the time after the chat was end when visitor inactivity,the unit is second.
 |isEnableSendTranscriptEmail| boolean | no | no |    whether the agent can send transcript email after chat ending.
@@ -191,20 +191,20 @@
 |customJS| string | no | no |    the content of custom javascript.
 |customCSS| string | no | no |     the content of custom css.
 |headerType| string | no | no |     type of the header,including `agentInfo`、`bannerImage` when `themeType` is `classic`,including `agentInfo`、`bannerImage` and `avatarAndCompanyLogo` when `themeType` is `simple`.
-|isShowDisplayName| boolean | no | no |     whether the display name of the agent is visible or not,available when `themeType` is `classic`or `simple` and `headerType` is `agentInfo`.
-|isShowAvatar| boolean | no | no |     whether the avatar of the agent is visible or not,available when `themeType` is `classic`or `simple` and `headerType` is `agentInfo` or `avatarAndCompanyLogo`.
-|isShowTitle| boolean | no | no |      whether the title of the agent is visible or not,available when `themeType` is `classic`or `simple` and `headerType` is `agentInfo`.
-|isShowBio| boolean | no | no |      whether the bio of the agent is visible or not,available when `themeType` is `classic`or `simple` and `headerType` is `agentInfo`.
-|imageType| string | no | no |     the type of the image ,including `gallery` and `upload`,available when `themeType` is `classic`or `simple`.
-|imageId| integer | no | no |     id of the image in the header of chat window,available when `themeType` is `classic`or `simple` and `headerType` is `bannerImage`.
-|imageUrl| string | no | no |     url of the image in the header of chat window,available when `themeType` is `classic`or `simple` and `headerType` is `bannerImage`.
-|isShowLogo| boolean | no | no |     whether the logo of the company is visible or not,available when `themeType` is `classic` and `headerType` is `avatarAndCompanyLogo`.
-|companyImageId| string | no | no |     id of the company image in the header of chat window,available when `themeType` is `classic` and `headerType` is `avatarAndCompanyLogo` .
-|companyImageUrl| string | no | no |     url of the company image in the header of chat window,available when `themeType` is `classic` and `headerType` is `avatarAndCompanyLogo`.
-|isShowAvatarWithMessage| boolean | no | no |     whether the avatar of the agent is visible or not in the messsage body,available when `themeType` is `classic`or `simple`.
-|isShowTextureWithMessage| boolean | no | no |     whether the texture and picture of the background is visible or not in the messsage body,available when `themeType` is `classic`or `simple`.
-|backgroudImageId| integer | no | no |     id of the background image in the message body,available when `themeType` is `classic`or `simple`.
-|backgroudImageUrl| string | no | no |     url of the company image in the message body,available when `themeType` is `classic`or `simple`.
+|header.isShowDisplayName| boolean | no | no |     whether the display name of the agent is visible or not,available when `themeType` is `classic`or `simple` and `headerType` is `agentInfo`.
+|header.isShowAvatar| boolean | no | no |     whether the avatar of the agent is visible or not,available when `themeType` is `classic`or `simple` and `headerType` is `agentInfo` or `avatarAndCompanyLogo`.
+|header.isShowTitle| boolean | no | no |      whether the title of the agent is visible or not,available when `themeType` is `classic`or `simple` and `headerType` is `agentInfo`.
+|header.isShowBio| boolean | no | no |      whether the bio of the agent is visible or not,available when `themeType` is `classic`or `simple` and `headerType` is `agentInfo`.
+|header.imageType| string | no | no |     the type of the image ,including `gallery` and `upload`,available when `themeType` is `classic`or `simple`.
+|header.imageId| integer | no | no |     id of the image in the header of chat window,available when `themeType` is `classic`or `simple` and `headerType` is `bannerImage`.
+|header.imageUrl| string | no | no |     url of the image in the header of chat window,available when `themeType` is `classic`or `simple` and `headerType` is `bannerImage`.
+|header.isShowLogo| boolean | no | no |     whether the logo of the company is visible or not,available when `themeType` is `classic` and `headerType` is `avatarAndCompanyLogo`.
+|header.companyImageId| string | no | no |     id of the company image in the header of chat window,available when `themeType` is `classic` and `headerType` is `avatarAndCompanyLogo` .
+|header.companyImageUrl| string | no | no |     url of the company image in the header of chat window,available when `themeType` is `classic` and `headerType` is `avatarAndCompanyLogo`.
+|body.isShowAvatarWithMessage| boolean | no | no |     whether the avatar of the agent is visible or not in the messsage body,available when `themeType` is `classic`or `simple`.
+|body.isShowTextureWithMessage| boolean | no | no |     whether the texture and picture of the background is visible or not in the messsage body,available when `themeType` is `classic`or `simple`.
+|body.backgroudImageId| integer | no | no |     id of the background image in the message body,available when `themeType` is `classic`or `simple`.
+|body.backgroudImageUrl| string | no | no |     url of the company image in the message body,available when `themeType` is `classic`or `simple`.
      
 ### Get settings of ChatWindow for a campaign
 - End Point      
@@ -232,6 +232,8 @@
 |name     | Type               | Read-only    | Mandatory      |  Description                                                                                                   
 | ------------- |--------------------- | ---------- | -------------------- | ------------------ 
 |isEnable| boolean | no | yes |    whether the pre-chat is enable or not.
+|header.isShowTeamName| boolean | no | no |    whether the name of the agent is visible or not in the header.
+|header.isShowAvatar| boolean | no | no |    whether the avatar of the agent is visible or not in the header.
 |greetingMessage| string | no | no |     content of greeting message.
 |isEnableGoogle| boolean | no | no |    whether google is enable or not in social login.
 |isEnableFacebook| boolean | no | no |    whether facebook is enable or not in social login.
@@ -322,8 +324,8 @@ Pre-Chat Json Object
 |greetingMessage| string | no | no |     content of greeting message.
 |url| string | no | no |    url of custom offline message page.
 |isOpenInNewWindow| boolean | no | no |    whether open page in a new window or not.
-|isShowTeamName| boolean | no | no |    whether the name of the agent is visible or not in the header.
-|isShowAvatar| boolean | no | no |    whether the avatar of the agent is visible or not in the header.
+|header.isShowTeamName| boolean | no | no |    whether the name of the agent is visible or not in the header.
+|header.isShowAvatar| boolean | no | no |    whether the avatar of the agent is visible or not in the header.
 |fieldLayoutStyle| string | no | no |    the layout style of field,including `labelLeftSideInput` and `labelAboveInput`.
 |fields| Array | no | no |     an array of [field](#field-json-format) object
      
@@ -1486,7 +1488,7 @@ Custom Variable Json Object.
     + `fieldName` - field name of the condition.
     + `match` - match expression of the condition.
     + `value` - the value correspond with the field
-  - `page` -page number
+  - `pageIndex` -the page index of query.
 
 - Response      
   - `total` -total count of the list.
@@ -1514,6 +1516,7 @@ Custom Variable Json Object.
   - `type` - type of the chat,including `missed` and `refused`.
   - `campaignId` - id of the campaign which the message of the chat happened in.
   - `visitorSegmentId` - id of the visitor segment which visitor belongs to.
+  - `pageIndex` -the page index of query.
 
 - Response      
   - `total` -total count of the list.
@@ -1539,6 +1542,7 @@ Custom Variable Json Object.
   optional：
   - `agentId` - id of the agent who paticipate in the chat.
   - `keywords` - the key words of inquiring the chat
+  - `pageIndex` -the page index of query.
 
 - Response      
   - `total` -total count of the list.
@@ -1563,6 +1567,7 @@ Custom Variable Json Object.
   - `agentId` - id of the agent who participate in the chat.
   - `visitorSegmentId` - id of the visitor segment which visitor belongs to.
   - `keywords` - the key words of inquiring the message.
+  - `pageIndex` -the page index of query.
 
 - Response      
   - `total` -total count of the list.
