@@ -26,7 +26,6 @@
   | siteName | string | no | yes | name of the site
   | contact.firstName | string | no | yes |first name of the contact
   | contact.lastName | string | no | yes |last name of the contact
-  | contact.email | string | no | yes | email of the contact
   | contact.mobileNumber | string | no | yes |mobile number of the contact
   | company | string | no | yes | company the site belongs to
   | website | string | no | yes | website of the site
