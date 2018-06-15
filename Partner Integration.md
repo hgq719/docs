@@ -289,10 +289,10 @@
       - `mailingAddress` - `optional` 注册站点的company的邮寄地址
       - `stateOrProvince` - `optional` 注册站点的company所在的state或province
       - `timezone` - `optional` 站点的默认时区
-      - `contact.firstName` - `optional` 站点联系人的first name
-      - `contact.lastName` - `optional` 站点联系人的last name
-      - `contact.email` - `optional` 站点联系人的email
-      - `contact.phone` - `optional` 站点联系人的phone number
+      - `firstName` - `optional` 站点联系人的first name
+      - `lastName` - `optional` 站点联系人的last name
+      - `email` - `optional` 站点联系人的email
+      - `phone` - `optional` 站点联系人的phone number
 
   + Return
 
