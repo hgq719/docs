@@ -229,6 +229,7 @@
       "manageAgentAndGroups": true,
       "manageBillingInfo" : false,
       "managePlan": false,
+      "buyEmailMarketingCredits": false,
       "viewBalanceHistory": false,
       "manageSite": false,
       "manageHeaderAndFooterSettings": false,
