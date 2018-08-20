@@ -16,8 +16,8 @@
 
   Next, we will guide you through how to configure the reverse proxy server in different web server in the windows environment.
 - [Nginx](#nginx-as-a-web-server) 
-- [IIS](#iis-as-a-web-server)
-- [Tomcat](#tomcat-as-a-web-server)
+- [IIS](https://github.com/hypnus1983/LivechatAPI/blob/master/arr.md)
+- [Apache](#apache-as-a-web-server)
 
 ### Nginx as a web server
   Nginx is one of the most popular open source web server.If you use the nginx as your web server or you want to use it,you can do as follows.
@@ -35,7 +35,8 @@
   Then install the nginx.
 
 #### Step 3 - Configure Nginx
-  Get the sub-domain(which is assigned for you as a partner of Comm100, e.g. `loveapp.platform.comm100.com`) of product from Comm100.
+  Get the sub-domain(which is assigned for you as a partner of Comm100, e.g. `loveapp.platform.comm100.com`) of product from Comm100.  
+  
   Configuration Params:
   - independent_domain - Partner own independent-domain, e.g. `loveapp.agx.com`.
   - ssl_crt -relative path of the SSL certificate of the independent-domain ,e.g. `cert/loveapp.crt` means that the cert named `loveapp.crt` stores in the folder `conf\cert`.
