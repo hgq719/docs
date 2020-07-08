@@ -2,8 +2,8 @@
   Partner is authorized to sell Comm100's Products or Services in their regions. Most of the time, partners would like to sell this product with their own branding and they hope that their customers can use the custom domain to request the product or service. In the case, comm100 provide a solution to satisfy the needs. Comm100 allots a sub-domain for every partner. It's `https://{subdomain}.platform.comm100.com`. We suggest using a reverse proxy server to finish the URL rewrite and application request routing. The reverse proxy server will convert the request from the partner's custom domain into the request of the sub-domain.
 
 
-1. [What is a Reverse Proxy Server?](#what-is-a-reverse-proxy-server-)
-2. [How to configure a Reverse Proxy Server?](#how-to-configure-a-reverse-proxy-server-)
+1. [What is a Reverse Proxy Server?](#what-is-a-reverse-proxy-server)
+2. [How to configure a Reverse Proxy Server?](#how-to-configure-a-reverse-proxy-server)
 
 ## What is a Reverse Proxy Server?
   A proxy server is a go‑between or intermediary server that forwards requests for content from multiple clients to different servers across the Internet. A reverse proxy server is a type of proxy server that typically sits behind the firewall in a private network and directs client requests to the appropriate backend server. A reverse proxy provides an additional level of abstraction and control to ensure the smooth flow of network traffic between clients and servers.  
@@ -53,17 +53,55 @@
     include       mime.types;
     default_type  application/octet-stream;
 
-    sendfile        on;
+    access_log off;
+
+    sendfile            on;
+    tcp_nodelay         on;
+    types_hash_max_size 2048;
+
+    server_names_hash_bucket_size 64;
+
     ssl_certificate      {ssl_crt}
     ssl_certificate_key  {ssl_crt_key}
     
-    ssl_session_cache    shared:SSL:1m;
-    ssl_session_timeout  5m;
-    
-    ssl_ciphers  HIGH:!aNULL:!MD5;
-ssl_prefer_server_ciphers  on;
+    ssl_protocols      TLSv1 TLSv1.1 TLSv1.2 TLSv1.3;
+    ssl_ciphers    TLS-CHACHA20-POLY1305-SHA256:TLS-AES-256-GCM-SHA384:TLS-AES-128-GCM-SHA256:HIGH:!aNULL:!MD5;
+    ssl_prefer_server_ciphers  on;
 
-    keepalive_timeout  65;
+    keepalive_timeout  75;     
+    keepalive_requests 100;    
+
+    client_body_timeout 60;
+    client_header_timeout 60;
+    send_timeout 30;
+    proxy_connect_timeout 30;
+    proxy_read_timeout 300;
+    proxy_send_timeout 300;
+
+    proxy_buffer_size 64k;
+    proxy_buffers 32 32k;
+    proxy_busy_buffers_size 64k;
+
+    gzip  on;
+
+    proxy_cache_path /etc/cache levels=1:2 keys_zone=my_cache:10m max_size=10g inactive=10m use_temp_path=off;
+    client_max_body_size 100m;
+
+    server {
+        listen 80;
+        return 404;
+    }
+
+    server {
+        listen 443 ssl;
+        return 404;
+    }
+
+    server {
+        listen 80;
+        server_name  {independent_domain};
+        return 301 https://$host$request_uri;
+    }
 
     server {
         listen       443 ssl;
@@ -73,69 +111,107 @@ ssl_prefer_server_ciphers  on;
         location = /50x.html {
             root   html;
         }
-        location / {
-            proxy_cookie_domain {sub_domain} {independent_domain}; 
-            add_header 'Access-Control-Allow-Origin' '*';
-            proxy_redirect off;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
+
+        location ~* ^/chatserver/js/ {
+            proxy_http_version 1.1;
             proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_pass {sub_domain_full_name};
+            proxy_pass https://{sub_domain};
+            proxy_cache my_cache;
+            proxy_hide_header Cache-Control;
+            add_header Cache-Hit true;
+            add_header Cache-Control "public,max-age=31536000";
         }
-    }
+
+        location ~* ^/chatserver/fonts/ {
+            proxy_http_version 1.1;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_pass https://{sub_domain};
+            proxy_cache my_cache;
+            proxy_hide_header Cache-Control;
+            add_header Cache-Hit true;
+            add_header Cache-Control "public,max-age=31536000";
+        }
+
+        location /ACPNS {
+            proxy_pass https://{sub_domain}/ACPNS;
+            proxy_http_version 1.1;
+            proxy_ssl_server_name on;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+        }
+
+        location /webrtcSignalingService {
+            proxy_pass https://commservice.comm100.io/webrtcSignalingService;
+            proxy_http_version 1.1;
+            proxy_ssl_server_name on;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+        }
+
+        location /translateservice {
+            proxy_pass https://commservice.comm100.io/translateservice;
+            proxy_http_version 1.1;
+            proxy_ssl_server_name on;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+        }
+
+        location /screensharingservice {
+            proxy_pass https://commservice.comm100.io/screensharingservice;
+            proxy_http_version 1.1;
+            proxy_ssl_server_name on;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection "upgrade";
+        }
+
+        location = /chatserver/livechat.ashx {
+            sub_filter_types *;
+            proxy_set_header Accept-Encoding "";
+            sub_filter_once off;
+            proxy_ssl_server_name on;
+            sub_filter partner7.comm100.io {independent_domain};
+            sub_filter {sub_domain} {independent_domain};
+            proxy_set_header Host $proxy_host;
+            proxy_set_header X-Forwarded-Host $host:$server_port;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_pass https://{sub_domain}/chatserver/livechat.ashx;
+       }
+
+        location / {
+            sub_filter_once off;
+            proxy_ssl_server_name on;
+            sub_filter_types application/json application/x-javascript text/plain;
+            sub_filter retUrl=https%3a%2f%2f{sub_domain} retUrl=https%3a%2f%2f{sub_domain};
+            sub_filter www.comm100.com {independent_domain};
+            sub_filter partner7.comm100.io/socialapi partner7.comm100.io/socialapi;
+            sub_filter hosted.comm100.com {independent_domain};
+            sub_filter ent.comm100.com {independent_domain};
+            sub_filter partner7.comm100.io {independent_domain};
+            sub_filter {sub_domain} {independent_domain};
+            proxy_http_version 1.1;
+            proxy_set_header Host $proxy_host;
+            proxy_set_header X-Forwarded-Host $host:$server_port;
+            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+            proxy_set_header X-Real-IP $remote_addr;
+            proxy_pass https://{sub_domain};
+        }
     }
 }
   ```
 
-#### Example
-
-```javascript
-http {
-    include       mime.types;
-    default_type  application/octet-stream;
-
-    sendfile        on;
-    ssl_certificate      cert/loveapp.crt; 
-    ssl_certificate_key  cert/loveapp.key; 
-    
-    ssl_session_cache    shared:SSL:1m;
-    ssl_session_timeout  5m;
-    
-    ssl_ciphers  HIGH:!aNULL:!MD5;
-ssl_prefer_server_ciphers  on;
-
-    keepalive_timeout  65;
-
-    server {
-        listen       443 ssl;
-        server_name  loveapp.agx.com; 
-
-        error_page   500 502 503 504  /50x.html;
-        location = /50x.html {
-            root   html;
-        }
-        location / {
-            proxy_cookie_domain loveapp.platform.comm100.com loveapp.agx.com; 
-            add_header 'Access-Control-Allow-Origin' '*';
-            proxy_redirect off;
-            proxy_set_header Host $host;
-            proxy_set_header X-Real-IP $remote_addr;
-            proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-            proxy_pass https://loveapp.platform.comm100.com;
-        }
-    }
-    }
-}
-```
-
 ### Step 4 - Start Nginx and test
-Load the cmd to the Nginx root path, e.g. `F:\nginx-1.15`. Type the command as the follows:
+Load the cmd to the Nginx root path, Type the command as the follows:
 1. Start Nginx   
-   `F:\nginx-1.15.2>start nginx`
+   - Windows: `start nginx`
+   - Linux:   `systemctl start nginx.service`
 2. Reload Nginx after updating the configuration.    
-   `F:\nginx-1.15.2>nginx -s reload`
-3. Quit Nginx    
-   `F:\nginx-1.15.2>nginx -s quit`
+   - Windows: `nginx -s reload`
+   - Linux: `systemctl restart nginx.service`
+3. Stop Nginx    
+   - Windows:`nginx -s stop`
+   - Linux: `systemctl stop nginx.service`
+4. Set Nginx as auto-start service
+   - Linux: `systemctl enable nginx.service`
 
 After starting Nginx successfully, Type the custom domain in the browser, e.g. `https://loveapp.agx.com`. If everything is ok, the browser will lead you to the login page as follows:
 `https://loveapp.agx.com/adminManage/login.aspx`.Then the custom of the partner can use the product and the service.
@@ -351,7 +427,6 @@ To enable ARR as a proxy, and to create a URL Rewrite rule to enable ARR as a fo
     </system.webServer>
 </configuration>
 ```
-
 
 #### Step 6 - Test
 1. Click the proxy site in **Sites** node in the **Connections** pane. In the **Actions** pane, click **Restart** to restart the website.
