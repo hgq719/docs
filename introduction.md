@@ -18,7 +18,7 @@ Comm100 RESTful API must use **https** protocol. What the API requests should st
 
 ## Authentication
 
-Comm100 provides 2 authentication methods.
+Comm100 provides two authentication methods.
 
 - [API_key Authentication](#API_key-Authentication)
 - [OAuth Authentication](#OAuth-Authentication)
@@ -28,14 +28,16 @@ Comm100 provides 2 authentication methods.
 
 ## API_key Authentication
 
-For each method call, you must use your email and API_KEY.Authentication to the API is done via HTTP Basic Auth. Provide your email as the basic auth username and API_KEY as the password. You must authenticate for API requests. Even though we still support this type of authentication, we recommend using OAuth authentication.
+For each method call, you must use your email and API_KEY.Authentication to the API is done via HTTP Basic Auth. Provide your email as the basic auth username and API_KEY as the password. You must authenticate for API requests. 
+
+Note:Comm100 recommends using OAuth authentication even though it supports the API_KEY type of authentication.
 
 </div>
 <div>
 
 ## OAuth Authentication
 
-  You can use OAuth2 to authenticate all your API requests to Comm100. OAuth provides a more secure way for your application to access your account data without requiring that sensitive information like email and password to be sent with the requests. There are different OAuth flows for different types of API.
+  You can use OAuth2 to authenticate all your API requests to Comm100. OAuth provides a more secure way for your application to access your account data without requiring that sensitive information, like email and password to be sent with the requests. There are different OAuth flows for different types of API.
   
   Note that while generating an access token, the API request should start with your platform domain, which is different from the other API requests. For example:
   
@@ -75,10 +77,10 @@ For each method call, you must use your email and API_KEY.Authentication to the 
 
 ##### Notes
 
-The token has an expiration time, if the token has expired, please call the API again to obtain a new token.
+The token has an expiration time. If the token has expired, call the API again to obtain a new token.
 
 ### How to call the comm100 v3 api by the access token?
-You can use the access token to call the comm100 v3 api as follow Example.
+You can use the access token to call the comm100 v3 api. For example.
 
 ### Example
 
