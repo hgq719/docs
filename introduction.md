@@ -55,7 +55,7 @@ For each method call, you must use your email and API_KEY.Authentication to the 
 - grant_type - specify `password` as the value.
 
 ```bash
-    curl https://hosted.comm100.com/oauth/token -H "Content-Type:application/x-www-form-urlencoded"  
+    curl https://portal1.comm100.io/oauth/token -H "Content-Type:application/x-www-form-urlencoded"  
      -d 'grant_type=password&email={comm100_agent_email}&password={comm100_agent_password}'  
      -x POST
 ```
