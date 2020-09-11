@@ -11,10 +11,10 @@ Note: Comm100 currently has two versions of our customer engagement platform.
 
 Comm100 RESTful API must use **https** protocol. What the API requests should start with depends on your platform domain, which can be accessed from both your Control Panel and web version Agent Console after successful login. For example:
 
-- If your Control Panel domain is portal1.comm100.io, all API requests (except for the API request in generating the JWT token) should start with https://api1.comm100.io/api/v3/. 
-- If your Control Panel domain is portal3.comm100.io, all API requests (except for the API request in generating the JWT token) should start with https://api3.comm100.io/api/v3/.
-- If your Control Panel domain is portal5.comm100.io, all API requests (except for the API request in generating the JWT token) should start with https://api5.comm100.io/api/v3/.
-- If your Control Panel domain is portal7.comm100.io, all API requests (except for the API request in generating the JWT token) should start with https://api7.comm100.io/api/v3/.
+- If your Control Panel domain is portal1.comm100.io, all API requests (except for the API request in generating the access token) should start with https://api1.comm100.io/api/v3/. 
+- If your Control Panel domain is portal3.comm100.io, all API requests (except for the API request in generating the access token) should start with https://api3.comm100.io/api/v3/.
+- If your Control Panel domain is portal5.comm100.io, all API requests (except for the API request in generating the access token) should start with https://api5.comm100.io/api/v3/.
+- If your Control Panel domain is portal7.comm100.io, all API requests (except for the API request in generating the access token) should start with https://api7.comm100.io/api/v3/.
 
 ## Authentication
 
@@ -37,14 +37,14 @@ For each method call, you must use your email and API_KEY.Authentication to the 
 
   You can use OAuth2 to authenticate all your API requests to Comm100. OAuth provides a more secure way for your application to access your account data without requiring that sensitive information like email and password to be sent with the requests. There are different OAuth flows for different types of API.
   
-  Note that while generating a JWT token, the API request should start with your platform domain, which is different from the other API requests. For example:
+  Note that while generating an access token, the API request should start with your platform domain, which is different from the other API requests. For example:
   
 - If your Control Panel domain is portal1.comm100.io, the API requests should start with https://portal1.comm100.io/.
 - If your Control Panel domain is portal3.comm100.io, the API requests should start with https://portal3.comm100.io/.
 - If your Control Panel domain is portal5.comm100.io, the API requests should start with https://portal5.comm100.io/.
 - If your Control Panel domain is portal7.comm100.io, the API requests should start with https://portal7.comm100.io/.
 
-### How to get the jwt token?
+### How to get the access token?
 
 #### Using curl
 
@@ -77,8 +77,8 @@ For each method call, you must use your email and API_KEY.Authentication to the 
 
 The token has an expiration time, if the token has expired, please call the API again to obtain a new token.
 
-### How to call the comm100 v3 api by the jwt token?
-You can use the jwt token to call the comm100 v3 api as follow Example.
+### How to call the comm100 v3 api by the access token?
+You can use the access token to call the comm100 v3 api as follow Example.
 
 ### Example
 
