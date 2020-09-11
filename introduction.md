@@ -30,7 +30,7 @@ Comm100 provides two authentication methods.
 
 For each method call, you must use your email and API_KEY.Authentication to the API is done via HTTP Basic Auth. Provide your email as the basic auth username and API_KEY as the password. You must authenticate for API requests. 
 
-###Note
+### Note
 Comm100 recommends using OAuth authentication even though it supports the API_KEY type of authentication.
 
 </div>
